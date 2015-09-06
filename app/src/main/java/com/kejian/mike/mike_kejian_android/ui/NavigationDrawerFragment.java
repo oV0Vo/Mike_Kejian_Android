@@ -1,4 +1,4 @@
-package com.kejian.mike.mike_kejian_android;
+package com.kejian.mike.mike_kejian_android.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
