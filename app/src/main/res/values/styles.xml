@@ -5,4 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="my_button">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@drawable/</item>
+    </style>
+
+    <style name="navigation_button"></style>
 </resources>
