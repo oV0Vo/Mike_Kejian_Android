@@ -36,20 +36,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/main_course_button"
-            android:button="@null"
-            android:drawableTop="@drawable/book2"/>
+            android:button="@null"/>
+            <!--android:drawableTop="@drawable/book2"-->
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/main_message_button"
-            android:button="@null"
-            android:drawableTop="@drawable/message"/>
+            android:button="@null"/>
+            <!--android:drawableTop="@drawable/message"-->
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/main_campus_button"
-            android:button="@null"
-            android:drawableTop="@drawable/people"/>
+            android:button="@null"/>
+            <!--android:drawableTop="@drawable/people"-->
+
     </RadioGroup>
 
 </RelativeLayout>
