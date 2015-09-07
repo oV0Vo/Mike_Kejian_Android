@@ -14,7 +14,7 @@
 
     <string name="main_course_my_course_button">我的课程</string>
     <string name="main_course_all_course_button">全部课程</string>
-    <string name="main_course_button">课程</string>
-    <string name="main_message_button">消息</string>
-    <string name="main_campus_button">校内</string>
+    <string name="main_course">课程</string>
+    <string name="main_message">消息</string>
+    <string name="main_campus">校内</string>
 </resources>
