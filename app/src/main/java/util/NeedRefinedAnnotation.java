@@ -1,4 +1,4 @@
-package com.kejian.mike.mike_kejian_android.ui.util;
+package util;
 
 /**
  * Created by violetMoon on 2015/9/8.

@@ -18,23 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true">
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/main_course_my_course"
-                android:button="@null"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/main_course_all_course"
-                android:button="@null"/>
-        </RadioGroup>
-
         <FrameLayout
             android:id="@+id/main_container_content"
             android:layout_width="match_parent"
