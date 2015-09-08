@@ -8,16 +8,6 @@ import java.util.ArrayList;
 public class CourseModel {
     private static ArrayList<Course> courses;
 
-    static {
-        courses = new ArrayList<Course>();
-        courses.add(getCourseMock1());
-        courses.add(getCourseMock2());
-        courses.add(getCourseMock1());
-        courses.add(getCourseMock2());
-        courses.add(getCourseMock1());
-        courses.add(getCourseMock2());
-    }
-
     public static Course getCourse(int courseId) {
         for(Course course: courses) {
             if(course.getCourseId() == courseId)
@@ -28,6 +18,20 @@ public class CourseModel {
 
     public static void setCourses(ArrayList<Course> courses) {
         courses = courses;
+    }
+
+    public static ArrayList<Course> getAllCourses() {
+        return courses;
+    }
+
+    public static void mockSetCourses() {
+        courses = new ArrayList<Course>();
+        courses.add(getCourseMock1());
+        courses.add(getCourseMock2());
+        courses.add(getCourseMock1());
+        courses.add(getCourseMock2());
+        courses.add(getCourseMock1());
+        courses.add(getCourseMock2());
     }
 
     private static Course getCourseMock1() {

@@ -28,13 +28,13 @@
 
 
         <android.support.v4.app.FragmentTabHost
-            android:id="@+id/tabhost"
+            android:id="@+id/main_tab_host"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
             <FrameLayout
-                android:id="@+id/tabcontent"
+                android:id="@+id/main_tab_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

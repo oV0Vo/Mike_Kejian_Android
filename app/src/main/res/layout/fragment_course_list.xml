@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment">
+    tools:context="com.kejian.mike.mike_kejian_android.ui.main.CourseFragmentMock">
 
-    <ListView android:id="@android:id/list" android:layout_width="match_parent"
+    <ListView android:id="@+id/main_course_list"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:gravity="center" />
+    <TextView
+        android:id="@+id/main_course_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
 
 </FrameLayout>

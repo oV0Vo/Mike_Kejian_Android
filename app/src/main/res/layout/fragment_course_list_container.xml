@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top">
+<!--我不是很清楚style怎么使用比较好，所以还是直接写在布局文件里面比较方便-->
+        <RadioButton
+            android:id="@+id/main_course_my_course_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_course_my_course"
+            android:background="@drawable/radiobutton_left"
+            />
+
+        <RadioButton
+            android:id="@+id/main_course_all_course_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_course_all_course"
+            android:background="@drawable/radiobutton_right"/>
+
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </FrameLayout>
+</FrameLayout>

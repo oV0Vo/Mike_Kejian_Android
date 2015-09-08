@@ -5,9 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="my_button">
-        <item name="android:gravity">center_horizontal</item>
+    <style name="wideButton">
+        <item name="android:width">100dp</item>
     </style>
 
-    <style name="navigation_button"></style>
 </resources>

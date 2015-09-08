@@ -3,28 +3,30 @@ package com.kejian.mike.mike_kejian_android.ui.course;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import model.course.Course;
-import model.course.CourseModel;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CourseDetailFragment.OnFragmentInteractionListener} interface
+ * {@link CourseBriefInfoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CourseDetailFragment#newInstance} factory method to
+ * Use the {@link CourseBriefInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseDetailFragment extends Fragment {
-    private static final String ARG_COURSE_ID = "COURSE_ID";
+public class CourseBriefInfoFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    private int courseId = -1;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -32,19 +34,21 @@ public class CourseDetailFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param courseId Parameter 1.
-     * @return A new instance of fragment CourseDetailFragment.
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment CourseBriefInfoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CourseDetailFragment newInstance(int courseId) {
-        CourseDetailFragment fragment = new CourseDetailFragment();
+    public static CourseBriefInfoFragment newInstance(String param1, String param2) {
+        CourseBriefInfoFragment fragment = new CourseBriefInfoFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COURSE_ID, courseId);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public CourseDetailFragment() {
+    public CourseBriefInfoFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +56,8 @@ public class CourseDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            courseId = getArguments().getInt(ARG_COURSE_ID);
-        }
-        if(courseId >= 0) {
-            Course course = CourseModel.getCourse(courseId);
-            
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -64,7 +65,7 @@ public class CourseDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course_detail, container, false);
+        return inflater.inflate(R.layout.fragment_course_brief_info, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -96,7 +97,7 @@ public class CourseDetailFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
