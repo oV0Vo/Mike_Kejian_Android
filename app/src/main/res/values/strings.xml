@@ -12,9 +12,13 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="main_course_my_course_button">我的课程</string>
-    <string name="main_course_all_course_button">全部课程</string>
-    <string name="main_course_button">课程</string>
-    <string name="main_message_button">消息</string>
-    <string name="main_campus_button">校内</string>
+    <string name="main_course_my_course">我的课程</string>
+    <string name="main_course_all_course">全部课程</string>
+
+    <string name="navigation_tab_course">课程</string>
+    <string name="navigation_tab_message">消息</string>
+    <string name="navigation_tab_campus">校内</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
