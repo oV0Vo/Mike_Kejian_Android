@@ -78,7 +78,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
         // Set the adapter
         listView = (AbsListView) view.findViewById(android.R.id.list);

@@ -9,4 +9,8 @@
         <item name="android:width">100dp</item>
     </style>
 
+    <style name="smallFont">
+        <item name="android:textSize">16dp</item>
+    </style>
+
 </resources>

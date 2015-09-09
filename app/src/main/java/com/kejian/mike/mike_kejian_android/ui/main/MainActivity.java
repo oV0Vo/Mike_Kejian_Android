@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.course.CourseDetailFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
-
-import org.w3c.dom.Text;
 
 import util.NeedRefinedAnnotation;
 
@@ -60,9 +58,9 @@ public class MainActivity extends AppCompatActivity
 
         mTitle = getTitle();
         initNavigationDrawer();
-        initNavigationTab();
         initViewPager();
-        initTabAndPageChangeListner();
+        initNavigationTab();
+        //initTabAndPageChangeListner();
     }
 
     private void initNavigationDrawer() {
@@ -78,13 +76,14 @@ public class MainActivity extends AppCompatActivity
 
     private void initNavigationTab() {
         tabHost = (FragmentTabHost)findViewById(R.id.main_tab_host);
-        tabHost.setup(this, getSupportFragmentManager(), R.id.main_tab_content);
+        tabHost.setup(this, getSupportFragmentManager(), R.id.main_container_content);
 
         TabHost.TabSpec courseTab = tabHost.newTabSpec(courseTabTag);
         TextView courseTabView = (TextView)View.inflate(this, R.layout.textview_main_navigation_tab, null);
         courseTabView.setText(courseTabTag);
         courseTabView.setCompoundDrawables(null, null, null, null);//left top right bottom, need to replace top
         courseTab.setIndicator(courseTabView);
+        courseTabView.setBackgroundResource(R.drawable.radiobutton_middle);
         tabHost.addTab(courseTab, CourseFragmentMock.class, null);
 
         TabHost.TabSpec messageTab = tabHost.newTabSpec(messageTabTag);
@@ -92,6 +91,7 @@ public class MainActivity extends AppCompatActivity
         messageTabView.setText(messageTabTag);
         messageTabView.setCompoundDrawables(null, null, null, null);//left top right bottom, need to replace top
         messageTab.setIndicator(messageTabView);
+        messageTabView.setBackgroundResource(R.drawable.radiobutton_middle);
         tabHost.addTab(messageTab, MessageFragmentMock.class, null);
 
         TabHost.TabSpec campusTab = tabHost.newTabSpec(campusTabTag);
@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity
         campusTabView.setText(campusTabTag);
         campusTabView.setCompoundDrawables(null, null, null, null);//left top right bottom, need to replace top
         campusTab.setIndicator(campusTabView);
+        campusTabView.setBackgroundResource(R.drawable.radiobutton_middle);
         tabHost.addTab(campusTab, CampusFragmentMock.class, null);
     }
 
@@ -113,24 +114,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabChanged(String tabId) {
                 Log.i("MainActivity", "tab change then change viewpager to " + tabId);
-                switch (tabId) {
-                    case courseTabTag:
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case messageTabTag:
-                        viewPager.setCurrentItem(1);
-                        break;
-                    case campusTabTag:
-                        viewPager.setCurrentItem(2);
-                        break;
-                }
             }
         });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                tabHost.setCurrentTab(position);
+                Log.i("MainActivity", "page changed!");
+                //tabHost.setCurrentTab(position);
             }
 
             @Override
@@ -221,8 +212,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCourseSelected(int courseId) {
-        CourseDetailFragment fragment = CourseDetailFragment.newInstance(courseId);
-        fragmentReplace(R.id.main_container, fragment);
     }
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {
