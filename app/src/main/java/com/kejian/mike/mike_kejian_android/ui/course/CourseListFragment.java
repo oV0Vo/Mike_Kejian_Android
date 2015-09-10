@@ -12,14 +12,12 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
 
-import model.course.Course;
 import model.course.CourseModel;
 
 

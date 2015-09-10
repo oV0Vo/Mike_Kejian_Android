@@ -1,4 +1,4 @@
-package com.kejian.mike.mike_kejian_android.ui.course;
+package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,18 +7,18 @@ import android.view.MenuItem;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-public class CourseActivity extends AppCompatActivity {
+public class CourseIntroductionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.activity_course_introduction);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_course, menu);
+        getMenuInflater().inflate(R.menu.menu_course_introduction, menu);
         return true;
     }
 

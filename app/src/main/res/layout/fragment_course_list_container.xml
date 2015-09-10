@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal|top">
-<!--我不是很清楚style怎么使用比较好，所以还是直接写在布局文件里面比较方便-->
         <RadioButton
             android:id="@+id/main_course_my_course_button"
             android:layout_width="wrap_content"
@@ -26,6 +25,7 @@
     </RadioGroup>
 
     <FrameLayout
+        android:id="@+id/main_course_course_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </FrameLayout>

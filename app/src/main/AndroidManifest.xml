@@ -17,8 +17,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.course.CourseActivity"
+            android:name=".ui.course.detail.CourseActivity"
             android:label="@string/title_activity_course" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.TieZiPublishActivity"
+            android:label="@string/title_activity_tie_zi_publish" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.AnnoucementPublishActivity"
+            android:label="@string/title_activity_annoucement_publish" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.NamingActivity"
+            android:label="@string/title_activity_naming" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.CourseSignInActivity"
+            android:label="@string/title_activity_course_sign_in" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.introduction.CourseIntroductionActivity"
+            android:label="@string/title_activity_course_introduction" >
+        </activity>
+        <activity
+            android:name=".ui.course.management.CourseCreateActivity"
+            android:label="@string/title_activity_course_create" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.question.QuestionAnswerActivity"
+            android:label="@string/title_activity_question_answer" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.question.AnswerStatsActivity"
+            android:label="@string/title_activity_answer_stats" >
         </activity>
     </application>
 
