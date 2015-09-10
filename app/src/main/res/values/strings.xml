@@ -32,4 +32,8 @@
     <string name="title_activity_course">CourseActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
+    <string name="title_activity_course_notice">CourseNoticeActivity</string>
+    <string name="title_activity_new_reply">NewReplyActivity</string>
+    <string name="title_activity_new_praise">NewPraiseActivity</string>
+    <string name="title_activity_mention_me">MentionMeActivity</string>
 </resources>
