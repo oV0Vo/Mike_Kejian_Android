@@ -1,6 +1,7 @@
 package model.campus;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by showjoy on 15/9/10.
@@ -11,6 +12,7 @@ public class Post {
     private String content;
     private int praise;
     private ArrayList<Reply> replyList;
+    private Date date;
 
     public int getUserId() {
         return userId;
