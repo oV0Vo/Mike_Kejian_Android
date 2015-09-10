@@ -45,6 +45,12 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
         return layout;
     }
 
+    public void onStart(){
+        super.onStart();
+        initViews();
+        initData();
+    }
+
     private void initViews(){
         this.unreadCourseNoticeLabel = (TextView)layout.findViewById(R.id.unread_courseNotice_number);
         this.unreadReplyLabel = (TextView)layout.findViewById(R.id.unread_newReply_number);
