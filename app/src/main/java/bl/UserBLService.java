@@ -12,6 +12,7 @@ public class UserBLService {
     private UserBLService(){
 
     }
+
     public static UserBLService getInstance(){
         return (service==null)?(new UserBLService()):service;
     }
