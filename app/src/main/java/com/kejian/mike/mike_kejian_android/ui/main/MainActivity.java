@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity
                 case 0:
                     return new CourseFragmentMock();
                 case 1:
-                    return new MessageFragmentMock();
+                    return new Fragment_Msg();
                 case 2:
                     return new CampusFragmentMock();
                 default:

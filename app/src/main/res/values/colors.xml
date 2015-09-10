@@ -3,4 +3,7 @@
     <color name="radiobutton_pressed">#2C314F</color>
     <color name="radiobutton_normal">#FFFFFF</color>
     <color name="menu_and_click_button_color">#2C314F</color>
+    <color name="black2">#ffeeeeee</color>
+    <color name="white">#ffffff</color>
+    <color name="bar_color">#232325</color>
 </resources>
