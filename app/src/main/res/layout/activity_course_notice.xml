@@ -15,39 +15,18 @@
         android:text="共1条"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp" />
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="#e8e8e8"
-        android:orientation="vertical"
-        android:baselineAligned="false"
-        android:layout_marginTop="5dp">
-        <TextView
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:id="@+id/course_notice_container"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="数据结构与算法分析"
-            android:textColor="@color/green"
-            android:textSize="20sp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-        <View
-            android:background="@color/green"
-            android:layout_width="fill_parent"
-            android:layout_height="1.0dip"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="asdfasdfasdfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-            android:textSize="18sp" />
-        <View
-            android:background="@color/black2"
-            android:layout_width="fill_parent"
-            android:layout_height="1.0dip" />
-
-    </LinearLayout>
-
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
+
+
