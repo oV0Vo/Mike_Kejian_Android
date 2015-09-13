@@ -15,7 +15,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.course.detail.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
