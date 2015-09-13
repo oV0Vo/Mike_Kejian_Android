@@ -7,18 +7,20 @@ import java.util.Date;
  * Created by showjoy on 15/9/10.
  */
 public class Post {
-    private int userId;
+    private String userId;
+    private String authorName;
     private String title;
     private String content;
     private int praise;
+    private int viewNum;
     private ArrayList<Reply> replyList;
     private Date date;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -28,6 +30,14 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public String getContent() {
@@ -46,6 +56,14 @@ public class Post {
         this.praise = praise;
     }
 
+    public int getViewNum() {
+        return viewNum;
+    }
+
+    public void setViewNum(int viewNum) {
+        this.viewNum = viewNum;
+    }
+
     public ArrayList<Reply> getReplyList() {
         return replyList;
     }
@@ -54,4 +72,11 @@ public class Post {
         this.replyList = replyList;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

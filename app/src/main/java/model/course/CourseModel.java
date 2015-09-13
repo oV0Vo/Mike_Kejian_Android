@@ -1,65 +1,137 @@
 package model.course;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import model.campus.Post;
 
 /**
  * Created by violetMoon on 2015/9/8.
  */
 public class CourseModel {
-    private static ArrayList<Course> courses;
+    public static final String ARG_COURSE_ID = "courseId";
 
-    public static Course getCourse(int courseId) {
-        for(Course course: courses) {
-            if(course.getCourseId() == courseId)
-                return course;
+    private static CourseModel instance;
+    private ArrayList<CourseBriefInfo> myCourseBriefs;
+    private ArrayList<CourseBriefInfo> allCourseBriefs;
+
+    private CourseBriefInfo currentCourseBrief;
+    private CourseDetailInfo currentCourseDetail;
+
+    private Post currentPost;
+
+    public static CourseModel getInstance() {
+        if(instance == null) {
+            instance = new CourseModel();
         }
+        return instance;
+    }
+
+    /*
+    以后做课程缓存的时候从文件读取课程数据可以在这个方法里面进行，不过这个类目前之考虑单线程的修改，
+    如果是网络和文件都要修改这个类，CourseListFragment也要修改
+     */
+    public void init() {
+        myCourseBriefs = new ArrayList<CourseBriefInfo>();
+        allCourseBriefs = new ArrayList<CourseBriefInfo>();
+    }
+
+    public ArrayList<CourseBriefInfo> getMyCourseBriefs(int beginPos, int num) {
+        return getSubList(beginPos, num, myCourseBriefs);
+    }
+
+    public ArrayList<CourseBriefInfo> getAllCourseBriefs(int beginPos, int num) {
+        return getSubList(beginPos, num, allCourseBriefs);
+    }
+
+    /**
+     *
+     * @param courseId
+     * @return
+     */
+    public CourseBriefInfo getCourseBriefInMyCourse(String courseId) {
+        return getCourseBrief(courseId, myCourseBriefs);
+    }
+
+    /**
+     *
+     * @param courseId
+     * @return
+     */
+    public CourseBriefInfo getCourseBriefInAllCourse(String courseId) {
+        return getCourseBrief(courseId, allCourseBriefs);
+    }
+
+    private CourseBriefInfo getCourseBrief(String courseId, ArrayList<CourseBriefInfo> briefs) {
+        for(CourseBriefInfo courseBrief: briefs)
+            if(courseBrief.getCourseId().equals(courseId)) {
+                return courseBrief;
+            }
         return null;
     }
 
-    public static void setCourses(ArrayList<Course> courses) {
-        courses = courses;
+    private CourseDetailInfo getCourseDetail(String courseId, ArrayList<CourseDetailInfo> courseDetails) {
+        for(CourseDetailInfo courseDetail: courseDetails)
+            if(courseDetail.getCourseId().equals(courseId)) {
+                return courseDetail;
+            }
+        return null;
     }
 
-    public static ArrayList<Course> getAllCourses() {
-        return courses;
+    private <E> ArrayList<E> getSubList(int beginPos, int num, List<E> list) {
+        if(!isValidPos(beginPos, list)) {
+            return new ArrayList<E>();
+        }
+        if(!isValidPos(beginPos + num, list)) {
+            return new ArrayList<E>(list.subList(beginPos, list.size()));
+        }
+        return new ArrayList<E>(list.subList(beginPos, beginPos + num));
     }
 
-    public static void mockSetCourses() {
-        courses = new ArrayList<Course>();
-        courses.add(getCourseMock1());
-        courses.add(getCourseMock2());
-        courses.add(getCourseMock1());
-        courses.add(getCourseMock2());
-        courses.add(getCourseMock1());
-        courses.add(getCourseMock2());
+    private boolean isValidPos(int beginPos, List<?> list) {
+        return list.size() > beginPos && beginPos >= 0;
     }
 
-    private static Course getCourseMock1() {
-        Course course = new Course();
-        course.setAcademyName("软件学院");
-        course.setAnnoucement("隔壁老王说再也不偷情了");
-        course.setBriefIntro("与隔壁王太太偷情时被王先生抓奸在床，王先生揍了我一顿，对我说：“说好只爱我一个人的呢？”");
-        course.setName("软件需求工程");
-        course.setProgressWeek(1);
-        course.setTeachContent("专业美容学校，学美容必选的化妆名校");
-        course.setTeacherName("麦乐鸡");
-        ArrayList<String> references = new ArrayList<String>();
-        references.add("java虚拟机规范");
-        references.add("java并发编程");
-        course.setReferences(references);
-        return course;
+    public CourseDetailInfo getCurrentCourseDetail() {
+        return currentCourseDetail;
     }
 
-    private static Course getCourseMock2() {
-        Course course = new Course();
-        course.setAcademyName("新东方烹饪与理发技术学院");
-        course.setAnnoucement("大哥来份大宝剑不");
-        course.setBriefIntro("我妈要是有你这儿媳妇就不愁她孙子长得丑了");
-        course.setName("j2ee于中间件");
-        course.setProgressWeek(11);
-        course.setTeachContent("惊了个呆 男子嫖娼被抓才知3名“卖淫女”皆为男性");
-        course.setTeacherName("唐马儒");
-        course.setReferences(new ArrayList<String>());
-        return course;
+    public void setCurrentCourseDetail(CourseDetailInfo currentCourseDetail) {
+        this.currentCourseDetail = currentCourseDetail;
     }
+
+    public CourseBriefInfo getCurrentCourseBrief() {
+        return currentCourseBrief;
+    }
+
+    public void setCurrentCourseBrief(CourseBriefInfo currentCourseBrief) {
+        this.currentCourseBrief = currentCourseBrief;
+    }
+
+    public void setMyCourseBriefs(ArrayList<CourseBriefInfo> myCourseBriefs) {
+        this.myCourseBriefs = myCourseBriefs;
+    }
+
+    public Post getCurrentPost() {
+        return currentPost;
+    }
+
+    public void setCurrentPost(Post currentPost) {
+        this.currentPost = currentPost;
+    }
+
+    public void setAllCourseBriefs(ArrayList<CourseBriefInfo> allCourseBriefs) {
+        this.allCourseBriefs = allCourseBriefs;
+    }
+
+    private void addCourseBrief(CourseBriefInfo courseBrief, boolean isMyCourse) {
+        if(isMyCourse) {
+            myCourseBriefs.add(courseBrief);
+            allCourseBriefs.add(courseBrief);
+        } else {
+            allCourseBriefs.add(courseBrief);
+        }
+    }
+
 }

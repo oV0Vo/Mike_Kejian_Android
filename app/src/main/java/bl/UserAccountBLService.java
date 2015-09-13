@@ -19,9 +19,9 @@ public class UserAccountBLService {
 
     private static UserAccountBLService instance;
 
-    private String sid;
+    private String sid = "131250012";
 
-    private String password;
+    private String password = "1213";
 
     public static UserAccountBLService getInstance() {
         return instance;
@@ -31,7 +31,7 @@ public class UserAccountBLService {
     public static void createInstance() {
         if(instance == null) {
             instance = new UserAccountBLService();
-            instance.init();
+            //instance.init();
         }
     }
 

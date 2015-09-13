@@ -2,6 +2,8 @@ package model.course;
 
 import java.util.ArrayList;
 
+import model.campus.Post;
+
 /**
  * Created by violetMoon on 2015/9/10.
  */
@@ -10,8 +12,8 @@ public class CourseDetailInfo {
     private CourseType courseType;
     private ArrayList<String> teacherIds;
     private ArrayList<String> teacherNames;
-    private CourseAnnoucement annoucment;
-    private ArrayList<Object> tiezis;
+    private CourseAnnoucement annoucement;
+    private ArrayList<Post> posts;
     private int currentStudents;
     private String outline;
     private String teachContent;
@@ -49,12 +51,12 @@ public class CourseDetailInfo {
         this.teacherNames = teacherNames;
     }
 
-    public CourseAnnoucement getAnnoucment() {
-        return annoucment;
+    public CourseAnnoucement getAnnoucement() {
+        return annoucement;
     }
 
-    public void setAnnoucment(CourseAnnoucement annoucment) {
-        this.annoucment = annoucment;
+    public void setAnnoucement(CourseAnnoucement annoucement) {
+        this.annoucement = annoucement;
     }
 
     public int getCurrentStudents() {
@@ -65,12 +67,12 @@ public class CourseDetailInfo {
         this.currentStudents = currentStudents;
     }
 
-    public ArrayList<Object> getTiezis() {
-        return tiezis;
+    public ArrayList<Post> getPosts() {
+        return posts;
     }
 
-    public void setTiezis(ArrayList<Object> tiezis) {
-        this.tiezis = tiezis;
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
     }
 
     public String getOutline() {

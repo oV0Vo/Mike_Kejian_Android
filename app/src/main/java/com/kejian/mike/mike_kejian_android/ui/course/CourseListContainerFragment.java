@@ -13,34 +13,16 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import bl.UserAccountBLService;
+
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link CourseListContainerFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
 public class CourseListContainerFragment extends Fragment {
-
-    private static final String ARG_STUDENT_ID = "studentId";
-
-    private String studentId;
 
     private RadioButton myCourseButton;
     private TextView allCourseButton;
     private CourseListFragment listFragment;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     * @return A new instance of fragment CourseListContainerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CourseListContainerFragment newInstance(String studentId) {
-        CourseListContainerFragment fg = new CourseListContainerFragment();
-        fg.studentId = studentId;
-        return fg;
-    }
 
     public CourseListContainerFragment() {
         // Required empty public constructor
@@ -50,7 +32,8 @@ public class CourseListContainerFragment extends Fragment {
         FragmentManager fm = getChildFragmentManager();
         CourseListFragment fg= (CourseListFragment)fm.findFragmentById(R.id.main_course_course_list);
         if(fg == null) {
-            fg = CourseListFragment.newInstance(studentId);
+            String studentId = UserAccountBLService.getInstance().getSid();
+            fg = new CourseListFragment();
             fm.beginTransaction().add(R.id.main_course_course_list, fg).commit();
         }
         listFragment = fg;

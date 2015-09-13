@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-public class TieZiPublishActivity extends AppCompatActivity {
+public class PostPublishActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,11 +1,17 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kejian.mike.mike_kejian_android.R;
+
+import bl.CourseBLService;
+import model.course.CourseDetailInfo;
+import model.course.CourseModel;
 
 public class CourseActivity extends AppCompatActivity {
 
@@ -13,11 +19,16 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+        if(getIntent() != null) {
+            String courseId = getIntent().getStringExtra(CourseModel.ARG_COURSE_ID);
+            new GetCourseDetailTask().execute(courseId);
+        } else {
+            Log.i("CourseActivity", "Intent with no courseId !!");
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_course, menu);
         return true;
     }
@@ -35,5 +46,19 @@ public class CourseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class GetCourseDetailTask extends AsyncTask<String, Integer, CourseDetailInfo> {
+        @Override
+        public CourseDetailInfo doInBackground(String... params) {
+            String courseId = params[0];
+            CourseDetailInfo theCourse = CourseBLService.getInstance().getCourseDetail(courseId);
+            return theCourse;
+        }
+
+        @Override
+        public void onPostExecute(CourseDetailInfo result) {
+            CourseModel.getInstance().setCurrentCourseDetail(result);
+        }
     }
 }

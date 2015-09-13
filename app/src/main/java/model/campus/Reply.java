@@ -7,18 +7,18 @@ import java.util.Date;
  * Created by showjoy on 15/9/10.
  */
 public class Reply {
-    private int userId;
+    private String userId;
     private String content;
     private Date date;
     private int praise;
     private ArrayList<Reply> subReplyList;
 
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

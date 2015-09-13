@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
@@ -16,12 +17,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 
+import bl.UserAccountBLService;
+import model.course.CourseModel;
 import util.NeedRefinedAnnotation;
 
 public class MainActivity extends AppCompatActivity
@@ -37,8 +43,11 @@ public class MainActivity extends AppCompatActivity
     private FragmentTabHost tabHost;
 
     private ViewPager viewPager;
-
     private MainPagerAdapter mainPagerAdapter;
+
+    private RadioButton courseButton;
+    private RadioButton messageButton;
+    private RadioButton campusButton;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -51,16 +60,21 @@ public class MainActivity extends AppCompatActivity
 
     private TextView messageView;
 
+    private String studentId = "131250012";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mTitle = getTitle();
+        initUserAccountBLService();
         initNavigationDrawer();
         initViewPager();
-        initNavigationTab();
+        initRadioButtons();
+        //initNavigationTab();
         //initTabAndPageChangeListner();
+
     }
 
     private void initNavigationDrawer() {
@@ -74,6 +88,21 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /*
+    这个不应该放到这来的，感觉应该放到Login里面
+     */
+    private void initUserAccountBLService() {
+        if(UserAccountBLService.getInstance() == null) {
+            new AsyncTask<Void, Void, Void>(){
+                @Override
+                protected Void doInBackground(Void... params) {
+                    UserAccountBLService.createInstance();
+                    return null;
+                }
+            }.execute();
+        }
+    }
+/*
     private void initNavigationTab() {
         tabHost = (FragmentTabHost)findViewById(R.id.main_tab_host);
         tabHost.setup(this, getSupportFragmentManager(), R.id.main_container_content);
@@ -101,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         campusTab.setIndicator(campusTabView);
         campusTabView.setBackgroundResource(R.drawable.radiobutton_middle);
         tabHost.addTab(campusTab, CampusFragmentMock.class, null);
-    }
+    }*/
 
     private void initViewPager() {
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
@@ -109,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(mainPagerAdapter);
     }
 
-    private void initTabAndPageChangeListner() {
+   /* private void initTabAndPageChangeListner() {
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
@@ -134,35 +163,38 @@ public class MainActivity extends AppCompatActivity
                 //by default do nothing
             }
         });
+    }*/
+
+    private void initRadioButtons() {
+        courseButton = (RadioButton)findViewById(R.id.main_course_button);
+        courseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(0);
+            }
+        });
+        messageButton = (RadioButton)findViewById(R.id.main_message_button);
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+        campusButton = (RadioButton)findViewById(R.id.main_campus_button);
+        campusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(2);
+            }
+        });
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        Log.i("MainActivity", "onNavigationDrawerItemSelected");
-        // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.main_container, MainFragment.newInstance())
                 .commit();
-    }
-
-    public void onSectionAttached(int number) {
-        Log.i("MainActivity", "onSectionAttached");
-
-        switch (number) {
-            case 0:
-                //tabHost.setCurrentTab(0);
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 1:
-                //tabHost.setCurrentTab(1);
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 2:
-                //tabHost.setCurrentTab(2);
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
     }
 
     public void restoreActionBar() {
@@ -171,7 +203,6 @@ public class MainActivity extends AppCompatActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -201,17 +232,14 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void fragmentReplace(int containerViewId, Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(containerViewId, fragment).commit();
-    }
-
     @Override
     public void onMainFragmentInteraction(Uri uri) {
 
     }
 
     @Override
-    public void onCourseSelected(int courseId) {
+    public void onCourseSelected(String courseId) {
+
     }
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {
@@ -225,7 +253,7 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    return new CourseFragmentMock();
+                    return new CourseListContainerFragment();
                 case 1:
                     return new Fragment_Msg();
                 case 2:
@@ -243,3 +271,34 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   ┏┓　　　┏┓
+//┏┛┻━━━┛┻┓
+//┃　　　　　　　┃ 　
+//┃　　　━　　　┃
+//┃　┳┛　┗┳　┃
+//┃　　　　　　　┃
+//┃　　　┻　　　┃
+//┃　　　　　　　┃
+//┗━┓　　　┏━┛
+//   ┃　　　┃  神兽保佑　　　　　　　　
+//  ┃　　　┃  代码无BUG！
+// ┃　　　┗━━━┓
+//┃　　　　　　　┣┓
+//┃　　　　　　　┏┛
+//┗┓┓┏━┳┓┏┛
+// ┃┫┫　┃┫┫
+// ┗┻┛　┗┻┛

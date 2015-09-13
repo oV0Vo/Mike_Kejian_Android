@@ -15,12 +15,7 @@ import android.view.ViewGroup;
 import com.kejian.mike.mike_kejian_android.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * 因为viewpager的逻辑一开始放到了mainActivity里面，所以为了方便这个就是一个空的fragment
  */
 public class MainFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
