@@ -26,6 +26,7 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
     private View layout_title;
     private ArrayList<CourseNotice> courseNotices = new ArrayList<CourseNotice>();
     private LinearLayout container;
+    private int courseNoticeNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
     }
     private void initData(){
         this.courseNotices = MessageBLService.getCourseNoticeList();
+        this.courseNoticeNum = this.courseNotices.size();
     }
     private void initViews(){
         ImageView iv = (ImageView)this.layout_title.findViewById(R.id.image_title);
@@ -46,6 +48,8 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
         iv.setOnClickListener(this);
         TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
         tv.setText("课程公告");
+        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
+        course_notice_num.setText("共 "+this.courseNoticeNum+" 条");
         for(int i = 0;i<this.courseNotices.size();i++){
             this.container.addView(this.genCourseNoticeLayout(this.courseNotices.get(i)));
             this.container.addView(this.genLineSplitView());
@@ -61,9 +65,14 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
         return lineView;
     }
     private LinearLayout genCourseNoticeLayout(CourseNotice courseNotice){
+        int dp5 = DensityUtil.dip2px(this,5);
+        int dp15 = DensityUtil.dip2px(this,15);
+        int dp8 = DensityUtil.dip2px(this,8);
+        int dp2 = DensityUtil.dip2px(this,2);
+
         LinearLayout coursenoticeLayout = new LinearLayout(this);
         LinearLayout.LayoutParams  layout_linear = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this,125));
-        layout_linear.setMargins(0,5,0,0);
+        layout_linear.setMargins(0,dp5,0,0);
         coursenoticeLayout.setOrientation(LinearLayout.VERTICAL);
         coursenoticeLayout.setBaselineAligned(false);
         coursenoticeLayout.setBackgroundResource(R.drawable.setting_item_selector);
@@ -75,7 +84,7 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
 
         TextView course_name_view = new TextView(this);
         LinearLayout.LayoutParams layout_course_name = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_course_name.setMargins(15, 15, 0, 4);
+        layout_course_name.setMargins(dp15, dp8, 0, dp5);
         course_name_view.setText(courseName);
         course_name_view.setTextColor(getResources().getColor(R.color.green));
         course_name_view.setTextSize(20);
@@ -84,18 +93,18 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
         View line_view = new View(this);
         line_view.setBackgroundResource(R.color.green);
         LinearLayout.LayoutParams layout_line = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1);
-        layout_line.setMargins(15, 0, 15, 0);
+        layout_line.setMargins(dp15, 0, dp15, 0);
         line_view.setLayoutParams(layout_line);
 
         TextView content_view =  new TextView(this);
         LinearLayout.LayoutParams layout_content = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_content.setMargins(15, 4, 15, 0);
+        layout_content.setMargins(dp15, dp5, dp15, 0);
         content_view.setText(content);
         content_view.setLayoutParams(layout_content);
 
         LinearLayout bottomLinearView = new LinearLayout(this);
         LinearLayout.LayoutParams layout_bottom = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_bottom.setMargins(15, DensityUtil.dip2px(this,8), 0, 0);
+        layout_bottom.setMargins(dp15, dp8, 0, 0);
         bottomLinearView.setLayoutParams(layout_bottom);
         bottomLinearView.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -112,7 +121,7 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
 
         TextView publish_view = new TextView(this);
         LinearLayout.LayoutParams layout_publish = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_publish.setMargins(2, 0, 2, 0);
+        layout_publish.setMargins(dp2, 0, dp2, 0);
         publish_view.setText("发表于");
         publish_view.setTextSize(12);
         publish_view.setLayoutParams(layout_publish);
@@ -128,7 +137,7 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
 
         LinearLayout bottomRightView = new LinearLayout(this);
         LinearLayout.LayoutParams layout_bottom_right = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layout_bottom_right.setMargins(0, 0, 15, 0);
+        layout_bottom_right.setMargins(0, 0, dp15, 0);
         bottomRightView.setGravity(Gravity.RIGHT);
         bottomRightView.setLayoutParams(layout_bottom_right);
 

@@ -6,5 +6,100 @@
     android:orientation="vertical">
 
     <include  android:id="@+id/layout_bar" layout="@layout/layout_title"/>
+    <TextView
+        android:id="@+id/reply_num"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="共1条"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:id="@+id/reply_container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/setting_item_selector">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src = "@drawable/mail"
+                    android:maxHeight="40dp"
+                    android:maxWidth="40dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="10dp">
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="小明今天不上课"
+                            android:textColor="@color/green"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="回复了你的帖子"
+                            android:layout_marginLeft="10dp" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦..."
+                        android:layout_marginTop="5dp" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="今天23：44"
+                            android:gravity="left"
+                            />
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text=">"
+                            android:gravity="right"
+                            android:textColor="@color/green"
+                            android:layout_marginRight="15dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:background="@color/black2"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip" />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
