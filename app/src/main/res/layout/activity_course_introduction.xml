@@ -1,12 +1,149 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:rowCount="4"
+        android:columnCount="2">
 
-</RelativeLayout>
+        <!--1,1-->
+        <ImageView
+            android:id="@+id/course_intro_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/default_book"/>
+
+        <!--1,2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/course_intro_course_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/course_intro_course_academy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/course_intro_course_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"/>
+
+                    <TextView
+                        android:id="@+id/course_intro_student_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/course_intro_student_num_postfix"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--2,1-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/course_intro_teacher_title"/>
+
+        <!--2,2 empty text-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!--3,1-->
+        <ImageView
+            android:id="@+id/course_intro_teacher_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"/>
+
+        <!--3,2-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/course_intro_teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/course_intro_teacher_brief_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!--4,1-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/course_intro_assistant_title"/>
+
+        <!--4,2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/course_intro_assistants_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/course_intro_add_assistant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_intro_add_assistant"
+                android:drawableLeft="@null"/>
+        </LinearLayout>
+
+    </GridLayout>
+
+    <FrameLayout
+        android:id="@+id/course_intro_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </FrameLayout>
+
+
+</LinearLayout>

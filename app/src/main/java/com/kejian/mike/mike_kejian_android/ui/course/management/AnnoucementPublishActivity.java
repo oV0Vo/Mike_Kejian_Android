@@ -1,4 +1,4 @@
-package com.kejian.mike.mike_kejian_android.ui.course.detail;
+package com.kejian.mike.mike_kejian_android.ui.course.management;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

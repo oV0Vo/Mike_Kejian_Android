@@ -26,6 +26,8 @@ public class CourseListContainerFragment extends Fragment {
     private TextView allCourseButton;
     private CourseListFragment courseListFg;
 
+    private boolean isShowMyCourse;
+
     public CourseListContainerFragment() {
         // Required empty public constructor
     }
@@ -54,6 +56,7 @@ public class CourseListContainerFragment extends Fragment {
         allCourseButton = (RadioButton)v.findViewById(R.id.main_course_all_course_button);
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
         initCourseButtonListner();
+        myCourseButton.callOnClick();
         return v;
     }
 
@@ -62,7 +65,10 @@ public class CourseListContainerFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                courseListFg.showAllCourse();
+                if(isShowMyCourse) {
+                    isShowMyCourse = false;
+                    courseListFg.showAllCourse();
+                }
             }
         });
 
@@ -70,7 +76,10 @@ public class CourseListContainerFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                courseListFg.showMyCourse();
+                if(!isShowMyCourse) {
+                    isShowMyCourse = true;
+                    courseListFg.showMyCourse();
+                }
             }
         });
     }

@@ -41,6 +41,17 @@
     <string name="mention_me">提到我的</string>
     <string name="my_message">我的消息</string>
 
+    <!--course intro-->
+    <string name="course_intro_student_num_postfix">人在学</string>
+    <string name="course_intro_teacher_title">授课教师</string>
+    <string name="course_intro_assistant_title">助教</string>
+    <string name="course_intro_add_assistant">添加</string>
+
+    <!--annoucement publish-->
+    <string name="annoucement_publish_title_head">标题</string>
+    <string name="annoucement_publish_content_head">内容</string>
+    <string name="annoucement_publish_commit">发布</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_course">CourseActivity</string>

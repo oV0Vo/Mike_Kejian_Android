@@ -33,8 +33,7 @@ public class AnnoucementFragment extends Fragment {
 
         CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
 
-        if(courseDetail == null) {
-            Log.i("AnnoucementFragment", "courseDetail null!");
+        if(courseDetail == null) { //由于还没有完全取得数据
             return v;
         }
 

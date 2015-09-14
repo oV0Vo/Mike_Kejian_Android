@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 
 import bl.CourseBLService;
 import bl.UserAccountBLService;
@@ -177,7 +179,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCourseSelected() {
-
+        Intent startCourseDetailIntent = new Intent(this, CourseActivity.class);
+        startActivity(startCourseDetailIntent);
     }
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {

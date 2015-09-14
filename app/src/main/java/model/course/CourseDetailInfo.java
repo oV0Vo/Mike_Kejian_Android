@@ -9,7 +9,9 @@ import model.campus.Post;
  */
 public class CourseDetailInfo {
     private String courseId;
+    //private String courseName;
     private CourseType courseType;
+    //private String accademyName;
     private ArrayList<String> teacherIds;
     private ArrayList<String> teacherNames;
     private CourseAnnoucement annoucement;
@@ -27,6 +29,14 @@ public class CourseDetailInfo {
         this.courseId = courseId;
     }
 
+    /*public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }*/
+
     public CourseType getCourseType() {
         return courseType;
     }
@@ -34,6 +44,14 @@ public class CourseDetailInfo {
     public void setCourseType(CourseType courseType) {
         this.courseType = courseType;
     }
+
+    /*public String getAccademyName() {
+        return accademyName;
+    }
+
+    public void setAccademyName(String accademyName) {
+        this.accademyName = accademyName;
+    }*/
 
     public ArrayList<String> getTeacherIds() {
         return teacherIds;
