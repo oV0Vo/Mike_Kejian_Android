@@ -20,6 +20,22 @@
             android:name=".ui.course.CourseActivity"
             android:label="@string/title_activity_course" >
         </activity>
+        <activity
+            android:name=".ui.message.CourseNoticeActivity"
+            android:label="@string/course_notice" >
+        </activity>
+        <activity
+            android:name=".ui.message.NewReplyActivity"
+            android:label="@string/new_reply" >
+        </activity>
+        <activity
+            android:name=".ui.message.NewPraiseActivity"
+            android:label="@string/new_praise" >
+        </activity>
+        <activity
+            android:name=".ui.message.MentionMeActivity"
+            android:label="@string/mention_me" >
+        </activity>
     </application>
 
 </manifest>

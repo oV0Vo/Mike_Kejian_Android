@@ -22,12 +22,11 @@ public class Reply {
     }
     private void setTime(){
         Date nowTime = new Date();
-        java.sql.Date nowDate = new java.sql.Date(nowTime.getTime());
-        java.sql.Date date = new java.sql.Date(this.timestamp.getTime());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat todayFormat = new SimpleDateFormat("HH:mm:ss");
         DateFormat otherDayFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(date.compareTo(nowDate) == 0){
-            this.replyTime = "今天 "+todayFormat.format(this.timestamp);
+        if(dateFormat.format(nowTime).equals(dateFormat.format(this.timestamp))){
+            this.replyTime = "今天  "+todayFormat.format(this.timestamp);
         }else{
             this.replyTime = otherDayFormat.format(this.timestamp);
         }
