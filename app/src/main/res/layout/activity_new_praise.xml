@@ -6,5 +6,29 @@
     android:orientation="vertical">
 
     <include  android:id="@+id/layout_bar" layout="@layout/layout_title"/>
+    <TextView
+        android:id="@+id/praise_num"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="共1条"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:id="@+id/praise_container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
