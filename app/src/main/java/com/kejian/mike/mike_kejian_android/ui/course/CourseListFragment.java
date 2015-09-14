@@ -153,9 +153,9 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             String studentId = UserAccountBLService.getInstance().getSid();
             isMyCourse = params[0];
             if(isMyCourse)
-                return CourseBLService.getInstance().getMyCourseBriefs(studentId, 0, 0);
+                return CourseBLService.getInstance().getMyCourseBriefs(studentId, 0, 5);
             else
-                return CourseBLService.getInstance().getAllCourseBriefs(studentId, 0, 0);
+                return CourseBLService.getInstance().getAllCourseBriefs(studentId, 0, 20);
 
         }
 

@@ -24,7 +24,7 @@ public class CourseListContainerFragment extends Fragment {
 
     private RadioButton myCourseButton;
     private TextView allCourseButton;
-    private CourseListFragment listFragment;
+    private CourseListFragment courseListFg;
 
     public CourseListContainerFragment() {
         // Required empty public constructor
@@ -38,7 +38,7 @@ public class CourseListContainerFragment extends Fragment {
             fg = new CourseListFragment();
             fm.beginTransaction().add(R.id.main_course_course_list, fg).commit();
         }
-        listFragment = fg;
+        courseListFg = fg;
     }
 
     @Override
@@ -53,10 +53,26 @@ public class CourseListContainerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_course_list_container, container, false);
         allCourseButton = (RadioButton)v.findViewById(R.id.main_course_all_course_button);
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
+        initCourseButtonListner();
         return v;
     }
 
     private void initCourseButtonListner() {
+        allCourseButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                courseListFg.showAllCourse();
+            }
+        });
+
+        myCourseButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                courseListFg.showMyCourse();
+            }
+        });
     }
 
 
