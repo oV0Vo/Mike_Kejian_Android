@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.course;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import bl.CourseBLService;
 import bl.UserAccountBLService;
 
 /**
@@ -53,5 +55,11 @@ public class CourseListContainerFragment extends Fragment {
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
         return v;
     }
+
+    private void initCourseButtonListner() {
+    }
+
+
+
 
 }

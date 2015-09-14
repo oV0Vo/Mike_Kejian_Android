@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">UITest2</string>
+    <string name="app_name">课件</string>
+
+    <string name="course_tab_tag">课程</string>
+    <string name="message_tab_tag">消息</string>
+    <string name="campus_tab_tag">校内</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

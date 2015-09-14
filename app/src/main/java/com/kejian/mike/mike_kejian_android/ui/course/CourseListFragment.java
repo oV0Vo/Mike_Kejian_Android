@@ -48,11 +48,10 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);//这个语句可以使得在设备配置改变比如说屏幕旋转的时候保留这个fragment实例
         CourseModel courseModel = getCourseModel();
         List<CourseBriefInfo> myCourseBriefs = courseModel.getMyCourseBriefs(0, BREIF_COURSE_FETCH_NUM);
         if(myCourseBriefs.size() == 0) {
-            new GetCourseTask().execute();
+            new GetCourseTask().execute(true);
         } else {
             setUpAdapter(myCourseBriefs);
         }
@@ -60,16 +59,6 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     private CourseModel getCourseModel() {
         final CourseModel courseModel = CourseModel.getInstance();
-        if(!courseModel.hasInit()) {
-            new AsyncTask<Void, Void, Void>() {
-
-                @Override
-                protected Void doInBackground(Void... params) {
-                    courseModel.init();
-                    return null;
-                }
-            }.execute();
-        }
         return courseModel;
     }
 
@@ -101,7 +90,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-        listView = (AbsListView) view.findViewById(android.R.id.main_course_list);
+        listView = (AbsListView) view.findViewById(R.id.main_course_list);
         ((AdapterView<ListAdapter>) listView).setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
@@ -164,9 +153,9 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             String studentId = UserAccountBLService.getInstance().getSid();
             isMyCourse = params[0];
             if(isMyCourse)
-                return CourseBLService.newInstance().getMyCourseBriefs(studentId, 0, 50);
+                return CourseBLService.getInstance().getMyCourseBriefs(studentId, 0, 0);
             else
-                return CourseBLService.newInstance().getAllCourseBriefs(studentId, 0, 50);
+                return CourseBLService.getInstance().getAllCourseBriefs(studentId, 0, 0);
 
         }
 

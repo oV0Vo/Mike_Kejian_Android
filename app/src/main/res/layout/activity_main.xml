@@ -24,30 +24,39 @@
             android:layout_height="match_parent">
             </android.support.v4.view.ViewPager>
         </LinearLayout>
-        <RadioGroup
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
-            <RadioButton
-                android:id="@+id/main_course_button"
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/radiobutton_middle"
-                android:button="@null"/>
-            <RadioButton
-                android:id="@+id/main_message_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/radiobutton_middle"
-                android:button="@null"/>
-            <RadioButton
-                android:id="@+id/main_campus_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/radiobutton_middle"
-                android:button="@null"/>
-        </RadioGroup>
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/main_course_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobutton_middle"
+                    android:button="@null"
+                    android:text="@string/course_tab_tag"/>
+                <RadioButton
+                    android:id="@+id/main_message_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobutton_middle"
+                    android:button="@null"
+                    android:text="@string/message_tab_tag"/>
+                <RadioButton
+                    android:id="@+id/main_campus_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radiobutton_middle"
+                    android:button="@null"
+                    android:text="@string/campus_tab_tag"/>
+            </RadioGroup>
 
+        </LinearLayout>
 
     </RelativeLayout>
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

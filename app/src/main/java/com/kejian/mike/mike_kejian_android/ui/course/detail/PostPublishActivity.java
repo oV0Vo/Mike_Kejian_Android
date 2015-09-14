@@ -12,13 +12,13 @@ public class PostPublishActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tie_zi_publish);
+        setContentView(R.layout.activity_post_publish);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tie_zi_publish, menu);
+        getMenuInflater().inflate(R.menu.menu_post_publish, menu);
         return true;
     }
 

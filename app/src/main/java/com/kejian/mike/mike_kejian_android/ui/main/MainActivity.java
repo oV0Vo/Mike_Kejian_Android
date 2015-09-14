@@ -26,6 +26,7 @@ import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 
+import bl.CourseBLService;
 import bl.UserAccountBLService;
 import model.course.CourseModel;
 import util.NeedRefinedAnnotation;
@@ -54,27 +55,19 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
 
-    private static final String courseTabTag = "课程";
-    private static final String messageTabTag = "消息";
-    private static final String campusTabTag = "校内";
-
     private TextView messageView;
-
-    private String studentId = "131250012";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mTitle = getTitle();
+
         initUserAccountBLService();
         initNavigationDrawer();
         initViewPager();
         initRadioButtons();
-        //initNavigationTab();
-        //initTabAndPageChangeListner();
-
+        initBLService();
     }
 
     private void initNavigationDrawer() {
@@ -86,6 +79,10 @@ public class MainActivity extends AppCompatActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.main_layout));
 
+    }
+
+    private void initBLService() {
+        new CourseBLInitTask().execute();
     }
 
     /*
@@ -102,68 +99,12 @@ public class MainActivity extends AppCompatActivity
             }.execute();
         }
     }
-/*
-    private void initNavigationTab() {
-        tabHost = (FragmentTabHost)findViewById(R.id.main_tab_host);
-        tabHost.setup(this, getSupportFragmentManager(), R.id.main_container_content);
-
-        TabHost.TabSpec courseTab = tabHost.newTabSpec(courseTabTag);
-        TextView courseTabView = (TextView)View.inflate(this, R.layout.textview_main_navigation_tab, null);
-        courseTabView.setText(courseTabTag);
-        courseTabView.setCompoundDrawables(null, null, null, null);//left top right bottom, need to replace top
-        courseTab.setIndicator(courseTabView);
-        courseTabView.setBackgroundResource(R.drawable.radiobutton_middle);
-        tabHost.addTab(courseTab, CourseFragmentMock.class, null);
-
-        TabHost.TabSpec messageTab = tabHost.newTabSpec(messageTabTag);
-        TextView messageTabView = (TextView)View.inflate(this, R.layout.textview_main_navigation_tab, null);
-        messageTabView.setText(messageTabTag);
-        messageTabView.setCompoundDrawables(null, null, null, null);//left top right bottom, need to replace top
-        messageTab.setIndicator(messageTabView);
-        messageTabView.setBackgroundResource(R.drawable.radiobutton_middle);
-        tabHost.addTab(messageTab, MessageFragmentMock.class, null);
-
-        TabHost.TabSpec campusTab = tabHost.newTabSpec(campusTabTag);
-        TextView campusTabView = (TextView)View.inflate(this, R.layout.textview_main_navigation_tab, null);
-        campusTabView.setText(campusTabTag);
-        campusTabView.setCompoundDrawables(null, null, null, null);//left top right bottom, need to replace top
-        campusTab.setIndicator(campusTabView);
-        campusTabView.setBackgroundResource(R.drawable.radiobutton_middle);
-        tabHost.addTab(campusTab, CampusFragmentMock.class, null);
-    }*/
 
     private void initViewPager() {
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.main_view_pager);
         viewPager.setAdapter(mainPagerAdapter);
     }
-
-   /* private void initTabAndPageChangeListner() {
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                Log.i("MainActivity", "tab change then change viewpager to " + tabId);
-            }
-        });
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("MainActivity", "page changed!");
-                //tabHost.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //by default do nothing
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                //by default do nothing
-            }
-        });
-    }*/
 
     private void initRadioButtons() {
         courseButton = (RadioButton)findViewById(R.id.main_course_button);
@@ -207,9 +148,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
@@ -238,7 +176,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCourseSelected(String courseId) {
+    public void onCourseSelected() {
 
     }
 
@@ -268,6 +206,15 @@ public class MainActivity extends AppCompatActivity
         @Override
         public int getCount() {
             return 3;
+        }
+    }
+
+    private class CourseBLInitTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        public Void doInBackground(Void... params) {
+            CourseBLService.initInstance();
+            return null;
         }
     }
 }

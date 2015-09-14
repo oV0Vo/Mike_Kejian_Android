@@ -24,10 +24,10 @@ public class CourseModel {
     public static CourseModel getInstance() {
         if(instance == null) {
             instance = new CourseModel();
+            instance.init();
         }
         return instance;
     }
-
     /*
     以后做课程缓存的时候从文件读取课程数据可以在这个方法里面进行，不过这个类目前之考虑单线程的修改，
     如果是网络和文件都要修改这个类，CourseListFragment也要修改

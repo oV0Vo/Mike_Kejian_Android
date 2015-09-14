@@ -17,12 +17,20 @@ public class CourseBLService {
     private static CourseBLService instance;
 
     public static CourseBLService getInstance() {
-        if(instance == null)
-            instance = new CourseBLService();
         return instance;
     }
 
+    /**
+     * 初始化缓存数据
+     */
     @NeedAsyncAnnotation
+    public static void initInstance() {
+        if(instance == null) {
+            instance = new CourseBLService();
+            instance.init();
+        }
+    }
+
     private void init() {
         try {
             Thread.sleep(100);

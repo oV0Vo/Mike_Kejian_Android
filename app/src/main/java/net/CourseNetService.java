@@ -179,7 +179,7 @@ public class CourseNetService {
         posts.add(PostMocks.getPost2());
         posts.add(PostMocks.getPost3());
         posts.add(PostMocks.getPost4());
-        course.setTiezis(posts);
+        course.setPosts(posts);
 
         return course;
     }
