@@ -9,10 +9,10 @@ import java.util.Date;
  * Created by I322233 on 9/13/2015.
  */
 public class Reply {
-    private String replyer;
-    private String post;
-    private String replyTime;
-    private Timestamp timestamp;
+    protected String replyer;
+    protected String post;
+    protected String replyTime;
+    protected Timestamp timestamp;
     public Reply(String replyer,String post,Timestamp timestamp){
         this.replyer = replyer;
         this.post = post;
@@ -20,7 +20,7 @@ public class Reply {
         this.setTime();
         this.resetPost();
     }
-    private void setTime(){
+    protected void setTime(){
         Date nowTime = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat todayFormat = new SimpleDateFormat("HH:mm:ss");
@@ -31,7 +31,7 @@ public class Reply {
             this.replyTime = otherDayFormat.format(this.timestamp);
         }
     }
-    private void resetPost(){
+    protected void resetPost(){
         if(this.post.length() >= 17){
             this.post = this.post.substring(0,17) + "...";
         }
