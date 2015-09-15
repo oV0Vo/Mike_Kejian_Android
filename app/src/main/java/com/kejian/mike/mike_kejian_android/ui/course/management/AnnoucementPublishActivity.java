@@ -1,18 +1,83 @@
 package com.kejian.mike.mike_kejian_android.ui.course.management;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.AnnoucementFragment;
+
+import bl.CourseBLService;
+import bl.UserInfoService;
+import model.course.CourseAnnoucement;
+import model.course.CourseBriefInfo;
+import model.course.CourseModel;
+import model.helper.ResultMessage;
+import util.NetOperateResultMessage;
+import util.UnImplementedAnnotation;
 
 public class AnnoucementPublishActivity extends AppCompatActivity {
+
+    private EditText titleText;
+    private EditText contentText;
+    private Button commitButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annoucement_publish);
+
+        titleText = (EditText)findViewById(R.id.annoucement_publish_title_text);
+        contentText = (EditText)findViewById(R.id.annoucement_publish_content_text);
+
+        commitButton = (Button)findViewById(R.id.annoucement_publish_commit_button);
+        commitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleText.getText().toString();
+                if(title.length() == 0) {
+                    Toast.makeText(AnnoucementPublishActivity.this, R.string.annoucement_publish_no_title_message
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String content = contentText.getText().toString();
+                if(content.length() == 0) {
+                    Toast.makeText(AnnoucementPublishActivity.this, R.string.annoucement_publish_no_content_message
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                CourseBriefInfo courseBrief = CourseModel.getInstance().getCurrentCourseBrief();
+                String personId = UserInfoService.getInstance().getPersonId();
+                if(courseBrief == null || personId == null) {
+                    Toast.makeText(AnnoucementPublishActivity.this, R.string.internal_logic_error_message
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                CourseAnnoucement newAnnoucement = new CourseAnnoucement();
+                newAnnoucement.setPersonId(personId);
+                String courseId = courseBrief.getCourseId();
+                newAnnoucement.setCourseId(courseId);
+                newAnnoucement.setTitle(title);
+                newAnnoucement.setContent(content);
+
+                new CommitAnnoucementTask().execute(newAnnoucement);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        progressBar = (ProgressBar)findViewById(R.id.annoucement_publish_progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -35,5 +100,24 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class CommitAnnoucementTask extends AsyncTask<CourseAnnoucement, Void , NetOperateResultMessage> {
+
+        @Override
+        protected NetOperateResultMessage doInBackground(CourseAnnoucement... params) {
+            CourseAnnoucement newAnnoucement = params[0];
+            NetOperateResultMessage resultMessage = CourseBLService.getInstance().newAnnoucement(newAnnoucement);
+            return resultMessage;
+        }
+
+        @UnImplementedAnnotation
+        @Override
+        protected void onPostExecute(NetOperateResultMessage reusltMessage) {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(AnnoucementPublishActivity.this, R.string.annoucement_publish_success_message
+                    , Toast.LENGTH_LONG).show();
+            AnnoucementPublishActivity.this.finish();
+        }
     }
 }
