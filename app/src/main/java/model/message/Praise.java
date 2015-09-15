@@ -12,7 +12,7 @@ public class Praise extends Reply{
     }
     protected void resetPost(){
         if(this.post.length() >= 12){
-            this.post = this.post.substring(0,10) + "...";
+            this.post = "\""+this.post.substring(0,10) + "...\"";
         }
     }
 

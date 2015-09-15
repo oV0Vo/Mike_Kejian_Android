@@ -33,7 +33,7 @@ public class Reply {
     }
     protected void resetPost(){
         if(this.post.length() >= 17){
-            this.post = this.post.substring(0,17) + "...";
+            this.post = "\""+this.post.substring(0,16) + "...\"";
         }
 
     }
