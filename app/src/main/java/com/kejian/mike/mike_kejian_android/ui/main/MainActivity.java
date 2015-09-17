@@ -12,15 +12,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -29,8 +25,7 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 
 import bl.CourseBLService;
-import bl.UserAccountBLService;
-import model.course.CourseModel;
+import bl.UserInfoService;
 import util.NeedRefinedAnnotation;
 
 public class MainActivity extends AppCompatActivity
@@ -91,11 +86,11 @@ public class MainActivity extends AppCompatActivity
     这个不应该放到这来的，感觉应该放到Login里面
      */
     private void initUserAccountBLService() {
-        if(UserAccountBLService.getInstance() == null) {
+        if(UserInfoService.getInstance() == null) {
             new AsyncTask<Void, Void, Void>(){
                 @Override
                 protected Void doInBackground(Void... params) {
-                    UserAccountBLService.createInstance();
+                    UserInfoService.createInstance();
                     return null;
                 }
             }.execute();

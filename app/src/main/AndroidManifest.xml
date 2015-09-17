@@ -40,6 +40,10 @@
             android:name=".ui.message.MentionMeActivity"
             android:label="@string/mention_me" >
         </activity>
+        <activity
+            android:name=".ui.course.detail.naming.CourseNamingActivity"
+            android:label="@string/title_activity_course_naming" >
+        </activity>
     </application>
 
 </manifest>

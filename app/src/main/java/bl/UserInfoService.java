@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import util.NameAndValuePair;
 import util.NeedAsyncAnnotation;
 import util.PropertiesFileIO;
+import util.UnImplementedAnnotation;
 
 /**
  * Created by violetMoon on 2015/9/10.
  */
-public class UserAccountBLService {
+public class UserInfoService {
 
     private static final String ARG_SID = "学号";
 
@@ -17,20 +18,20 @@ public class UserAccountBLService {
 
     private static final String ACCOUNT_FILE = "user.info";
 
-    private static UserAccountBLService instance;
+    private static UserInfoService instance;
 
     private String sid = "131250012";
 
     private String password = "1213";
 
-    public static UserAccountBLService getInstance() {
+    public static UserInfoService getInstance() {
         return instance;
     }
 
     @NeedAsyncAnnotation
     public static void createInstance() {
         if(instance == null) {
-            instance = new UserAccountBLService();
+            instance = new UserInfoService();
             //instance.init();
         }
     }
@@ -71,6 +72,11 @@ public class UserAccountBLService {
         } else {
             return false;
         }
+    }
+
+    @UnImplementedAnnotation
+    public String getPersonId() {
+        return null;
     }
 
 }

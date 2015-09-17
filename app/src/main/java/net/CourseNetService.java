@@ -117,8 +117,7 @@ public class CourseNetService {
         return null;
     }
 
-    public static NetOperateResultMessage newAnnoucement(String schoolId, String courseName, String title,
-                                                         String content, String sid) {
+    public static NetOperateResultMessage newAnnoucement(String courseId, String personId, String title, String content) {
         return null;
     }
 

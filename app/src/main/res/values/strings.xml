@@ -51,7 +51,26 @@
     <string name="annoucement_publish_title_head">标题</string>
     <string name="annoucement_publish_content_head">内容</string>
     <string name="annoucement_publish_commit">发布</string>
+    <string name="annoucement_publish_no_title_message">请填写公告的标题</string>
+    <string name="annoucement_publish_no_content_message">请填写公告的内容</string>
+    <string name="annoucement_publish_success_message">新公告发布成功！</string>
 
+    <!--course create-->
+    <string name="course_create_name_title">课程名称</string>
+    <string name="course_create_intro_title">课程简介</string>
+    <string name="course_create_content_title">教学内容</string>
+    <string name="course_create_teacher_title">授课教师</string>
+    <string name="course_create_assistant_title">助教</string>
+    <string name="course_create_add_teacher_action">添加</string>
+    <string name="course_create_add_assistant_action">添加</string>
+    <string name="course_create_commit_text">创建课程</string>
+    <string name="course_create_success_message">新课程添加成功！</string>
+    <string name="course_create_no_name_message">请填写课程名称</string>
+    <string name="course_create_no_intro_message">请填写课程简介</string>
+    <string name="course_create_no_content_message">请填写课程内容</string>
+    <string name="course_create_no_teacher_message">请添加授课教师</string>
+    <!--internal error-->
+    <string name="internal_logic_error_message">系统错误，请稍后再试</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_course">CourseActivity</string>

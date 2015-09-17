@@ -1,8 +1,5 @@
 package com.kejian.mike.mike_kejian_android.ui.course;
 
-import android.app.Activity;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,8 +11,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import bl.CourseBLService;
-import bl.UserAccountBLService;
+import bl.UserInfoService;
 
 /**
  *
@@ -36,7 +32,7 @@ public class CourseListContainerFragment extends Fragment {
         FragmentManager fm = getChildFragmentManager();
         CourseListFragment fg= (CourseListFragment)fm.findFragmentById(R.id.main_course_course_list);
         if(fg == null) {
-            String studentId = UserAccountBLService.getInstance().getSid();
+            String studentId = UserInfoService.getInstance().getSid();
             fg = new CourseListFragment();
             fm.beginTransaction().add(R.id.main_course_course_list, fg).commit();
         }
