@@ -23,7 +23,7 @@ import util.DensityUtil;
 
 public class MentionMeActivity extends Activity implements View.OnClickListener{
     private View layout_title;
-    private ArrayList<MentionMe> mentionMes = new ArrayList<>();
+    private ArrayList<MentionMe> mentionMes = new ArrayList<MentionMe>();
     private LinearLayout container;
     private int mention_num = 0;
 

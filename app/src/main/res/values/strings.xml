@@ -57,4 +57,9 @@
     <string name="title_activity_course">CourseActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
+
+    <!--<log in>-->
+    <string name="register">注册新账号</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="separator">|</string>
 </resources>
