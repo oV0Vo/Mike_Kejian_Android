@@ -112,6 +112,7 @@ public class NewReplyActivity extends Activity implements View.OnClickListener {
         LinearLayout.LayoutParams layout_post = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layout_post.setMargins(0, dp5, 0, 0);
         post_view.setText(reply.getPost());
+        post_view.setTextColor(getResources().getColor(R.color.green));
         post_view.setLayoutParams(layout_post);
 
         LinearLayout lastLineStr = new LinearLayout(this);
