@@ -17,10 +17,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.course.CourseActivity"
-            android:label="@string/title_activity_course" >
-        </activity>
-        <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
