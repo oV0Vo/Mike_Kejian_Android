@@ -1,24 +1,21 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center|top">
         <RadioButton
             android:id="@+id/main_course_my_course_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:button="@null"
             android:text="@string/main_course_my_course"
             android:background="@drawable/radiobutton_left"
@@ -26,13 +23,47 @@
 
         <RadioButton
             android:id="@+id/main_course_all_course_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:button="@null"
             android:text="@string/main_course_all_course"
             android:background="@drawable/radiobutton_right"/>
 
     </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/main_course_all_course_select_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_course_academy_type_title"/>
+
+        <TextView
+            android:id="@+id/main_course_academy_select_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textColor="@color/green"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_course_academy_type_title"/>
+
+        <TextView
+            android:id="@+id/main_course_course_type_select_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textColor="@color/green"/>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/main_course_course_list"
@@ -41,6 +72,4 @@
         android:layout_gravity="center|bottom">
     </FrameLayout>
 
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

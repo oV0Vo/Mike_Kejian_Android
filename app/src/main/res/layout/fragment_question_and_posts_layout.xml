@@ -1,6 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.QuestionAndPostsLayoutFragment">
 
     <RadioGroup
@@ -8,18 +11,28 @@
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/comments_area_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:button="@null"
-            android:background="@drawable/radiobutton_middle"
-            android:text="@string/comments_area_button_text"/>
+            android:text="@string/comments_area_button_text"
+            style="@style/bigFont"/>
         <RadioButton
             android:id="@+id/course_question_area_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:button="@null"
-            android:background="@drawable/radiobutton_middle"
-            android:text="@string/course_question_area_button_text"/>
+            android:text="@string/course_question_area_button_text"
+            style="@style/bigFont"/>
     </RadioGroup>
 
     <android.support.v4.view.ViewPager

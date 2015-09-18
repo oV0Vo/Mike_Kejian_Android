@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,11 +39,11 @@ public class AnnoucementFragment extends Fragment {
         }
 
         CourseAnnoucement annoucement = courseDetail.getAnnoucement();
-        TextView contentView = (TextView)v.findViewById(R.id.annoucement_content);
+        TextView contentView = (TextView)v.findViewById(R.id.course_detail_annoucement_content);
         contentView.setText(annoucement.getContent());
-        TextView authorView = (TextView)v.findViewById(R.id.annoucement_author_name);
+        TextView authorView = (TextView)v.findViewById(R.id.course_detail_annoucement_author_name);
         authorView.setText(annoucement.getPersonName());
-        TextView dateView = (TextView)v.findViewById(R.id.annoucement_date);
+        TextView dateView = (TextView)v.findViewById(R.id.course_detail_annoucement_date);
         dateView.setText(annoucement.getDate().toString());
 
         v.setOnClickListener(new OnViewClickListener());
@@ -51,12 +52,12 @@ public class AnnoucementFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnAnnoucementClickListener) activity;
+            mListener = (OnAnnoucementClickListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -82,7 +83,6 @@ public class AnnoucementFragment extends Fragment {
     }
 
     private class OnViewClickListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             if(mListener != null)

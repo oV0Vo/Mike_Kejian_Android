@@ -1,26 +1,31 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/notification_green"
-        android:text="@string/annoucemnet_title"/>
+        android:text="@string/annoucemnet_title"
+        android:textColor="@color/green"
+        style="@style/bigFont"/>
 
     <TextView
-        android:id="@+id/annoucement_content"
+        android:id="@+id/course_detail_annoucement_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:maxLines="3"
+        android:ellipsize="end"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/annoucement_author_name"
+            android:id="@+id/course_detail_annoucement_author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -28,9 +33,18 @@
             android:layout_height="wrap_content"
             android:text="@string/annoucement_action_name"/>
         <TextView
-            android:id="@+id/annoucement_date"
+            android:id="@+id/course_detail_annoucement_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"/>
+        </LinearLayout>
     </LinearLayout>
 
 

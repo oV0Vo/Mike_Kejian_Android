@@ -21,10 +21,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.course.CourseActivity"
-            android:label="@string/title_activity_course" >
-        </activity>
-        <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
@@ -43,6 +39,10 @@
         <activity
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/title_activity_course_naming" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.question.QuestionPublishActivity"
+            android:label="@string/title_activity_question_publish" >
         </activity>
     </application>
 
