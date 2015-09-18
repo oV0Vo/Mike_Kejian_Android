@@ -98,7 +98,7 @@
     <string name="question_publish_choice_title">选项</string>
     <string name="question_publish_choice_hint">请设置选项个数</string>
     <string name="question_publish_application_answer_title">答案</string>
-
+    <string name="question_publish_content_hint">请在此处输入题干</string>
     <!--internal error-->
     <string name="internal_logic_error_message">系统错误，请稍后再试</string>
 
