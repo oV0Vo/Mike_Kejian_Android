@@ -27,21 +27,10 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private OnPostSelectedListener mListener;
 
-    /**
-     * The fragment's ListView/GridView.
-     */
     private AbsListView mListView;
 
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
     private ListAdapter mAdapter;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public CommentsAreaFragment() {
     }
 
@@ -52,10 +41,6 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         CourseDetailInfo currentCourse = CourseModel.getInstance().getCurrentCourseDetail();
         if(currentCourse != null) {
             ArrayList<Post> posts = currentCourse.getPosts();
-            if(posts == null) {
-                posts = new ArrayList<Post>();
-                Log.i("CommentsAreaFragment", "currentCourse posts list null!");
-            }
             mAdapter = new CommentsArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, posts);
         } else {
             mAdapter = null;
@@ -101,11 +86,6 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         }
     }
 
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
     public void setEmptyText(CharSequence emptyText) {
         View emptyView = mListView.getEmptyView();
 
@@ -128,21 +108,21 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
             Post post = getItem(position);
 
-            TextView titleView = (TextView)convertView.findViewById(R.id.post_brief_title);
+            TextView titleView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_title);
             titleView.setText(post.getTitle());
             /**
              * 教师参与在这设置
              */
-            TextView authorView = (TextView)convertView.findViewById(R.id.post_brief_author_name);
+            TextView authorView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_author_name);
             authorView.setText(post.getAuthorName());
 
-            TextView timeView = (TextView)convertView.findViewById(R.id.post_brief_time);
+            TextView timeView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_time);
             timeView.setText(post.getDate().toString());
 
-            TextView viewNumView = (TextView)convertView.findViewById(R.id.post_brief_view_num);
+            TextView viewNumView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_view_num);
             viewNumView.setText(post.getViewNum());
 
-            TextView replyNumView = (TextView)convertView.findViewById(R.id.post_brief_reply_num);
+            TextView replyNumView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_reply_num);
             replyNumView.setText(post.getReplyList().size());
 
             return convertView;

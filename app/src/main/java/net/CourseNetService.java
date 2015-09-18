@@ -11,12 +11,31 @@ import model.course.CourseDetailInfo;
 import model.course.CourseType;
 import model.course.PersonMocks;
 import model.course.PostMocks;
+import model.course.question.BasicQuestion;
+import model.course.question.QuestionSet;
 import util.NetOperateResultMessage;
 
 /**
  * Created by violetMoon on 2015/9/10.
  */
 public class CourseNetService {
+
+    private static int myCourseMaxNum;
+
+    private static int allCourseMaxNum;
+
+    private CourseNetService() {
+        myCourseMaxNum = Integer.MAX_VALUE;
+        allCourseMaxNum = Integer.MAX_VALUE;
+    }
+
+    public static boolean hasMoreMyCourse(int beginPos, int num) {
+        return (beginPos + num) < allCourseMaxNum;
+    }
+
+    public static boolean hasMoreAllCourse(int beginPos, int num) {
+        return (beginPos + num) <allCourseMaxNum;
+    }
 
     public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num) {
         ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
@@ -121,6 +140,10 @@ public class CourseNetService {
         return null;
     }
 
+    public static QuestionSet getQuestion(String courseId) {
+        return getQuestionSetMock();
+    }
+
     private static final class CourseNetArg {
         public static final String url = "";
         public static final String arg1Name = "";
@@ -181,5 +204,13 @@ public class CourseNetService {
         course.setPosts(posts);
 
         return course;
+    }
+
+    private static QuestionSet getQuestionSetMock() {
+        QuestionSet mocks = new QuestionSet();
+        ArrayList<BasicQuestion> currentQuestions = new ArrayList<BasicQuestion>();
+        ArrayList<Long> currentQuestionLeftMills = new ArrayList<Long>();
+        ArrayList<BasicQuestion> historyQuestions = new ArrayList<BasicQuestion>();
+        return mocks;
     }
 }

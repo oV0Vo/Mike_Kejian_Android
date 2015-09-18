@@ -1,50 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/post_brief_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/post_brief_teacher_join"
+            android:id="@+id/course_detail_post_brief_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"/>
+            style="@style/mediumFont"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/post_brief_teacher_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        style="@style/extremeSmallFont">
         <TextView
-            android:id="@+id/post_brief_author_name"
+            android:id="@+id/course_detail_post_brief_author_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/post_action_name"/>
         <TextView
-            android:id="@+id/post_brief_time"
+            android:id="@+id/course_detail_post_brief_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/post_brief_view_num"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/watch"/>
-        <TextView
-            android:id="@+id/post_brief_reply_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@null"/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/course_detail_post_brief_view_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:drawableLeft="@drawable/watch"/>
+            <TextView
+                android:id="@+id/course_detail_post_brief_reply_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:drawableLeft="@null"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

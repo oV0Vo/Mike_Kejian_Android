@@ -2,6 +2,8 @@ package bl;
 
 import java.util.ArrayList;
 
+import model.user.UserType;
+import model.user.user;
 import util.NameAndValuePair;
 import util.NeedAsyncAnnotation;
 import util.PropertiesFileIO;
@@ -72,6 +74,18 @@ public class UserInfoService {
         } else {
             return false;
         }
+    }
+
+    public UserType getTeacherTypeMock() {
+        return UserType.TEACHER;
+    }
+
+    public UserType getStudentTypeMock() {
+        return UserType.STUDENT;
+    }
+
+    public UserType getAssistantTypeMock() {
+        return UserType.ASSISTANT;
     }
 
     @UnImplementedAnnotation

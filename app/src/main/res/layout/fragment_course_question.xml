@@ -1,7 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/quiz"/>
 
@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:singleLine="false"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            style="@style/mediumFont"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,12 +32,15 @@
             <TextView
                 android:id="@+id/current_question_content_action_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/green"/>
 
             <ImageView
                 android:id="@+id/current_question_content_action_image"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"/>
 
         </LinearLayout>
 
@@ -54,26 +58,31 @@
             <TextView
                 android:id="@+id/current_question_countdown_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/mediumFont"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
+                <Button
                     android:id="@+id/current_question_answer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/answer_question_text"/>
+                    android:background="@color/green"
+                    style="@style/bigFont"
+                    android:text="@string/answer_question_text" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/history_question_list_title"/>
+        android:text="@string/history_question_list_title"
+        style="@style/mediumFont"
+        android:textColor="@color/green"/>
 
     <FrameLayout
         android:id="@+id/history_question_list"
