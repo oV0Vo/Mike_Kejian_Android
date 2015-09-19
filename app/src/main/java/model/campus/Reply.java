@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Reply {
     private String userId;
+    private String authorName;
     private String content;
     private Date date;
     private int praise;
@@ -52,5 +53,13 @@ public class Reply {
 
     public void setSubReplyList(ArrayList<Reply> subReplyList) {
         this.subReplyList = subReplyList;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

@@ -47,6 +47,18 @@
             android:name=".ui.course.detail.question.QuestionPublishActivity"
             android:label="@string/title_activity_question_publish" >
         </activity>
+        <activity
+            android:name=".ui.user.UserInfoActivity"
+            android:label="user_info" >
+        </activity>
+        <activity
+            android:name=".ui.user.UserLoginActivity"
+            android:label="user_login" >
+        </activity>
+        <activity
+            android:name=".ui.user.UserBaseInfoOtherView"
+            android:label="user_info_other" >
+        </activity>
     </application>
 
 </manifest>
