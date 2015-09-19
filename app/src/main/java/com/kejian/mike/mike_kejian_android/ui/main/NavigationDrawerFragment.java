@@ -1,5 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -23,6 +25,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
+import com.kejian.mike.mike_kejian_android.ui.user.UserInfoActivity;
+import com.kejian.mike.mike_kejian_android.ui.user.UserPostActivity;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -50,6 +55,8 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Helper component that ties the action bar to the navigation drawer.
      */
+
+    private Context context;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
@@ -99,6 +106,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        context=this.getActivity();
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
@@ -109,15 +117,46 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section3),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        //        Intent intent=new Intent();
+//        System.out.println("hello01");
+//
+//        intent.setClass(this.getActivity(), UserInfoActivity.class);
+//        System.out.println("hello02");
+//        startActivity(intent);
+//        System.out.println("hello03");
 
-                System.out.println("hello");
+                        break;
+                    case 1:
+                        System.out.println("hello1");
+                        break;
+                    case 2:
+                        System.out.println("hello2");
+                        break;
+                }
 
             }
         });
         return mDrawerListView;
+    }
+
+    public void startUserInfo(int index){
+        Intent intent=new Intent();
+        System.out.println("hello01");
+
+        switch(index) {
+            case 0:intent.setClass(this.getActivity(), UserInfoActivity.class);break;
+            case 1:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);break;
+            case 2:intent.setClass(this.getActivity(), UserPostActivity.class);break;
+        }
+        System.out.println("hello02");
+        startActivity(intent);
+        System.out.println("hello03");
     }
 
     public boolean isDrawerOpen() {

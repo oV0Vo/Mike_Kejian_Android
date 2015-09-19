@@ -2,11 +2,12 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:textSize">13dp</item>
+        <item name="android:textSize">@style/smallFont</item>
+        <item name="android:actionBarStyle">@style/actionBarStyle</item>
     </style>
 
     <style name="actionBarStyle">
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@color/dark_blue</item>
     </style>
 
     <style name="submenuStyle">

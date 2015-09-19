@@ -94,20 +94,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
+            android:text="注册"
             android:paddingRight="20dp"
           />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#16a085"
-            android:text="@string/separator"
+            android:text="|"
             android:clickable="false"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/forget_password"
+            android:text="忘记密码"
             android:paddingLeft="20dp"
             />
     </LinearLayout>

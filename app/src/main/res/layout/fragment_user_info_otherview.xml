@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user"
+            android:maxHeight="20dp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="基本信息"
+            android:textColor="#16a085"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="__________________________________________"
+            android:textColor="#d2d2d2"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+
+                android:text="姓名"/>
+            <TextView
+                android:textSize="18sp"
+
+                android:layout_marginLeft="100dp"
+                android:text="性别"/>
+        </TableRow>
+        <TableRow
+
+            android:layout_marginTop="5dp">
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:text="昵称"/>
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginLeft="100dp"
+                android:text="生日"/>
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="20dp"
+            >
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:text="院系"/>
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginLeft="100dp"
+                android:text="专业"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:text="年级"/>
+
+        </TableRow>
+    </TableLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:background="@drawable/setting_item_selector">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="动态"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+
+            android:layout_marginLeft="20dp"
+            android:textColor="#16a085"
+            />
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:id="@+id/txt_newReply"
+            android:background="@drawable/setting_item_selector">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="left"
+                android:layout_gravity="right"
+                android:layout_marginLeft="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="30dp"
+                    android:maxWidth="30dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/watch_darkgray"
+                    android:layout_gravity="center_vertical" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="关注他的人"
+                    android:textSize="18sp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="right"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:id="@+id/unread_newReply_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:text="7"
+
+                    android:visibility="visible"
+                    android:textColor="#7d7d7d"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="38dp"
+                    android:maxWidth="38dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/right"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:background="@color/black2"
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip" />
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:id="@+id/txt_newPraise"
+            android:background="@drawable/setting_item_selector">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="left"
+                android:layout_gravity="right"
+                android:layout_marginLeft="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="30dp"
+                    android:maxWidth="30dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/book4"
+                    android:layout_gravity="center_vertical" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="他的课程"
+                    android:textSize="18sp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="right"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:id="@+id/unread_newPraise_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:text="11"
+                    android:visibility="visible"
+                    android:textColor="#7d7d7d"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="38dp"
+                    android:maxWidth="38dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/right"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:background="@color/black2"
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip" />
+
+        <!--mention me -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:id="@+id/txt_mentionMe"
+            android:background="@drawable/setting_item_selector"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="left"
+                android:layout_gravity="right"
+                android:layout_marginLeft="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="40dp"
+                    android:maxWidth="40dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/comment2"
+                    android:layout_gravity="center_vertical" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="他的帖子"
+                    android:textSize="18sp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="right"
+                android:layout_marginRight="20dp">
+                <TextView
+                    android:id="@+id/unread_mentionMe_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:text="29"
+                    android:visibility="visible"
+                    android:textColor="#7d7d7d"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="38dp"
+                    android:maxWidth="38dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/right"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+</LinearLayout>
