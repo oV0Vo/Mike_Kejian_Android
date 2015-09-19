@@ -124,20 +124,16 @@ public class NavigationDrawerFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        //        Intent intent=new Intent();
-//        System.out.println("hello01");
-//
-//        intent.setClass(this.getActivity(), UserInfoActivity.class);
-//        System.out.println("hello02");
-//        startActivity(intent);
-//        System.out.println("hello03");
+                  startUserInfo(0);
 
                         break;
                     case 1:
                         System.out.println("hello1");
+                        startUserInfo(1);
                         break;
                     case 2:
                         System.out.println("hello2");
+                        startUserInfo(2);
                         break;
                 }
 
