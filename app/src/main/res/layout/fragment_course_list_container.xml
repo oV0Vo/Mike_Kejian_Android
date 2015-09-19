@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center|top"
-        android:gravity="center"
+        android:textAlignment="center"
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
         <RadioButton
@@ -22,6 +22,8 @@
             android:button="@null"
             android:text="@string/main_course_my_course"
             android:background="@drawable/radiobutton_left"
+            android:gravity="center"
+            android:textSize="@dimen/medium_font"
             />
 
         <RadioButton
@@ -31,7 +33,9 @@
             android:layout_weight="1"
             android:button="@null"
             android:text="@string/main_course_all_course"
-            android:background="@drawable/radiobutton_right"/>
+            android:background="@drawable/radiobutton_right"
+            android:gravity="center"
+            android:textSize="@dimen/medium_font"/>
 
     </RadioGroup>
 
