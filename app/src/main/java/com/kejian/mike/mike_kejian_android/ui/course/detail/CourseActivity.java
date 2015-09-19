@@ -37,7 +37,8 @@ public class CourseActivity extends AppCompatActivity implements
         AnnoucementFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
         StudentActionProvider.OnStudentMenuSelectListener,
-        TeacherActionProvider.OnTeacherMenuSelectListener{
+        TeacherActionProvider.OnTeacherMenuSelectListener,
+        CommentsAreaFragment.OnPostSelectedListener {
 
     private ProgressBar progressBar;
     private LinearLayout mainLayout;
@@ -207,6 +208,11 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     public void onCourseQuestion() {
         startQuestionActivity();
+    }
+
+    @Override
+    public void onPostSelected() {
+
     }
 
     private class GetCourseDetailTask extends AsyncTask<String, Integer, CourseDetailInfo> {

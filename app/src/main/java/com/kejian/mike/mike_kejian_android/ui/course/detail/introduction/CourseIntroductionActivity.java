@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,21 +8,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import java.util.ArrayList;
+
 import model.course.CourseBriefInfo;
 import model.course.CourseDetailInfo;
 import model.course.CourseModel;
+import util.StringUtil;
 
 public class CourseIntroductionActivity extends AppCompatActivity {
+
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_introduction);
-
+        setContent();
 
     }
 
@@ -57,10 +64,33 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         String studentNumText = new Integer(courseDetail.getCurrentStudents()).toString();
         studentNumView.setText(studentNumText);
 
-        GridLayout layout = (GridLayout)findViewById(R.id.course_intro_teacher_name);
         TextView teacherNameView = (TextView)findViewById(R.id.course_intro_teacher_name);
+        ArrayList<String> teacherNames = courseDetail.getTeacherNames();
+        String teacherName = StringUtil.toString(teacherNames, " ");
+        teacherNameView.setText(teacherName);
 
+        TextView teacherBriefIntroView = (TextView)findViewById(R.id.course_intro_teacher_brief_intro);
+        String teacherBriefIntro = "南京大学教授、博士生导师";
+        teacherBriefIntroView.setText(teacherBriefIntro);
+
+        mockSetAssistantView();
+
+        ViewPager viewPager = (ViewPager)findViewById(R.id.course_intro_detail_view_pager);
     }
+
+    private void mockSetAssistantView() {
+        LinearLayout assistantLayout = (LinearLayout)findViewById(R.id.course_intro_assistants_container);
+        TextView view1 = new TextView(this);
+        view1.setText("李雷");
+        view1.setTextSize(16);
+        TextView view2 = new TextView(this);
+        view2.setText("韩梅梅");
+        view2.setTextSize(16);
+        assistantLayout.addView(view1);
+        assistantLayout.addView(view2);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,4 +112,5 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

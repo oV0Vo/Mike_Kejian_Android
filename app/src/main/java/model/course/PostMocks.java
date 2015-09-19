@@ -28,6 +28,7 @@ public class PostMocks {
 
     private static void initPost1() {
         post1 = new Post();
+        post1.setDate(new Date(115, 8, 11, 15, 12, 8));
         post1.setContent("女神：用一句话来形容我的长相。");
         post1.setPraise(1553);
 
@@ -37,7 +38,7 @@ public class PostMocks {
         reply1.setUserId(PersonMocks.id4);
         reply1.setPraise(111);
         reply1.setContent("已撸");
-        reply1.setDate(new Date(115, 8, 11));
+        reply1.setDate(new Date(115, 8, 11, 15, 14, 12));
         reply1.setSubReplyList(null);
         replys.add(reply1);
 
@@ -45,7 +46,7 @@ public class PostMocks {
         reply2.setUserId(PersonMocks.id5);
         reply2.setPraise(128);
         reply2.setContent("我石更了");
-        reply2.setDate(new Date(115, 8, 10));
+        reply2.setDate(new Date(115, 8, 11, 16, 14, 27));
         reply2.setSubReplyList(null);
         replys.add(reply2);
 
@@ -60,10 +61,12 @@ public class PostMocks {
         post1.setReplyList(replys);
         post1.setTitle("屌丝们快进来");
         post1.setUserId(PersonMocks.name9);
+        post1.setAuthorName(PersonMocks.name1);
     }
 
     private static void initPost2() {
         post2 = new Post();
+        post2.setDate(new Date(115, 8, 11, 11, 10, 5));
         post2.setContent("鸭怎么叫啊");
         post2.setPraise(1224);
 
@@ -73,7 +76,7 @@ public class PostMocks {
         reply1.setUserId(PersonMocks.id11);
         reply1.setPraise(11);
         reply1.setContent("嘎嘎嘎嘎");
-        reply1.setDate(new Date(115, 8, 11));
+        reply1.setDate(new Date(115, 8, 11, 21, 14, 15));
         reply1.setSubReplyList(null);
         replys.add(reply1);
 
@@ -120,10 +123,12 @@ public class PostMocks {
         post2.setReplyList(replys);
         post2.setTitle("小明滚进来!!!");
         post2.setUserId(PersonMocks.id1);
+        post2.setAuthorName(PersonMocks.name1);
     }
 
     private static void initPost3() {
         post3 = new Post();
+        post3.setDate(new Date(115, 8, 13, 11, 10, 5));
         post3.setContent("我叫李晓明，不是那个小明，你们这群渣渣.");
         post3.setPraise(1131);
 
@@ -156,6 +161,7 @@ public class PostMocks {
         post3.setReplyList(replys);
         post3.setTitle("你们这群渣渣");
         post3.setUserId(PersonMocks.id11);
+        post3.setAuthorName(PersonMocks.name11);
     }
 
     private static void initPost4() {
@@ -208,6 +214,8 @@ public class PostMocks {
         post4.setReplyList(replys);
         post4.setTitle("乖孩子召唤闺蜜好孩子");
         post4.setUserId(PersonMocks.id10);
+        post4.setAuthorName(PersonMocks.name10);
+        post4.setDate(new Date(115, 8, 13, 11, 25, 24));
     }
 
     public static Post getPost1() {
