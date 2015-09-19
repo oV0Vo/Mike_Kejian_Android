@@ -30,19 +30,21 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     private AbsListView listView;
 
-    private ListAdapter adapter;
-
     private int myCourseCurrentPos;
     private ArrayList<CourseBriefInfo> myCourses;
     private ListAdapter myCourseAdapter;
 
     private int allCourseCurrentPos;
-    private ArrayList<CourseBriefInfo> courseModel;
+    private ArrayList<CourseBriefInfo> allCourses;
     private ListAdapter allCourseAdapter;
 
     private OnCourseSelectedListener listner;
 
     private boolean showMyCourse;
+
+    private CourseModel courseModel;
+
+    private CourseBLService courseBL;
 
     private static final int MY_COURSE_FETCH_NUM = 50;
     private static final int ALL_COURSE_FETCH_NUM = 50;
@@ -50,9 +52,43 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CourseModel courseModel = getCourseModel();
+        courseModel = CourseModel.getInstance();
+        courseBL = CourseBLService.getInstance();
+
+        initMyCourse();
+        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                myCourses);
+
+        initAllCourse();
+        allCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1,
+                allCourses);
+
+        showMyCourse = true;
+    }
+
+    private void initMyCourse() {
         myCourseCurrentPos = 0;
+        myCourses = new ArrayList<CourseBriefInfo>();
+        ArrayList<CourseBriefInfo> initData = courseModel.getMyCourseBriefs(myCourseCurrentPos,
+                MY_COURSE_FETCH_NUM);
+        if(initData.size() == 0 && courseBL.hasMoreMyCourses(myCourseCurrentPos,
+                MY_COURSE_FETCH_NUM)) {
+            new GetCourseTask().execute(true);
+        }
+    }
+
+    private void initAllCourse() {
         allCourseCurrentPos = 0;
+        allCourses = new ArrayList<CourseBriefInfo>();
+        ArrayList<CourseBriefInfo> initData = courseModel.getMyCourseBriefs(allCourseCurrentPos,
+                MY_COURSE_FETCH_NUM);
+        if(initData.size() == 0 && courseBL.hasMoreMyCourses(allCourseCurrentPos,
+                ALL_COURSE_FETCH_NUM)) {
+            new GetCourseTask().execute(false);
+        }
+    }
+
+    public void showMyCourse() {
         showMyCourse = true;
         List<CourseBriefInfo> myCourseBriefs = courseModel.getMyCourseBriefs(myCourseCurrentPos,
                 MY_COURSE_FETCH_NUM);
@@ -60,17 +96,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             new GetCourseTask().execute(true);
         } else {
             myCourseCurrentPos += myCourseBriefs.size();
-            setUpMyCourseAdapter(myCourseBriefs);
         }
-    }
-
-    private CourseModel getCourseModel() {
-        final CourseModel courseModel = CourseModel.getInstance();
-        return courseModel;
-    }
-
-    public void showMyCourse() {
-        showMyCourse = true;
     }
 
     public void showAllCourse() {
@@ -85,47 +111,17 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     }
 
-    /*private void setUpAdapter(List<CourseBriefInfo> courses) {
-        if(getActivity() == null) //因为这个方法可能是由后台任务GetCourseTask调用的，调用的时候可能Activity已经被销毁了
-            return;
-        if(courses != null) {
-            adapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1, courses);
-        } else {
-            adapter = null;
-        }
-
-        //notify on data change
-        if(listView != null) {
-            listView.setAdapter(adapter);
-        }
-    }*/
-
-    private void setUpMyCourseAdapter(List<CourseBriefInfo> courses) {
-        if(getActivity() == null) //因为这个方法可能是由后台任务GetCourseTask调用的，调用的时候可能Activity已经被销毁了
-            return;
-        if(courses != null) {
-            adapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1, courses);
-        } else {
-            adapter = null;
-        }
-
-        //notify on data change
-        if(listView != null) {
-            listView.setAdapter(adapter);
-        }
-    }
-
-    private void setUpAllCourseAdapter(List<CourseBriefInfo> courses) {
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
         listView = (AbsListView) view.findViewById(R.id.main_course_list);
-        ((AdapterView<ListAdapter>) listView).setAdapter(adapter);
+        if(showMyCourse)
+            ((AdapterView<ListAdapter>) listView).setAdapter(myCourseAdapter);
+        else
+            ((AdapterView<ListAdapter>) listView).setAdapter(allCourseAdapter);
+
         listView.setOnItemClickListener(this);
 
         return view;
@@ -134,9 +130,9 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(listner != null) {
-            CourseBriefInfo courseBrief = (CourseBriefInfo)adapter.getItem(position);
+           /* CourseBriefInfo courseBrief = (CourseBriefInfo)adapter.getItem(position);
             CourseModel.getInstance().setCurrentCourseBrief(courseBrief);
-            listner.onCourseSelected();
+            listner.onCourseSelected();*/
         }
     }
 
@@ -210,7 +206,6 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
                 CourseModel.getInstance().setMyCourseBriefs(coursesResult);
             else
                 CourseModel.getInstance().setAllCourseBriefs(coursesResult);
-            setUpMyCourseAdapter(coursesResult);//@
         }
 
     }

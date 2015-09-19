@@ -88,11 +88,14 @@ public class CourseBLService {
     public QuestionSet getQuestion(String courseId) {
         return CourseNetService.getQuestion(courseId);
     }
-/*
-    private void checkNetInstance() {
-        if(netService == null)
-            netService = CourseNetService.getInstance();
-    }*/
+
+    public boolean hasMoreMyCourses(int beginPos, int num) {
+        return CourseNetService.hasMoreMyCourse(beginPos, num);
+    }
+
+    public boolean hasMoreAllCourses(int beginPos, int num) {
+        return CourseNetService.hasMoreAllCourse(beginPos, num);
+    }
 
     public ArrayList<String> getAllCourseTypeNamesMock() {
         ArrayList<String> names = new ArrayList<String>();
