@@ -67,12 +67,12 @@ public class MainActivity extends AppCompatActivity
        // setContentView(R.layout.fragment_user_info_otherview);
         setContentView(R.layout.activity_main);
         mTitle = getTitle();
-
         initUserAccountBLService();
         initNavigationDrawer();
         initViewPager();
         initRadioButtons();
         initBLService();
+        courseButton.setChecked(true);
     }
 
     private void initNavigationDrawer() {
@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         getMenuInflater().inflate(R.menu.main, menu);
-        visibleActions = new ArrayList<MenuItem>();
         action_course_add = (MenuItem)menu.findItem(R.id.action_course_add);
         return true;
     }
@@ -223,9 +222,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setCourseMenu() {
+        if(visibleActions == null || action_course_add == null)
+            return;
         disableCurrentMenu();
         action_course_add.setVisible(true);
         visibleActions.add(action_course_add);
+
     }
 
     private void disableCurrentMenu() {

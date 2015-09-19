@@ -49,6 +49,7 @@ public class CourseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
         mainLayout.setVisibility(View.GONE);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
@@ -77,7 +78,7 @@ public class CourseActivity extends AppCompatActivity implements
                 fm.findFragmentById(R.id.course_detail_brief_info_container);
         if(courseBriefFg == null) {
             courseBriefFg = new CourseBriefInfoFragment();
-            fm.beginTransaction().add(R.id.course_detail_brief_info_container, courseBriefFg)
+            fm.beginTransaction().replace(R.id.course_detail_brief_info_container, courseBriefFg)
                     .commit();
         }
     }
@@ -88,7 +89,7 @@ public class CourseActivity extends AppCompatActivity implements
                 fm.findFragmentById(R.id.course_detail_annoucement_container);
         if(annoucemntFg == null) {
             annoucemntFg = new AnnoucementFragment();
-            fm.beginTransaction().add(R.id.course_detail_annoucement_container, annoucemntFg)
+            fm.beginTransaction().replace(R.id.course_detail_annoucement_container, annoucemntFg)
                     .commit();
         }
     }
@@ -99,7 +100,7 @@ public class CourseActivity extends AppCompatActivity implements
                 fm.findFragmentById(R.id.course_detail_post_and_question_container);
         if(postsAndQuestionFg == null) {
             postsAndQuestionFg = new QuestionAndPostsLayoutFragment();
-            fm.beginTransaction().add(R.id.course_detail_post_and_question_container, postsAndQuestionFg)
+            fm.beginTransaction().replace(R.id.course_detail_post_and_question_container, postsAndQuestionFg)
                     .commit();
         }
     }
@@ -221,6 +222,7 @@ public class CourseActivity extends AppCompatActivity implements
             CourseModel.getInstance().setCurrentCourseDetail(result);
             progressBar.setVisibility(View.GONE);
             initFragments();
+            mainLayout.setVisibility(View.VISIBLE);
         }
     }
 

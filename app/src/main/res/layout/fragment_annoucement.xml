@@ -2,13 +2,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="3dp"
         android:drawableLeft="@drawable/notification_green"
-        android:text="@string/annoucemnet_title"
+        android:text="@string/annoucement_title"
         android:textColor="@color/green"
         style="@style/bigFont"/>
 
@@ -16,6 +19,8 @@
         android:id="@+id/course_detail_annoucement_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:singleLine="false"
         android:maxLines="3"
         android:ellipsize="end"/>
@@ -46,9 +51,5 @@
                 android:layout_gravity="right"/>
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>
