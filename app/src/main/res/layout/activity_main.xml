@@ -5,6 +5,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <!-- As the main content view, the view below consumes the entire
@@ -39,21 +40,27 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/radiobutton_middle"
                     android:button="@null"
-                    android:text="@string/course_tab_tag"/>
+                    android:text="@string/course_tab_tag"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/medium_font"/>
                 <RadioButton
                     android:id="@+id/main_message_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/radiobutton_middle"
                     android:button="@null"
-                    android:text="@string/message_tab_tag"/>
+                    android:text="@string/message_tab_tag"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/medium_font"/>
                 <RadioButton
                     android:id="@+id/main_campus_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/radiobutton_middle"
                     android:button="@null"
-                    android:text="@string/campus_tab_tag"/>
+                    android:text="@string/campus_tab_tag"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/medium_font"/>
             </RadioGroup>
 
         </LinearLayout>

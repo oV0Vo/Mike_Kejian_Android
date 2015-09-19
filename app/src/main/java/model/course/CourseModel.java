@@ -109,10 +109,6 @@ public class CourseModel {
         this.currentCourseBrief = currentCourseBrief;
     }
 
-    public void setMyCourseBriefs(ArrayList<CourseBriefInfo> myCourseBriefs) {
-        this.myCourseBriefs = myCourseBriefs;
-    }
-
     public Post getCurrentPost() {
         return currentPost;
     }
@@ -121,17 +117,12 @@ public class CourseModel {
         this.currentPost = currentPost;
     }
 
-    public void setAllCourseBriefs(ArrayList<CourseBriefInfo> allCourseBriefs) {
-        this.allCourseBriefs = allCourseBriefs;
+    public void addMyCourseBriefs(ArrayList<CourseBriefInfo> myCourseBriefs) {
+        this.myCourseBriefs.addAll(myCourseBriefs);
     }
 
-    private void addCourseBrief(CourseBriefInfo courseBrief, boolean isMyCourse) {
-        if(isMyCourse) {
-            myCourseBriefs.add(courseBrief);
-            allCourseBriefs.add(courseBrief);
-        } else {
-            allCourseBriefs.add(courseBrief);
-        }
+    public void addAllCourseBriefs(ArrayList<CourseBriefInfo> allCourseBriefs) {
+        this.allCourseBriefs.addAll(allCourseBriefs);
     }
 
 }
