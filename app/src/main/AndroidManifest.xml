@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kejian.mike.mike_kejian_android" >
+    package="com.kejian.mike.mike_kejian_android"
+
+
+    >
 
     <application
         android:allowBackup="true"
