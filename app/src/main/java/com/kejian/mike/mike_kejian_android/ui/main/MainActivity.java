@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
@@ -192,8 +193,9 @@ public class MainActivity extends AppCompatActivity
                     return new CourseListContainerFragment();
                 case 1:
                     return new Fragment_Msg();
-                case 2:
-                    return new CampusFragmentMock();
+                case 2: {
+                    return new PostListContainerFragment();
+                }
                 default:
                     //unreach block
                     Log.i("MainActivity", "getItem logic error");

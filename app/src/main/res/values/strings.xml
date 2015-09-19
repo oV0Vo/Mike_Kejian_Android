@@ -76,4 +76,5 @@
     <string name="title_activity_course">CourseActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
+    <string name="title_activity_course_naming">title_activity_course_naming</string>
 </resources>
