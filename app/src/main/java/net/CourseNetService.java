@@ -53,11 +53,11 @@ public class CourseNetService {
         ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
         for(int i=0; i<num; ++i)
             mocks.add(getCourseBriefMock1());
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         return mocks;
     }
 
@@ -66,11 +66,11 @@ public class CourseNetService {
         ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
         for(int i=0; i<num; ++i)
             mocks.add(getCourseBriefMock1());
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         return mocks;
     }
 

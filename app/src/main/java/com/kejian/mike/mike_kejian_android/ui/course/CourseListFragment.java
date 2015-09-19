@@ -1,10 +1,10 @@
 package com.kejian.mike.mike_kejian_android.ui.course;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +32,11 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     private int myCourseCurrentPos;
     private ArrayList<CourseBriefInfo> myCourses;
-    private ListAdapter myCourseAdapter;
+    private CourseAdapter myCourseAdapter;
 
     private int allCourseCurrentPos;
     private ArrayList<CourseBriefInfo> allCourses;
-    private ListAdapter allCourseAdapter;
+    private CourseAdapter allCourseAdapter;
 
     private OnCourseSelectedListener listner;
 
@@ -74,6 +74,8 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         if(initData.size() == 0 && courseBL.hasMoreMyCourses(myCourseCurrentPos,
                 MY_COURSE_FETCH_NUM)) {
             new GetCourseTask().execute(true);
+        } else {
+            myCourses.addAll(initData);
         }
     }
 
@@ -85,22 +87,30 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         if(initData.size() == 0 && courseBL.hasMoreMyCourses(allCourseCurrentPos,
                 ALL_COURSE_FETCH_NUM)) {
             new GetCourseTask().execute(false);
+        } else {
+            allCourses.addAll(initData);
         }
     }
 
     public void showMyCourse() {
-        showMyCourse = true;
-        List<CourseBriefInfo> myCourseBriefs = courseModel.getMyCourseBriefs(myCourseCurrentPos,
-                MY_COURSE_FETCH_NUM);
-        if(myCourseBriefs.size() == 0) {
-            new GetCourseTask().execute(true);
-        } else {
-            myCourseCurrentPos += myCourseBriefs.size();
+        if(listView == null)
+            return;
+        if(!showMyCourse) {
+            showMyCourse = true;
+            listView.setAdapter(myCourseAdapter);
+            setEmptyText();
         }
     }
 
     public void showAllCourse() {
-        showMyCourse = false;
+        if(listView == null)
+            return;
+
+        if(showMyCourse) {
+            showMyCourse = false;
+            listView.setAdapter(allCourseAdapter);
+            setEmptyText();
+        }
     }
 
     public void showAcademyCourseList(CharSequence academyNameList) {
@@ -123,6 +133,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             ((AdapterView<ListAdapter>) listView).setAdapter(allCourseAdapter);
 
         listView.setOnItemClickListener(this);
+        //setEmptyText();
 
         return view;
     }
@@ -130,10 +141,14 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(listner != null) {
-           /* CourseBriefInfo courseBrief = (CourseBriefInfo)adapter.getItem(position);
-            CourseModel.getInstance().setCurrentCourseBrief(courseBrief);
-            listner.onCourseSelected();*/
+            CourseBriefInfo courseBrief = getCurrentAdapter().getItem(position);
+            courseModel.setCurrentCourseBrief(courseBrief);
+            listner.onCourseSelected();
         }
+    }
+
+    private CourseAdapter getCurrentAdapter() {
+        return showMyCourse? myCourseAdapter: allCourseAdapter;
     }
 
     @Override
@@ -147,9 +162,19 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         }
     }
 
-    private void setEmptyText(CharSequence emptyText) {
-        View emptyView = listView.getEmptyView();
+    private void setEmptyText() {
+        if(listView == null) {
+            Log.i("CourseListFragment", "empty on setEmpty Text");
+            return;
+        }
 
+        String emptyText = null;
+        if(showMyCourse)
+            emptyText = getResources().getString(R.string.main_course_no_my_course);
+        else
+            emptyText = getResources().getString(R.string.main_course_no_all_course);
+
+        View emptyView = listView.getEmptyView();
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
@@ -167,7 +192,8 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_course_brief, null);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_main_course_brief
+                        , null);
             }
 
             CourseBriefInfo courseBriefInfo = getItem(position);
@@ -194,18 +220,23 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             String studentId = UserInfoService.getInstance().getSid();
             isMyCourse = params[0];
             if(isMyCourse)
-                return CourseBLService.getInstance().getMyCourseBriefs(studentId, 0, 5);
+                return courseBL.getMyCourseBriefs(studentId, myCourseCurrentPos
+                        , MY_COURSE_FETCH_NUM);
             else
-                return CourseBLService.getInstance().getAllCourseBriefs(studentId, 0, 20);
+                return courseBL.getAllCourseBriefs(studentId, allCourseCurrentPos
+                        , ALL_COURSE_FETCH_NUM);
 
         }
 
         @Override
         protected void onPostExecute(ArrayList<CourseBriefInfo> coursesResult) {
-            if(isMyCourse)
-                CourseModel.getInstance().setMyCourseBriefs(coursesResult);
-            else
-                CourseModel.getInstance().setAllCourseBriefs(coursesResult);
+            if(isMyCourse) {
+                courseModel.addMyCourseBriefs(coursesResult);
+                myCourses.addAll(coursesResult);
+            } else {
+                courseModel.addAllCourseBriefs(coursesResult);
+                allCourses.addAll(coursesResult);
+            }
         }
 
     }
