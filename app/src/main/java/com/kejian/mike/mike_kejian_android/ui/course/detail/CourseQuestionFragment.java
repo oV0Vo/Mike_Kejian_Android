@@ -41,7 +41,6 @@ public class CourseQuestionFragment extends Fragment {
 
         ViewGroup currentQuestionView = (ViewGroup)v.findViewById(R.id.current_question);
         CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
-
         return v;
     }
 

@@ -21,42 +21,36 @@
             <android.support.v4.view.ViewPager
             android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             </android.support.v4.view.ViewPager>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_alignParentBottom="true">
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                style="@style/bigFont">
+                android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/main_course_button"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/radiobutton_middle"
                     android:button="@null"
                     android:text="@string/course_tab_tag"/>
                 <RadioButton
                     android:id="@+id/main_message_button"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/radiobutton_middle"
                     android:button="@null"
                     android:text="@string/message_tab_tag"/>
                 <RadioButton
                     android:id="@+id/main_campus_button"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/radiobutton_middle"
                     android:button="@null"
                     android:text="@string/campus_tab_tag"/>
@@ -72,14 +66,12 @@
          android:layout_gravity="left" instead. -->
     <!-- The drawer is given a fixed width in dp and extends the full height of
          the container. -->
-
     <fragment
         android:id="@+id/navigation_drawer"
-        android:layout_width="@dimen/navigation_drawer_width"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="com.kejian.mike.mike_kejian_android.ui.main.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" />
-
 
 </android.support.v4.widget.DrawerLayout>

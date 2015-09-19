@@ -79,7 +79,7 @@ public class CourseListContainerFragment extends Fragment {
         allCourseSelectLayout = (LinearLayout)contentView.findViewById(R.id.main_course_all_course_select_layout);
         initAcademySelectView(allCourseSelectLayout);
         initCourseTypeSelectView(allCourseSelectLayout);
-        allCourseSelectLayout.setVisibility(View.GONE);
+       allCourseSelectLayout.setVisibility(View.GONE);
     }
 
     private void initAcademySelectView(View contentView) {
