@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserInfoActivity;
+import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserPostActivity;
 
 /**
@@ -152,11 +153,9 @@ public class NavigationDrawerFragment extends Fragment {
         switch(index) {
             case 0:intent.setClass(this.getActivity(), UserInfoActivity.class);break;
             case 1:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);break;
-            case 2:intent.setClass(this.getActivity(), UserPostActivity.class);break;
+            case 2:intent.setClass(this.getActivity(), UserLoginActivity.class);break;
         }
-        System.out.println("hello02");
         startActivity(intent);
-        System.out.println("hello03");
     }
 
     public boolean isDrawerOpen() {
