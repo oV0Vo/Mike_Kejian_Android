@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">课件</string>
 
+    <string name="course_add">新增课程</string>
     <string name="course_tab_tag">课程</string>
     <string name="message_tab_tag">消息</string>
     <string name="campus_tab_tag">校内</string>
 
+    <string name="course_add_title">创建课程</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -20,15 +22,30 @@
     <string name="navigation_tab_message">消息</string>
     <string name="navigation_tab_campus">校内</string>
 
+    <!--course brief-->
     <string name="main_course_my_course">我的课程</string>
     <string name="main_course_all_course">全部课程</string>
-    <string name="main_course_brief_academy_prefix">软件学院: </string>
+    <string name="main_course_academy_type_title">院系</string>
+    <string name="main_course_type_title">性质</string>
+    <string name="main_course_select_all_academy">所有院系</string>
+    <string name="main_course_select_all_course">所有课程</string>
+    <string name="main_course_no_more_course">&#62;_&#60;没有更多课程了</string>
+    <string name="main_course_no_my_course">你还没有加入任何课程哦</string>
+    <string name="main_course_no_all_course">你们学校还没有在@string/app_name app上添加课程哦，赶快鼓动他们吧!</string>
+
+    <string name="main_course_brief_academy_prefix">开课院系: </string>
     <string name="main_course_brief_progress_week_prefix">课程进度: </string>
 
+    <string name="course_teach_teacher_title">授课教师</string>
     <string name="annoucemnet_title">公告</string>
     <string name="annoucement_action_name">发表于</string>
     <string name="comments_area_button_text">讨论区</string>
     <string name="course_question_area_button_text">课堂问题</string>
+    <string name="course_menu_publish_annouc">发布公告</string>
+    <string name="course_menu_publish_post">发帖子</string>
+    <string name="course_menu_question">课堂提问</string>
+    <string name="course_menu_naming">点名</string>
+    <string name="course_menu_sign_in">签到</string>
 
     <string name="post_action_name">发表于</string>
 
@@ -69,12 +86,49 @@
     <string name="course_create_no_intro_message">请填写课程简介</string>
     <string name="course_create_no_content_message">请填写课程内容</string>
     <string name="course_create_no_teacher_message">请添加授课教师</string>
+
+    <!--question answer-->
+    <string name="question_answer_stats_title_text">结果统计</string>
+    <string name="question_answer_stats_join_num_title">参与答题人数</string>
+    <string name="question_answer_stats_correct_rate_title">答题正确率</string>
+    <string name="question_answer_stats_distribute_title">各项答题人数</string>
+    <string name="question_answer_all_answer_title_text">全部答案</string>
+    <string name="question_answer_all_answer_no_more_question">没有更多问题了</string>
+
+    <!--question publish-->
+    <string name="question_publish_type_title">类型</string>
+    <string name="question_publish_content_title">题目</string>
+    <string name="question_publish_choice_title">选项</string>
+    <string name="question_publish_choice_hint">请设置选项个数</string>
+    <string name="question_publish_application_answer_title">答案</string>
+    <string name="question_publish_content_hint">请在此处输入题干</string>
     <!--internal error-->
     <string name="internal_logic_error_message">系统错误，请稍后再试</string>
-<!-- TODO: Remove or change this placeholder text -->
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_course">CourseActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
-    <string name="title_activity_course_naming">title_activity_course_naming</string>
+
+    <!--course naming-->
+    <string name="course_naming_type_qiandao">签到时间</string>
+    <string name="course_naming_type_shangke">上课时间</string>
+    <string name="course_naming_not_start">未开始</string>
+    <string name="course_naming_action">我要点名</string>
+    <string name="course_naming_history_title">往期点名</string>
+    <string name="course_naming_sign_in_stats_title">出勤统计</string>
+    <string name="course_naming_absent_list_title">未到名单</string>
+
+    <!--course sign in-->
+    <string name="course_sign_in_time_title">签到时间</string>
+    <string name="course_sign_in_teacher_title">上课教师</string>
+    <string name="course_sign_in_sign_in_action">我要签到</string>
+    <string name="course_sign_in_already_sign_in">已签到</string>
+    <string name="course_sign_in_miss">错过了</string>
+    <string name="course_sign_in_history_title">签到历史</string>
+    <!--util-->
+    <string name="zhankai">展开</string>
+    <string name="title_activity_course_naming">CourseNamingActivity</string>
+    <string name="title_activity_question_publish">QuestionPublishActivity</string>
 </resources>

@@ -24,6 +24,9 @@ import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
+
+import java.util.ArrayList;
 
 import bl.CourseBLService;
 import bl.UserInfoService;
@@ -55,9 +58,14 @@ public class MainActivity extends AppCompatActivity
 
     private TextView messageView;
 
+    private MenuItem action_course_add;
+
+    private ArrayList<MenuItem> visibleActions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // setContentView(R.layout.fragment_user_info_otherview);
         setContentView(R.layout.activity_main);
         mTitle = getTitle();
 
@@ -150,22 +158,27 @@ public class MainActivity extends AppCompatActivity
             restoreActionBar();
             return true;
         }
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        visibleActions = new ArrayList<MenuItem>();
+        action_course_add = (MenuItem)menu.findItem(R.id.action_course_add);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id) {
+            case R.id.action_course_add:
+                startCourseAddActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void startCourseAddActivity() {
+        Intent courseAdd = new Intent(this, CourseCreateActivity.class);
+        startActivity(courseAdd);
     }
 
     @Override
@@ -190,7 +203,9 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    return new CourseListContainerFragment();
+                    CourseListContainerFragment courseFg = new CourseListContainerFragment();
+                    setCourseMenu();
+                    return courseFg;
                 case 1:
                     return new Fragment_Msg();
                 case 2: {
@@ -207,6 +222,23 @@ public class MainActivity extends AppCompatActivity
         public int getCount() {
             return 3;
         }
+    }
+
+    private void setCourseMenu() {
+
+        if(visibleActions == null)
+                       return;
+        disableCurrentMenu();
+        action_course_add.setVisible(true);
+        visibleActions.add(action_course_add);
+    }
+
+    private void disableCurrentMenu() {
+        if(visibleActions == null)
+                       return;
+        for(MenuItem item: visibleActions)
+            item.setVisible(false);
+        visibleActions.clear();
     }
 
     private class CourseBLInitTask extends AsyncTask<Void, Void, Void> {

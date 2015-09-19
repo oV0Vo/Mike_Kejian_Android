@@ -9,4 +9,6 @@ public class token {
     private String encodePassword;
     private boolean rememberPassword;
 
+
+
 }

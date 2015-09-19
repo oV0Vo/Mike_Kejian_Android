@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kejian.mike.mike_kejian_android" >
+    package="com.kejian.mike.mike_kejian_android"
+
+
+    >
 
     <application
         android:allowBackup="true"
@@ -15,10 +18,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.course.CourseActivity"
-            android:label="@string/title_activity_course" >
         </activity>
         <activity
             android:name=".ui.message.CourseNoticeActivity"
@@ -39,6 +38,10 @@
         <activity
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/title_activity_course_naming" >
+        </activity>
+        <activity
+            android:name=".ui.course.detail.question.QuestionPublishActivity"
+            android:label="@string/title_activity_question_publish" >
         </activity>
     </application>
 

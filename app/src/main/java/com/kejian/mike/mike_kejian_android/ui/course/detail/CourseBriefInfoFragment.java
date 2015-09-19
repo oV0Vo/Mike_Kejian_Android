@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 
+import java.util.ArrayList;
+
 import model.course.CourseBriefInfo;
+import model.course.CourseDetailInfo;
 import model.course.CourseModel;
 
 /**
@@ -35,25 +38,42 @@ public class CourseBriefInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.layout_course_brief, container, false);
+        View v = inflater.inflate(R.layout.fragment_course_brief_info, container, false);
         CourseBriefInfo courseBrief = CourseModel.getInstance().getCurrentCourseBrief();
+
         if(courseBrief == null) {
-            Log.i("CourseBriefInfoFragment", "courseBrief null!");
+            Log.e("CourseBriefInfo", "currentCourseBriefInfo null in course detail activity!");
             return v;
         }
 
-        ImageView imageView = (ImageView)v.findViewById(R.id.course_brief_image);
+        ImageView imageView = (ImageView)v.findViewById(R.id.course_detail_brief_image);
         imageView.setImageResource(R.drawable.default_book);
-        TextView nameView = (TextView)v.findViewById(R.id.course_brief_name);
-        nameView.setText(courseBrief.getCourseName());
-        TextView academyView = (TextView)v.findViewById(R.id.course_brief_academy);
+        TextView academyView = (TextView)v.findViewById(R.id.course_detail_brief_academy);
         academyView.setText(courseBrief.getAcademyName());
+        TextView teacherView = (TextView)v.findViewById(R.id.course_detail_brief_teacher_text);
+        String teacherNames = getMergeTeacherName();
+        teacherView.setText(teacherNames);
         TextView processWeekView = (TextView)v.findViewById(R.id.course_brief_progress_week);
         processWeekView.setText("第" + courseBrief.getProgressWeek() + "周");
 
         v.setOnClickListener(new onViewClickListener());
 
         return v;
+    }
+
+    private String getMergeTeacherName() {
+        CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
+        if(courseDetail != null) {
+            ArrayList<String> teacherNames = courseDetail.getTeacherNames();
+            String mergeName = new String();
+            for(String teacherName: teacherNames)
+                mergeName.concat(teacherName);
+            return mergeName;
+        } else {
+            return "";
+        }
+
+
     }
 
     @Override

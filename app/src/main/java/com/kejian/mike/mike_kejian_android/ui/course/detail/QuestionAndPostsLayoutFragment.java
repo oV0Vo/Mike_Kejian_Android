@@ -40,6 +40,8 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         commentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                commentsButton.setTextColor(getResources().getColor(R.color.green, null));
+                questionButton.setTextColor(getResources().getColor(R.color.black, null));
                 viewPager.setCurrentItem(0);
             }
         });
@@ -48,6 +50,8 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         questionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                questionButton.setTextColor(getResources().getColor(R.color.green, null));
+                commentsButton.setTextColor(getResources().getColor(R.color.black, null));
                 viewPager.setCurrentItem(1);
             }
         });
@@ -62,14 +66,13 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             switch(position){
                 case 0:
                     return new CommentsAreaFragment();
                 case 1:
                     return new AnnoucementFragment();
                 default:
-                    Log.i("QuestionAndPostsLayoutFragment", "error switch");
                     return null;
             }
         }

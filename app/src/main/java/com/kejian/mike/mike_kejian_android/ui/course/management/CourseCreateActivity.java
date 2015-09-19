@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.course.management;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,10 +36,12 @@ public class CourseCreateActivity extends AppCompatActivity {
 
     private ArrayList<String> teacherIds;
 
+    @UnImplementedAnnotation("需要恢复状态的逻辑")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {//需要加上
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_create);
+        setTitle(R.string.course_add_title);
 
         titleText = (EditText)findViewById(R.id.course_create_name_text);
         introText = (EditText)findViewById(R.id.course_create_intro_text);
@@ -49,6 +52,8 @@ public class CourseCreateActivity extends AppCompatActivity {
         assistantContainer = (ViewGroup)findViewById(R.id.course_create_assistant_container);
         commitButton = (Button)findViewById(R.id.course_create_commit_button);
         progressBar = (ProgressBar)findViewById(R.id.course_create_progress_bar);
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     }
 
     private void initAddTeacherButtonListener() {
@@ -69,6 +74,7 @@ public class CourseCreateActivity extends AppCompatActivity {
         });
     }
 
+    @UnImplementedAnnotation
     private void initCommitButtonListener() {
         commitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,20 +86,30 @@ public class CourseCreateActivity extends AppCompatActivity {
                     return;
                 }
 
-                String intro = introText.getText().toString();
-                String content = contentText.getText().toString();
-                if(content.length() == 0) {
-                    Toast.makeText(CourseCreateActivity.this, R.string.course_create_no_content_message
+                if(teacherIds.size() == 0) {
+                    Toast.makeText(CourseCreateActivity.this, R.string.course_create_no_teacher_message
                             , Toast.LENGTH_SHORT);
+                    return;
                 }
 
+                String intro = introText.getText().toString();
+                String content = contentText.getText().toString();
+
+                CourseDetailInfo newCourse = new CourseDetailInfo();
+
+                new SubmitNewCourseTask().execute(newCourse);
             }
         });
     }
 
+    @UnImplementedAnnotation("需要加上acitvity状态保存逻辑")
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_course_create, menu);
         return true;
     }

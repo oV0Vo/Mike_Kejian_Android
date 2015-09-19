@@ -24,7 +24,7 @@ import util.DensityUtil;
 
 public class NewPraiseActivity extends Activity implements View.OnClickListener{
     private View layout_title;
-    private ArrayList<Praise> praises = new ArrayList<>();
+    private ArrayList<Praise> praises = new ArrayList<Praise>();
     private int praiseNum = 0;
     private LinearLayout container;
     @Override

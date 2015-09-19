@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+    >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user"
+            android:maxHeight="40dp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="基本信息"
+            android:textColor="#16a085"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="_______________________________________________"
+            android:textColor="#d2d2d2"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+   <TableLayout
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content">
+       <TableRow
+
+
+
+          >
+           <TextView
+               android:text="姓名"
+               android:layout_marginLeft="30dp"
+
+               />
+           <TextView
+               android:text="性别"
+
+
+               android:layout_marginLeft="100dp"/>
+       </TableRow>
+       <TableRow>
+           <TextView
+               android:layout_marginTop="20dp"
+               android:layout_marginLeft="30dp"
+               android:text="昵称"/>
+       </TableRow>
+   </TableLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="教务信息"
+            android:textColor="#16a085"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="______________________________________________"
+            android:textColor="#d2d2d2"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+
+
+
+            >
+            <TextView
+                android:text="院系"
+                android:layout_marginLeft="30dp"
+
+                />
+            <TextView
+                android:text="专业"
+
+
+                android:layout_marginLeft="100dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:text="身份"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="100dp"
+                android:text="年级"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:text="教务网账号"/>
+        </TableRow>
+    </TableLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个性签名"
+            android:textColor="#16a085"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="_____________________________________________"
+            android:textColor="#d2d2d2"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+            <TextView
+
+                android:layout_marginLeft="30dp"
+                android:text="The gay is lazy..."/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

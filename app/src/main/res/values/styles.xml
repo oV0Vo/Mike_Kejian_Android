@@ -2,15 +2,35 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:textSize">@dimen/small_font</item>
     </style>
 
+    <style name="actionBarStyle">
+        <item name="android:background">@color/green</item>
+    </style>
+
+    <style name="submenuStyle">
+        <item name="android:background">@color/dark_blue</item>
+        <item name="android:padding">20dp</item>
+    </style>
     <style name="wideButton">
         <item name="android:width">100dp</item>
     </style>
 
+    <style name="extremeSmallFont">
+        <item name="android:textSize">8dp</item>
+    </style>
+
     <style name="smallFont">
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <style name="mediumFont">
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <style name="bigFont">
+        <item name="android:textSize">20dp</item>
     </style>
 
 </resources>
