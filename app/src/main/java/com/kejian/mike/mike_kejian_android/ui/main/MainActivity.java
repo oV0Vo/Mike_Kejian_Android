@@ -222,12 +222,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setCourseMenu() {
+        if(visibleActions == null)
+            return;
         disableCurrentMenu();
         action_course_add.setVisible(true);
         visibleActions.add(action_course_add);
     }
 
     private void disableCurrentMenu() {
+        if(visibleActions == null)
+            return;
         for(MenuItem item: visibleActions)
             item.setVisible(false);
         visibleActions.clear();

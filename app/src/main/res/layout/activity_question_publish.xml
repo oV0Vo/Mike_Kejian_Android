@@ -4,6 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity">
 
     <LinearLayout
@@ -15,8 +19,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/question_publish_choice_title"
-            />
+            style="@style/mediumFont" />
 
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/question_publish_type_single_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/question_publish_type_multi_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/question_publish_type_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"/>
+
+        <EditText
+            android:id="@+id/question_publish_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:minLines="3"
+            android:maxLines="3"
+            android:hint=""/>
     </LinearLayout>
 
 </LinearLayout>
