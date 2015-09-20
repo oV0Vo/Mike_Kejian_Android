@@ -25,7 +25,7 @@ public class UserLoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(com.kejian.mike.mike_kejian_android.R.layout.activity_user_login);
         context=this;
-
+        initViews();
 
 
     }
@@ -64,6 +64,7 @@ public class UserLoginActivity extends Activity {
                 startActivity(intent);
 
 
+
             }
         });
 
@@ -71,8 +72,9 @@ public class UserLoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
-                intent.setClass(context,UserSignUpActivity.class);
+                intent.setClass(context,UserRegisterActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -86,6 +88,13 @@ public class UserLoginActivity extends Activity {
 
 
     }
+
+    public void close(){
+
+        this.close();
+
+    }
+
 
 
 

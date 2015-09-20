@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp">
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+
+            android:editable="false"
+            android:id="@+id/country_input"
+            android:text="  "
+            android:background="@drawable/rec_edit"
+            />
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:id="@+id/country_zone"
+
+            android:text="国家/地区"
+
+            />
+        <CheckedTextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/country_zone"
+            android:text="国家"
+            android:id="@+id/country_choose"
+
+
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/rec_edit"
+            android:text="                           请输入手机号"
+
+            />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="+86"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/rec_edit"
+            android:text="                           6-16位数字或密码"
+            />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+
+
+            android:text="密码"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+
+            android:background="@drawable/rec_edit"
+            android:text="                          请输入短信验证码"
+            android:id="@+id/code_input"
+
+
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/code_send"
+            android:layout_alignParentRight="true"
+            android:text="获取验证码"
+            android:textColor="@color/white"
+            android:background="@drawable/rec_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+
+            />
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:text="短信验证码"
+
+            android:id="@+id/text_code"
+
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            />
+    </RelativeLayout>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        >
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+
+            android:id="@+id/register_confirm"
+            android:background="@drawable/rec_button"
+            android:text="注册"
+            android:gravity="center"
+            />
+    </LinearLayout>
+</LinearLayout>

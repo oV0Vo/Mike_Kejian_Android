@@ -66,6 +66,12 @@
             android:name=".ui.user.UserBaseInfoOtherView"
             android:label="user_info_other" >
         </activity>
+        <activity android:name=".ui.user.UserAttentionListActivity"
+            android:label="user_attention_list"></activity>
+        <activity android:name=".ui.user.UserForgetPasswordActivity"
+            android:label="user_forget_password"></activity>
+        <activity android:name=".ui.user.UserRegisterActivity"
+            android:label="user_register"></activity>
     </application>
 
 </manifest>

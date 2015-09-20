@@ -25,10 +25,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.user.UserAttentionListActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserInfoActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserPostActivity;
+import com.kejian.mike.mike_kejian_android.ui.user.adapter.DrawerViewAdapter;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -108,15 +110,16 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
         context=this.getActivity();
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+//        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+//                getActionBar().getThemedContext(),
+//                android.R.layout.simple_list_item_activated_1,
+//                android.R.id.text1,
+//                new String[]{
+//                        getString(R.string.title_section1),
+//                        getString(R.string.title_section2),
+//                        getString(R.string.title_section3),
+//                }));
+        mDrawerListView.setAdapter(new DrawerViewAdapter(null,this.getActivity()));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,7 +127,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                  startUserInfo(0);
+
 
                         break;
                     case 1:
@@ -134,6 +137,9 @@ public class NavigationDrawerFragment extends Fragment {
                     case 2:
                         System.out.println("hello2");
                         startUserInfo(2);
+                        break;
+                    case 3:
+                        startUserInfo(3);
                         break;
                 }
 
@@ -147,9 +153,10 @@ public class NavigationDrawerFragment extends Fragment {
         System.out.println("hello01");
 
         switch(index) {
-            case 0:intent.setClass(this.getActivity(), UserInfoActivity.class);break;
-            case 1:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);break;
+            case 1:intent.setClass(this.getActivity(), UserInfoActivity.class);break;
+            case 4:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);break;
             case 2:intent.setClass(this.getActivity(), UserLoginActivity.class);break;
+            case 3:intent.setClass(this.getActivity(), UserAttentionListActivity.class);break;
         }
         startActivity(intent);
     }

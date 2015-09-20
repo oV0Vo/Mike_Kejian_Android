@@ -4,12 +4,13 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="120dp">
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/user"
-            android:maxHeight="20dp"
+            android:src="@drawable/photo"
+            android:maxHeight="100dp"
+            android:adjustViewBounds="true"
             />
     </RelativeLayout>
     <LinearLayout
