@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity">
     <item android:id="@+id/course_down_info_menu_item" android:title="" android:icon="@drawable/down_info"
-        android:orderInCategory="1"
-        android:actionProviderClass="com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity$TeacherActionProvider"
-        app:showAsAction="never"/>
+        android:orderInCategory="1" app:showAsAction="always"/>
     <item android:id="@+id/course_search_menu_item" android:title="" android:icon="@drawable/search"
-        android:orderInCategory="2" app:showAsAction="never"/>
+        android:orderInCategory="2" app:showAsAction="always"/>
     <item android:id="@+id/course_add_menu_item" android:title="" android:icon="@drawable/add"
-        android:orderInCategory="3" app:showAsAction="never" />
+        android:orderInCategory="3" app:showAsAction="always"
+        app:actionProviderClass="com.kejian.mike.mike_kejian_android.ui.course.detail.menu.TeacherActionProvider"/>
 </menu>

@@ -39,12 +39,16 @@ public class AnnoucementFragment extends Fragment {
         }
 
         CourseAnnoucement annoucement = courseDetail.getAnnoucement();
-        TextView contentView = (TextView)v.findViewById(R.id.course_detail_annoucement_content);
-        contentView.setText(annoucement.getContent());
-        TextView authorView = (TextView)v.findViewById(R.id.course_detail_annoucement_author_name);
-        authorView.setText(annoucement.getPersonName());
-        TextView dateView = (TextView)v.findViewById(R.id.course_detail_annoucement_date);
-        dateView.setText(annoucement.getDate().toString());
+        TextView contentView = (TextView) v.findViewById(R.id.course_detail_annoucement_content);
+        if(annoucement != null) {
+            contentView.setText(annoucement.getContent());
+            TextView authorView = (TextView) v.findViewById(R.id.course_detail_annoucement_author_name);
+            authorView.setText(annoucement.getPersonName());
+            TextView dateView = (TextView) v.findViewById(R.id.course_detail_annoucement_date);
+            dateView.setText(annoucement.getDate().toString());
+        } else {
+            contentView.setText((R.string.annoucement_no_annoucement));
+        }
 
         v.setOnClickListener(new OnViewClickListener());
 

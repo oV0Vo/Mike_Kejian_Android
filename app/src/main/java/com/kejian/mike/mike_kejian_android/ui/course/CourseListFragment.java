@@ -46,6 +46,8 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     private CourseBLService courseBL;
 
+    private UserInfoService userInfoBL;
+
     private static final int MY_COURSE_FETCH_NUM = 50;
     private static final int ALL_COURSE_FETCH_NUM = 50;
 
@@ -54,6 +56,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
         courseBL = CourseBLService.getInstance();
+        userInfoBL = UserInfoService.getInstance();
 
         initMyCourse();
         myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
@@ -112,6 +115,22 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             setEmptyText();
         }
     }
+/*
+    private void setUpMyCourseAdpater() {
+        if(getActivity() == null)
+            return;
+        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1, myCourses);
+        if(showMyCourse)
+            listView.setAdapter(myCourseAdapter);
+    }
+
+    private void setUpAllCourseAdapter() {
+        if(getActivity() == null)
+            return;
+        allCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1, allCourses);
+        if(!showMyCourse)
+            listView.setAdapter(allCourseAdapter);
+    }*/
 
     public void showAcademyCourseList(CharSequence academyNameList) {
 
@@ -133,7 +152,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             ((AdapterView<ListAdapter>) listView).setAdapter(allCourseAdapter);
 
         listView.setOnItemClickListener(this);
-        //setEmptyText();
+        setEmptyText();
 
         return view;
     }
@@ -217,7 +236,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         @Override
         protected ArrayList<CourseBriefInfo> doInBackground(Boolean... params) {
-            String studentId = UserInfoService.getInstance().getSid();
+            String studentId = userInfoBL.getSid();
             isMyCourse = params[0];
             if(isMyCourse)
                 return courseBL.getMyCourseBriefs(studentId, myCourseCurrentPos
@@ -225,7 +244,6 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             else
                 return courseBL.getAllCourseBriefs(studentId, allCourseCurrentPos
                         , ALL_COURSE_FETCH_NUM);
-
         }
 
         @Override

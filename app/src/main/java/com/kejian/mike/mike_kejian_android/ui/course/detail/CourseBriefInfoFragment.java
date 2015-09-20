@@ -53,7 +53,7 @@ public class CourseBriefInfoFragment extends Fragment {
         TextView teacherView = (TextView)v.findViewById(R.id.course_detail_brief_teacher_text);
         String teacherNames = getMergeTeacherName();
         teacherView.setText(teacherNames);
-        TextView processWeekView = (TextView)v.findViewById(R.id.course_brief_progress_week);
+        TextView processWeekView = (TextView)v.findViewById(R.id.course_detail_brief_progress_week);
         processWeekView.setText("第" + courseBrief.getProgressWeek() + "周");
 
         v.setOnClickListener(new onViewClickListener());

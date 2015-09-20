@@ -2,7 +2,8 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.menu;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.ActionProvider;
+import android.support.v4.view.ActionProvider;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +15,7 @@ import com.kejian.mike.mike_kejian_android.R;
 /**
  * Created by violetMoon on 2015/9/18.
  */
-public class StudentActionProvider extends ActionProvider{
+public class StudentActionProvider extends ActionProvider {
 
     private Context context;
     private PopupWindow subMenu;
@@ -27,12 +28,15 @@ public class StudentActionProvider extends ActionProvider{
     @Override
     public View onCreateActionView() {
         if(view == null) {
+            Log.e("Student", "on Create Action View");
             view = new ImageView(context);
             view.setBackgroundResource(R.drawable.add);
             initSubMenu();
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.e("Student", "on Click Action View");
+
                     subMenu.showAsDropDown(view);
                 }
             });

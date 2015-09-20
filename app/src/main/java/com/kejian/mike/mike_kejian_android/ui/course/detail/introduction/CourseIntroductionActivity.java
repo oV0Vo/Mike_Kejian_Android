@@ -1,27 +1,46 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.GridLayout;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseBriefInfoFragment;
+
+import java.util.ArrayList;
 
 import model.course.CourseBriefInfo;
 import model.course.CourseDetailInfo;
 import model.course.CourseModel;
+import util.StringUtil;
 
 public class CourseIntroductionActivity extends AppCompatActivity {
+
+    private ViewPager viewPager;
+    private CourseContentAdpater viewPagerAdapter;
+
+    private RadioButton briefTab;
+    private RadioButton teachContentTab;
+    private RadioButton referenceTab;
+
+    private RadioButton currentTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_introduction);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContent();
 
     }
 
@@ -57,10 +76,69 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         String studentNumText = new Integer(courseDetail.getCurrentStudents()).toString();
         studentNumView.setText(studentNumText);
 
-        GridLayout layout = (GridLayout)findViewById(R.id.course_intro_teacher_name);
         TextView teacherNameView = (TextView)findViewById(R.id.course_intro_teacher_name);
+        ArrayList<String> teacherNames = courseDetail.getTeacherNames();
+        String teacherName = StringUtil.toString(teacherNames, " ");
+        teacherNameView.setText(teacherName);
 
+        TextView teacherBriefIntroView = (TextView)findViewById(R.id.course_intro_teacher_brief_intro);
+        String teacherBriefIntro = "南京大学教授、博士生导师";
+        teacherBriefIntroView.setText(teacherBriefIntro);
+
+        initViewPager();
+        initTabButton();
     }
+
+    private void initViewPager() {
+        viewPager = (ViewPager)findViewById(R.id.course_intro_detail_view_pager);
+        viewPagerAdapter = new CourseContentAdpater(getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    private void initTabButton() {
+        briefTab = (RadioButton)findViewById(R.id.course_intro_brief_tab);
+        briefTab.setChecked(true);
+        currentTab = briefTab;
+        briefTab.setTextColor(getResources().getColor(R.color.green));
+        briefTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentTab != briefTab) {
+                    currentTab.setTextColor(getResources().getColor(R.color.black));
+                    briefTab.setTextColor(getResources().getColor(R.color.green));
+                    currentTab = briefTab;
+                    viewPager.setCurrentItem(0);
+                }
+            }
+        });
+
+        teachContentTab = (RadioButton)findViewById(R.id.course_intro_teach_content_tab);
+        teachContentTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentTab != teachContentTab) {
+                    currentTab.setTextColor(getResources().getColor(R.color.black));
+                    teachContentTab.setTextColor(getResources().getColor(R.color.green));
+                    currentTab = teachContentTab;
+                    viewPager.setCurrentItem(1);
+                }
+            }
+        });
+
+        referenceTab = (RadioButton)findViewById(R.id.course_intro_reference_tab);
+        referenceTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentTab != referenceTab) {
+                    currentTab.setTextColor(getResources().getColor(R.color.black));
+                    referenceTab.setTextColor(getResources().getColor(R.color.green));
+                    currentTab = referenceTab;
+                    viewPager.setCurrentItem(2);
+                }
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,5 +159,31 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class CourseContentAdpater extends FragmentStatePagerAdapter {
+
+        public CourseContentAdpater(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch(position){
+                case 0:
+                    return new CourseBriefIntroFragment();
+                case 1:
+                    return new CourseTeachContentFragment();
+                case 2:
+                    return new CourseReferenceFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
     }
 }

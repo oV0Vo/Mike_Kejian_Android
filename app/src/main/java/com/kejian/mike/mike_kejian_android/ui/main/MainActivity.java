@@ -20,7 +20,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
@@ -51,6 +50,9 @@ public class MainActivity extends AppCompatActivity
     private RadioButton messageButton;
     private RadioButton campusButton;
 
+    private CourseListContainerFragment courseFg;
+    private Fragment_Msg msgFg;
+
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -68,12 +70,12 @@ public class MainActivity extends AppCompatActivity
        // setContentView(R.layout.fragment_user_info_otherview);
         setContentView(R.layout.activity_main);
         mTitle = getTitle();
-
         initUserAccountBLService();
         initNavigationDrawer();
         initViewPager();
         initRadioButtons();
         initBLService();
+        courseButton.setChecked(true);
     }
 
     private void initNavigationDrawer() {
@@ -203,14 +205,16 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    CourseListContainerFragment courseFg = new CourseListContainerFragment();
+                    if(courseFg == null)
+                        courseFg = new CourseListContainerFragment();
                     setCourseMenu();
                     return courseFg;
                 case 1:
-                    return new Fragment_Msg();
-                case 2: {
-                    return new PostListContainerFragment();
-                }
+                    if(msgFg == null)
+                        msgFg = new Fragment_Msg();
+                    return msgFg;
+                case 2:
+                    return new CampusFragmentMock();
                 default:
                     //unreach block
                     Log.i("MainActivity", "getItem logic error");
@@ -225,17 +229,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setCourseMenu() {
+        if(visibleActions == null || action_course_add == null) {
+            return;
+        }
+        Log.e("MainActivity", "I come here");
 
-        if(visibleActions == null)
-                       return;
         disableCurrentMenu();
         action_course_add.setVisible(true);
         visibleActions.add(action_course_add);
     }
 
     private void disableCurrentMenu() {
-        if(visibleActions == null)
-                       return;
         for(MenuItem item: visibleActions)
             item.setVisible(false);
         visibleActions.clear();

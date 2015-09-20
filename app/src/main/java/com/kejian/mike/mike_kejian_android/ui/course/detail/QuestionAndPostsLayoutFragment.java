@@ -37,11 +37,13 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
 
         commentsButton = (RadioButton)v.findViewById(R.id.comments_area_button);
+        commentsButton.setChecked(true);
+        commentsButton.setTextColor(getResources().getColor(R.color.green));
         commentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commentsButton.setTextColor(getResources().getColor(R.color.green, null));
-                questionButton.setTextColor(getResources().getColor(R.color.black, null));
+                commentsButton.setTextColor(getResources().getColor(R.color.green));
+                questionButton.setTextColor(getResources().getColor(R.color.black));
                 viewPager.setCurrentItem(0);
             }
         });
@@ -50,8 +52,8 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         questionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                questionButton.setTextColor(getResources().getColor(R.color.green, null));
-                commentsButton.setTextColor(getResources().getColor(R.color.black, null));
+                questionButton.setTextColor(getResources().getColor(R.color.green));
+                commentsButton.setTextColor(getResources().getColor(R.color.black));
                 viewPager.setCurrentItem(1);
             }
         });

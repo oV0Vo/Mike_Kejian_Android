@@ -2,7 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
             android:id="@+id/course_detail_post_brief_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/mediumFont"/>
+            android:textSize="@dimen/medium_font"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,37 +31,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:orientation="horizontal"
-        style="@style/extremeSmallFont">
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/course_detail_post_brief_author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/green"/>
+            android:textColor="@color/green"
+            android:textSize="@dimen/extreme_small_font"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/post_action_name"/>
+            android:text="@string/post_action_name"
+            android:textSize="@dimen/extreme_small_font"/>
         <TextView
             android:id="@+id/course_detail_post_brief_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/extreme_small_font"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/course_detail_post_brief_view_num"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:drawableLeft="@drawable/watch"/>
-            <TextView
-                android:id="@+id/course_detail_post_brief_reply_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:drawableLeft="@null"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/course_detail_post_brief_view_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/watch"/>
+                <TextView
+                    android:id="@+id/course_detail_post_brief_reply_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/watch"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
