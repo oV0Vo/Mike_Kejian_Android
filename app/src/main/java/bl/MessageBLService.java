@@ -28,7 +28,20 @@ public class MessageBLService {
         totalCourseNotice = MessageNetService.getTotalCourseNoticeNum();
     }
     public static void addCourseNotices(String userId){
-        courseNotices = MessageNetService.getNextCourseNotices(userId, index, 10);
+        if(courseNotices == null){
+            courseNotices = new ArrayList<>();
+        }else{
+            ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId, index, 10);
+            for(int i = 0;i < newCourseNotices.size();i++){
+                courseNotices.add(newCourseNotices.get(i));
+            }
+        }
+    }
+    public static void refreshCourseNotices(String userId){
+        ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId,0,5);
+        for(int i =0;i<newCourseNotices.size();i++){
+            courseNotices.add(i,newCourseNotices.get(i));
+        }
     }
 
     public static int getUnreadMessgeNum(){
