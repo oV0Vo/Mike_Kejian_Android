@@ -103,7 +103,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
         public String doInBackground(String... params) {
             String userId = params[0];
             MessageBLService.refreshTotalCourseNoticeNum(userId);
-            MessageBLService.addCourseNotices(userId);
+            MessageBLService.initCourseNotices(userId);
             return "";
         }
 

@@ -23,8 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:text="加载更多..."
-            android:textColor="#FF0000"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>
