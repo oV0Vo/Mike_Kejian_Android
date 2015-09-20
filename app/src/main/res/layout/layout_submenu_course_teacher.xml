@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/big_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/big_padding"
     style="@style/submenuStyle">
 
     <LinearLayout
         android:id="@+id/course_submenu_teacher_publish_annouc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
@@ -20,7 +22,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/big_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_publish_annouc"/>
     </LinearLayout>
 
@@ -28,6 +32,8 @@
         android:id="@+id/course_submenu_teacher_publish_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
+        android:paddingBottom="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
@@ -38,7 +44,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/big_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_publish_post"/>
     </LinearLayout>
 
@@ -46,6 +54,8 @@
         android:id="@+id/course_submenu_teacher_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
+        android:paddingBottom="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
@@ -56,7 +66,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/big_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_question"/>
     </LinearLayout>
 
@@ -64,6 +76,7 @@
         android:id="@+id/course_submenu_teacher_naming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
@@ -74,7 +87,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/big_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_naming"/>
     </LinearLayout>
 

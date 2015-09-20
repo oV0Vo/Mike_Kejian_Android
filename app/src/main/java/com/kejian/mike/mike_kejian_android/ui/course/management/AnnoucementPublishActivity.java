@@ -3,12 +3,14 @@ package com.kejian.mike.mike_kejian_android.ui.course.management;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -18,6 +20,7 @@ import bl.CourseBLService;
 import bl.UserInfoService;
 import model.course.CourseAnnoucement;
 import model.course.CourseBriefInfo;
+import model.course.CourseDetailInfo;
 import model.course.CourseModel;
 import model.helper.ResultMessage;
 import util.NetOperateResultMessage;
@@ -25,6 +28,7 @@ import util.UnImplementedAnnotation;
 
 public class AnnoucementPublishActivity extends AppCompatActivity {
 
+    private CourseModel courseModel;
     private EditText titleText;
     private EditText contentText;
     private Button commitButton;
@@ -34,6 +38,14 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annoucement_publish);
+
+        courseModel = CourseModel.getInstance();
+        TextView courseTitle = (TextView)findViewById(R.id.annoucment_publish_course_name);
+        CourseBriefInfo courseBrief = courseModel.getCurrentCourseBrief();
+        if(courseBrief != null)
+            courseTitle.setText(courseBrief.getCourseName());
+        else
+            Log.e("AnnoucPublish", "current brief null!");
 
         titleText = (EditText)findViewById(R.id.annoucement_publish_title_text);
         contentText = (EditText)findViewById(R.id.annoucement_publish_content_text);

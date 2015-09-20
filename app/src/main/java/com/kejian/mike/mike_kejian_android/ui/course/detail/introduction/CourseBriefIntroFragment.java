@@ -3,7 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +40,7 @@ public class CourseBriefIntroFragment extends Fragment {
         }
 
         TextView contentView = (TextView)v.findViewById(R.id.course_brief_intro_content);
-        contentView.setText("blablablablablablablablablablablabla");
+        contentView.setText("日本动漫《名侦探柯南》中的主要人物，本名宫野志保");
         return v;
     }
 

@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity
     private RadioButton messageButton;
     private RadioButton campusButton;
 
+    private CourseListContainerFragment courseFg;
+    private Fragment_Msg msgFg;
+
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -158,6 +161,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         getMenuInflater().inflate(R.menu.main, menu);
+        visibleActions = new ArrayList<MenuItem>();
         action_course_add = (MenuItem)menu.findItem(R.id.action_course_add);
         return true;
     }
@@ -201,11 +205,14 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    CourseListContainerFragment courseFg = new CourseListContainerFragment();
+                    if(courseFg == null)
+                        courseFg = new CourseListContainerFragment();
                     setCourseMenu();
                     return courseFg;
                 case 1:
-                    return new Fragment_Msg();
+                    if(msgFg == null)
+                        msgFg = new Fragment_Msg();
+                    return msgFg;
                 case 2:
                     return new CampusFragmentMock();
                 default:
@@ -222,12 +229,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setCourseMenu() {
-        if(visibleActions == null || action_course_add == null)
+        if(visibleActions == null || action_course_add == null) {
             return;
+        }
+        Log.e("MainActivity", "I come here");
+
         disableCurrentMenu();
         action_course_add.setVisible(true);
         visibleActions.add(action_course_add);
-
     }
 
     private void disableCurrentMenu() {
