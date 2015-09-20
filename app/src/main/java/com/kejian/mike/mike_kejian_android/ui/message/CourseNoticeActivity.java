@@ -1,163 +1,236 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import bl.CourseBLService;
 import bl.MessageBLService;
+import model.course.CourseDetailInfo;
+import model.course.CourseModel;
 import model.message.CourseNotice;
 import util.DensityUtil;
 
-public class CourseNoticeActivity extends Activity implements View.OnClickListener{
+public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private View layout_title;
-    private ArrayList<CourseNotice> courseNotices = new ArrayList<CourseNotice>();
-    private LinearLayout container;
-    private int courseNoticeNum = 0;
+//    private View layout_title;
+    private ListView container;
+    private LayoutInflater myInflater;
+    private LinearLayout mainLayout;
+    private ProgressBar progressBar;
+    private boolean hasShow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_notice);
-        this.layout_title = findViewById(R.id.layout_bar);
-        this.container = (LinearLayout)findViewById(R.id.course_notice_container);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        this.layout_title = findViewById(R.id.layout_bar);
+        this.mainLayout =(LinearLayout)findViewById(R.id.course_notice);
+        this.mainLayout.setVisibility(View.GONE);
+
+        this.progressBar = (ProgressBar)findViewById(R.id.course_notice_progress_bar);
+
         initData();
-        initViews();
+//        initViews();
 
     }
-    private void initData(){
-        this.courseNotices = MessageBLService.getCourseNoticeList();
-        this.courseNoticeNum = this.courseNotices.size();
-    }
-    private void initViews(){
-        ImageView iv = (ImageView)this.layout_title.findViewById(R.id.image_title);
-        iv.setImageResource(R.drawable.left);
-        iv.setOnClickListener(this);
-        TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
-        tv.setText("课程公告");
-        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
-        course_notice_num.setText("共 "+this.courseNoticeNum+" 条");
-        for(int i = 0;i<this.courseNotices.size();i++){
-            this.container.addView(this.genCourseNoticeLayout(this.courseNotices.get(i)));
-            this.container.addView(this.genLineSplitView());
+    private class InitDataTask extends AsyncTask<String, Integer, String> {
+        @Override
+        public String doInBackground(String... params) {
+            String userId = params[0];
+            MessageBLService.refreshTotalCourseNoticeNum(userId);
+            MessageBLService.addCourseNotices(userId);
+            return "";
         }
 
+        @Override
+        public void onPostExecute(String result) {
+            progressBar.setVisibility(View.GONE);
+            initViews();
+            mainLayout.setVisibility(View.VISIBLE);
+        }
+    }
+    private void initData(){
+//        this.courseNotices = MessageBLService.getCourseNoticeList();
+//        this.courseNoticeNum = this.courseNotices.size();
+        new InitDataTask().execute("123");
+    }
+    private void initViews(){
+//        ImageView iv = (ImageView)this.layout_title.findViewById(R.id.image_title);
+//        iv.setImageResource(R.drawable.left);
+//        iv.setOnClickListener(this);
+//        TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
+//        tv.setText("课程公告");
+        this.container = (ListView)findViewById(R.id.course_notice_container);
+        this.myInflater = getLayoutInflater();
+        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
+        course_notice_num.setText("共 "+MessageBLService.totalCourseNotice+" 条");
+//        for(int i = 0;i<this.courseNotices.size();i++){
+//            this.container.addView(this.genCourseNoticeLayout(this.courseNotices.get(i)));
+//            this.container.addView(this.genLineSplitView());
+//        }
+        this.container.setAdapter(new CourseNoticeAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.courseNotices));
+
 
     }
-    private View genLineSplitView(){
-        View lineView = new View(this);
-        LinearLayout.LayoutParams layout_line = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,2);
-        lineView.setBackgroundResource(R.color.black2);
-        lineView.setLayoutParams(layout_line);
-        return lineView;
+    static class ViewHolder{
+        TextView course_name_view;
+        TextView notice_content_view;
+        TextView publisher_view;
+        TextView publish_time_view;
     }
-    private LinearLayout genCourseNoticeLayout(CourseNotice courseNotice){
-        int dp5 = DensityUtil.dip2px(this,5);
-        int dp15 = DensityUtil.dip2px(this,15);
-        int dp8 = DensityUtil.dip2px(this,8);
-        int dp2 = DensityUtil.dip2px(this,2);
 
-        LinearLayout coursenoticeLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams  layout_linear = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this,125));
-        layout_linear.setMargins(0,dp5,0,0);
-        coursenoticeLayout.setOrientation(LinearLayout.VERTICAL);
-        coursenoticeLayout.setBaselineAligned(false);
-        coursenoticeLayout.setBackgroundResource(R.drawable.setting_item_selector);
-        coursenoticeLayout.setLayoutParams(layout_linear);
-        String courseName = courseNotice.getCourseName();
-        String content = courseNotice.getContent();
-        String pulisher = courseNotice.getPublisher();
-        String pulishTime = courseNotice.getPublishTime();
-
-        TextView course_name_view = new TextView(this);
-        LinearLayout.LayoutParams layout_course_name = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_course_name.setMargins(dp15, dp8, 0, dp5);
-        course_name_view.setText(courseName);
-        course_name_view.setTextColor(getResources().getColor(R.color.green));
-        course_name_view.setTextSize(20);
-        course_name_view.setLayoutParams(layout_course_name);
-
-        View line_view = new View(this);
-        line_view.setBackgroundResource(R.color.green);
-        LinearLayout.LayoutParams layout_line = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1);
-        layout_line.setMargins(dp15, 0, dp15, 0);
-        line_view.setLayoutParams(layout_line);
-
-        TextView content_view =  new TextView(this);
-        LinearLayout.LayoutParams layout_content = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_content.setMargins(dp15, dp5, dp15, 0);
-        content_view.setText(content);
-        content_view.setLayoutParams(layout_content);
-
-        LinearLayout bottomLinearView = new LinearLayout(this);
-        LinearLayout.LayoutParams layout_bottom = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_bottom.setMargins(dp15, dp8, 0, 0);
-        bottomLinearView.setLayoutParams(layout_bottom);
-        bottomLinearView.setOrientation(LinearLayout.HORIZONTAL);
-
-        LinearLayout bottomLeftView = new LinearLayout(this);
-        LinearLayout.LayoutParams layout_bottom_left = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        bottomLeftView.setGravity(Gravity.LEFT);
-        bottomLeftView.setLayoutParams(layout_bottom_left);
-
-        TextView publisher_view = new TextView(this);
-        LinearLayout.LayoutParams layout_publisher = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        publisher_view.setText(pulisher);
-        publisher_view.setTextSize(12);
-        publisher_view.setLayoutParams(layout_publisher);
-
-        TextView publish_view = new TextView(this);
-        LinearLayout.LayoutParams layout_publish = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout_publish.setMargins(dp2, 0, dp2, 0);
-        publish_view.setText("发表于");
-        publish_view.setTextSize(12);
-        publish_view.setLayoutParams(layout_publish);
-
-        TextView publish_time_view = new TextView(this);
-        publish_time_view.setText(pulishTime);
-        publish_time_view.setTextSize(12);
-        publish_time_view.setLayoutParams(layout_publisher);
-
-        bottomLeftView.addView(publisher_view);
-        bottomLeftView.addView(publish_view);
-        bottomLeftView.addView(publish_time_view);
-
-        LinearLayout bottomRightView = new LinearLayout(this);
-        LinearLayout.LayoutParams layout_bottom_right = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layout_bottom_right.setMargins(0, 0, dp15, 0);
-        bottomRightView.setGravity(Gravity.RIGHT);
-        bottomRightView.setLayoutParams(layout_bottom_right);
-
-        TextView arrow_view = new TextView(this);
-        arrow_view.setText(">");
-        arrow_view.setTextColor(getResources().getColor(R.color.green));
-        arrow_view.setLayoutParams(layout_publisher);
-
-        bottomRightView.addView(arrow_view);
-
-        bottomLinearView.addView(bottomLeftView);
-        bottomLinearView.addView(bottomRightView);
-
-        coursenoticeLayout.addView(course_name_view);
-        coursenoticeLayout.addView(line_view);
-        coursenoticeLayout.addView(content_view);
-        coursenoticeLayout.addView(bottomLinearView);
-        return coursenoticeLayout;
-
+    private class CourseNoticeAdapter extends ArrayAdapter<CourseNotice>{
+        public CourseNoticeAdapter(Context context, int layoutId, List<CourseNotice> courseNotices){
+            super(context,layoutId,courseNotices);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView == null) {
+                convertView = myInflater.inflate(R.layout.layout_course_notice
+                        , null);
+                viewHolder = new ViewHolder();
+                viewHolder.course_name_view = (TextView)convertView.findViewById(R.id.course_name_view);
+                viewHolder.notice_content_view = (TextView)convertView.findViewById(R.id.notice_content_view);
+                viewHolder.publisher_view = (TextView)convertView.findViewById(R.id.publisher_view);
+                viewHolder.publish_time_view = (TextView)convertView.findViewById(R.id.publish_time_view);
+                convertView.setTag(viewHolder);
+            }else{
+                viewHolder = (ViewHolder)convertView.getTag();
+            }
+            CourseNotice courseNotice = getItem(position);
+            viewHolder.course_name_view.setText(courseNotice.getCourseName());
+            viewHolder.notice_content_view.setText(courseNotice.getContent());
+            viewHolder.publisher_view.setText(courseNotice.getPublisher());
+            viewHolder.publish_time_view.setText(courseNotice.getPublishTime());
+            return convertView;
+        }
     }
+//    private View genLineSplitView(){
+//        View lineView = new View(this);
+//        LinearLayout.LayoutParams layout_line = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,2);
+//        lineView.setBackgroundResource(R.color.black2);
+//        lineView.setLayoutParams(layout_line);
+//        return lineView;
+//    }
+//    private LinearLayout genCourseNoticeLayout(CourseNotice courseNotice){
+//        int dp5 = DensityUtil.dip2px(this,5);
+//        int dp15 = DensityUtil.dip2px(this,15);
+//        int dp8 = DensityUtil.dip2px(this,8);
+//        int dp2 = DensityUtil.dip2px(this,2);
+//
+//        LinearLayout coursenoticeLayout = new LinearLayout(this);
+//        LinearLayout.LayoutParams  layout_linear = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this,125));
+//        layout_linear.setMargins(0,dp5,0,0);
+//        coursenoticeLayout.setOrientation(LinearLayout.VERTICAL);
+//        coursenoticeLayout.setBaselineAligned(false);
+//        coursenoticeLayout.setBackgroundResource(R.drawable.setting_item_selector);
+//        coursenoticeLayout.setLayoutParams(layout_linear);
+//        String courseName = courseNotice.getCourseName();
+//        String content = courseNotice.getContent();
+//        String pulisher = courseNotice.getPublisher();
+//        String pulishTime = courseNotice.getPublishTime();
+//
+//        TextView course_name_view = new TextView(this);
+//        LinearLayout.LayoutParams layout_course_name = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layout_course_name.setMargins(dp15, dp8, 0, dp5);
+//        course_name_view.setText(courseName);
+//        course_name_view.setTextColor(getResources().getColor(R.color.green));
+//        course_name_view.setTextSize(20);
+//        course_name_view.setLayoutParams(layout_course_name);
+//
+//        View line_view = new View(this);
+//        line_view.setBackgroundResource(R.color.green);
+//        LinearLayout.LayoutParams layout_line = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1);
+//        layout_line.setMargins(dp15, 0, dp15, 0);
+//        line_view.setLayoutParams(layout_line);
+//
+//        TextView content_view =  new TextView(this);
+//        LinearLayout.LayoutParams layout_content = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layout_content.setMargins(dp15, dp5, dp15, 0);
+//        content_view.setText(content);
+//        content_view.setLayoutParams(layout_content);
+//
+//        LinearLayout bottomLinearView = new LinearLayout(this);
+//        LinearLayout.LayoutParams layout_bottom = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layout_bottom.setMargins(dp15, dp8, 0, 0);
+//        bottomLinearView.setLayoutParams(layout_bottom);
+//        bottomLinearView.setOrientation(LinearLayout.HORIZONTAL);
+//
+//        LinearLayout bottomLeftView = new LinearLayout(this);
+//        LinearLayout.LayoutParams layout_bottom_left = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        bottomLeftView.setGravity(Gravity.LEFT);
+//        bottomLeftView.setLayoutParams(layout_bottom_left);
+//
+//        TextView publisher_view = new TextView(this);
+//        LinearLayout.LayoutParams layout_publisher = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        publisher_view.setText(pulisher);
+//        publisher_view.setTextSize(12);
+//        publisher_view.setLayoutParams(layout_publisher);
+//
+//        TextView publish_view = new TextView(this);
+//        LinearLayout.LayoutParams layout_publish = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layout_publish.setMargins(dp2, 0, dp2, 0);
+//        publish_view.setText("发表于");
+//        publish_view.setTextSize(12);
+//        publish_view.setLayoutParams(layout_publish);
+//
+//        TextView publish_time_view = new TextView(this);
+//        publish_time_view.setText(pulishTime);
+//        publish_time_view.setTextSize(12);
+//        publish_time_view.setLayoutParams(layout_publisher);
+//
+//        bottomLeftView.addView(publisher_view);
+//        bottomLeftView.addView(publish_view);
+//        bottomLeftView.addView(publish_time_view);
+//
+//        LinearLayout bottomRightView = new LinearLayout(this);
+//        LinearLayout.LayoutParams layout_bottom_right = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        layout_bottom_right.setMargins(0, 0, dp15, 0);
+//        bottomRightView.setGravity(Gravity.RIGHT);
+//        bottomRightView.setLayoutParams(layout_bottom_right);
+//
+//        TextView arrow_view = new TextView(this);
+//        arrow_view.setText(">");
+//        arrow_view.setTextColor(getResources().getColor(R.color.green));
+//        arrow_view.setLayoutParams(layout_publisher);
+//
+//        bottomRightView.addView(arrow_view);
+//
+//        bottomLinearView.addView(bottomLeftView);
+//        bottomLinearView.addView(bottomRightView);
+//
+//        coursenoticeLayout.addView(course_name_view);
+//        coursenoticeLayout.addView(line_view);
+//        coursenoticeLayout.addView(content_view);
+//        coursenoticeLayout.addView(bottomLinearView);
+//        return coursenoticeLayout;
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -175,6 +248,9 @@ public class CourseNoticeActivity extends Activity implements View.OnClickListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }else if(id == R.id.home){
+            this.finish();
             return true;
         }
 

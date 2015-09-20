@@ -1,0 +1,77 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="125dp"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/setting_item_selector">
+    <TextView
+        android:id="@+id/course_name_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="数据结构与算法分析"
+        android:textColor="@color/green"
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="4dp" />
+
+    <View
+        android:background="@color/green"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+    <TextView
+        android:id = "@+id/notice_content_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="微信公众平台,给个人、企业和组织提供业务服务与用户管理能力的全新服务平台。卡账单、额度及积分企业和组织提供业务服务与用户管理能力的全新服务平台..."
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="15dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="4dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="left">
+            <TextView
+                android:id="@+id/publisher_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xxx"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发表于"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            <TextView
+                android:id="@+id/publish_time_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015-09-12 10:31:00"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="right"
+            android:layout_marginRight="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textColor="@color/green" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
