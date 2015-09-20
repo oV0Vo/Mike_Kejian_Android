@@ -30,7 +30,7 @@ public class DrawerViewAdapter extends BaseAdapter{
 
     public int getCount(){
 
-        return contentList.size();
+        return 4;
 
     }
 
@@ -47,9 +47,27 @@ public class DrawerViewAdapter extends BaseAdapter{
     }
 
     public View getView(int position,View view,ViewGroup viewGroup){
+        View v=null;
 
-        view=layoutInflater.inflate(R.layout.layout_user_info,viewGroup,false);
-        return view;
+
+        if(view==null) {
+
+            switch(position){
+
+
+                case 0:v=layoutInflater.inflate(R.layout.layout_user_photo,viewGroup,false);break;
+                case 1:v=layoutInflater.inflate(R.layout.layout_user_info,viewGroup,false);break;
+                case 2:v=layoutInflater.inflate(R.layout.layout_user_setting,viewGroup,false);break;
+                case 3:v=layoutInflater.inflate(R.layout.layout_user_attention,viewGroup,false);break;
+
+            }
+        }
+
+        else{
+            v=view;
+        }
+
+        return v;
 
     }
 }
