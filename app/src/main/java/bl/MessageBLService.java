@@ -31,6 +31,11 @@ public class MessageBLService {
     private static int reply_index = 0;
     private static long replyLatestRefreshTime = 0;
 
+    public static int totalPraise = -1;
+    public static ArrayList<Praise> praises = null;
+    private static int praise_index = 0;
+    private static long praiseLatestRefreshTime = 0;
+
     public static void refreshTotalCourseNoticeNum(String userId){
         totalCourseNotice = MessageNetService.getTotalCourseNoticeNum();
     }
@@ -101,16 +106,33 @@ public class MessageBLService {
     }
 
     public static void refreshTotalPraiseNum(String userId){
-
+        totalPraise = MessageNetService.getTotalPraiseNum();
     }
     public static void initPraises(String userId){
-
+        if(praises == null){
+            praises = new ArrayList<>();
+            praiseLatestRefreshTime = System.currentTimeMillis();
+            ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_index, 2);
+            for(int i = 0;i<newPraises.size();i++){
+                praises.add(newPraises.get(i));
+            }
+        }else{
+            refreshPraises(userId);
+        }
     }
     public static void addPraises(String userId){
-
+        ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_index, 10);
+        for(int i = 0;i < newPraises.size();i++){
+            praises.add(newPraises.get(i));
+        }
     }
     public static void refreshPraises(String userId){
-
+        long now = System.currentTimeMillis();
+        ArrayList<Praise> newPraises = MessageNetService.getLatestPraises(userId,praiseLatestRefreshTime,now);
+        praiseLatestRefreshTime = now;
+        for(int i =0;i<newPraises.size();i++){
+            praises.add(i,newPraises.get(i));
+        }
     }
 
     public static void refreshTotalMentionMeNum(String userId){
