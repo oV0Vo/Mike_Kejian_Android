@@ -3,6 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.message;
 import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -30,7 +31,7 @@ import model.message.CourseNotice;
 import model.message.Praise;
 import util.DensityUtil;
 
-public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener{
+public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
 //    private View layout_title;
 //    private ArrayList<Praise> praises = new ArrayList<Praise>();
 //    private int praiseNum = 0;
@@ -58,7 +59,64 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
     private void initData(){
 //        this.praises = MessageBLService.getPraiseList();
 //        this.praiseNum = this.praises.size();
+        new InitDataTask().execute("123");
 
+    }
+
+    @Override
+    public void onDownPullRefresh() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                MessageBLService.refreshPraises("123");
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                praiseArrayAdapter.notifyDataSetChanged();
+                container.hideHeaderView();
+            }
+        }.execute(new Void[]{});
+    }
+
+    @Override
+    public void onLoadingMore() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                MessageBLService.addPraises("12343");
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                praiseArrayAdapter.notifyDataSetChanged();
+
+                // 控制脚布局隐藏
+                container.hideFooterView();
+            }
+        }.execute(new Void[]{});
+
+    }
+
+    private class InitDataTask extends AsyncTask<String, Integer, String> {
+        @Override
+        public String doInBackground(String... params) {
+            String userId = params[0];
+            MessageBLService.refreshTotalPraiseNum(userId);
+            MessageBLService.initPraises(userId);
+            return "";
+        }
+
+        @Override
+        public void onPostExecute(String result) {
+            progressBar.setVisibility(View.GONE);
+            initViews();
+            mainLayout.setVisibility(View.VISIBLE);
+        }
     }
     private void initViews(){
 //        ImageView iv = (ImageView)this.layout_title.findViewById(R.id.image_title);
@@ -66,12 +124,17 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
 //        iv.setOnClickListener(this);
 //        TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
 //        tv.setText("收到的赞");
+        this.container = (RefreshListView)findViewById(R.id.praise_container);
+        this.myInflater = getLayoutInflater();
         TextView praise_num_text = (TextView)this.findViewById(R.id.praise_num);
         praise_num_text.setText("共 "+MessageBLService.totalPraise+ " 条");
 //        for(int i = 0;i<this.praiseNum;i++){
 //            this.container.addView(genPraiseLayout(this.praises.get(i)));
 //            this.container.addView(genLineSplitView());
 //        }
+        this.praiseArrayAdapter = new PraiseAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.praises);
+        this.container.setAdapter(this.praiseArrayAdapter);
+        this.container.setOnRefreshListener(this);
 
     }
     static class ViewHolder{
