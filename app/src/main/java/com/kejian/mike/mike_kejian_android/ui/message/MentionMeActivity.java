@@ -160,7 +160,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Reply reply = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.mail);
+            viewHolder.avatar_view.setImageResource(R.drawable.huiyuanai);
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
             viewHolder.time_view.setText(reply.getReplyTime());
