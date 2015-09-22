@@ -7,6 +7,7 @@ import java.util.Date;
  * Created by showjoy on 15/9/10.
  */
 public class Post {
+    private String postId;
     private String userId;
     private String authorName;
     private String title;
@@ -78,5 +79,13 @@ public class Post {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }

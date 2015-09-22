@@ -9,7 +9,7 @@
     <color name="bar_color">#232325</color>
     <color name="black">#000000</color>
     <color name="green">#16a085</color>
-    <color name="grey">#999999</color>
+    <color name="grey">#bbbbbb</color>
     <color name="my_red">#e74c3c</color>
     <color name="dark">#e8e8e8</color>
 </resources>

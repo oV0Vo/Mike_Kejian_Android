@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
+    private PostListContainerFragment campusFg;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -214,7 +216,9 @@ public class MainActivity extends AppCompatActivity
                         msgFg = new Fragment_Msg();
                     return msgFg;
                 case 2:
-                    return new CampusFragmentMock();
+                    if(campusFg == null)
+                        campusFg = new PostListContainerFragment();
+                    return campusFg;
                 default:
                     //unreach block
                     Log.i("MainActivity", "getItem logic error");
