@@ -158,7 +158,7 @@ public class LatestPostListFragment extends Fragment{
         LinearLayout.LayoutParams layout_comment_image = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layout_comment_image.gravity = Gravity.CENTER;
         comment_image_view.setLayoutParams(layout_comment_image);
-        comment_image_view.setImageResource(R.drawable.comment1);
+        comment_image_view.setImageResource(R.drawable.comment2);
         comment_image_view.setMaxHeight(dp15);
         comment_image_view.setMaxWidth(dp15);
         comment_image_view.setAdjustViewBounds(true);

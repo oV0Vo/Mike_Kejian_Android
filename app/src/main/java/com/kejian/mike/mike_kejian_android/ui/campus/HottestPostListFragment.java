@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.campus;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.message.CourseNoticeActivity;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ import util.DensityUtil;
 /**
  * Created by showjoy on 15/9/17.
  */
-public class HottestPostListFragment extends Fragment{
+public class HottestPostListFragment extends Fragment implements View.OnClickListener{
 
     private View view;
     private LinearLayout container;
@@ -131,6 +133,8 @@ public class HottestPostListFragment extends Fragment{
         postContent.setText(post.getContent());
         postContent.setTextColor(getResources().getColor(R.color.grey));
         postContent.setLayoutParams(layout_post);
+        postContent.setTag(post.getPostId());
+        postContent.setOnClickListener(this);
 
         LinearLayout lastLineStr = new LinearLayout(ctx);
         LinearLayout.LayoutParams layout_lastLine = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -159,7 +163,7 @@ public class HottestPostListFragment extends Fragment{
         LinearLayout.LayoutParams layout_comment_image = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layout_comment_image.gravity = Gravity.CENTER;
         comment_image_view.setLayoutParams(layout_comment_image);
-        comment_image_view.setImageResource(R.drawable.comment1);
+        comment_image_view.setImageResource(R.drawable.comment2);
         comment_image_view.setMaxHeight(dp15);
         comment_image_view.setMaxWidth(dp15);
         comment_image_view.setAdjustViewBounds(true);
@@ -191,5 +195,13 @@ public class HottestPostListFragment extends Fragment{
         postLayout.addView(userImage);
         postLayout.addView(text);
         return postLayout;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        intent.setClass(ctx, PostDetailActivity.class);
+        intent.putExtra("postId", (String) v.getTag());
+        startActivity(intent);
     }
 }
