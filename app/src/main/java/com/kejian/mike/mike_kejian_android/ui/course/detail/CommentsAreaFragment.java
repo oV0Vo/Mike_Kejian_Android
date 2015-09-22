@@ -120,10 +120,12 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
             timeView.setText(post.getDate().toString());
 
             TextView viewNumView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_view_num);
-            viewNumView.setText(post.getViewNum());
+            String viewNumText = new Integer(post.getViewNum()).toString();
+            viewNumView.setText(viewNumText);
 
             TextView replyNumView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_reply_num);
-            replyNumView.setText(post.getReplyList().size());
+            String replyNumText = new Integer(post.getReplyList().size()).toString();
+            replyNumView.setText(replyNumText);
 
             return convertView;
         }

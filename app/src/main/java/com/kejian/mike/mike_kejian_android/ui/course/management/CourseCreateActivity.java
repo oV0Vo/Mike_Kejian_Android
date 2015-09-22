@@ -41,6 +41,7 @@ public class CourseCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_create);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.course_add_title);
 
         titleText = (EditText)findViewById(R.id.course_create_name_text);
@@ -52,7 +53,7 @@ public class CourseCreateActivity extends AppCompatActivity {
         assistantContainer = (ViewGroup)findViewById(R.id.course_create_assistant_container);
         commitButton = (Button)findViewById(R.id.course_create_commit_button);
         progressBar = (ProgressBar)findViewById(R.id.course_create_progress_bar);
-
+        progressBar.setVisibility(View.GONE);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     }
 
@@ -96,7 +97,7 @@ public class CourseCreateActivity extends AppCompatActivity {
                 String content = contentText.getText().toString();
 
                 CourseDetailInfo newCourse = new CourseDetailInfo();
-
+                progressBar.setVisibility(View.VISIBLE);
                 new SubmitNewCourseTask().execute(newCourse);
             }
         });

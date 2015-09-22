@@ -7,6 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/white"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity">
 
     <LinearLayout
@@ -17,34 +18,52 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/little_big_padding"
+                android:textSize="@dimen/sub_big_font"
                 android:text="@string/course_create_name_title"/>
 
             <EditText
                 android:id="@+id/course_create_name_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/dark"
+                android:textSize="@dimen/medium_font"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/course_create_intro_title"/>
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:paddingRight="@dimen/little_big_padding"
+                    android:textSize="@dimen/sub_big_font"
+                    android:text="@string/course_create_intro_title"/>
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/course_create_intro_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_padding"
+                android:gravity="left|top"
+                android:background="@color/dark"
                 android:singleLine="false"
                 android:minLines="5"
                 android:layout_gravity="left|top"/>
@@ -54,17 +73,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/extreme_big_padding"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/course_create_content_title"/>
-
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:paddingRight="@dimen/little_big_padding"
+                    android:textSize="@dimen/sub_big_font"
+                    android:text="@string/course_create_content_title"/>
+            </LinearLayout>
             <EditText
                 android:id="@+id/course_create_content_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_padding"
+                android:gravity="left|top"
+                android:background="@color/dark"
                 android:minLines="7"
                 android:singleLine="false"
                 android:layout_gravity="left|top" />
@@ -74,29 +104,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingTop="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/extreme_big_padding"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/little_big_padding"
+                android:textSize="@dimen/sub_big_font"
                 android:text="@string/course_create_teacher_title"/>
 
             <LinearLayout
                 android:id="@+id/course_create_teacher_container"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <Button
                     android:id="@+id/course_create_add_teacher_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:layout_gravity="right|top"
+                    android:background="@color/white"
+                    android:textSize="@dimen/medium_font"
                     android:text="@string/course_create_add_teacher_action"
                     android:drawableLeft="@null"/>
             </LinearLayout>
@@ -105,41 +141,58 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/extreme_big_padding"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/course_create_add_assistant_action"/>
+                android:layout_gravity="top"
+                android:paddingRight="@dimen/little_big_padding"
+                android:textSize="@dimen/sub_big_font"
+                android:text="@string/course_create_assistant_title"/>
 
             <LinearLayout
                 android:id="@+id/course_create_assistant_container"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <Button
                     android:id="@+id/course_create_add_assistant_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:layout_gravity="right|top"
+                    android:background="@color/white"
+                    android:textSize="@dimen/medium_font"
                     android:text="@string/course_create_add_assistant_action"
                     android:drawableLeft="@null"/>
             </LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/course_create_commit_button"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/course_create_commit_text"
-            android:background="@color/green"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/course_create_commit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:textSize="@dimen/big_font"
+                android:textColor="@color/white"
+                android:text="@string/course_create_commit_text"
+                android:background="@color/green"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ProgressBar

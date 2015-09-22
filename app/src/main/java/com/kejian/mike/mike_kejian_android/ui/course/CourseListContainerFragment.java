@@ -71,7 +71,7 @@ public class CourseListContainerFragment extends Fragment {
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
         initCourseButtonListner();
         initAllCourseSelectLayout(v);
-        myCourseButton.callOnClick();
+        myCourseButton.setChecked(true);
         return v;
     }
 

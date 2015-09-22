@@ -20,17 +20,12 @@ import util.NetOperateResultMessage;
  */
 public class CourseNetService {
 
-    private static int myCourseMaxNum;
+    private static int myCourseMaxNum = Integer.MAX_VALUE;
 
-    private static int allCourseMaxNum;
-
-    private CourseNetService() {
-        myCourseMaxNum = Integer.MAX_VALUE;
-        allCourseMaxNum = Integer.MAX_VALUE;
-    }
+    private static int allCourseMaxNum = Integer.MAX_VALUE;
 
     public static boolean hasMoreMyCourse(int beginPos, int num) {
-        return (beginPos + num) < allCourseMaxNum;
+        return (beginPos + num) < myCourseMaxNum;
     }
 
     public static boolean hasMoreAllCourse(int beginPos, int num) {
@@ -38,15 +33,7 @@ public class CourseNetService {
     }
 
     public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num) {
-        ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
-        for(int i=0; i<num; ++i)
-            mocks.add(getCourseBriefMock1());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return mocks;
+        return getMyCourseBrief(sid, beginPos, num, Integer.MAX_VALUE, TimeUnit.SECONDS);
     }
 
     public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num, int time, TimeUnit timeUnit) {
@@ -63,26 +50,18 @@ public class CourseNetService {
 
     //sid?
     public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, int beginPos, int num) {
-        ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
-        for(int i=0; i<num; ++i)
-            mocks.add(getCourseBriefMock1());
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-        return mocks;
+        return getAllCourseBrief(schoolId, beginPos, num, Integer.MAX_VALUE, TimeUnit.SECONDS);
     }
 
     public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, int beginPos, int num, int time, TimeUnit timeUnit) {
         ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
         for(int i=0; i<num; ++i)
             mocks.add(getCourseBriefMock1());
-        try {
+       /* try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         return mocks;
     }
 
@@ -184,6 +163,7 @@ public class CourseNetService {
         annoucement.setCourseId(courseMock1Id);
         annoucement.setDate(new Date(115, 8, 12));
         annoucement.setPersonId(PersonMocks.id6);
+        course.setAnnoucement(annoucement);
         course.setCourseType(CourseType.专业课);
         course.setCurrentStudents(115);
         course.setOutline("NJU最牛逼的课程，没有之一");

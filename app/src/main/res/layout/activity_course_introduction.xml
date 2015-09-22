@@ -8,6 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/white"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity">
 
     <GridLayout
@@ -22,7 +23,7 @@
             android:id="@+id/course_intro_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/default_book"/>
+            android:background="@drawable/planet"/>
 
         <!--1,2-->
         <LinearLayout
@@ -33,43 +34,50 @@
             <TextView
                 android:id="@+id/course_intro_course_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/extreme_big_font"
+                android:paddingBottom="@dimen/little_big_padding"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/little_big_padding">
 
                 <TextView
                     android:id="@+id/course_intro_course_academy"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/sub_medium_font"
+                    android:textSize="@dimen/medium_font"/>
 
                 <TextView
                     android:id="@+id/course_intro_course_type"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:paddingRight="30dp"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:textColor="@color/green"/>
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="@drawable/user1"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"/>
+                <TextView
+                    android:id="@+id/course_intro_student_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:textColor="@color/dark"/>
 
-                    <TextView
-                        android:id="@+id/course_intro_student_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/course_intro_student_num_postfix"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:textColor="@color/dark"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/course_intro_student_num_postfix"/>
-                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -78,7 +86,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/course_intro_teacher_title"/>
+            android:paddingTop="@dimen/big_padding"
+            android:paddingBottom="@dimen/big_padding"
+            android:text="@string/course_intro_teacher_title"
+            android:textSize="@dimen/sub_big_font"
+            android:textColor="@color/green"/>
 
         <!--2,2 empty text-->
         <TextView
@@ -90,18 +102,24 @@
             android:id="@+id/course_intro_teacher_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"/>
+            android:paddingTop="@dimen/little_big_padding"
+            android:paddingBottom="@dimen/big_padding"
+            android:layout_gravity="center"
+            android:background="@drawable/huiyuanai"/>
 
         <!--3,2-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/little_big_padding"
+            android:paddingBottom="@dimen/big_padding">
 
             <TextView
                 android:id="@+id/course_intro_teacher_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_font"/>
 
             <TextView
                 android:id="@+id/course_intro_teacher_brief_intro"
@@ -114,36 +132,99 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/big_padding"
+            android:textSize="@dimen/sub_big_font"
+            android:textColor="@color/green"
             android:text="@string/course_intro_assistant_title"/>
 
         <!--4,2-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/big_padding">
 
             <LinearLayout
                 android:id="@+id/course_intro_assistants_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:text="李雷"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:paddingRight="10dp"
+                    android:text="韩梅梅"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/course_intro_add_assistant"
-                android:layout_width="wrap_content"
+            <!--<LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/course_intro_add_assistant"
-                android:drawableLeft="@null"/>
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/course_intro_add_assistant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark"
+                    android:text="@string/course_intro_add_assistant"
+                    android:drawableLeft="@null"/>
+            </LinearLayout>-->
         </LinearLayout>
 
     </GridLayout>
 
-    <FrameLayout
-        android:id="@+id/course_intro_detail_container"
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/course_intro_brief_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:button="@null"
+            android:text="@string/course_intro_brief_tab_title"
+            android:textSize="@dimen/sub_big_font"/>
+        <RadioButton
+            android:id="@+id/course_intro_teach_content_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:button="@null"
+            android:text="@string/course_intro_teach_content_tab_title"
+            android:textSize="@dimen/sub_big_font"/>
+        <RadioButton
+            android:id="@+id/course_intro_reference_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:button="@null"
+            android:text="@string/course_intro_reference_tab_title"
+            android:textSize="@dimen/sub_big_font"/>
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/course_intro_detail_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </FrameLayout>
+    </android.support.v4.view.ViewPager>
 
 
 </LinearLayout>

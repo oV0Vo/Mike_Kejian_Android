@@ -8,31 +8,30 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <RadioButton
             android:id="@+id/comments_area_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:button="@null"
             android:text="@string/comments_area_button_text"
-            style="@style/bigFont"/>
+            android:textSize="@dimen/big_font"/>
         <RadioButton
             android:id="@+id/course_question_area_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:button="@null"
             android:text="@string/course_question_area_button_text"
-            style="@style/bigFont"/>
+            android:textSize="@dimen/big_font"/>
     </RadioGroup>
 
     <android.support.v4.view.ViewPager

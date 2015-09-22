@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -25,6 +26,7 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.menu.StudentActionPr
 import com.kejian.mike.mike_kejian_android.ui.course.detail.menu.TeacherActionProvider;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
 
 import bl.CourseBLService;
 import bl.UserInfoService;
@@ -37,7 +39,7 @@ public class CourseActivity extends AppCompatActivity implements
         AnnoucementFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
         StudentActionProvider.OnStudentMenuSelectListener,
-        TeacherActionProvider.OnTeacherMenuSelectListener{
+        CommentsAreaFragment.OnPostSelectedListener {
 
     private ProgressBar progressBar;
     private LinearLayout mainLayout;
@@ -45,10 +47,14 @@ public class CourseActivity extends AppCompatActivity implements
     private AnnoucementFragment annoucemntFg;
     private QuestionAndPostsLayoutFragment postsAndQuestionFg;
 
+    private MenuItem addItem;
+    private PopupWindow addItemSubMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
         mainLayout.setVisibility(View.GONE);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
@@ -77,7 +83,7 @@ public class CourseActivity extends AppCompatActivity implements
                 fm.findFragmentById(R.id.course_detail_brief_info_container);
         if(courseBriefFg == null) {
             courseBriefFg = new CourseBriefInfoFragment();
-            fm.beginTransaction().add(R.id.course_detail_brief_info_container, courseBriefFg)
+            fm.beginTransaction().replace(R.id.course_detail_brief_info_container, courseBriefFg)
                     .commit();
         }
     }
@@ -88,7 +94,7 @@ public class CourseActivity extends AppCompatActivity implements
                 fm.findFragmentById(R.id.course_detail_annoucement_container);
         if(annoucemntFg == null) {
             annoucemntFg = new AnnoucementFragment();
-            fm.beginTransaction().add(R.id.course_detail_annoucement_container, annoucemntFg)
+            fm.beginTransaction().replace(R.id.course_detail_annoucement_container, annoucemntFg)
                     .commit();
         }
     }
@@ -99,7 +105,7 @@ public class CourseActivity extends AppCompatActivity implements
                 fm.findFragmentById(R.id.course_detail_post_and_question_container);
         if(postsAndQuestionFg == null) {
             postsAndQuestionFg = new QuestionAndPostsLayoutFragment();
-            fm.beginTransaction().add(R.id.course_detail_post_and_question_container, postsAndQuestionFg)
+            fm.beginTransaction().replace(R.id.course_detail_post_and_question_container, postsAndQuestionFg)
                     .commit();
         }
     }
@@ -108,14 +114,46 @@ public class CourseActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course, menu);
         initCommonMenu(menu);
+
         return true;
     }
 
     private void initCommonMenu(Menu menu) {
         MenuItem downInfoItem = menu.findItem(R.id.course_down_info_menu_item);
         downInfoItem.setOnMenuItemClickListener(new MenuHideClickListener());
-
+        initTeacherAddMenuItem(menu);
         //init search menu item
+    }
+
+    private void initTeacherAddMenuItem(Menu menu) {
+        addItem = menu.findItem(R.id.course_add_menu_item);
+
+        View subMenuView = createTeacherAddItemSubMenuView();
+        addItemSubMenu = new PopupWindow(subMenuView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        addItemSubMenu.setTouchable(true);
+        addItemSubMenu.setBackgroundDrawable(new BitmapDrawable());
+
+        addItem.getActionView().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItemSubMenu.showAsDropDown(v);
+            }
+        });
+    }
+
+    private View createTeacherAddItemSubMenuView() {
+        View subMenuView =  View.inflate(CourseActivity.this, R.layout.layout_submenu_course_teacher, null);
+
+        ViewGroup annoucPublishLayout = (ViewGroup)subMenuView.findViewById(R.id.course_submenu_teacher_publish_annouc);
+        annoucPublishLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPublishAnnoucActivity();
+                addItemSubMenu.dismiss();
+            }
+        });
+        return subMenuView;
     }
 
     private void startPublishPostActivity() {
@@ -189,23 +227,8 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onTeacherPublishPost() {
-        startPublishPostActivity();
-    }
+    public void onPostSelected() {
 
-    @Override
-    public void onTeacherPublishAnnouc() {
-        startPublishAnnoucActivity();
-    }
-
-    @Override
-    public void onCourseNaming() {
-        startNamingActivity();
-    }
-
-    @Override
-    public void onCourseQuestion() {
-        startQuestionActivity();
     }
 
     private class GetCourseDetailTask extends AsyncTask<String, Integer, CourseDetailInfo> {
@@ -221,6 +244,7 @@ public class CourseActivity extends AppCompatActivity implements
             CourseModel.getInstance().setCurrentCourseDetail(result);
             progressBar.setVisibility(View.GONE);
             initFragments();
+            mainLayout.setVisibility(View.VISIBLE);
         }
     }
 
