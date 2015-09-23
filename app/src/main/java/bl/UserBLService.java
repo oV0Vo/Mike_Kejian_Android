@@ -5,6 +5,7 @@ package bl;
  */
 
 import model.user.UserPost;
+import model.user.UserToken;
 import model.user.user;
 import java.util.List;
 
@@ -34,13 +35,23 @@ public class UserBLService {
     public void update(){
 
     }
-    public boolean login(){
-        return false;
+    public user login(UserToken userToken){
+
+        user u=new user(null);
+
+
+
+        return null;
+
+
     }
 
     public static void post(UserPost userPost){
 
     }
+
+
+
 
 
 
