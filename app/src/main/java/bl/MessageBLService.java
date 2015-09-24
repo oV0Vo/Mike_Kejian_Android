@@ -49,7 +49,7 @@ public class MessageBLService {
     public static void initCourseNotices(String userId){
 
         if(courseNotices == null){
-            courseNotices = new ArrayList<>();
+            courseNotices = new ArrayList<CourseNotice>();
             courseNoticeLatestRefreshTime = System.currentTimeMillis();
             ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId,course_notice_index,2);
             for(int i = 0;i<newCourseNotices.size();i++){
@@ -84,7 +84,7 @@ public class MessageBLService {
     }
     public static void initReplies(String userId){
         if(replies == null){
-            replies = new ArrayList<>();
+            replies = new ArrayList<Reply>();
             replyLatestRefreshTime = System.currentTimeMillis();
             ArrayList<Reply> newReplies = MessageNetService.getNextReplies(userId,reply_index,2);
             for(int i = 0;i<newReplies.size();i++){
@@ -115,7 +115,7 @@ public class MessageBLService {
     }
     public static void initPraises(String userId){
         if(praises == null){
-            praises = new ArrayList<>();
+            praises = new ArrayList();
             praiseLatestRefreshTime = System.currentTimeMillis();
             ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_index, 2);
             for(int i = 0;i<newPraises.size();i++){
@@ -146,7 +146,7 @@ public class MessageBLService {
     }
     public static void initMentionMes(String userId){
         if(mentionMes == null){
-            mentionMes = new ArrayList<>();
+            mentionMes = new ArrayList();
             mentionLatestRefreshTime = System.currentTimeMillis();
             ArrayList<MentionMe> newMentions= MessageNetService.getNextMentionMes(userId, mentionme_index, 2);
             for(int i = 0;i<newMentions.size();i++){
