@@ -18,7 +18,7 @@
         android:gravity="center"
         android:textColor="@color/dark"
         android:singleLine="false"
-        style="@style/bigFont"
+        android:textSize="@dimen/big_font"
         android:text="@string/main_course_no_more_course"/>
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.main;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.fragment_user_info_otherview);
         setContentView(R.layout.activity_main);
         mTitle = getTitle();
         initUserAccountBLService();
@@ -112,8 +115,11 @@ public class MainActivity extends AppCompatActivity
 
     private void initViewPager() {
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager)findViewById(R.id.main_view_pager);
+        ViewGroup viewPagerContainer = (ViewGroup)findViewById(R.id.main_view_pager_container);
+        viewPager = new ViewPager(this);
+        viewPager.setId(R.id.main_view_pager);
         viewPager.setAdapter(mainPagerAdapter);
+        viewPagerContainer.addView(viewPager);
     }
 
     private void initRadioButtons() {
@@ -196,7 +202,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(startCourseDetailIntent);
     }
 
-    private class MainPagerAdapter extends FragmentStatePagerAdapter {
+    private class MainPagerAdapter extends FragmentPagerAdapter {
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -204,21 +210,23 @@ public class MainActivity extends AppCompatActivity
 
         @NeedRefinedAnnotation
         @Override
-        public Fragment getItem(int position) {
+        public Fragment getItem(int position) {Log.e("MainActivity", "viewPager getItem " + new Integer(position).toString());
             switch(position) {
                 case 0:
-                    if(courseFg == null)
+                    if(courseFg == null) { Log.e("MainActivity", "courseFg null");
                         courseFg = new CourseListContainerFragment();
-                    setCourseMenu();
+                    }
+                    //setCourseMenu();
                     return courseFg;
                 case 1:
-                    if(msgFg == null)
+                    if(msgFg == null) { Log.e("MainActivity", "msgFg null");
                         msgFg = new Fragment_Msg();
+                    }
                     return msgFg;
-                case 2:
-                    if(campusFg == null)
-                        campusFg = new PostListContainerFragment();
-                    return campusFg;
+                case 2:Log.e("MainActivity", "get campusFg");
+                    /*if(campusFg == null)
+                        campusFg = new PostListContainerFragment();*/
+                    return new CampusFragmentMock();
                 default:
                     //unreach block
                     Log.i("MainActivity", "getItem logic error");

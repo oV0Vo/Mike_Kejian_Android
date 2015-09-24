@@ -52,7 +52,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     private static final int ALL_COURSE_FETCH_NUM = 50;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {Log.e("CourseListFg", "onCreate");
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
         courseBL = CourseBLService.getInstance();
@@ -142,7 +142,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {Log.e("CourseListFg", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
         listView = (AbsListView) view.findViewById(R.id.main_course_list);

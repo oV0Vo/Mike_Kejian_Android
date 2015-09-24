@@ -14,8 +14,12 @@
     <dimen name="medium_font">16dp</dimen>
     <dimen name="sub_medium_font">14dp</dimen>
     <dimen name="small_font">12dp</dimen>
-    <dimen name="big_font">20dp</dimen>
-    <dimen name="sub_big_font">18dp</dimen>
+    <dimen name="big_font">18dp</dimen>
+    <dimen name="sub_big_font">17dp</dimen>
     <dimen name="extreme_small_font">10dp</dimen>
     <dimen name="extreme_big_font">22dp</dimen>
+    <dimen name="medium_icon_width">34dp</dimen>
+    <dimen name="medium_icon_height">34dp</dimen>
+    <dimen name="sub_medium_icon_width">30dp</dimen>
+    <dimen name="sub_medium_icon_height">30dp</dimen>
 </resources>

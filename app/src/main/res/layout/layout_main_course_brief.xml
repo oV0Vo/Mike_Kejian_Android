@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/green"
             android:paddingBottom="12dp"
-            style="@style/bigFont"/>
+            android:textSize="@dimen/big_font"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

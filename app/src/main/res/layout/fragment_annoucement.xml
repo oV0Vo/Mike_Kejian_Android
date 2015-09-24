@@ -13,7 +13,7 @@
         android:drawableLeft="@drawable/notification_green"
         android:text="@string/annoucement_title"
         android:textColor="@color/green"
-        style="@style/bigFont"/>
+        android:textSize="@dimen/big_font"/>
 
     <TextView
         android:id="@+id/course_detail_annoucement_content"

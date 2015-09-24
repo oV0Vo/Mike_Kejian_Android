@@ -14,17 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/main_view_pager_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v4.view.ViewPager
-            android:id="@+id/main_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            </android.support.v4.view.ViewPager>
-        </LinearLayout>
+            android:layout_height="wrap_content">
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
