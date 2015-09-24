@@ -1,13 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:textSize">@dimen/small_font</item>
         <item name="android:typeface">monospace</item>
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="homeAsUpIndicator">@drawable/bell</item>
     </style>
 
-    <style name="actionBarStyle">
-        <item name="android:background">@color/green</item>
+    <style name="myActionBarStyle" parent="android:Widget.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="submenuStyle">
@@ -16,22 +18,6 @@
     </style>
     <style name="wideButton">
         <item name="android:width">100dp</item>
-    </style>
-
-    <style name="extremeSmallFont">
-        <item name="android:textSize">6dp</item>
-    </style>
-
-    <style name="smallFont">
-        <item name="android:textSize">13dp</item>
-    </style>
-
-    <style name="mediumFont">
-        <item name="android:textSize">16dp</item>
-    </style>
-
-    <style name="bigFont">
-        <item name="android:textSize">20dp</item>
     </style>
 
 </resources>

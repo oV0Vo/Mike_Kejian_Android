@@ -163,7 +163,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Praise praise = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.mail);
+            viewHolder.avatar_view.setImageResource(R.drawable.huiyuanai);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());
             viewHolder.time_view.setText(praise.getReplyTime());
