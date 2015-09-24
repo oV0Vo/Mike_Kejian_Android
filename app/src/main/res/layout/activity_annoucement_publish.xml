@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/medium_font"
-            android:paddingRight="@dimen/little_big_padding"
+            android:paddingRight="@dimen/sub_big_padding"
             android:text="@string/annoucement_publish_title_head"/>
 
         <EditText
@@ -52,7 +52,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/little_big_padding">
+            android:paddingRight="@dimen/sub_big_padding">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,13 +83,9 @@
             android:orientation="vertical">
             <Button
                 android:id="@+id/annoucement_publish_commit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:textColor="@color/white"
-                android:textSize="@dimen/medium_font"
                 android:text="@string/annoucement_publish_commit"
-                android:background="@color/green"/>
+                style="@style/button_green_whiteText"/>
         </LinearLayout>
     </LinearLayout>
 

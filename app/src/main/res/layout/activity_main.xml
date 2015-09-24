@@ -36,11 +36,11 @@
                     android:button="@null"
                     android:text="@string/course_tab_tag"
                     android:gravity="center|bottom"
-                    android:textSize="@dimen/medium_font"
+                    android:textSize="@dimen/sub_medium_font"
                     android:textColor="@color/white"
-                    android:drawableTop="@drawable/comment3"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:drawableTop="@drawable/book2"
+                    android:paddingTop="@dimen/sub_big_padding"
+                    android:paddingBottom="@dimen/small_padding"
                     android:layout_weight="1"
                     />
                 <RadioButton
@@ -50,11 +50,11 @@
                     android:button="@null"
                     android:text="@string/message_tab_tag"
                     android:gravity="center|bottom"
-                    android:textSize="@dimen/medium_font"
+                    android:textSize="@dimen/sub_medium_font"
                     android:textColor="@color/white"
-                    android:drawableTop="@drawable/comment3"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:drawableTop="@drawable/book2"
+                    android:paddingTop="@dimen/sub_big_padding"
+                    android:paddingBottom="@dimen/small_padding"
                     android:layout_weight="1"
                     />
                 <RadioButton
@@ -64,11 +64,11 @@
                     android:button="@null"
                     android:text="@string/campus_tab_tag"
                     android:gravity="center|bottom"
-                    android:textSize="@dimen/medium_font"
+                    android:textSize="@dimen/sub_medium_font"
                     android:textColor="@color/white"
-                    android:drawableTop="@drawable/comment3"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:drawableTop="@drawable/book2"
+                    android:paddingTop="@dimen/sub_big_padding"
+                    android:paddingBottom="@dimen/small_padding"
                     android:layout_weight="1"
                     />
             </RadioGroup>

@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/little_big_padding"
+                android:paddingRight="@dimen/sub_big_padding"
                 android:textSize="@dimen/sub_big_font"
                 android:text="@string/course_create_name_title"/>
 
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:paddingRight="@dimen/little_big_padding"
+                    android:paddingRight="@dimen/sub_big_padding"
                     android:textSize="@dimen/sub_big_font"
                     android:text="@string/course_create_intro_title"/>
             </LinearLayout>
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:paddingRight="@dimen/little_big_padding"
+                    android:paddingRight="@dimen/sub_big_padding"
                     android:textSize="@dimen/sub_big_font"
                     android:text="@string/course_create_content_title"/>
             </LinearLayout>
@@ -111,7 +111,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/little_big_padding"
+                android:paddingRight="@dimen/sub_big_padding"
                 android:textSize="@dimen/sub_big_font"
                 android:text="@string/course_create_teacher_title"/>
 
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:paddingRight="@dimen/little_big_padding"
+                android:paddingRight="@dimen/sub_big_padding"
                 android:textSize="@dimen/sub_big_font"
                 android:text="@string/course_create_assistant_title"/>
 

@@ -6,12 +6,13 @@ import java.util.Date;
 /**
  * Created by violetMoon on 2015/9/18.
  */
-public class BasicQuestion {
+public abstract class BasicQuestion {
     private String courseId;
     private String authorId;
-    private String questionType;
+    private QuestionType questionType;
     private String content;
     private Date questionDate;
+    private boolean iJoined;
 
     public String getCourseId() {
         return courseId;
@@ -29,11 +30,11 @@ public class BasicQuestion {
         this.authorId = authorId;
     }
 
-    public String getQuestionType() {
+    public QuestionType getQuestionType() {
         return questionType;
     }
 
-    public void setQuestionType(String questionType) {
+    public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
     }
 
@@ -51,5 +52,13 @@ public class BasicQuestion {
 
     public void setQuestionDate(Date questionDate) {
         this.questionDate = questionDate;
+    }
+
+    public boolean isiJoined() {
+        return iJoined;
+    }
+
+    public void setiJoined(boolean iJoined) {
+        this.iJoined = iJoined;
     }
 }

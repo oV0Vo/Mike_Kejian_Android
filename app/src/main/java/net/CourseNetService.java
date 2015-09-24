@@ -2,6 +2,7 @@ package net;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import model.campus.Post;
@@ -13,6 +14,7 @@ import model.course.PersonMocks;
 import model.course.PostMocks;
 import model.course.question.BasicQuestion;
 import model.course.question.QuestionSet;
+import model.course.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
 
 /**
@@ -188,9 +190,38 @@ public class CourseNetService {
 
     private static QuestionSet getQuestionSetMock() {
         QuestionSet mocks = new QuestionSet();
+
         ArrayList<BasicQuestion> currentQuestions = new ArrayList<BasicQuestion>();
+        currentQuestions.add(getQuestionMock());
+        mocks.setCurrentQuestions(currentQuestions);
+
         ArrayList<Long> currentQuestionLeftMills = new ArrayList<Long>();
+        currentQuestionLeftMills.add(TimeUnit.SECONDS.toNanos(new Random().nextInt(720)));
+        mocks.setCurrentQuestionLeftMills(currentQuestionLeftMills);
+
         ArrayList<BasicQuestion> historyQuestions = new ArrayList<BasicQuestion>();
+        historyQuestions.add(getQuestionMock());
+        historyQuestions.add(getQuestionMock());
+        historyQuestions.add(getQuestionMock());
+        historyQuestions.add(getQuestionMock());
+        mocks.setHistoryQuestions(historyQuestions);
+
         return mocks;
+    }
+
+    private static BasicQuestion getQuestionMock() {
+        SingleChoiceQuestion q = new SingleChoiceQuestion();
+        q.setCorrectChoice(1);
+        q.setAuthorId(PersonMocks.id9);
+        ArrayList<String> contents = new ArrayList<String>();
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        q.setChoiceContents(contents);
+        q.setContent("百度已经是中国用户上网操作的使用习惯,甚至是不少中国用户为数不多的几个入口之一。");
+        q.setCourseId("zhe bu shi yi ge id");
+        q.setQuestionDate(new Date(System.currentTimeMillis()));
+        return q;
     }
 }

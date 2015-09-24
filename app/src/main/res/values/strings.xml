@@ -51,6 +51,7 @@
     <string name="post_action_name">发表于</string>
 
     <string name="answer_question_text">我要答题</string>
+    <string name="close_question_text">关闭答题</string>
     <string name="history_question_list_title">往期问题</string>
 
     <string name="course_detail_activity">课程页面</string>
@@ -104,6 +105,7 @@
     <string name="question_answer_all_answer_no_more_question">没有更多问题了</string>
 
     <!--question publish-->
+    <string name="question_publish_time_limit">时限</string>
     <string name="question_publish_type_title">类型</string>
     <string name="question_publish_content_title">题目</string>
     <string name="question_publish_choice_title">选项</string>
@@ -139,4 +141,8 @@
     <string name="zhankai">展开</string>
     <string name="title_activity_course_naming">CourseNamingActivity</string>
     <string name="title_activity_question_publish">QuestionPublishActivity</string>
+    <string name="minute">分钟</string>
+    <string name="single_choice_question">单选题</string>
+    <string name="multi_choice_question">多选题</string>
+    <string name="other">其他</string>
 </resources>

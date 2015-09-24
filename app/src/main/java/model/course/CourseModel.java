@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import model.campus.Post;
+import model.course.question.BasicQuestion;
+import model.course.question.QuestionSet;
 
 /**
  * Created by violetMoon on 2015/9/8.
@@ -18,6 +20,8 @@ public class CourseModel {
 
     private CourseBriefInfo currentCourseBrief;
     private CourseDetailInfo currentCourseDetail;
+
+    private QuestionSet currentCourseQuestionSet;
 
     private Post currentPost;
 
@@ -108,6 +112,12 @@ public class CourseModel {
     public void setCurrentCourseBrief(CourseBriefInfo currentCourseBrief) {
         this.currentCourseBrief = currentCourseBrief;
     }
+
+    public void setCurrentCourseQuestionSet() {
+
+    }
+
+
 
     public Post getCurrentPost() {
         return currentPost;

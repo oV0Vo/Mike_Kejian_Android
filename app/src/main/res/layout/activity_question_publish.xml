@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp"
+    android:paddingLeft="@dimen/big_padding"
+    android:paddingRight="@dimen/big_padding"
+    android:paddingTop="@dimen/big_padding"
+    android:paddingBottom="@dimen/big_padding"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity">
 
     <LinearLayout
@@ -18,8 +18,36 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_publish_choice_title"
+            android:textSize="@dimen/big_font"
+            android:text="@string/question_publish_time_limit"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/small_padding"
+            android:layout_weight="1"
             android:textSize="@dimen/medium_font" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="@dimen/medium_font"
+            android:gravity="left"
+            android:text="@string/minute"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/extreme_big_padding"
+            android:text="@string/question_publish_type_title"
+            android:textSize="@dimen/big_font" />
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -29,17 +57,28 @@
             <RadioButton
                 android:id="@+id/question_publish_type_single_choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/big_padding"
+                android:textSize="@dimen/medium_font"
+                android:text="@string/single_choice_question"/>
 
             <RadioButton
                 android:id="@+id/question_publish_type_multi_choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:textSize="@dimen/medium_font"
+                android:text="@string/multi_choice_question"/>
 
             <RadioButton
                 android:id="@+id/question_publish_type_other"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/big_padding"
+                android:paddingRight="@dimen/big_padding"
+                android:textSize="@dimen/medium_font"
+                android:text="@string/other"/>
         </RadioGroup>
     </LinearLayout>
 
@@ -51,7 +90,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"/>
+            android:layout_gravity="top|center"
+            android:textSize="@dimen/big_font"
+            android:text="@string/question_publish_content_title"/>
 
         <EditText
             android:id="@+id/question_publish_content_text"
@@ -60,7 +101,8 @@
             android:singleLine="false"
             android:minLines="3"
             android:maxLines="3"
-            android:hint=""/>
+            android:gravity="left|top"
+            android:hint="@string/question_publish_content_hint"/>
     </LinearLayout>
 
 </LinearLayout>

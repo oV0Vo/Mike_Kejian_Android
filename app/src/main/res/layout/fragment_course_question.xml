@@ -1,5 +1,10 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:id="@+id/course_question_main_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -16,7 +21,7 @@
             android:background="@drawable/quiz"/>
 
         <TextView
-            android:id="@+id/current_question_content"
+            android:id="@+id/course_question_current_question_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
@@ -27,20 +32,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="right">
 
             <TextView
                 android:id="@+id/current_question_content_action_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:textColor="@color/green"/>
 
             <ImageView
                 android:id="@+id/current_question_content_action_image"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"/>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -53,12 +57,14 @@
                 android:id="@+id/current_question_left_time_clock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
                 android:background="@drawable/bell"/>
             
             <TextView
                 android:id="@+id/current_question_countdown_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
                 android:textSize="@dimen/medium_font"/>
 
             <LinearLayout
@@ -72,6 +78,7 @@
                     android:layout_gravity="right"
                     android:background="@color/green"
                     android:textSize="@dimen/big_font"
+                    android:textColor="@color/white"
                     android:text="@string/answer_question_text" />
             </LinearLayout>
         </LinearLayout>
@@ -81,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/history_question_list_title"
-        android:textSize="@dimen/medium_font"
+        android:textSize="@dimen/sub_big_font"
         android:textColor="@color/green"/>
 
     <FrameLayout
@@ -91,3 +98,13 @@
     </FrameLayout>
 
 </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/course_question_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        style="?android:attr/progressBarStyleLarge"/>
+
+</RelativeLayout>
