@@ -18,15 +18,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/extreme_big_padding"
             android:textSize="@dimen/big_font"
             android:text="@string/question_publish_time_limit"/>
 
         <EditText
+            android:id="@+id/question_publish_time_limit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/small_padding"
             android:layout_weight="1"
-            android:textSize="@dimen/medium_font" />
+            android:textSize="@dimen/medium_font"
+            android:inputType="textMultiLine" />
 
         <TextView
             android:layout_width="match_parent"
@@ -50,6 +53,7 @@
             android:textSize="@dimen/big_font" />
 
         <RadioGroup
+            android:id="@+id/question_publish_type_choices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -90,6 +94,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/extreme_big_padding"
             android:layout_gravity="top|center"
             android:textSize="@dimen/big_font"
             android:text="@string/question_publish_content_title"/>
@@ -105,4 +110,60 @@
             android:hint="@string/question_publish_content_hint"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/question_publish_choice_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/extreme_big_padding"
+                android:textSize="@dimen/big_font"
+                android:text="@string/question_publish_choice_title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_font"
+                android:text="@string/question_publish_choice_num_title"/>
+
+            <Button
+                android:id="@+id/question_publish_choice_num_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:drawableRight="@null"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/question_publish_choice_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/extreme_big_padding"
+            android:orientation="vertical">
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+        <Button
+            android:id="@+id/question_publish_commit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/white"
+            android:text="@string/question_publish_confined"/>
+    </LinearLayout>
 </LinearLayout>

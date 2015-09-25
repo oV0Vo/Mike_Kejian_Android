@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import model.course.CourseAnnoucement;
 import model.course.CourseBriefInfo;
 import model.course.CourseDetailInfo;
+import model.course.question.BasicQuestion;
+import model.course.question.CurrentQuestion;
 import model.course.question.QuestionSet;
 import model.helper.ResultMessage;
 import util.NeedAsyncAnnotation;
@@ -95,6 +97,10 @@ public class CourseBLService {
 
     public boolean hasMoreAllCourses(int beginPos, int num) {
         return CourseNetService.hasMoreAllCourse(beginPos, num);
+    }
+
+    public NetOperateResultMessage addNewQuestion(CurrentQuestion question) {
+        return CourseNetService.addNewQuestion(question);
     }
 
     public ArrayList<String> getAllCourseTypeNamesMock() {

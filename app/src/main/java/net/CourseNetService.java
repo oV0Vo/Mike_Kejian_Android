@@ -13,6 +13,7 @@ import model.course.CourseType;
 import model.course.PersonMocks;
 import model.course.PostMocks;
 import model.course.question.BasicQuestion;
+import model.course.question.CurrentQuestion;
 import model.course.question.QuestionSet;
 import model.course.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
@@ -123,6 +124,15 @@ public class CourseNetService {
 
     public static QuestionSet getQuestion(String courseId) {
         return getQuestionSetMock();
+    }
+
+    public static NetOperateResultMessage addNewQuestion(CurrentQuestion question) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static final class CourseNetArg {

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public class MultiChoiceQuestion extends ChoiceQuestion{
     private ArrayList<Integer> correctChoices;
 
+    public MultiChoiceQuestion() {
+        setQuestionType(QuestionType.多选题);
+    }
+
     public ArrayList<Integer> getCorrectChoices() {
         return correctChoices;
     }

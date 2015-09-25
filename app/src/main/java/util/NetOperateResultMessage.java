@@ -5,3 +5,4 @@ package util;
  */
 public class NetOperateResultMessage {
 }
+

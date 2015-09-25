@@ -109,9 +109,17 @@
     <string name="question_publish_type_title">类型</string>
     <string name="question_publish_content_title">题目</string>
     <string name="question_publish_choice_title">选项</string>
-    <string name="question_publish_choice_hint">请设置选项个数</string>
+    <string name="question_publish_choice_num_title">请设置选项个数</string>
     <string name="question_publish_application_answer_title">答案</string>
-    <string name="question_publish_content_hint">请在此处输入题干</string>
+    <string name="question_publish_content_hint">请在此输入题干</string>
+    <string name="question_publish_choice_hint">请在此输入选项内容</string>
+    <string name="question_publish_correct_answer">正确答案</string>
+    <string name="question_publish_confined">确认发布</string>
+    <string name="question_publish_invalid_time_limit_alert_message">请在输入一个时限（整数）
+        </string>
+    <string name="question_publish_no_choice">请选择一个正确答案</string>
+    <string name="question_publish_success_message">添加课程成功！</string>
+
     <!--internal error-->
     <string name="internal_logic_error_message">系统错误，请稍后再试</string>
 
@@ -145,4 +153,10 @@
     <string name="single_choice_question">单选题</string>
     <string name="multi_choice_question">多选题</string>
     <string name="other">其他</string>
+    <string name="char_A">A</string>
+    <string name="char_B">B</string>
+    <string name="char_C">C</string>
+    <string name="char_D">D</string>
+    <string name="num_four">4</string>
+    <string name="on_process">正在处理中，请稍等片刻</string>
 </resources>

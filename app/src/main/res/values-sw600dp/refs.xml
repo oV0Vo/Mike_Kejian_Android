@@ -11,3 +11,4 @@
     -->
     <item name="fragment_post" type="layout">@layout/fragment_post_grid</item>
 
+</resources>
