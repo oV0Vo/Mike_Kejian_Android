@@ -60,6 +60,8 @@ public class UserBLService {
 
         else{
 
+            UserNetService.addNewUser(userToken);
+
             System.out.println("注册成功!");
             userToken.setIsGetCode(true);
             return UserBLResult.REGISTER_SUCCEED;

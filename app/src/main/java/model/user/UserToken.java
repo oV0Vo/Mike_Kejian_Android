@@ -42,6 +42,12 @@ public class UserToken implements Serializable{
         return name;
     }
 
+    public String getPassword(){
+
+        return password;
+
+    }
+
     public void setPhoneNumber(String phoneNumber){
 
         this.phoneNumber=phoneNumber;

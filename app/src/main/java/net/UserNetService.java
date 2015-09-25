@@ -5,6 +5,7 @@ import net.UserDataBase.UserDataBase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import bl.UserBLResult;
 import model.user.AttentionList;
 import model.user.Friend;
 import model.user.UserToken;
@@ -36,15 +37,16 @@ public class UserNetService {
 
     public static user getUser(UserToken userToken){
 
-        System.out.print("search in database "+userToken.getName());
+        System.out.println("search in database "+userToken.getName());
 
 
-        HashMap userInfo=userDataBase.getUser(userToken.getName());
+        HashMap userInfo=userDataBase.getUser(userToken.getName(),userToken.getPassword());
 
 
         if(userInfo!=null){
 
             return new user(userInfo);
+
         }
         else{
 
@@ -61,6 +63,20 @@ public class UserNetService {
     public AttentionList<Friend> getAttentionList(UserToken userToken){
 
         return null;
+
+    }
+
+    public static UserBLResult addNewUser(UserToken userToken){
+
+        HashMap userInfo=new HashMap();
+        userInfo.put("name", userToken.getName());
+        userInfo.put("phoneNumber", userToken.getName());
+        userInfo.put("password",userToken.getPassword());
+
+        int id=userDataBase.addNewUser(userToken.getName(),userInfo);
+
+        return UserBLResult.REGISTER_SUCCEED;
+
 
     }
 
