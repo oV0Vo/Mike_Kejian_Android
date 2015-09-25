@@ -4,9 +4,13 @@ package bl;
  * Created by kisstheraik on 15/9/10.
  */
 
+import net.UserNetService;
+
 import model.user.UserPost;
 import model.user.UserToken;
 import model.user.user;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class UserBLService {
@@ -37,12 +41,30 @@ public class UserBLService {
     }
     public user login(UserToken userToken){
 
-        user u=new user(null);
+        System.out.println("build user ");
 
 
 
-        return null;
+        return UserNetService.getUser(userToken);
 
+
+    }
+
+    public UserBLResult register(UserToken userToken){
+
+        if(userToken==null){
+
+            return UserBLResult.REGISTER_FAILED;
+
+        }
+
+        else{
+
+            System.out.println("注册成功!");
+            userToken.setIsGetCode(true);
+            return UserBLResult.REGISTER_SUCCEED;
+
+        }
 
     }
 

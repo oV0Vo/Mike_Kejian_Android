@@ -1,6 +1,9 @@
 package net;
 
+import net.UserDataBase.UserDataBase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.user.AttentionList;
 import model.user.Friend;
@@ -13,19 +16,45 @@ import model.user.user;
  */
 public class UserNetService {
 
+
+
     private UserNetService instance=new UserNetService();
+
+    private static UserDataBase userDataBase=new UserDataBase();
 
     private UserNetService(){
 
 
     }
 
-    public user getUserInfo(UserToken userToken){
+    private user register(){
 
-        user u=new user(null);
+        user user=new user(null);
+
+        return user;
+    }
+
+    public static user getUser(UserToken userToken){
+
+        System.out.print("search in database "+userToken.getName());
 
 
-        return u;
+        HashMap userInfo=userDataBase.getUser(userToken.getName());
+
+
+        if(userInfo!=null){
+
+            return new user(userInfo);
+        }
+        else{
+
+            return null;
+
+        }
+
+
+
+
 
     }
 
