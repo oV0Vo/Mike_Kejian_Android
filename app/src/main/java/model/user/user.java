@@ -1,7 +1,11 @@
 package model.user;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import junit.framework.Assert;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import bl.UserBLResult;
@@ -9,7 +13,7 @@ import bl.UserBLResult;
 /**
  * Created by kisstheraik on 15/9/10.
  */
-public class user {
+public class user implements Serializable{
 
     private String name;//
     private String icon;//头像
@@ -21,6 +25,8 @@ public class user {
     private String grade;//年级
     private String sign;//个性签名
     private String background_icon_path;//背景图片
+    private String id;
+
     private UserAttentionList userAttentionList=new UserAttentionList();
 
     private UserToken token;
@@ -31,7 +37,34 @@ public class user {
 
 
 
+    public user(){
+
+    }
+
+
     public user(HashMap<String,Object> infoSet){
+
+        if(infoSet==null){
+
+            return;
+
+        }
+
+
+
+
+
+
+
+        name=(String)(infoSet.get("name"));
+        gender=(String)(infoSet.get("gender"));
+        grade=(String)(infoSet.get("grade"));
+        icon=(String)(infoSet.get("icon"));
+        sign=(String)(infoSet.get("sign"));
+        identify=(String)(infoSet.get("identify"));
+        id=infoSet.get("id").toString();
+
+
 
 
 
@@ -97,6 +130,10 @@ public class user {
         return null;
 
     }
+
+
+
+
 
 
 

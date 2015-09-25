@@ -68,7 +68,6 @@ ListView l=new ListView(context);
 
                 ListView l=new ListView(context);
                 l.setAdapter(new AttentionListAdapter(3,null,context));
-
                 container.addView(l);
 
             }

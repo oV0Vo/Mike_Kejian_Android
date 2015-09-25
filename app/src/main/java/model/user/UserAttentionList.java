@@ -1,9 +1,11 @@
 package model.user;
 
+import java.io.Serializable;
+
 /**
  * Created by kisstheraik on 15/9/23.
  */
-public class UserAttentionList {
+public class UserAttentionList implements Serializable{
 
     private user user;
     private AttentionList<Friend> attentionPeopleList=new AttentionList<Friend>();

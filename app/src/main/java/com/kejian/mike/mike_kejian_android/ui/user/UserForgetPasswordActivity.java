@@ -39,4 +39,6 @@ public class UserForgetPasswordActivity extends Activity{
     public void close(){
         this.finish();
     }
+
+
 }
