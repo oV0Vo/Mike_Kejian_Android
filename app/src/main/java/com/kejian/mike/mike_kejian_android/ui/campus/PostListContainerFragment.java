@@ -1,11 +1,15 @@
 package com.kejian.mike.mike_kejian_android.ui.campus;
 
-import android.app.ActionBar;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,6 +23,13 @@ public class PostListContainerFragment extends Fragment {
     private View view;
     private FragmentTabHost mTabHost;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(view == null){
@@ -31,18 +42,7 @@ public class PostListContainerFragment extends Fragment {
                     LatestPostListFragment.class, null);
             mTabHost.addTab(mTabHost.newTabSpec("hottest").setIndicator("热门"),
                     HottestPostListFragment.class, null);
-            /*
-            View indicator = (View)inflater.inflate(R.layout.tabwidgets_layout, null);
-            TextView textView = (TextView)indicator.findViewById(R.id.tabwidget_indicator);
 
-            textView.setText("tabwidget1");
-            mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator(indicator), Tab3.class, null);
-
-            View indicator1 = (View)inflater.inflate(R.layout.tabwidgets_layout, null);
-            TextView textView2 = (TextView)indicator1.findViewById(R.id.tabwidget_indicator);
-            textView2.setText("tabwidget2");
-            mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator(indicator1), Tab4.class, null);
-            */
             return view;
 
         }else{
@@ -54,6 +54,18 @@ public class PostListContainerFragment extends Fragment {
         return view;
     }
 
-
-
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_campus, menu);
+        MenuItem add_item = menu.findItem(R.id.publish_post);
+        add_item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), PostPublishActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+    }
 }

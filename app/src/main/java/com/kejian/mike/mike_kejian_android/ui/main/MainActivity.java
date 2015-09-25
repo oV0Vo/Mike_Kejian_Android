@@ -224,9 +224,11 @@ public class MainActivity extends AppCompatActivity
                     }
                     return msgFg;
                 case 2:Log.e("MainActivity", "get campusFg");
-                    /*if(campusFg == null)
-                        campusFg = new PostListContainerFragment();*/
-                    return new CampusFragmentMock();
+                    if(campusFg == null) {
+                        getSupportActionBar().setTitle("校内动态");
+                        campusFg = new PostListContainerFragment();
+                    }
+                    return campusFg;
                 default:
                     //unreach block
                     Log.i("MainActivity", "getItem logic error");

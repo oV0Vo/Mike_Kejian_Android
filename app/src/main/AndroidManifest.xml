@@ -72,8 +72,14 @@
             android:label="user_forget_password"></activity>
         <activity android:name=".ui.user.UserRegisterActivity"
             android:label="user_register"></activity>
+
         <activity android:name=".ui.campus.PostDetailActivity"
-            android:label="帖子内容"></activity>
+            android:label="帖子内容">
+        </activity>
+
+        <activity android:name=".ui.campus.PostPublishActivity"
+            android:label="发帖">
+        </activity>
     </application>
 
 </manifest>
