@@ -160,4 +160,7 @@
     <string name="char_D">D</string>
     <string name="num_four">4</string>
     <string name="on_process">正在处理中，请稍等片刻</string>
+
+    <!--net error-->
+    <string name="net_disconnet">网络不太好哦~~</string>
 </resources>

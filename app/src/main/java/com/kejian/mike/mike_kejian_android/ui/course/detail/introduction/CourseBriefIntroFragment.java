@@ -1,7 +1,5 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,7 +10,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import model.course.CourseDetailInfo;
+import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
 
 

@@ -14,15 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.course.detail.AnnoucementFragment;
 
-import bl.CourseBLService;
 import bl.UserInfoService;
-import model.course.CourseAnnoucement;
-import model.course.CourseBriefInfo;
-import model.course.CourseDetailInfo;
+import model.course.data.CourseAnnoucement;
+import model.course.data.CourseBriefInfo;
 import model.course.CourseModel;
-import model.helper.ResultMessage;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;
 
@@ -119,7 +115,7 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
         @Override
         protected NetOperateResultMessage doInBackground(CourseAnnoucement... params) {
             CourseAnnoucement newAnnoucement = params[0];
-            NetOperateResultMessage resultMessage = CourseBLService.getInstance().newAnnoucement(newAnnoucement);
+            NetOperateResultMessage resultMessage = CourseModel.getInstance().newAnnoucement(newAnnoucement);
             return resultMessage;
         }
 

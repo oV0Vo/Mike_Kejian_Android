@@ -1,4 +1,4 @@
-package model.course;
+package model.course.data;
 
 /**
  * Created by violetMoon on 2015/9/10.

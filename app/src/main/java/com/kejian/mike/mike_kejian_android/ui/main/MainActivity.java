@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -32,8 +29,8 @@ import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActi
 
 import java.util.ArrayList;
 
-import bl.CourseBLService;
 import bl.UserInfoService;
+import model.course.CourseModel;
 import util.NeedRefinedAnnotation;
 
 public class MainActivity extends AppCompatActivity
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initBLService() {
-        new CourseBLInitTask().execute();
+        new CourseModelCreateTask().execute();
     }
 
     /*
@@ -259,11 +256,10 @@ public class MainActivity extends AppCompatActivity
         visibleActions.clear();
     }
 
-    private class CourseBLInitTask extends AsyncTask<Void, Void, Void> {
-
+    private class CourseModelCreateTask extends AsyncTask<Void, Void, Void> {
         @Override
         public Void doInBackground(Void... params) {
-            CourseBLService.initInstance();
+            CourseModel.createInstance();
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package model.course.question;
+package model.course.data.question;
 
 /**
  * Created by violetMoon on 2015/9/24.

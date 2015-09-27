@@ -1,6 +1,5 @@
-package model.course.question;
+package model.course.data.question;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**

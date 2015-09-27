@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -18,7 +17,7 @@ import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
 
-import model.course.CourseDetailInfo;
+import model.course.data.CourseDetailInfo;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;
 

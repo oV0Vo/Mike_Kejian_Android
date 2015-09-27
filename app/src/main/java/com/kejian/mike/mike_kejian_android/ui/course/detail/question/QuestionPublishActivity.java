@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,17 +16,14 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import bl.CourseBLService;
-import model.course.question.ApplicationQuestion;
-import model.course.question.BasicQuestion;
-import model.course.question.ChoiceQuestion;
-import model.course.question.CurrentQuestion;
-import model.course.question.MultiChoiceQuestion;
-import model.course.question.QuestionType;
-import model.course.question.SingleChoiceQuestion;
+import model.course.CourseModel;
+import model.course.data.question.ApplicationQuestion;
+import model.course.data.question.BasicQuestion;
+import model.course.data.question.CurrentQuestion;
+import model.course.data.question.MultiChoiceQuestion;
+import model.course.data.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
 
 public class QuestionPublishActivity extends AppCompatActivity {
@@ -335,15 +330,16 @@ public class QuestionPublishActivity extends AppCompatActivity {
         }
     }
 
-    private class SubmitQuestionTask extends AsyncTask<CurrentQuestion, Integer, NetOperateResultMessage> {
+    private class SubmitQuestionTask extends AsyncTask<CurrentQuestion, Integer, Boolean> {
 
         @Override
-        protected NetOperateResultMessage doInBackground(CurrentQuestion... params) {
-            return CourseBLService.getInstance().addNewQuestion(params[0]);
+        protected Boolean doInBackground(CurrentQuestion... params) {
+            CurrentQuestion newQuestion = params[0];
+            return CourseModel.getInstance().addNewQuestion(newQuestion);
         }
 
         @Override
-        protected void onPostExecute(NetOperateResultMessage message) {
+        protected void onPostExecute(Boolean message) {
             Toast.makeText(QuestionPublishActivity.this, R.string.question_publish_success_message,
                     Toast.LENGTH_LONG).show();
             commitButton.setEnabled(true);

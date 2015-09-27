@@ -14,15 +14,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import bl.CourseBLService;
 import bl.UserInfoService;
-import model.course.CourseBriefInfo;
+import model.course.data.CourseBriefInfo;
 import model.course.CourseModel;
 
 
@@ -30,23 +30,15 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     private AbsListView listView;
 
-    private int myCourseCurrentPos;
-    private ArrayList<CourseBriefInfo> myCourses;
     private CourseAdapter myCourseAdapter;
 
-    private int allCourseCurrentPos;
-    private ArrayList<CourseBriefInfo> allCourses;
     private CourseAdapter allCourseAdapter;
 
     private OnCourseSelectedListener listner;
 
-    private boolean showMyCourse;
-
     private CourseModel courseModel;
 
-    private CourseBLService courseBL;
-
-    private UserInfoService userInfoBL;
+    private boolean showMyCourse;
 
     private static final int MY_COURSE_FETCH_NUM = 50;
     private static final int ALL_COURSE_FETCH_NUM = 50;
@@ -55,44 +47,26 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     public void onCreate(Bundle savedInstanceState) {Log.e("CourseListFg", "onCreate");
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
-        courseBL = CourseBLService.getInstance();
-        userInfoBL = UserInfoService.getInstance();
 
-        initMyCourse();
-        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                myCourses);
-
-        initAllCourse();
-        allCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1,
-                allCourses);
-
+        initMyCourseAdapter();
+        initAllCourseAdapter();
         showMyCourse = true;
     }
 
-    private void initMyCourse() {
-        myCourseCurrentPos = 0;
-        myCourses = new ArrayList<CourseBriefInfo>();
-        ArrayList<CourseBriefInfo> initData = courseModel.getMyCourseBriefs(myCourseCurrentPos,
-                MY_COURSE_FETCH_NUM);
-        if(initData.size() == 0 && courseBL.hasMoreMyCourses(myCourseCurrentPos,
-                MY_COURSE_FETCH_NUM)) {
-            new GetCourseTask().execute(true);
-        } else {
-            myCourses.addAll(initData);
-        }
+    private void initMyCourseAdapter() {
+        ArrayList<CourseBriefInfo> myCourseBriefs = courseModel.getMyCourseBriefs();
+        if(myCourseBriefs.size() == 0)
+            new UpdateMyCourseBriefTask().execute();
+        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                myCourseBriefs);
     }
 
-    private void initAllCourse() {
-        allCourseCurrentPos = 0;
-        allCourses = new ArrayList<CourseBriefInfo>();
-        ArrayList<CourseBriefInfo> initData = courseModel.getMyCourseBriefs(allCourseCurrentPos,
-                MY_COURSE_FETCH_NUM);
-        if(initData.size() == 0 && courseBL.hasMoreMyCourses(allCourseCurrentPos,
-                ALL_COURSE_FETCH_NUM)) {
-            new GetCourseTask().execute(false);
-        } else {
-            allCourses.addAll(initData);
-        }
+    private void initAllCourseAdapter() {
+        ArrayList<CourseBriefInfo> allCourseBriefs =courseModel.getAllCourseBriefs();
+        if(allCourseBriefs.size() == 0)
+            new UpdateAllCourseBriefTask().execute();
+        allCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                allCourseBriefs);
     }
 
     public void showMyCourse() {
@@ -101,7 +75,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         if(!showMyCourse) {
             showMyCourse = true;
             listView.setAdapter(myCourseAdapter);
-            setEmptyText();
+            //setEmptyText();
         }
     }
 
@@ -112,25 +86,9 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         if(showMyCourse) {
             showMyCourse = false;
             listView.setAdapter(allCourseAdapter);
-            setEmptyText();
+            //setEmptyText();
         }
     }
-/*
-    private void setUpMyCourseAdpater() {
-        if(getActivity() == null)
-            return;
-        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1, myCourses);
-        if(showMyCourse)
-            listView.setAdapter(myCourseAdapter);
-    }
-
-    private void setUpAllCourseAdapter() {
-        if(getActivity() == null)
-            return;
-        allCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1, allCourses);
-        if(!showMyCourse)
-            listView.setAdapter(allCourseAdapter);
-    }*/
 
     public void showAcademyCourseList(CharSequence academyNameList) {
 
@@ -152,7 +110,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             ((AdapterView<ListAdapter>) listView).setAdapter(allCourseAdapter);
 
         listView.setOnItemClickListener(this);
-        setEmptyText();
+        //setEmptyText();
 
         return view;
     }
@@ -179,6 +137,12 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             throw new ClassCastException(context.toString()
                     + " must implement OnCourseSelectedListener");
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listner = null;
     }
 
     private void setEmptyText() {
@@ -230,35 +194,49 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         }
     }
 
-    private class GetCourseTask extends AsyncTask<Boolean, Integer, ArrayList<CourseBriefInfo>> {
-
-        private boolean isMyCourse;
+    private class UpdateMyCourseBriefTask extends AsyncTask<Void, Integer,Boolean> {
 
         @Override
-        protected ArrayList<CourseBriefInfo> doInBackground(Boolean... params) {
-            String studentId = userInfoBL.getSid();
-            isMyCourse = params[0];
-            if(isMyCourse)
-                return courseBL.getMyCourseBriefs(studentId, myCourseCurrentPos
-                        , MY_COURSE_FETCH_NUM);
+        protected Boolean doInBackground(Void... params) {
+            CourseModel courseModel = CourseModel.getInstance();
+            ArrayList<CourseBriefInfo> updateInfos = courseModel.updateMyCourseBriefs();
+            if(updateInfos != null)
+                return true;
             else
-                return courseBL.getAllCourseBriefs(studentId, allCourseCurrentPos
-                        , ALL_COURSE_FETCH_NUM);
+                return false;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CourseBriefInfo> coursesResult) {
-            if(isMyCourse) {
-                courseModel.addMyCourseBriefs(coursesResult);
-                myCourses.addAll(coursesResult);
+        protected void onPostExecute(Boolean updateSuccess) {
+            if(updateSuccess) {
+                myCourseAdapter.notifyDataSetChanged();
             } else {
-                courseModel.addAllCourseBriefs(coursesResult);
-                allCourses.addAll(coursesResult);
+                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
+    private class UpdateAllCourseBriefTask extends AsyncTask<Void, Integer,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            CourseModel courseModel = CourseModel.getInstance();
+            ArrayList<CourseBriefInfo> updateInfos = courseModel.updateAllCourseBriefs();
+            if(updateInfos != null)
+                return true;
+            else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateSuccess) {
+            if(updateSuccess) {
+                allCourseAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
     public interface OnCourseSelectedListener {
         public void onCourseSelected();
     }

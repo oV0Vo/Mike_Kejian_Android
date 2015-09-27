@@ -1,8 +1,6 @@
-package model.course;
+package model.course.data;
 
 import java.util.ArrayList;
-
-import model.campus.Post;
 
 /**
  * Created by violetMoon on 2015/9/10.
@@ -15,7 +13,6 @@ public class CourseDetailInfo {
     private ArrayList<String> teacherIds;
     private ArrayList<String> teacherNames;
     private CourseAnnoucement annoucement;
-    private ArrayList<Post> posts;
     private int currentStudents;
     private String outline;
     private String teachContent;
@@ -83,14 +80,6 @@ public class CourseDetailInfo {
 
     public void setCurrentStudents(int currentStudents) {
         this.currentStudents = currentStudents;
-    }
-
-    public ArrayList<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
     }
 
     public String getOutline() {

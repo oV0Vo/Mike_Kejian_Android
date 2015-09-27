@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
@@ -20,16 +22,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.campus.Post;
-import model.course.CourseDetailInfo;
+import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
 
 public class CommentsAreaFragment extends Fragment implements AbsListView.OnItemClickListener {
+
+    private CourseModel courseModel;
 
     private OnPostSelectedListener mListener;
 
     private AbsListView mListView;
 
-    private ListAdapter mAdapter;
+    private CommentsArrayAdapter mAdapter;
 
     public CommentsAreaFragment() {
     }
@@ -37,10 +41,14 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        courseModel = CourseModel.getInstance();
 
-        CourseDetailInfo currentCourse = CourseModel.getInstance().getCurrentCourseDetail();
+        CourseDetailInfo currentCourse = courseModel.getCurrentCourseDetail();
         if(currentCourse != null) {
-            ArrayList<Post> posts = currentCourse.getPosts();
+            ArrayList<Post> posts = courseModel.getCurrentCoursePosts();
+            if(posts.size() == 0) {
+                new UpdateCommentsTask().execute();
+            }
             mAdapter = new CommentsArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, posts);
         } else {
             mAdapter = null;
@@ -133,6 +141,23 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     public interface OnPostSelectedListener {
         public void onPostSelected();
+    }
+
+    private class UpdateCommentsTask extends AsyncTask<Void, Integer, ArrayList<Post>> {
+
+        @Override
+        protected ArrayList<Post> doInBackground(Void... params) {
+            ArrayList<Post> updatePosts = courseModel.updatePosts();
+            return updatePosts;
+        }
+
+        protected void onPostExecute(ArrayList<Post> posts) {
+            if(posts != null) {
+                mAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }

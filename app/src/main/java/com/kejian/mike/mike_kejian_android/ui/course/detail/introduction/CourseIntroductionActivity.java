@@ -10,17 +10,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseBriefInfoFragment;
 
 import java.util.ArrayList;
 
-import model.course.CourseBriefInfo;
-import model.course.CourseDetailInfo;
+import model.course.data.CourseBriefInfo;
+import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
 import util.StringUtil;
 

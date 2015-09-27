@@ -19,8 +19,8 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import bl.AcademyBLService;
-import bl.CourseBLService;
 import bl.UserInfoService;
+import model.course.CourseModel;
 
 /**
  *
@@ -118,8 +118,8 @@ public class CourseListContainerFragment extends Fragment {
         courseTypeSelectText = (TextView)contentView.findViewById(R.id.main_course_course_type_select_text);
         courseTypeSelectText.setText(R.string.main_course_select_all_course);
 
-        CourseBLService courseBL = CourseBLService.getInstance();
-        ArrayList<String> allNames = courseBL.getAllCourseTypeNamesMock();
+        CourseModel courseModel = CourseModel.getInstance();
+        ArrayList<String> allNames = courseModel.getAllCourseTypeNamesMock();
         courseTypeSelectMenu = new PopupMenu(this.getActivity(), courseTypeSelectText);
         Menu menu = courseTypeSelectMenu.getMenu();
         for(String courseTypeName: allNames) {

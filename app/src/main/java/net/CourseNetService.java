@@ -6,16 +6,15 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import model.campus.Post;
-import model.course.CourseAnnoucement;
-import model.course.CourseBriefInfo;
-import model.course.CourseDetailInfo;
-import model.course.CourseType;
-import model.course.PersonMocks;
-import model.course.PostMocks;
-import model.course.question.BasicQuestion;
-import model.course.question.CurrentQuestion;
-import model.course.question.QuestionSet;
-import model.course.question.SingleChoiceQuestion;
+import model.course.data.CourseAnnoucement;
+import model.course.data.CourseBriefInfo;
+import model.course.data.CourseDetailInfo;
+import model.course.data.CourseType;
+import model.course.data.PersonMocks;
+import model.course.data.PostMocks;
+import model.course.data.question.BasicQuestion;
+import model.course.data.question.CurrentQuestion;
+import model.course.data.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
 
 /**
@@ -23,75 +22,20 @@ import util.NetOperateResultMessage;
  */
 public class CourseNetService {
 
-    private static int myCourseMaxNum = Integer.MAX_VALUE;
-
-    private static int allCourseMaxNum = Integer.MAX_VALUE;
-
-    public static boolean hasMoreMyCourse(int beginPos, int num) {
-        return (beginPos + num) < myCourseMaxNum;
-    }
-
-    public static boolean hasMoreAllCourse(int beginPos, int num) {
-        return (beginPos + num) <allCourseMaxNum;
-    }
-
-    public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num) {
-        return getMyCourseBrief(sid, beginPos, num, Integer.MAX_VALUE, TimeUnit.SECONDS);
-    }
-
-    public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num, int time, TimeUnit timeUnit) {
+    public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num,
+                                                              int time, TimeUnit timeUnit) {
         ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
         for(int i=0; i<num; ++i)
             mocks.add(getCourseBriefMock1());
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         return mocks;
     }
 
-    //sid?
-    public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, int beginPos, int num) {
-        return getAllCourseBrief(schoolId, beginPos, num, Integer.MAX_VALUE, TimeUnit.SECONDS);
-    }
-
-    public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, int beginPos, int num, int time, TimeUnit timeUnit) {
+    public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, int beginPos, int num,
+                                                               int time, TimeUnit timeUnit) {
         ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
         for(int i=0; i<num; ++i)
             mocks.add(getCourseBriefMock1());
-       /* try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         return mocks;
-    }
-
-/*    public static ArrayList<CourseDetailInfo> getMyCourseDetail(String sid) {
-        return null;
-    }
-
-    public static ArrayList<CourseDetailInfo> getMyCourseDetail(String sid ,int time, TimeUnit timeUnit) {
-        return null;
-    }
-
-    public static ArrayList<CourseDetailInfo> getAllCourseDetail(String schoolId) {
-        return null;
-    }
-
-    public static ArrayList<CourseDetailInfo> getAllCourseDetail(String schoolId, int time, TimeUnit timeUnit) {
-        return null;
-    }*/
-
-    public static CourseDetailInfo getCourseDetail(String courseId) {
-        CourseDetailInfo courseDetailMock = getCourseDetailMock1();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return courseDetailMock;
     }
 
     public static CourseDetailInfo getCourseDetail(String courseId, int time, TimeUnit timeUnit) {
@@ -104,15 +48,26 @@ public class CourseNetService {
         return courseDetailMock;
     }
 
-    public static NetOperateResultMessage addViewToPage(String schoolId, String courseName, String pageId) {
+    public static ArrayList<Post> getCoursePosts(String courseId, int beginPos, int num,
+                                                 int time, TimeUnit timeUnit) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Post> postMocks = getCoursePostMocks();
+        return postMocks;
+    }
+
+    public static NetOperateResultMessage addViewToPost(String schoolId, String courseName, String postId) {
         return null;
     }
 
-    public static NetOperateResultMessage addAnswerToPage(String schoolId, String courseName, String pageId,
+    public static NetOperateResultMessage addAnswerToPost(String schoolId, String courseName, String postId,
                                                           String answer) {
         return null;
     }
-//sid?
+
     public static NetOperateResultMessage addAnswerToProblem(String schoolId, String courseName, String pageId,
                                                              String answer) {
         return null;
@@ -122,8 +77,26 @@ public class CourseNetService {
         return null;
     }
 
-    public static QuestionSet getQuestion(String courseId) {
-        return getQuestionSetMock();
+    public static ArrayList<BasicQuestion> getHistroryQuestions(String courseId, int beginPos, int num,
+                                                                int time, TimeUnit timeUnit) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return getHistoryQuestionMocks();
+    }
+
+    public static ArrayList<CurrentQuestion> getCurrentQuestions(String courseId, int beginPos,
+                                                                 int num, int time, TimeUnit timeUnit) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return getCurrentQuestionMocks();
     }
 
     public static NetOperateResultMessage addNewQuestion(CurrentQuestion question) {
@@ -188,35 +161,35 @@ public class CourseNetService {
         teacherNames.add(PersonMocks.name2);
         course.setTeacherIds(teacherIds);
         course.setTeacherNames(teacherNames);
+
+        return course;
+    }
+
+    private static ArrayList<Post> getCoursePostMocks() {
         ArrayList<Post> posts = new ArrayList<Post>();
         posts.add(PostMocks.getPost1());
         posts.add(PostMocks.getPost2());
         posts.add(PostMocks.getPost3());
         posts.add(PostMocks.getPost4());
-        course.setPosts(posts);
-
-        return course;
+        return posts;
     }
 
-    private static QuestionSet getQuestionSetMock() {
-        QuestionSet mocks = new QuestionSet();
-
-        ArrayList<BasicQuestion> currentQuestions = new ArrayList<BasicQuestion>();
-        currentQuestions.add(getQuestionMock());
-        mocks.setCurrentQuestions(currentQuestions);
-
-        ArrayList<Long> currentQuestionLeftMills = new ArrayList<Long>();
-        currentQuestionLeftMills.add(TimeUnit.SECONDS.toNanos(new Random().nextInt(720)));
-        mocks.setCurrentQuestionLeftMills(currentQuestionLeftMills);
-
-        ArrayList<BasicQuestion> historyQuestions = new ArrayList<BasicQuestion>();
-        historyQuestions.add(getQuestionMock());
-        historyQuestions.add(getQuestionMock());
-        historyQuestions.add(getQuestionMock());
-        historyQuestions.add(getQuestionMock());
-        mocks.setHistoryQuestions(historyQuestions);
+    private static ArrayList<BasicQuestion> getHistoryQuestionMocks() {
+        ArrayList<BasicQuestion> mocks = new ArrayList<BasicQuestion>();
+        mocks.add(getQuestionMock());
+        mocks.add(getQuestionMock());
+        mocks.add(getQuestionMock());
+        mocks.add(getQuestionMock());
 
         return mocks;
+    }
+
+    private static ArrayList<CurrentQuestion> getCurrentQuestionMocks() {
+        ArrayList<CurrentQuestion> currentQuestions = new ArrayList<CurrentQuestion>();
+        Random random = new Random(System.currentTimeMillis());
+        int limit = 1000;
+        currentQuestions.add(new CurrentQuestion(getQuestionMock(), random.nextInt(limit)));
+        return currentQuestions;
     }
 
     private static BasicQuestion getQuestionMock() {

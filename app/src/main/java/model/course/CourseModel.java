@@ -1,12 +1,20 @@
 package model.course;
 
+import net.CourseNetService;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import model.campus.Post;
-import model.course.question.BasicQuestion;
-import model.course.question.QuestionSet;
+import model.course.data.CourseAnnoucement;
+import model.course.data.CourseBriefInfo;
+import model.course.data.CourseDetailInfo;
+import model.course.data.question.BasicQuestion;
+import model.course.data.question.CurrentQuestion;
+import model.user.CourseBrief;
+import util.NeedAsyncAnnotation;
+import util.NetOperateResultMessage;
 
 /**
  * Created by violetMoon on 2015/9/8.
@@ -18,36 +26,63 @@ public class CourseModel {
     private ArrayList<CourseBriefInfo> myCourseBriefs;
     private ArrayList<CourseBriefInfo> allCourseBriefs;
 
-    private CourseBriefInfo currentCourseBrief;
-    private CourseDetailInfo currentCourseDetail;
+    private static final int MY_COURSE_BRIEF_UPDATE_NUM = 20;
+    private static final int ALL_COURSE_BRIEF_UPDATE_NUM = 20;
 
-    private QuestionSet currentCourseQuestionSet;
+    private CurrentCourseModel currentCourse;
 
-    private Post currentPost;
+    private String sidMock = "131250012";
+    private String schoolIdMock = "南京大学";
+
+    private CourseModel() {
+
+    }
+
+    @NeedAsyncAnnotation
+    public static boolean createInstance() {
+        instance = new CourseModel();
+        boolean initSuccess = instance.init();
+        return initSuccess;
+    }
 
     public static CourseModel getInstance() {
-        if(instance == null) {
-            instance = new CourseModel();
-            instance.init();
-        }
         return instance;
     }
+
     /*
     以后做课程缓存的时候从文件读取课程数据可以在这个方法里面进行，不过这个类目前之考虑单线程的修改，
     如果是网络和文件都要修改这个类，CourseListFragment也要修改
      */
-    public void init() {
+    public boolean init() {
         myCourseBriefs = new ArrayList<CourseBriefInfo>();
         allCourseBriefs = new ArrayList<CourseBriefInfo>();
+        return true;
     }
 
+    public String getCurrentCourseId() {
+        if(currentCourse != null) {
+            return currentCourse.getCourseId();
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<CourseBriefInfo> getMyCourseBriefs() {
+        return myCourseBriefs;
+    }
+
+    public ArrayList<CourseBriefInfo> getAllCourseBriefs() {
+        return allCourseBriefs;
+    }
+
+/*
     public ArrayList<CourseBriefInfo> getMyCourseBriefs(int beginPos, int num) {
         return getSubList(beginPos, num, myCourseBriefs);
     }
 
     public ArrayList<CourseBriefInfo> getAllCourseBriefs(int beginPos, int num) {
         return getSubList(beginPos, num, allCourseBriefs);
-    }
+    }*/
 
     /**
      *
@@ -75,13 +110,36 @@ public class CourseModel {
         return null;
     }
 
-    private CourseDetailInfo getCourseDetail(String courseId, ArrayList<CourseDetailInfo> courseDetails) {
-        for(CourseDetailInfo courseDetail: courseDetails)
-            if(courseDetail.getCourseId().equals(courseId)) {
-                return courseDetail;
-            }
-        return null;
+    @NeedAsyncAnnotation
+    public ArrayList<CourseBriefInfo> updateMyCourseBriefs() {
+        return updateMyCourseBriefs(Integer.MAX_VALUE, TimeUnit.SECONDS);
     }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CourseBriefInfo> updateMyCourseBriefs(int time, TimeUnit timeUnit) {
+        int beginPos = myCourseBriefs.size();
+        int updateNum = MY_COURSE_BRIEF_UPDATE_NUM;
+        ArrayList<CourseBriefInfo> updateInfos = CourseNetService.getMyCourseBrief(sidMock, beginPos,
+                updateNum, time, timeUnit);
+        this.myCourseBriefs.addAll(updateInfos);
+        return updateInfos;
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CourseBriefInfo> updateAllCourseBriefs(){
+        return updateAllCourseBriefs(Integer.MAX_VALUE, TimeUnit.SECONDS);
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CourseBriefInfo> updateAllCourseBriefs(int time, TimeUnit timeUnit) {
+        int beginPos = allCourseBriefs.size();
+        int updateNum = ALL_COURSE_BRIEF_UPDATE_NUM;
+        ArrayList<CourseBriefInfo> updateInfos = CourseNetService.getAllCourseBrief(schoolIdMock,
+                beginPos, updateNum, time, timeUnit);
+        this.allCourseBriefs.addAll(updateInfos);
+        return updateInfos;
+    }
+
 
     private <E> ArrayList<E> getSubList(int beginPos, int num, List<E> list) {
         if(!isValidPos(beginPos, list)) {
@@ -97,42 +155,181 @@ public class CourseModel {
         return list.size() > beginPos && beginPos >= 0;
     }
 
-    public CourseDetailInfo getCurrentCourseDetail() {
-        return currentCourseDetail;
-    }
-
-    public void setCurrentCourseDetail(CourseDetailInfo currentCourseDetail) {
-        this.currentCourseDetail = currentCourseDetail;
-    }
-
     public CourseBriefInfo getCurrentCourseBrief() {
-        return currentCourseBrief;
+        return currentCourse.courseBrief;
+    }
+    public CourseDetailInfo getCurrentCourseDetail() {
+        return currentCourse.courseDetail;
     }
 
-    public void setCurrentCourseBrief(CourseBriefInfo currentCourseBrief) {
-        this.currentCourseBrief = currentCourseBrief;
+    public void setCurrentCourseBrief(CourseBriefInfo courseBrief) {
+        currentCourse = new CurrentCourseModel(courseBrief);
     }
 
-    public void setCurrentCourseQuestionSet() {
-
+    @NeedAsyncAnnotation
+    public boolean updateCurrentCourseDetail() {
+        return updateCurrentCourseDetail(Integer.MAX_VALUE, TimeUnit.SECONDS);
     }
 
+    @NeedAsyncAnnotation
+    public boolean updateCurrentCourseDetail(int time, TimeUnit timeUnit) {
+        return currentCourse.updateCourseDetail(time, timeUnit);
+    }
 
+    public ArrayList<BasicQuestion> getHistoryQuestions() {
+        return currentCourse.historyQuestions;
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<BasicQuestion> updateHistoryQuestions() {
+        return updateHistoryQuestion(Integer.MAX_VALUE, TimeUnit.SECONDS);
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<BasicQuestion> updateHistoryQuestion(int time, TimeUnit timeUnit) {
+        return currentCourse.updateHistoryQuestions(time, timeUnit);
+    }
+
+    public ArrayList<CurrentQuestion> getCurrentQuestions() {
+        return currentCourse.currentQuestions;
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CurrentQuestion> updateCurrentQuestions() {
+        return updateCurrentQuestions(Integer.MAX_VALUE, TimeUnit.SECONDS);
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CurrentQuestion> updateCurrentQuestions(int time, TimeUnit timeUnit) {
+        return currentCourse.updateCurrentQuestions(time, timeUnit);
+    }
+
+    @NeedAsyncAnnotation
+    public boolean addNewQuestion(CurrentQuestion question) {
+        return CourseNetService.addNewQuestion(question) != null;
+    }
+
+    public ArrayList<Post> getCurrentCoursePosts() {
+        return currentCourse.posts;
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<Post> updatePosts() {
+        return updatePosts(Integer.MAX_VALUE, TimeUnit.SECONDS);
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<Post> updatePosts(int time, TimeUnit timeUnit) {
+        return currentCourse.updatePosts(time, timeUnit);
+    }
 
     public Post getCurrentPost() {
-        return currentPost;
+        return currentCourse.currentPost;
     }
 
+    @NeedAsyncAnnotation
+    @Deprecated
     public void setCurrentPost(Post currentPost) {
-        this.currentPost = currentPost;
+        this.currentCourse.currentPost = currentPost;
     }
 
-    public void addMyCourseBriefs(ArrayList<CourseBriefInfo> myCourseBriefs) {
-        this.myCourseBriefs.addAll(myCourseBriefs);
+    @NeedAsyncAnnotation
+    public boolean updateCourseDetail() {
+        return updateCourseDetail(Integer.MAX_VALUE, TimeUnit.SECONDS);
     }
 
-    public void addAllCourseBriefs(ArrayList<CourseBriefInfo> allCourseBriefs) {
-        this.allCourseBriefs.addAll(allCourseBriefs);
+    @NeedAsyncAnnotation
+    public boolean updateCourseDetail(int time, TimeUnit timeUnit) {
+        return currentCourse.updateCourseDetail(time, timeUnit);
+    }
+
+    @NeedAsyncAnnotation
+    public NetOperateResultMessage newAnnoucement(CourseAnnoucement annoucement) {
+        return CourseNetService.newAnnoucement(annoucement.getCourseId(), annoucement.getPersonId()
+                , annoucement.getTitle(), annoucement.getContent());
+    }
+
+    public ArrayList<String> getAllCourseTypeNamesMock() {
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("通识课");
+        names.add("通修课");
+        names.add("核心课");
+        names.add("平台课");
+        return names;
+    }
+
+    private class CurrentCourseModel {
+
+        private String courseId;
+
+        private CourseBriefInfo courseBrief;
+        private CourseDetailInfo courseDetail;
+
+        private ArrayList<BasicQuestion> historyQuestions;
+        private ArrayList<CurrentQuestion> currentQuestions;
+
+        private ArrayList<Post> posts;
+        private Post currentPost;
+
+        private static final int HISTORY_QUESTION_UPDATE_NUM = 20;
+        private static final int CURRENT_QUESTION_UPDATE_NUM = 5;
+
+        public CurrentCourseModel(CourseBriefInfo courseBrief) {
+            historyQuestions = new ArrayList<BasicQuestion>();
+            currentQuestions = new ArrayList<CurrentQuestion>();
+            posts = new ArrayList<Post>();
+            this.courseBrief = courseBrief;
+            this.courseId = courseBrief.getCourseId();
+        }
+
+        public String getCourseId() {
+            return courseId;
+        }
+
+        public boolean updateCourseDetail(int time, TimeUnit timeUnit) {
+            CourseDetailInfo newCourseDetail = CourseNetService.getCourseDetail(courseId, time, timeUnit);
+            if (newCourseDetail != null) {
+                this.courseDetail = newCourseDetail;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public ArrayList<BasicQuestion> updateHistoryQuestions(int time, TimeUnit timeUnit) {
+            int beginPos = historyQuestions.size();
+            int updateNum = HISTORY_QUESTION_UPDATE_NUM;
+            ArrayList<BasicQuestion> updateInfos = CourseNetService.getHistroryQuestions(courseId,
+                    beginPos, updateNum, time, timeUnit);
+            if(updateInfos != null) {
+                historyQuestions.addAll(updateInfos);
+            }
+            return updateInfos;
+        }
+
+        public ArrayList<CurrentQuestion> updateCurrentQuestions(int time, TimeUnit timeUnit) {
+            int beginPos = currentQuestions.size();
+            int updateNum = HISTORY_QUESTION_UPDATE_NUM;
+            ArrayList<CurrentQuestion> updateInfos = CourseNetService.getCurrentQuestions(courseId,
+                    beginPos, updateNum, time, timeUnit);
+            if(updateInfos != null) {
+                currentQuestions.addAll(updateInfos);
+            }
+            return updateInfos;
+        }
+
+        public ArrayList<Post> updatePosts(int time, TimeUnit timeUnit) {
+            int beginPos = currentQuestions.size();
+            int updateNum = HISTORY_QUESTION_UPDATE_NUM;
+            ArrayList<Post> updateInfos = CourseNetService.getCoursePosts(courseId,
+                    beginPos, updateNum, time, timeUnit);
+            if(updateInfos != null) {
+                posts.addAll(updateInfos);
+            }
+            return updateInfos;
+
+        }
+
     }
 
 }

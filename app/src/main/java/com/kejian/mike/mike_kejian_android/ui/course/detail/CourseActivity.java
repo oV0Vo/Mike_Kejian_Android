@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.ActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,28 +15,25 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.menu.StudentActionProvider;
-import com.kejian.mike.mike_kejian_android.ui.course.detail.menu.TeacherActionProvider;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
-import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
 
-import bl.CourseBLService;
-import bl.UserInfoService;
-import model.course.CourseBriefInfo;
-import model.course.CourseDetailInfo;
+import model.course.data.CourseBriefInfo;
+import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
-import model.user.UserType;
 
 public class CourseActivity extends AppCompatActivity implements
         AnnoucementFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
         StudentActionProvider.OnStudentMenuSelectListener,
         CommentsAreaFragment.OnPostSelectedListener {
+
+    private CourseModel courseModel;
 
     private ProgressBar progressBar;
     private LinearLayout mainLayout;
@@ -53,27 +47,22 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        courseModel = CourseModel.getInstance();
+
         setContentView(R.layout.activity_course);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
         mainLayout.setVisibility(View.GONE);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
-        CourseBriefInfo currentCourseBrief = CourseModel.getInstance().getCurrentCourseBrief();
+        CourseBriefInfo currentCourseBrief = courseModel.getCurrentCourseBrief();
         if(currentCourseBrief != null) {
             String title = currentCourseBrief.getCourseName();
             this.setTitle(title);
-
-            String courseId = currentCourseBrief.getCourseId();
-            new GetCourseDetailTask().execute(courseId);
+            new UpdateCourseDetailTask().execute();
         } else {
             Log.e("CourseActivity", "start with no currentCourse !!");
         }
 
-    }
-
-    private void initFragments() {
-        initCourseBriefFragment();
-        initCourseAnnoucementFragment();
         initPostAndQuestionLayoutFragment();
     }
 
@@ -231,20 +220,24 @@ public class CourseActivity extends AppCompatActivity implements
 
     }
 
-    private class GetCourseDetailTask extends AsyncTask<String, Integer, CourseDetailInfo> {
+    private class UpdateCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
+
         @Override
-        public CourseDetailInfo doInBackground(String... params) {
-            String courseId = params[0];
-            CourseDetailInfo theCourse = CourseBLService.getInstance().getCourseDetail(courseId);
-            return theCourse;
+        public Boolean doInBackground(Void... params) {
+            CourseModel courseModel = CourseModel.getInstance();
+            return courseModel.updateCourseDetail();
         }
 
         @Override
-        public void onPostExecute(CourseDetailInfo result) {
-            CourseModel.getInstance().setCurrentCourseDetail(result);
+        public void onPostExecute(Boolean getSuccess) {
             progressBar.setVisibility(View.GONE);
-            initFragments();
-            mainLayout.setVisibility(View.VISIBLE);
+            if(getSuccess) {
+                initCourseBriefFragment();
+                initCourseAnnoucementFragment();
+                mainLayout.setVisibility(View.VISIBLE);
+            } else {
+                Toast.makeText(CourseActivity.this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            }
         }
     }
 

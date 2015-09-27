@@ -1,7 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -9,16 +8,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import bl.CourseBLService;
-import model.course.CourseDetailInfo;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.course.CourseModel;
-import model.course.question.BasicQuestion;
-import model.course.question.QuestionSet;
+import model.course.data.question.BasicQuestion;
 
 
 public class CourseQuestionFragment extends Fragment {
@@ -26,8 +27,10 @@ public class CourseQuestionFragment extends Fragment {
     private ProgressBar progressBar;
     private ViewGroup mainLayout;
 
+    private ListView listView;
+
     private CourseModel courseModel;
-    private CourseBLService courseBL;
+
 
     public CourseQuestionFragment() {
         // Required empty public constructor
@@ -37,26 +40,10 @@ public class CourseQuestionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
-        courseBL = CourseBLService.getInstance();
-    }
-
-    private void updateView(QuestionSet questionSet) {
-        if(questionSet == null || mainLayout == null)
-            return;
-
-        if(questionSet.getCurrentQuestions().size() != 0) {
-            BasicQuestion currentQuestion = questionSet.getCurrentQuestions().get(0);
-            long leftMills = questionSet.getCurrentQuestionLeftMills().get(0);
-
-            TextView questionContent = (TextView)mainLayout.findViewById
-                    (R.id.course_question_current_question_content);
-            questionContent.setText(currentQuestion.getContent());
-        }
-
-        if(questionSet.getHistoryQuestions().size() != 0) {
+        ArrayList<BasicQuestion> historyQuestion = courseModel.getHistoryQuestions();
+        if (historyQuestion.size() == 0) {
 
         }
-
     }
 
     @Override
@@ -73,25 +60,37 @@ public class CourseQuestionFragment extends Fragment {
         return v;
     }
 
-    private void startGetQuestionTask() {
-        new GetQuestionTask().execute();
-    }
+    private class QuestionAdpater extends ArrayAdapter<BasicQuestion> {
 
-    private class GetQuestionTask extends AsyncTask<Void, Void, QuestionSet> {
-
-        @Override
-        protected QuestionSet doInBackground(Void... params) {
-            if(courseBL != null && courseModel != null)
-                return courseBL.getQuestion(courseModel.getCurrentCourseBrief().getCourseId());
-            else {
-                Log.e("CourseQuestion", "courseModel or courseBL null!");
-                return null;
-            }
+        public QuestionAdpater(Context context, int resource, List<BasicQuestion> objects) {
+            super(context, resource, objects);
         }
 
         @Override
-        protected void onPostExecute(QuestionSet questionSet) {
-            updateView(questionSet);
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(
+                        R.layout.layout_history_question_brief, null);
+            }
+
+            BasicQuestion question = getItem(position);
+
+            return null;
+        }
+
+    }
+
+    private class UpdateQuestionTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            ArrayList<BasicQuestion> updateInfos = courseModel.updateHistoryQuestions();
+            return updateInfos != null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateResutl) {
+
         }
     }
 

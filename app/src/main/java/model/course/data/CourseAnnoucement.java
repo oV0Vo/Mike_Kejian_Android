@@ -1,4 +1,4 @@
-package model.course;
+package model.course.data;
 
 import java.util.Date;
 

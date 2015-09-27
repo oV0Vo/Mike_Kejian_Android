@@ -1,11 +1,8 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +10,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import model.course.CourseAnnoucement;
-import model.course.CourseBriefInfo;
-import model.course.CourseDetailInfo;
+import model.course.data.CourseAnnoucement;
+import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
 
 
