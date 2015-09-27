@@ -49,23 +49,53 @@ public class UserLoginActivity extends Activity {
     }
 
     protected void onPause(Bundle savedInstanceState){
+        if(userToken!=null){
+
+            System.out.println("直接登录");
+
+            login();
+
+        }
+
+    }
+
+
+
+    protected  void onResume(){
+        super.onResume();
+
+
+
+        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+
+        if(userToken!=null) {
+
+            login();
+
+        }
+        else{
+
+        }
+
 
 
     }
+
 
     public UserOperationResult login(){
 
         if(userToken==null) {
 
-            System.out.println("null user_token");
+
 
             userToken = new UserToken();
-        }
+
 
             userToken.setPassword(passwordView.getText().toString().trim());
 
             userToken.setName(nameView.getText().toString().trim());
-            System.out.println("user token name "+userToken.getName());
+        }
+
 
 
 
@@ -103,6 +133,9 @@ public class UserLoginActivity extends Activity {
 
 
     }
+
+
+
 
     public void errorInLogInfo(String title,String errorDetail){
 

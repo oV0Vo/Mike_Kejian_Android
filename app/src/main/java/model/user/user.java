@@ -63,6 +63,8 @@ public class user implements Serializable{
         sign=(String)(infoSet.get("sign"));
         identify=(String)(infoSet.get("identify"));
         id=infoSet.get("id").toString();
+        nick_name=(String)infoSet.get("nickname");
+        background_icon_path=(String)infoSet.get("background");
 
 
 

@@ -25,9 +25,13 @@ public class UserRegisterActivity extends Activity{
     private Context context;
     private EditText phoneNumberView;
     private EditText passwordView;
+    private EditText nameView;
     private EditText codeInputView;
     private Register register;
     private UserToken userToken;
+    private Button sendCode;
+    private String code;
+
 
     protected void onCreate(Bundle savedInstanceState){
 
@@ -35,12 +39,31 @@ public class UserRegisterActivity extends Activity{
         setContentView(R.layout.activity_user_register);
         //
         getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+        initViews();
 
         if(userToken==null){
 
             userToken=new UserToken();
 
         }
+
+        sendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String phoneNumber=phoneNumberView.getText().toString().trim();
+                if(phoneNumber==null){
+                    notifyError("请输入正确的电话号码");
+                    return;
+                }
+
+
+
+                code="131250";
+
+
+            }
+        });
 
 
         context=this;
@@ -60,6 +83,13 @@ public class UserRegisterActivity extends Activity{
 
     public void initViews(){
 
+        phoneNumberView=(EditText)findViewById(R.id.phone_number_view);
+        passwordView=(EditText)findViewById(R.id.password_view);
+        nameView=(EditText)findViewById(R.id.name_view);
+        codeInputView=(EditText)findViewById(R.id.code_input);
+        sendCode=(Button)findViewById(R.id.code_send);
+
+
     }
 
     public void notifyError(String message){
@@ -77,14 +107,35 @@ public class UserRegisterActivity extends Activity{
 
     public void register(){
 
-//        String phoneNumber=phoneNumberView.getText().toString().trim();
-//        String password=getSha1Value(passwordView.getText().toString().trim());
-//        String inputCode=codeInputView.getText().toString().trim();
-//        register.setPhoneNumber(phoneNumber);
-//        register.setPassword(password);
-        userToken.setPhoneNumber("15951931083");
-        userToken.setName("十里长亭");
-        userToken.setPassword("asfd");
+        String phoneNumber=phoneNumberView.getText().toString().trim();
+        String password=passwordView.getText().toString().trim();
+        String inputCode=codeInputView.getText().toString().trim();
+        String name=nameView.getText().toString().trim();
+
+        if(phoneNumber==null||password==null||inputCode==null||name==null){
+
+            new UserUIError("信息不完整","请填写完整的信息",this);
+
+        }
+        userToken.setPhoneNumber(phoneNumber);
+        userToken.setName(name);
+        userToken.setPassword(password);
+        System.out.println("注册名字："+userToken.getName());
+
+
+
+        if(!inputCode.equals(code)){
+
+            new UserUIError("验证码错误","请重新获取验证码",this);
+            code=null;
+            return ;
+
+        }
+
+
+
+
+        System.out.println("准备登录");
 
 
         UserBLResult userBLResult=UserBLService.getInstance().register(userToken);
@@ -97,6 +148,8 @@ public class UserRegisterActivity extends Activity{
 
 
             bundle.putSerializable(UserActivityComm.USER_TOKEN.name(), userToken);
+
+            intent.putExtra(UserActivityComm.USER_TOKEN.name(),userToken);
 
             intent.setClass(context, UserLoginActivity.class);
 
