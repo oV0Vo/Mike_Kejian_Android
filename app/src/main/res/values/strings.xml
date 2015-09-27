@@ -58,6 +58,7 @@
     <string name="course_intro_activity">课程详情</string>
     <string name="course_create_activity">创建课程</string>
     <string name="annouc_publish_activity">发布公告</string>
+    <string name="question_publish_activity">发布题目</string>
     <string name="course_notice">课程公告</string>
     <string name="new_reply">新的回复</string>
     <string name="new_praise">收到的赞</string>
