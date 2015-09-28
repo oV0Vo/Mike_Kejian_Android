@@ -81,11 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <Button
+            <TextView
                 android:id="@+id/annoucement_publish_commit_button"
                 android:layout_gravity="right"
                 android:text="@string/annoucement_publish_commit"
-                style="@style/button_green_whiteText"/>
+                style="@style/green_whiteText"/>
         </LinearLayout>
     </LinearLayout>
 

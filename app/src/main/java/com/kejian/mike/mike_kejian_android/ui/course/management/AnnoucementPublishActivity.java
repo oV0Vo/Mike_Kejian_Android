@@ -27,7 +27,7 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
     private CourseModel courseModel;
     private EditText titleText;
     private EditText contentText;
-    private Button commitButton;
+    private TextView commitButton;
     private ProgressBar progressBar;
 
     @Override
@@ -46,7 +46,7 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
         titleText = (EditText)findViewById(R.id.annoucement_publish_title_text);
         contentText = (EditText)findViewById(R.id.annoucement_publish_content_text);
 
-        commitButton = (Button)findViewById(R.id.annoucement_publish_commit_button);
+        commitButton = (TextView)findViewById(R.id.annoucement_publish_commit_button);
         commitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

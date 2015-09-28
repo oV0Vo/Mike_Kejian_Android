@@ -83,9 +83,9 @@ public class UserRegisterActivity extends Activity{
 
     public void initViews(){
 
-        phoneNumberView=(EditText)findViewById(R.id.phone_number_view);
+        /*phoneNumberView=(EditText)findViewById(R.id.phone_number_view);
         passwordView=(EditText)findViewById(R.id.password_view);
-        nameView=(EditText)findViewById(R.id.name_view);
+        nameView=(EditText)findViewById(R.id.name_view);*/
         codeInputView=(EditText)findViewById(R.id.code_input);
         sendCode=(Button)findViewById(R.id.code_send);
 

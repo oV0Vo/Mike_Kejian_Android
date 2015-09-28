@@ -6,9 +6,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/naming_time_unknown"
+        android:id="@+id/unknown"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_font"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,42 +19,51 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/medium_padding"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_naming_type_qiandao"/>
 
         <TextView
             android:id="@+id/naming_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/medium_font" />
     </LinearLayout>
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:rowCount="2"
-        android:columnCount="3">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/medium_padding"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_naming_sign_in_stats_title"/>
 
         <TextView
-            android:id="@+id/course_naming_stats_text"
+            android:id="@+id/stats_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableRight="@null"/>
+            android:textSize="@dimen/sub_medium_font"
+            android:drawableRight="@drawable/user_small"/>
+    </LinearLayout>
 
-        <TextView />
-        <TextView />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/percent_image"
+            android:layout_width="@dimen/half_screen"
+            android:layout_height="@dimen/medium_font">
+        </FrameLayout>
 
         <TextView
-            android:id="@+id/course_naming_stats_image"/>
-        <TextView />
-
-        <TextView
-            android:id="@+id/course_naming_stats_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </GridLayout>
-
+            android:id="@+id/percent_text"
+            android:layout_width="@dimen/quarter_screen"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

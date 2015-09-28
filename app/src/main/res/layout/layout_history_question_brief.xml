@@ -31,9 +31,7 @@
                 android:id="@+id/history_question_brief_join_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:maxWidth="@dimen/small_icon_width"
-                android:maxHeight="@dimen/small_icon_height"/>
+                android:layout_gravity="right"/>
             
         </LinearLayout>
     </LinearLayout>
@@ -47,21 +45,21 @@
         android:ellipsize="end" />
 
     <LinearLayout
+        android:id="@+id/zhankai_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/history_question_brief_content_action_text"
+            android:id="@+id/zhankai_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/green"/>
+            android:layout_gravity="right"
+            android:drawableRight="@drawable/down"
+            android:textSize="@dimen/small_font"
+            android:textColor="@color/green"
+            android:text="@string/zhankai"/>
 
-        <ImageView
-            android:id="@+id/history_question_brief_content_action_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="@dimen/small_icon_width"
-            android:maxHeight="@dimen/small_icon_height"/>
     </LinearLayout>
 
 

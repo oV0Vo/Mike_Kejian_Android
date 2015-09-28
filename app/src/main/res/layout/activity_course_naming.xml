@@ -11,8 +11,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <!--header-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +23,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"/>
+                android:background="@drawable/check_white"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,108 +38,74 @@
                     <TextView
                         android:id="@+id/course_naming_current_time_title"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/medium_padding"
+                        android:textSize="@dimen/medium_font"/>
 
                     <TextView
                         android:id="@+id/course_naming_current_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/medium_font"/>
                 </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/course_naming_clock_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </FrameLayout>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/course_naming_naming_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!--点名结束后会显示下面的内容-->
-        <LinearLayout
-            android:id="@+id/course_naming_finish_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount="2"
-                android:columnCount="3">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_naming_sign_in_stats_title"/>
-
-                <TextView
-                    android:id="@+id/course_naming_stats_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@null"/>
-
-                <TextView />
-                <TextView />
-
-                <TextView
-                    android:id="@+id/course_naming_stats_image"/>
-                <TextView />
-
-                <TextView
-                    android:id="@+id/course_naming_stats_percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </GridLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_naming_absent_list_title"/>
-
-                <TextView
-                    android:id="@+id/course_naming_absent_list_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="false"
-                    android:maxLines="3"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/course_naming_absent_list_zhankai"
+                    android:orientation="horizontal">
+
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:drawableRight="@null"/>
+                        android:background="@drawable/bell"
+                        android:paddingRight="@dimen/medium_padding"/>
+
+                    <TextView
+                        android:id="@+id/left_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/medium_font"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/naming"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/green_whiteText"
+                            android:textSize="@dimen/big_font"/>
+                    </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/big_padding"
+            android:paddingBottom="@dimen/big_padding"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/green"
             android:text="@string/course_naming_history_title"/>
 
         <ListView
             android:id="@+id/course_naming_history_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/big_padding"
+            android:paddingBottom="@dimen/big_padding">
         </ListView>
+
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        style="?android:attr/progressBarStyleLarge"/>
 
 </RelativeLayout>

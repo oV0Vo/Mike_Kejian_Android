@@ -37,4 +37,6 @@
     <dimen name="sub_medium_icon_height">25dp</dimen>
     <dimen name="small_icon_width">20dp</dimen>
     <dimen name="small_icon_height">20dp</dimen>
+    <dimen name="half_screen">100dp</dimen>
+    <dimen name="quarter_screen">50dp</dimen>
 </resources>

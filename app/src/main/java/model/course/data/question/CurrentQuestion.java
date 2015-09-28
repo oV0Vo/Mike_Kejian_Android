@@ -5,14 +5,15 @@ package model.course.data.question;
  */
 public class CurrentQuestion {
     private BasicQuestion question;
-    private int leftMills;
+    private long leftMills;
 
     public CurrentQuestion() {
 
     }
 
     public CurrentQuestion(BasicQuestion question, int leftMills) {
-
+        this.question = question;
+        this.leftMills = leftMills;
     }
 
     public BasicQuestion getQuestion() {
@@ -23,11 +24,11 @@ public class CurrentQuestion {
         this.question = question;
     }
 
-    public int getLeftMills() {
+    public long getLeftMills() {
         return leftMills;
     }
 
-    public void setLeftMills(int leftMills) {
+    public void setLeftMills(long leftMills) {
         this.leftMills = leftMills;
     }
 

@@ -13,6 +13,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,10 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private CommentsArrayAdapter mAdapter;
 
+    private ProgressBar progressBar;
+
+    private int taskCountDown;
+
     public CommentsAreaFragment() {
     }
 
@@ -47,6 +52,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         if(currentCourse != null) {
             ArrayList<Post> posts = courseModel.getCurrentCoursePosts();
             if(posts.size() == 0) {
+                taskCountDown += 1;
                 new UpdateCommentsTask().execute();
             }
             mAdapter = new CommentsArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, posts);
@@ -59,11 +65,19 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_post, container, false);
 
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView = (AbsListView) view.findViewById(R.id.course_post_list_view);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
+
+        progressBar = (ProgressBar)view.findViewById(R.id.course_post_progress_bar);
+
+        if(taskCountDown != 0) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
 
         return view;
     }
@@ -99,6 +113,13 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
+        }
+    }
+
+    private void onUpdateTaskFinished() {
+        taskCountDown -= 1;
+        if(taskCountDown == 0 && progressBar != null) {
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -152,6 +173,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         }
 
         protected void onPostExecute(ArrayList<Post> posts) {
+            onUpdateTaskFinished();
             if(posts != null) {
                 mAdapter.notifyDataSetChanged();
             } else {

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.question.CourseQuestionFragment;
 
 public class QuestionAndPostsLayoutFragment extends Fragment {
 
@@ -73,7 +74,7 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
                 case 0:
                     return new CommentsAreaFragment();
                 case 1:
-                    return new AnnoucementFragment();
+                    return new CourseQuestionFragment();
                 default:
                     return null;
             }

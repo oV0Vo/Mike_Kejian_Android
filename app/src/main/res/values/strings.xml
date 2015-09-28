@@ -60,6 +60,7 @@
     <string name="annouc_publish_activity">发布公告</string>
     <string name="question_publish_activity">发布题目</string>
     <string name="course_notice">课程公告</string>
+    <string name="course_naming_activity">课程点名</string>
     <string name="new_reply">新的回复</string>
     <string name="new_praise">收到的赞</string>
     <string name="mention_me">提到我的</string>
@@ -131,12 +132,13 @@
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
 
     <!--course naming-->
-    <string name="course_naming_type_qiandao">签到时间</string>
+    <string name="course_naming_type_qiandao">签到时间:</string>
     <string name="course_naming_type_shangke">上课时间</string>
     <string name="course_naming_not_start">未开始</string>
     <string name="course_naming_action">我要点名</string>
     <string name="course_naming_history_title">往期点名</string>
     <string name="course_naming_sign_in_stats_title">出勤统计</string>
+    <string name="course_naming_sign_in_num_title">签到人数</string>
     <string name="course_naming_absent_list_title">未到名单</string>
 
     <!--course sign in-->
@@ -148,6 +150,7 @@
     <string name="course_sign_in_history_title">签到历史</string>
     <!--util-->
     <string name="zhankai">展开</string>
+    <string name="shouqi">收起</string>
     <string name="title_activity_course_naming">CourseNamingActivity</string>
     <string name="title_activity_question_publish">QuestionPublishActivity</string>
     <string name="minute">分钟</string>

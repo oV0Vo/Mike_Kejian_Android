@@ -11,7 +11,7 @@ public abstract class BasicQuestion {
     private QuestionType questionType;
     private String content;
     private Date questionDate;
-    private boolean iJoined;
+    private boolean IJoined;
 
     public String getCourseId() {
         return courseId;
@@ -53,11 +53,11 @@ public abstract class BasicQuestion {
         this.questionDate = questionDate;
     }
 
-    public boolean isiJoined() {
-        return iJoined;
+    public boolean IJoined() {
+        return IJoined;
     }
 
-    public void setiJoined(boolean iJoined) {
-        this.iJoined = iJoined;
+    public void setJoined(boolean IJoined) {
+        this.IJoined = IJoined;
     }
 }

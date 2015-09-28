@@ -34,6 +34,11 @@
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
+
+        <activity android:name=".ui.course.detail.naming.CourseNamingActivity"
+            android:label="@string/course_naming_activity">
+        </activity>
+
         <activity
             android:name=".ui.message.NewReplyActivity"
             android:label="@string/new_reply" >
@@ -45,10 +50,6 @@
         <activity
             android:name=".ui.message.MentionMeActivity"
             android:label="@string/mention_me" >
-        </activity>
-        <activity
-            android:name=".ui.course.detail.naming.CourseNamingActivity"
-            android:label="@string/title_activity_course_naming" >
         </activity>
         <activity
             android:name=".ui.course.detail.question.QuestionPublishActivity"

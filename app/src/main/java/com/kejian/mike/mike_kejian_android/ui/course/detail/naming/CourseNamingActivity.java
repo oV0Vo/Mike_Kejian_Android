@@ -1,18 +1,37 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.naming;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import model.course.data.CourseNamingRecord;
+
 public class CourseNamingActivity extends AppCompatActivity {
+
+    private TextView timeActionTitle;
+    private TextView courseTimeText;
+    private TextView clockText;
+    private TextView namingButton;
+    private ProgressBar progressBar;
+    private ListView historyListView;
+    private ArrayAdapter d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_naming);
+
     }
 
     @Override
@@ -36,4 +55,28 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class GetHistoryNamingTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return null;
+        }
+    }
+
+    private class HistoryNamingAdapter extends ArrayAdapter<CourseNamingRecord> {
+
+        public HistoryNamingAdapter(Context context, int resource, CourseNamingRecord[] objects) {
+            super(context, resource, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup viewGroup) {
+            if(convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.layout_history_naming, null);
+            }
+            return convertView;
+        }
+    }
+
 }

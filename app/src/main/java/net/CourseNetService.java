@@ -188,7 +188,7 @@ public class CourseNetService {
         ArrayList<CurrentQuestion> currentQuestions = new ArrayList<CurrentQuestion>();
         Random random = new Random(System.currentTimeMillis());
         int limit = 1000;
-        currentQuestions.add(new CurrentQuestion(getQuestionMock(), random.nextInt(limit)));
+        currentQuestions.add(new CurrentQuestion(getQuestionMock(), random.nextInt(limit) * 1000));
         return currentQuestions;
     }
 

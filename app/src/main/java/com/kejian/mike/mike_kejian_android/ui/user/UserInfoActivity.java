@@ -44,12 +44,12 @@ public class UserInfoActivity extends Activity{
     public void initViews(){
 
         user=(user)getIntent().getSerializableExtra(UserActivityComm.USER_INFO.name());
-        userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
+        /*userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
         baseInfoName=(TextView)findViewById(R.id.base_info_name);
         baseInfoGender=(TextView)findViewById(R.id.base_info_gender);
         baseInfoGrade=(TextView)findViewById(R.id.user_school_info_grade);
         baseInfoIdentify=(TextView)findViewById(R.id.user_school_info_identify);
-        baseInfoSign=(TextView)findViewById(R.id.base_info_sign);
+        baseInfoSign=(TextView)findViewById(R.id.base_info_sign);*/
         setUserInfo();
 
         assert user==null:"do not get user";
