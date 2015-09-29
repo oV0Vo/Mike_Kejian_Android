@@ -60,7 +60,12 @@ public class UserNetService {
 
     }
 
-    public AttentionList<Friend> getAttentionList(UserToken userToken){
+    public AttentionList<Friend> getAttentionFriendList(UserToken userToken){
+
+        return null;
+
+    }
+    public AttentionList[] getAttentionLists(UserToken user){
 
         return null;
 
@@ -79,6 +84,7 @@ public class UserNetService {
 
 
     }
+
 
 
 }

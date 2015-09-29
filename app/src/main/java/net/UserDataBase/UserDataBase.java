@@ -1,5 +1,7 @@
 package net.UserDataBase;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,9 +13,10 @@ import bl.UserBLResult;
 public class UserDataBase {
 
     private HashMap<String ,HashMap> userInfoCollection;
-    private HashMap<String,List> userAttentionUser;
-    private HashMap<String,List> userAttentionCourse;
-    private HashMap<String,List> userAttentionPost;
+    private HashMap<String,ArrayList> userAttentionUser=new HashMap<String, ArrayList>();
+    private HashMap<String,ArrayList> userAttentionCourse=new HashMap<String, ArrayList>();
+    private HashMap<String,ArrayList> userAttentionPost=new HashMap<String, ArrayList>();
+    private HashMap<String,HashMap<String,String>> postList=new HashMap<String, HashMap<String, String>>();
 
     public HashMap<String ,Object> getUser(String name,String password){
 
@@ -34,9 +37,38 @@ public class UserDataBase {
 
     }
 
+    public boolean addPost(String userName,String postName,String reply,Date publishTime,String courseName){
+
+        int maxId=postList.size()+1;
+
+        return true;
+    }
     public UserDataBase(){
         userInfoCollection=new HashMap<String, HashMap>();
         buildMock();
+    }
+
+    public boolean addAttentionUser(String user,String name){
+
+        userAttentionUser.get(user).add(name);
+
+        return true;
+
+    }
+    public boolean addAttentionCourse(String user,String courseName){
+
+        userAttentionCourse.get(user).add(courseName);
+
+        return true;
+
+    }
+
+    public boolean addAttentionPost(String user,String postId){
+
+        userAttentionPost.get(user).add(postId);
+
+        return true;
+
     }
 
     public int addNewUser(String name,HashMap infoSet){
@@ -82,7 +114,9 @@ public class UserDataBase {
         userInfoSet1.put("password","123456");
 
         userInfoCollection.put("义薄云天",userInfoSet1);
-
+        userAttentionUser.put((String)userInfoSet1.get("name"), new ArrayList());
+        userAttentionCourse.put((String)userInfoSet1.get("name"), new ArrayList());
+        userAttentionPost.put((String)userInfoSet1.get("name"), new ArrayList());
 
         HashMap<String ,Object> userInfoSet2=new HashMap<String, Object>();
         userInfoSet2.put("name","十里长亭");
@@ -96,6 +130,9 @@ public class UserDataBase {
         userInfoSet2.put("password","123456");
 
         userInfoCollection.put("十里长亭",userInfoSet2);
+        userAttentionUser.put((String)userInfoSet2.get("name"), new ArrayList());
+        userAttentionCourse.put((String)userInfoSet2.get("name"), new ArrayList());
+        userAttentionPost.put((String)userInfoSet2.get("name"), new ArrayList());
 
         HashMap<String ,Object> userInfoSet3=new HashMap<String, Object>();
         userInfoSet3.put("name","Viva La");
@@ -113,6 +150,30 @@ public class UserDataBase {
 
 
         userInfoCollection.put("Viva La",userInfoSet3);
+        userAttentionUser.put((String)userInfoSet3.get("name"), new ArrayList());
+        userAttentionCourse.put((String)userInfoSet3.get("name"), new ArrayList());
+        userAttentionPost.put((String)userInfoSet3.get("name"), new ArrayList());
+
+
+        HashMap<String ,Object> userInfoSet4=new HashMap<String, Object>();
+        userInfoSet4.put("name","test");
+        userInfoSet4.put("gender","菇凉");
+        userInfoSet4.put("grade","1096");
+        userInfoSet4.put("icon","http");
+        userInfoSet4.put("sign","先王万代");
+        userInfoSet4.put("identify","路易十六");
+        userInfoSet4.put("id",1);
+        userInfoSet4.put("nickname","");
+        userInfoSet4.put("department","法兰西共和国");
+        userInfoSet4.put("major","国王");
+        userInfoSet4.put("background","hello");
+        userInfoSet4.put("password","test");
+
+
+        userInfoCollection.put("test",userInfoSet4);
+        userAttentionUser.put((String)userInfoSet4.get("name"), new ArrayList());
+        userAttentionCourse.put((String)userInfoSet4.get("name"), new ArrayList());
+        userAttentionPost.put((String)userInfoSet4.get("name"), new ArrayList());
 
     }
 }
