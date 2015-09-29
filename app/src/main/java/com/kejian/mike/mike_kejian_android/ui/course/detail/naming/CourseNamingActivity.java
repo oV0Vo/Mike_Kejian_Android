@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.naming;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +19,9 @@ import com.kejian.mike.mike_kejian_android.R;
 import net.CourseNamingNetService;
 import net.CourseNetService;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import bl.course.NamingBLService;
 import model.course.CourseModel;
 import model.course.data.CourseNamingRecord;
@@ -25,8 +29,6 @@ import util.TimeFormat;
 import util.TimerThread;
 
 public class CourseNamingActivity extends AppCompatActivity {
-
-    private NamingBLService namingBL;
 
     private ViewGroup mainLayout;
     private ProgressBar progressBar;
@@ -47,7 +49,6 @@ public class CourseNamingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_naming);
-        namingBL = NamingBLService.getInstance();
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
@@ -219,7 +220,7 @@ public class CourseNamingActivity extends AppCompatActivity {
         super.onDestroy();
         if(timerThread != null) {
             try {
-                thread.join();
+                timerThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -279,7 +280,7 @@ public class CourseNamingActivity extends AppCompatActivity {
         }
     }
 
-    private class GetCurrentNamingTask extends AsyncTassk<Void, Void, CourseNamingRecord> {
+    private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseNamingRecord> {
 
         @Override
         protected CourseNamingRecord doInBackground(Void... params) {

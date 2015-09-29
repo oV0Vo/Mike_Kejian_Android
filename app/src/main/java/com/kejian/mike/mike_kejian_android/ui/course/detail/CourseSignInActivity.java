@@ -1,14 +1,29 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
 import net.CourseNamingNetService;
 import net.CourseSignInNetService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import model.course.CourseModel;
 import model.course.data.CourseNamingRecord;
@@ -159,7 +174,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         super.onDestroy();
         if(timerThread != null) {
             try {
-                thread.join();
+                timerThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -169,7 +184,7 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private class HistorySignInAdapter extends ArrayAdapter<CourseSignInRecord> {
 
-        public HistorySignInAdapter(Context context, int resource, CourseSignInRecord[] objects) {
+        public HistorySignInAdapter(Context context, int resource, List<CourseSignInRecord> objects) {
             super(context, resource, objects);
         }
 
@@ -198,11 +213,11 @@ public class CourseSignInActivity extends AppCompatActivity {
                     history_course_sign_in_state_text);
             boolean hasSignIn = r.isHasSignIn();
             if(hasSignIn) {
-                signInImage.setBackground(getResources().getDrawable(R.drawable.smile));
+                signInImage.setBackgroundResource(R.drawable.smile);
                 signInText.setText(R.string.course_sign_in_already_sign_in);
                 signInText.setTextColor(getResources().getColor(R.color.green));
             } else {
-                signInImage.setBackground(getResources().getDrawable(R.drawable.bad_sad));
+                signInImage.setBackgroundResource(R.drawable.bad_sad);
                 signInText.setText(R.string.course_sign_in_miss);
                 signInText.setTextColor(getResources().getColor(R.color.dark));
             }
@@ -214,7 +229,7 @@ public class CourseSignInActivity extends AppCompatActivity {
     private class GetHistorySignInTask extends AsyncTask<Void, Void, ArrayList<CourseSignInRecord>> {
 
         @Override
-        protected void doInBackground(Void... params) {
+        protected ArrayList<CourseSignInRecord> doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
             return CourseSignInNetService.getSignInRecords(sidMock, courseId);
@@ -227,19 +242,19 @@ public class CourseSignInActivity extends AppCompatActivity {
         }
     }
 
-    private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseNamingRecord> {
+    private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseSignInRecord> {
 
         @Override
-        protected CourseNamingRecord doInBackground(Void... params) {
+        protected CourseSignInRecord doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseNamingNetService.getCurrentNamingRecord(courseId);
+            return CourseSignInNetService.getCurrentSignInRecord(courseId, sidMock);
         }
 
-        @Overrie
-        protected void onPostExecute(CourseNamingRecord currentNaming) {
+        @Override
+        protected void onPostExecute(CourseSignInRecord courseSignIn) {
             taskCountDown--;
-            updateView(currentNaming);
+            updateView(courseSignIn);
         }
     }
 

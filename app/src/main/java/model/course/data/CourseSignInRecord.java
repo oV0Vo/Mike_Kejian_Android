@@ -1,5 +1,7 @@
 package model.course.data;
 
+import java.util.Date;
+
 /**
  * Created by violetMoon on 2015/9/28.
  */

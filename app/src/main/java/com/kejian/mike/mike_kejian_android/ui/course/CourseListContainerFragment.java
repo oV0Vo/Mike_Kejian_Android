@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import bl.AcademyBLService;
 import bl.UserInfoService;
 import model.course.CourseModel;
+import model.course.data.CourseType;
 
 /**
  *
@@ -109,8 +110,8 @@ public class CourseListContainerFragment extends Fragment {
         courseListFg.showAcademyCourseList(academyNameList);
     }
 
-    private void showCourseTypeList(CharSequence courseType) {
-        courseListFg.showCourseTypeList(courseType);
+    private void showCourseTypeList(String courseType) {
+        courseListFg.showCourseTypeList(CourseType.valueOf(courseType));
     }
 
     private void initCourseTypeSelectView(View contentView) {
@@ -127,7 +128,7 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence courseTypeName = item.getTitle();
                     courseTypeSelectText.setText(courseTypeName);
-                    showCourseTypeList(courseTypeName);
+                    showCourseTypeList(courseTypeName.toString());
                     return true;
                 }
             });
@@ -148,7 +149,7 @@ public class CourseListContainerFragment extends Fragment {
                     if(isSelectAcademy) {
                         courseListFg.showAcademyCourseList(selectText);
                     } else {
-                        courseListFg.showCourseTypeList(selectText);
+                        courseListFg.showCourseTypeList(CourseType.valueOf(selectText.toString()));
                     }
 
                 }
