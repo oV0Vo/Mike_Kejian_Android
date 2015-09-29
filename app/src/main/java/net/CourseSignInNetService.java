@@ -15,6 +15,10 @@ public class CourseSignInNetService {
         return signInMocks();
     }
 
+    public static CourseSignInRecord getCurrentSignInRecord(String sid, String courseId) {
+        return signInMock2();
+    }
+
     public static boolean signIn(String sid, String namingId) {
         return true;
     }
