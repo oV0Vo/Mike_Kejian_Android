@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 
 import java.util.Date;
 import java.util.Timer;
+import java.util.ArrayList;
 
 import model.course.data.CourseNamingRecord;
 import util.NeedAsyncAnnotation;
@@ -71,7 +72,7 @@ public class NamingBLService {
     }
 
     private void clearPreTimerRecord() {
-        namingRecord = null;
+        //namingRecord = null;
     }
 
     public boolean isOnNaming(String courseId) {
