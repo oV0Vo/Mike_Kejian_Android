@@ -48,4 +48,60 @@ public class TimeFormat {
 
         return strBuilder.toString();
     }
+
+    public static String convertDateInterval(Date beginDate, Date endDate) {
+        StringBuilder strBuilder = new StringBuilder();
+
+        int by = begin.getYear();
+        strBuilder.append(Integer.toString(by) + "/");
+
+        int bm = begin.getMonth();
+        append(strBuilder, bm);
+        strBuilder.append("/");
+
+        int bd = begin.getDate();
+        append(strBuilder, bd);
+        strBuilder.append(" ");
+
+        int bh = begin.getHour();
+        append(strBuilder, bh);
+        strBuilder.append(":");
+
+        int bs = begin.getSeconds();
+        append(strBuilder, bs);
+        strBuilder.append("-");
+
+        int ey = begin.getYear();
+        if(by != ey)
+            strBuilder.append(Integer.toString(ey) + "/");
+
+        int em = begin.getMonth();
+        if(bm != em) {
+            append(strBuilder, em);
+            strBuilder.append("/");
+        }
+
+        int ed = begin.getDate();
+        if(bd != ed) {
+            append(strBuilder, ed);
+            strBuilder.append(" ");
+        }
+
+        int eh = begin.getHour();
+        append(strBuilder, eh);
+        strBuilder.append(":");
+
+        int es = begin.getSeconds();
+        append(strBuilder, es);
+
+        return strBuilder.toString();
+    }
+
+    private static void append(StringBuilder strBuilder, int data) {
+        if(data >= 10)
+            strBuilder.append(Integer.toString(data));
+        else
+            strBuilder.append("0" + Integer.toString(data));
+    }
+
 }

@@ -79,12 +79,11 @@ public class CourseListContainerFragment extends Fragment {
         allCourseSelectLayout = (LinearLayout)contentView.findViewById(R.id.main_course_all_course_select_layout);
         initAcademySelectView(allCourseSelectLayout);
         initCourseTypeSelectView(allCourseSelectLayout);
-       allCourseSelectLayout.setVisibility(View.GONE);
+        allCourseSelectLayout.setVisibility(View.GONE);
     }
 
     private void initAcademySelectView(View contentView) {
         academySelectText = (TextView)contentView.findViewById(R.id.main_course_academy_select_text);
-        academySelectText.setText(R.string.main_course_select_all_academy);
 
         AcademyBLService academyBL = AcademyBLService.getInstance();
         ArrayList<String> allNames = academyBL.getAllAcademyNamesMock();
@@ -145,6 +144,7 @@ public class CourseListContainerFragment extends Fragment {
             public void onClick(View v) {
                 if(isShowMyCourse) {
                     isShowMyCourse = false;
+                    allCourseSelectLayout.setVisibility(View.VISIBLE);
                     if(isSelectAcademy) {
                         courseListFg.showAcademyCourseList(selectText);
                     } else {

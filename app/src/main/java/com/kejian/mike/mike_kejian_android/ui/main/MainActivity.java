@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private RadioButton courseButton;
     private RadioButton messageButton;
     private RadioButton campusButton;
+    private RadioButton currentButton;
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;

@@ -169,7 +169,6 @@ public class CourseQuestionFragment extends Fragment {
             final TextView leftTimeClock = (TextView)convertView.findViewById(R.id.
                     current_question_countdown_time_text);
             final long leftTime = currentQuestion.getLeftMills();
-            leftTimeClock.setText(Long.toString(leftTime));
             CountDownTimer timer = new CountDownTimer(leftTime, 1000L) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -179,8 +178,8 @@ public class CourseQuestionFragment extends Fragment {
 
                 @Override
                 public void onFinish() {
-                    if(leftTimeClock != null)
-                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
+                   /* if(leftTimeClock != null)
+                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));*/
                 }
             };
 

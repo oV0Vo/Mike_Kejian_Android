@@ -7,18 +7,11 @@ public class CourseBriefInfo {
     private String courseId;
     private String courseName;
     private String academyName;
+    private CourseType courseType;
     private int progressWeek;
     private byte[] courseImage;
 
-    public byte[] getCourseImage() {
-        return courseImage;
-    }
-
-    public void setCourseImage(byte[] courseImage) {
-        this.courseImage = courseImage;
-    }
-
-    public String getCourseId() {
+    public java.lang.String getCourseId() {
         return courseId;
     }
 
@@ -26,7 +19,7 @@ public class CourseBriefInfo {
         this.courseId = courseId;
     }
 
-    public String getCourseName() {
+    public java.lang.String getCourseName() {
         return courseName;
     }
 
@@ -34,12 +27,12 @@ public class CourseBriefInfo {
         this.courseName = courseName;
     }
 
-    public String getAcademyName() {
+    public java.lang.String getAcademyName() {
         return academyName;
     }
 
-    public void setAcademyName(String academyName) {
-        this.academyName = academyName;
+    public CourseType getCourseType() {
+        return courseType;
     }
 
     public int getProgressWeek() {
@@ -50,4 +43,15 @@ public class CourseBriefInfo {
         this.progressWeek = progressWeek;
     }
 
+    public byte[] getCourseImage() {
+        return courseImage;
+    }
+
+    public void setCourseImage(byte[] courseImage) {
+        this.courseImage = courseImage;
+    }
+
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
+    }
 }
