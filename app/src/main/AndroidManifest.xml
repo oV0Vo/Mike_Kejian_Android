@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.user.UserLoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,20 +59,20 @@
             android:name=".ui.user.UserInfoActivity"
             android:label="user_info" >
         </activity>
-        <activity
-            android:name=".ui.user.UserLoginActivity"
-            android:label="user_login" >
-        </activity>
+        <!--<activity-->
+            <!--android:name=".ui.user.UserLoginActivity"-->
+            <!--android:label="user_login" >-->
+        <!--</activity>-->
         <activity
             android:name=".ui.user.UserBaseInfoOtherView"
             android:label="user_info_other" >
         </activity>
         <activity android:name=".ui.user.UserAttentionListActivity"
-            android:label="user_attention_list"></activity>
+            android:label="关注列表"></activity>
         <activity android:name=".ui.user.UserForgetPasswordActivity"
-            android:label="user_forget_password"></activity>
+            android:label="忘记密码"></activity>
         <activity android:name=".ui.user.UserRegisterActivity"
-            android:label="user_register"></activity>
+            android:label="注册"></activity>
 
         <activity android:name=".ui.campus.PostDetailActivity"
             android:label="帖子内容">
@@ -81,6 +81,20 @@
         <activity android:name=".ui.campus.PostPublishActivity"
             android:label="发帖">
         </activity>
+        <activity android:name=".ui.main.MainActivity"
+            android:label="main_activity">
+        </activity>
+        <activity android:name=".ui.user.UserAttentionActivity"
+            android:label="user_attention_activity">
+        </activity>
+        <activity android:name=".ui.user.UserPasswordCode"
+            android:label="发送验证码"></activity>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+
 
 </manifest>

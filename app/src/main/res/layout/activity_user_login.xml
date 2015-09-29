@@ -4,19 +4,34 @@
     android:layout_height="match_parent">
 
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/b16392dc6694"
 
-        android:src="@drawable/user"
 
-        android:id="@+id/imageView" />
+        android:layout_marginBottom="10dp">
+        <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+            android:id="@+id/user_photo_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/photo"
+
+
+
+            />
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="30dp"
 
         >
         <LinearLayout
@@ -74,13 +89,14 @@
 
 
         <Button
-            android:layout_width="wrap_content"
+
+
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Log In"
             android:background="@drawable/rec_button"
             android:id="@+id/login_confirm"
             android:layout_marginTop="30dp"
-
             android:layout_gravity="center"
             />
 
@@ -95,7 +111,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册"
-            android:paddingRight="20dp"
+            android:textSize="@dimen/big_font"
+            android:paddingRight="@dimen/big_padding"
             android:id="@+id/register"
           />
         <TextView
@@ -109,8 +126,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="忘记密码"
+            android:textSize="@dimen/big_font"
             android:id="@+id/forget_password"
-            android:paddingLeft="20dp"
+            android:paddingLeft="@dimen/extreme_big_padding"
             />
     </LinearLayout>
+
 </LinearLayout>

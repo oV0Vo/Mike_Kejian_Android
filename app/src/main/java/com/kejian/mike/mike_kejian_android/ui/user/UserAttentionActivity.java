@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.user;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ import model.message.Reply;
 
 
 
-public class UserAttentionActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener {
+public class UserAttentionActivity extends Activity implements View.OnClickListener,OnRefreshListener {
 
     private LinearLayout mainLayout;
     private RefreshListView container;
@@ -46,13 +47,11 @@ public class UserAttentionActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mention_me);
 
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.context=this;
-
         this.mainLayout = (LinearLayout)findViewById(R.id.mention_me);
         this.mainLayout.setVisibility(View.GONE);
-
         this.progressBar = (ProgressBar)findViewById(R.id.mention_me_progress_bar);
         System.out.println("in userAttentionActivity3");
         initData();
@@ -68,7 +67,7 @@ public class UserAttentionActivity extends AppCompatActivity implements View.OnC
         this.container = (RefreshListView)findViewById(R.id.mention_container);
         this.myInflater = getLayoutInflater();
         TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
-        //mention_num_view.setText("共 " + MessageBLService.totalMentionMe + " 条");
+        mention_num_view.setText("共12 " + MessageBLService.totalMentionMe + " 条");
         System.out.println("in userAttentionActivity1");
         //this.adapter=new AttentionListAdapter(0,null,context);
         System.out.println("in userAttentionActivity2");
@@ -177,23 +176,23 @@ public class UserAttentionActivity extends AppCompatActivity implements View.OnC
     }
 
 
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onClick(View v) {
-        MessageBLService.unreadMentionNum = 0;
-        UserAttentionActivity.this.finish();
+        //MessageBLService.unreadMentionNum = 0;
+        //UserAttentionActivity.this.finish();
 
     }
 }

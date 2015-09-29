@@ -43,17 +43,41 @@
             />
 
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:background="@drawable/rec_edit"
+
+
+            android:text="名字"
+            />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:background="@drawable/rec_edit"
-            android:text="                           请输入手机号"
+            android:hint="6-16位数字或密码"
+            android:id="@+id/name_view"
 
             />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:layout_width="80dp"
@@ -61,41 +85,75 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="+86"
+            android:background="@drawable/rec_edit"
             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
         <EditText
             android:layout_width="fill_parent"
+
             android:layout_height="60dp"
             android:background="@drawable/rec_edit"
-            android:text="                           6-16位数字或密码"
+            android:hint="请输入手机号"
+            android:id="@+id/phone_number_view"
+
+
             />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
 
         <TextView
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
             android:gravity="center"
+            android:background="@drawable/rec_edit"
 
 
             android:text="密码"
             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-
-        >
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="60dp"
+            android:background="@drawable/rec_edit"
+            android:hint="6-16位数字或密码"
+            android:id="@+id/password_view"
+
+            />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:text="短信验证码"
+
+            android:id="@+id/text_code"
+            android:background="@drawable/rec_edit"
+
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
 
             android:background="@drawable/rec_edit"
-            android:text="                          请输入短信验证码"
+            android:hint="请输入短信验证码"
             android:id="@+id/code_input"
 
 
@@ -112,17 +170,8 @@
             android:layout_marginRight="10dp"
 
             />
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:text="短信验证码"
 
-            android:id="@+id/text_code"
-
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            />
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"

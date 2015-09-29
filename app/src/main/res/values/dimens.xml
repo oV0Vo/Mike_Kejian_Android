@@ -3,6 +3,27 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="medium_padding">6dp</dimen>
+    <dimen name="extreme_medium_padding">8dp</dimen>
+    <dimen name="little_big_padding">12dp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="medium_font">16dp</dimen>
+    <dimen name="sub_medium_font">14dp</dimen>
+    <dimen name="small_font">12dp</dimen>
+    <dimen name="big_font">18dp</dimen>
+    <dimen name="sub_big_font">17dp</dimen>
+    <dimen name="extreme_small_font">10dp</dimen>
+    <dimen name="extreme_big_font">22dp</dimen>
+    <dimen name="medium_icon_width">34dp</dimen>
+    <dimen name="medium_icon_height">34dp</dimen>
+    <dimen name="sub_medium_icon_width">30dp</dimen>
+    <dimen name="sub_medium_icon_height">30dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
     <!--line-->
     <dimen name="line_thin">1dp</dimen>
     <dimen name="line_normal">3dp</dimen>
@@ -11,8 +32,7 @@
     <!--padding-->
     <dimen name="small_padding">3dp</dimen>
     <dimen name="sub_medium_padding">5dp</dimen>
-    <dimen name="medium_padding">6dp</dimen>
-    <dimen name="extreme_medium_padding">8dp</dimen>
+
     <dimen name="sub_big_padding">12dp</dimen>
     <dimen name="big_padding">16dp</dimen>
     <dimen name="extreme_big_padding">20dp</dimen>
@@ -20,21 +40,14 @@
     <dimen name="medimen_button_padding">36dp</dimen>
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_width">240dp</dimen>
+
     <!--font-->
-    <dimen name="medium_font">16sp</dimen>
-    <dimen name="sub_medium_font">14sp</dimen>
-    <dimen name="small_font">12sp</dimen>
-    <dimen name="big_font">18sp</dimen>
-    <dimen name="sub_big_font">17sp</dimen>
-    <dimen name="extreme_small_font">10sp</dimen>
-    <dimen name="extreme_big_font">22sp</dimen>
+
 
     <!--icon size-->
-    <dimen name="medium_icon_width">30dp</dimen>
-    <dimen name="medium_icon_height">30dp</dimen>
-    <dimen name="sub_medium_icon_width">25dp</dimen>
-    <dimen name="sub_medium_icon_height">25dp</dimen>
+
+
+
     <dimen name="small_icon_width">20dp</dimen>
     <dimen name="small_icon_height">20dp</dimen>
     <dimen name="half_screen">100dp</dimen>
