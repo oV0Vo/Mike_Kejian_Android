@@ -43,6 +43,10 @@ public class CourseBriefInfo {
         this.progressWeek = progressWeek;
     }
 
+    public void setAcademyName(String academyName) {
+        this.academyName = academyName;
+    }
+
     public byte[] getCourseImage() {
         return courseImage;
     }

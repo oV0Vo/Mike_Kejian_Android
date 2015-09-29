@@ -144,7 +144,7 @@
     <string name="course_naming_sign_in_num_title">签到人数</string>
     <string name="course_naming_absent_list_title">未到名单</string>
     <string name="on_getting_naming_result">正在获取点名数据</string>
-    <string nam="on_send_naming_request">正在发送点名请求</string>
+    <string name="on_send_naming_request">正在发送点名请求</string>
 
     <!--course sign in-->
     <string name="course_sign_in_time_title">签到时间:</string>

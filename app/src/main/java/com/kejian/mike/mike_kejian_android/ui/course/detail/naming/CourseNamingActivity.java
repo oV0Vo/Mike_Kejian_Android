@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.naming;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,21 +13,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
 import net.CourseNamingNetService;
 import net.CourseNetService;
 
-import bl.course.NamingBLService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import model.course.CourseModel;
 import model.course.data.CourseNamingRecord;
 import util.TimeFormat;
 import util.TimerThread;
 
 public class CourseNamingActivity extends AppCompatActivity {
-
-    private NamingBLService namingBL;
 
     private ViewGroup mainLayout;
     private ProgressBar progressBar;
@@ -47,7 +50,6 @@ public class CourseNamingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_naming);
-        namingBL = NamingBLService.getInstance();
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
@@ -75,7 +77,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private void updateViewOnGetCurrentNaming(CourseNamingRecord currentNaming) {
         namingTimeText = (TextView)findViewById(R.id.course_naming_time_text);
-        leftTimeClock = (TextView)currentNamingLayout.findViewById(R.id.left_time_text);
+        leftTimeClock = (TextView)findViewById(R.id.left_time_text);
         namingActionText = (TextView)findViewById(R.id.naming_action_text);
 
         if(currentNaming != null) {
@@ -117,6 +119,12 @@ public class CourseNamingActivity extends AppCompatActivity {
     private void setViewOnNamingNotStart() {
         namingActionText.setText(R.string.course_naming_naming_action);
         //namingActionText.setBackgroundColor();
+        namingActionText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         namingTimeText.setText(R.string.course_naming_not_start);
         leftTimeClock.setText(R.string.course_naming_not_start_clock_text);
     }
@@ -124,7 +132,6 @@ public class CourseNamingActivity extends AppCompatActivity {
     private void setViewOnNamingFinish() {
         namingActionText.setText(R.string.course_naming_finish);
         namingActionText.setEnabled(false);
-        progressBar.setText(R.string.on_getting_naming_result);
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -141,7 +148,7 @@ public class CourseNamingActivity extends AppCompatActivity {
     }
 
     private void setViewOnGetNamingResult(CourseNamingRecord namingResult) {
-        progressBar.setVisibilit(View.GONE);
+        progressBar.setVisibility(View.GONE);
 
         View resultView = getLayoutInflater().inflate(R.layout.layout_course_naming_result, null);
         TextView statsText = (TextView)resultView.findViewById(R.id.stats_text);
@@ -195,31 +202,12 @@ public class CourseNamingActivity extends AppCompatActivity {
         }
     }
 
-    private void setNotOnNamingView() {
-        TextView timeText = (TextView)findViewById(R.id.course_naming_time_text);
-        timeText.setText(R.string.course_naming_not_start);
-        TextView clockText = (TextView)findViewById(R.id.course_naming_not_start_clock_text);
-        colorText.setText(R.string.course_naming_not_start_clock_text);
-        TextView namingText = (TextView)findViewById(R.id.naming);
-        namingText.setText(R.string.course_naming_naming_action);
-
-        namingText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                progressBar.setText(R.string.on_send_naming_request);
-                progressBar.setVisibility(View.VISIBLE);
-                new BeginNamingTask().execute();
-            }
-        });
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         if(timerThread != null) {
             try {
-                thread.join();
+                timerThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -228,7 +216,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private class HistoryNamingAdapter extends ArrayAdapter<CourseNamingRecord> {
 
-        public HistoryNamingAdapter(Context context, int resource, CourseNamingRecord[] objects) {
+        public HistoryNamingAdapter(Context context, int resource, List<CourseNamingRecord> objects) {
             super(context, resource, objects);
         }
 
@@ -275,11 +263,11 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<CourseNamingRecord> namingRecords) {
-            updateView(namingRecords);
+            updateViewOnGetHistoryNaming(namingRecords);
         }
     }
 
-    private class GetCurrentNamingTask extends AsyncTassk<Void, Void, CourseNamingRecord> {
+    private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseNamingRecord> {
 
         @Override
         protected CourseNamingRecord doInBackground(Void... params) {

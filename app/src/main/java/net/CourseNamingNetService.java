@@ -1,5 +1,8 @@
 package net;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import model.course.data.CourseNamingRecord;
 import util.NetOperateResultMessage;
 
@@ -41,8 +44,8 @@ public class CourseNamingNetService {
         names.add("朱方圆");
         names.add("高阳一桥");
         mock.setAbsentNames(names);
-        mock.setBeginTime(new Date(System.currentTimeMills() - 1000 * 3600 * 32));
-        mock.setEndTime(new Date(System.currentTimeMills() -  - 1000 * 3600 * 31));
+        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 3600 * 32));
+        mock.setEndTime(new Date(System.currentTimeMillis() -  - 1000 * 3600 * 31));
         mock.setNamingId("dsfsdfsdfds");
         mock.setSignInNum(92);
         mock.setTeacherId("tvbccvbcvbcv");

@@ -114,10 +114,6 @@ public class CourseNetService {
             return historyNamingMocks();
     }
 
-    public static CourseSignInRecord getCurrentNaming(String courseId) {
-        return historyNamingMock;
-    }
-
     public static NetOperateResultMessage courseSignIn(String sid, String namingId) {
         return null;
     }
@@ -143,8 +139,8 @@ public class CourseNetService {
         names.add("朱方圆");
         names.add("高阳一桥");
         mock.setAbsentNames(names);
-        mock.setBeginTime(new Date(System.currentTimeMills() - 1000 * 3600 * 32));
-        mock.setEndTime(new Date(System.currentTimeMills() -  - 1000 * 3600 * 31));
+        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 3600 * 32));
+        mock.setEndTime(new Date(System.currentTimeMillis() -  - 1000 * 3600 * 31));
         mock.setNamingId("dsfsdfsdfds");
         mock.setSignInNum(92);
         mock.setTeacherId("tvbccvbcvbcv");

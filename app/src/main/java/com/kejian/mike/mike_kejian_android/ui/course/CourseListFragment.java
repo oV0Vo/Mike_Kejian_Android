@@ -61,7 +61,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             return;
         listData.clear();
         listData.addAll(courseModel.getMyCourseBriefs());
-        listAdapter.notifyOnDataSetChanged();
+        listAdapter.notifyDataSetChanged();
     }
 
     public void showAllCourse() {
@@ -69,7 +69,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             return;
         listData.clear();
         listData.addAll(courseModel.getAllCourseBriefs());
-        listAdapter.notifyOnDataSetChanged();
+        listAdapter.notifyDataSetChanged();
     }
 
     //@需要一个progressBar
@@ -79,7 +79,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
                 academyName);
         listData.clear();
         listData.addAll(filterResults);
-        listAdapter.notifyOnDataSetChanged();
+        listAdapter.notifyDataSetChanged();
     }
 
     public void showCourseTypeList(CourseType courseType) {
@@ -88,7 +88,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
                 courseType);
         listData.clear();
         listData.addAll(filterResults);
-        listAdapter.notifyOnDataSetChanged();
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override

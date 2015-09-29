@@ -49,7 +49,7 @@ public class TimeFormat {
         return strBuilder.toString();
     }
 
-    public static String convertDateInterval(Date beginDate, Date endDate) {
+    public static String convertDateInterval(Date begin, Date endDate) {
         StringBuilder strBuilder = new StringBuilder();
 
         int by = begin.getYear();
@@ -63,35 +63,35 @@ public class TimeFormat {
         append(strBuilder, bd);
         strBuilder.append(" ");
 
-        int bh = begin.getHour();
+        int bh = begin.getHours();
         append(strBuilder, bh);
         strBuilder.append(":");
 
-        int bs = begin.getSeconds();
+        int bs = endDate.getSeconds();
         append(strBuilder, bs);
         strBuilder.append("-");
 
-        int ey = begin.getYear();
+        int ey = endDate.getYear();
         if(by != ey)
             strBuilder.append(Integer.toString(ey) + "/");
 
-        int em = begin.getMonth();
+        int em = endDate.getMonth();
         if(bm != em) {
             append(strBuilder, em);
             strBuilder.append("/");
         }
 
-        int ed = begin.getDate();
+        int ed = endDate.getDate();
         if(bd != ed) {
             append(strBuilder, ed);
             strBuilder.append(" ");
         }
 
-        int eh = begin.getHour();
+        int eh = endDate.getHours();
         append(strBuilder, eh);
         strBuilder.append(":");
 
-        int es = begin.getSeconds();
+        int es = endDate.getSeconds();
         append(strBuilder, es);
 
         return strBuilder.toString();

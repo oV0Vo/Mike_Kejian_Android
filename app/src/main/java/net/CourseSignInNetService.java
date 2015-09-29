@@ -1,5 +1,8 @@
 package net;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import model.course.data.CourseNamingRecord;
 import model.course.data.CourseSignInRecord;
 
@@ -29,8 +32,8 @@ public class CourseSignInNetService {
 
     private static CourseSignInRecord signInMock1() {
         CourseSignInRecord mock = new CourseSignInRecord();
-        mock.setBeginTime(new Date(System.currentTimeMills() - 1000 * 60 * 48));
-        mock.setEndTime(new Date(System.currentTimeMills() - 1000 * 60 * 32));
+        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 60 * 48));
+        mock.setEndTime(new Date(System.currentTimeMillis() - 1000 * 60 * 32));
         mock.setHasSignIn(true);
         mock.setTeacherName("伏晓");
         return mock;
@@ -38,8 +41,8 @@ public class CourseSignInNetService {
 
     private static CourseSignInRecord signInMock2() {
         CourseSignInRecord mock = new CourseSignInRecord();
-        mock.setBeginTime(new Date(System.currentTimeMills() - 1000 * 60 * 48));
-        mock.setEndTime(new Date(System.currentTimeMills() - 1000 * 60 * 32));
+        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 60 * 48));
+        mock.setEndTime(new Date(System.currentTimeMillis() - 1000 * 60 * 32));
         mock.setHasSignIn(false);
         mock.setTeacherName("伏晓");
         return mock;
