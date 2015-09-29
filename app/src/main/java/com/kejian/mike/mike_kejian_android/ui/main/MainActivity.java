@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private RadioButton courseButton;
     private RadioButton messageButton;
     private RadioButton campusButton;
+    private RadioButton currentButton;
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity
 
         @NeedRefinedAnnotation
         @Override
-        public Fragment getItem(int position) {Log.e("MainActivity", "viewPager getItem " + new Integer(position).toString());
+        public Fragment getItem(int position) {Log.e("MainActivity", "viewPager getItehttps://github.com/oV0Vo/Mike_Kejian_Android.gitm " + new Integer(position).toString());
             switch(position) {
                 case 0:
                     if(courseFg == null) { Log.e("MainActivity", "courseFg null");

@@ -9,6 +9,8 @@ import model.campus.Post;
 import model.course.data.CourseAnnoucement;
 import model.course.data.CourseBriefInfo;
 import model.course.data.CourseDetailInfo;
+import model.course.data.CourseNamingRecord;
+import model.course.data.CourseSignInRecord;
 import model.course.data.CourseType;
 import model.course.data.PersonMocks;
 import model.course.data.PostMocks;
@@ -108,12 +110,43 @@ public class CourseNetService {
         return null;
     }
 
-    private static final class CourseNetArg {
-        public static final String url = "";
-        public static final String arg1Name = "";
-        public static final String arg2Name = "";
+    public static ArrayList<CourseNamingRecord> getHistoryNamingRecords(String courseId) {
+            return historyNamingMocks();
     }
 
+    public static NetOperateResultMessage courseSignIn(String sid, String namingId) {
+        return null;
+    }
+
+    private static ArrayList<CourseNamingRecord> historyNamingMocks() {
+        ArrayList<CourseNamingRecord> mocks = new ArrayList<CourseNamingRecord>();
+        mocks.add(historyNamingMock());
+        mocks.add(historyNamingMock());
+        return mocks;
+    }
+
+    private static CourseNamingRecord historyNamingMock() {
+        CourseNamingRecord mock = new CourseNamingRecord();
+        ArrayList<String> sids = new ArrayList<String>();
+        sids.add("131250666");
+        sids.add("131250777");
+        sids.add("131250888");
+        sids.add("131250999");
+        mock.setAbsentIds(sids);
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("黄崇和");
+        names.add("洪传旺");
+        names.add("朱方圆");
+        names.add("高阳一桥");
+        mock.setAbsentNames(names);
+        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 3600 * 32));
+        mock.setEndTime(new Date(System.currentTimeMillis() -  - 1000 * 3600 * 31));
+        mock.setNamingId("dsfsdfsdfds");
+        mock.setSignInNum(92);
+        mock.setTeacherId("tvbccvbcvbcv");
+        mock.setTotalNum(122);
+        return mock;
+    }
 
     private static final String courseMock1Id = "course1Id";
     private static final String courseMock2Id = "course2Id";

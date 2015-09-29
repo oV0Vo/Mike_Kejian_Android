@@ -10,6 +10,7 @@
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingActivity">
 
     <LinearLayout
+        android:id="@+id/course_naming_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -36,14 +37,13 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/course_naming_current_time_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/medium_padding"
                         android:textSize="@dimen/medium_font"/>
 
                     <TextView
-                        android:id="@+id/course_naming_current_time"
+                        android:id="@+id/course_naming_time_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/medium_font"/>
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <TextView
-                            android:id="@+id/naming"
+                            android:id="@+id/naming_action_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/green_whiteText"
@@ -80,6 +80,11 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <FragmentLayout
+            android:id="@+id/course_naming_result_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"

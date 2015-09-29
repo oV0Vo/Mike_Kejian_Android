@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
+
 import bl.UserBLService;
 import model.user.UserToken;
 import model.user.user;
@@ -49,6 +51,7 @@ public class UserLoginActivity extends Activity {
     }
 
     protected void onPause(Bundle savedInstanceState){
+
         if(userToken!=null){
 
             System.out.println("直接登录");
@@ -113,7 +116,7 @@ public class UserLoginActivity extends Activity {
         else {
             Intent intent = new Intent();
 
-            intent.setClass(this, UserInfoActivity.class);
+            intent.setClass(this, MainActivity.class);
             System.out.println();
 
             Bundle bundle=new Bundle();
@@ -127,6 +130,8 @@ public class UserLoginActivity extends Activity {
 
 
             startActivity(intent);
+
+
 
             return UserOperationResult.LOGIN_SUCCEED;
         }

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-public class ColorBarFragment extends Fragment { private static final String ARG_BEGIN_COLOR = "begin_color";
+public class ColorBarFragment extends Fragment {
+    private static final String ARG_BEGIN_COLOR = "begin_color";
     private static final String ARG_END_COLOR = "end_color";
     private static final String ARG_REST_COLOR = "rest_color";
     private static final String ARG_COLOR_BAR_PERCENT = "color_bar_percent";
@@ -41,11 +42,11 @@ public class ColorBarFragment extends Fragment { private static final String ARG
     }
 
     public static ColorBarFragment getInstance(int beginColor, int endColor, double colorBarPercent) {
-        return getInstance(beginColor, endColor, colorBarPercent, DEFAULT_REST_COLOR);
+        return getInstance(beginColor, endColor, DEFAULT_REST_COLOR, colorBarPercent);
     }
 
-    public static ColorBarFragment getInstance(int beginColor, int endColor, double colorBarPercent
-            , int restColor) {
+    public static ColorBarFragment getInstance(int beginColor, int endColor, int restColor,
+                                               double colorBarPercent) {
         Bundle args = new Bundle();
         args.putInt(ARG_BEGIN_COLOR, beginColor);
         args.putInt(ARG_END_COLOR, endColor);
@@ -59,7 +60,7 @@ public class ColorBarFragment extends Fragment { private static final String ARG
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return null;
+        return new TextView(getActivity());
     }
 
 }

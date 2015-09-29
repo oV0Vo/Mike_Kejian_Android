@@ -135,17 +135,25 @@
     <string name="course_naming_type_qiandao">签到时间:</string>
     <string name="course_naming_type_shangke">上课时间</string>
     <string name="course_naming_not_start">未开始</string>
-    <string name="course_naming_action">我要点名</string>
+    <string name="course_naming_not_start_clock_text">- -:- -</string>
+    <string name="course_naming_naming_action">我要点名</string>
+    <string name="course_naming_on_naming">正在点名</string>
+    <string name="course_naming_finish">点名结束</string>
     <string name="course_naming_history_title">往期点名</string>
     <string name="course_naming_sign_in_stats_title">出勤统计</string>
     <string name="course_naming_sign_in_num_title">签到人数</string>
     <string name="course_naming_absent_list_title">未到名单</string>
+    <string name="on_getting_naming_result">正在获取点名数据</string>
+    <string name="on_send_naming_request">正在发送点名请求</string>
 
     <!--course sign in-->
-    <string name="course_sign_in_time_title">签到时间</string>
+    <string name="course_sign_in_time_title">签到时间:</string>
     <string name="course_sign_in_teacher_title">上课教师</string>
     <string name="course_sign_in_sign_in_action">我要签到</string>
+    <string name="course_sign_in_no_current_naming_text">当前没有点名哦</string>
     <string name="course_sign_in_already_sign_in">已签到</string>
+    <string name="course_sign_in_not_sign_in_status">未签到</string>
+    <string name="course_sign_in_success">签到成功！</string>
     <string name="course_sign_in_miss">错过了</string>
     <string name="course_sign_in_history_title">签到历史</string>
     <!--util-->

@@ -10,24 +10,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/history_course_sign_in_title_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/medium_padding"
+                android:textSize="@dimen/medium_font"
                 android:text="@string/course_sign_in_time_title"/>
 
             <TextView
                 android:id="@+id/history_course_sign_in_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_font" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,12 +37,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/medium_padding"
+                android:textSize="@dimen/medium_font"
                 android:text="@string/course_sign_in_teacher_title"/>
 
             <TextView
                 android:id="@+id/history_course_sign_in_teacher"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_font" />
         </LinearLayout>
     </LinearLayout>
 
@@ -60,7 +62,8 @@
         <TextView
             android:id="@+id/history_course_sign_in_state_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/extreme_small_font"/>
 
     </LinearLayout>
 
