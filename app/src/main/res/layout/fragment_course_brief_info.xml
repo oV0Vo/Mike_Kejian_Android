@@ -14,7 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/book_height"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/green_bottom_thin_border">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -64,13 +64,30 @@
                 android:textSize="@dimen/sub_medium_font"
                 android:text="@string/main_course_academy_type_title"/>
 
-            <TextView
-                android:id="@+id/main_course_academy_select_text"
+            <LinearLayout
+                android:id="@+id/course_select_academy_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_medium_font"
-                android:textColor="@color/green"
-                android:text="@string/main_course_select_all_academy"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/main_course_academy_select_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:textColor="@color/green"
+                    android:text="@string/main_course_select_all_academy"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/down"/>
+                </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -88,13 +105,32 @@
                 android:textSize="@dimen/sub_medium_font"
                 android:text="@string/main_course_type_title"/>
 
-            <TextView
-                android:id="@+id/main_course_course_type_select_text"
+            <LinearLayout
+                android:id="@+id/course_select_type_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_medium_font"
-                android:textColor="@color/green"
-                android:text="@string/main_course_select_all_course"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/main_course_course_type_select_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:textColor="@color/green"
+                    android:text="@string/main_course_select_all_course"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/down"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
             </LinearLayout>
 
     </LinearLayout>

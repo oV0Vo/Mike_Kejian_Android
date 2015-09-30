@@ -53,7 +53,7 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
                 viewPager.setCurrentItem(1);
             }
         });
-
+        initCheckChangeListener();
         return v;
     }
 
@@ -73,8 +73,8 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
                 }
             }
         };
-        questionButton.setOnCheckedChangeListener(checkChangeListener);
-        commentsButton.setOnCheckedChangeListener(checkChangeListener);
+        //questionButton.setOnCheckedChangeListener(checkChangeListener);
+        //commentsButton.setOnCheckedChangeListener(checkChangeListener);
         commentsButton.setChecked(true);
     }
 

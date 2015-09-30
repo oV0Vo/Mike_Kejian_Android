@@ -35,9 +35,13 @@ public class CourseListContainerFragment extends Fragment {
     private RadioButton currentButton;
 
     private LinearLayout allCourseSelectLayout;
+
     private TextView academySelectText;
+    private ViewGroup academySelectLayout;
     private PopupMenu academySelectMenu;
+
     private TextView courseTypeSelectText;
+    private ViewGroup courseTypeSelectLayout;
     private PopupMenu courseTypeSelectMenu;
 
     private CourseListFragment courseListFg;
@@ -76,6 +80,7 @@ public class CourseListContainerFragment extends Fragment {
         initCourseButtonListner();
         initAllCourseSelectLayout(v);
         myCourseButton.setChecked(true);
+        isShowMyCourse = true;
         return v;
     }
 
@@ -88,6 +93,7 @@ public class CourseListContainerFragment extends Fragment {
 
     private void initAcademySelectView(View contentView) {
         academySelectText = (TextView)contentView.findViewById(R.id.main_course_academy_select_text);
+        academySelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_academy_layout);
 
         AcademyBLService academyBL = AcademyBLService.getInstance();
         ArrayList<String> allNames = academyBL.getAllAcademyNamesMock();
@@ -100,13 +106,22 @@ public class CourseListContainerFragment extends Fragment {
                     CharSequence academyName = item.getTitle();
                     academySelectText.setText(academyName);
                     showAcademyCourseList(academyName);
+                    academySelectMenu.dismiss();
                     return true;
                 }
             });
         }
 
+        academySelectLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                academySelectMenu.show();
+            }
+        });
+
         MenuInflater menuInflater = academySelectMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_empty, menu);
+
     }
 
     private void showAcademyCourseList(CharSequence academyNameList) {
@@ -120,6 +135,7 @@ public class CourseListContainerFragment extends Fragment {
     private void initCourseTypeSelectView(View contentView) {
         courseTypeSelectText = (TextView)contentView.findViewById(R.id.main_course_course_type_select_text);
         courseTypeSelectText.setText(R.string.main_course_select_all_course);
+        courseTypeSelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_type_layout);
 
         CourseModel courseModel = CourseModel.getInstance();
         ArrayList<String> allNames = courseModel.getAllCourseTypeNamesMock();
@@ -132,10 +148,18 @@ public class CourseListContainerFragment extends Fragment {
                     CharSequence courseTypeName = item.getTitle();
                     courseTypeSelectText.setText(courseTypeName);
                     showCourseTypeList(courseTypeName);
+                    courseTypeSelectMenu.dismiss();
                     return true;
                 }
             });
         }
+
+        courseTypeSelectLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                courseTypeSelectMenu.show();
+            }
+        });
 
         MenuInflater menuInflater = courseTypeSelectMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_empty, menu);
