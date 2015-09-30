@@ -17,6 +17,7 @@
             android:visibility="gone"/>
 
         <ListView
+            android:id="@+id/course_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -34,6 +35,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:visibility="gone"/>
         <ListView
+            android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
