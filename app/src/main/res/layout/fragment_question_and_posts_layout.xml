@@ -9,6 +9,7 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/dark_thin_top_bottom_border"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/comments_area_button"
@@ -16,8 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/extreme_big_padding"
             android:button="@null"
             android:text="@string/comments_area_button_text"
             android:textSize="@dimen/big_font"/>
@@ -27,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/extreme_big_padding"
             android:button="@null"
             android:text="@string/course_question_area_button_text"
             android:textSize="@dimen/big_font"/>

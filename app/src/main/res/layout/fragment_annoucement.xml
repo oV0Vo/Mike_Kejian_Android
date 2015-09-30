@@ -6,14 +6,26 @@
     android:paddingBottom="10dp"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
-        android:drawableLeft="@drawable/notification_green"
-        android:text="@string/annoucement_title"
-        android:textColor="@color/green"
-        android:textSize="@dimen/big_font"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/small_icon_width"
+            android:layout_height="@dimen/small_icon_height"
+            android:background="@drawable/notification_green"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:text="@string/annoucement_title"
+            android:textColor="@color/green"
+            android:textSize="@dimen/big_font"/>
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/course_detail_annoucement_content"

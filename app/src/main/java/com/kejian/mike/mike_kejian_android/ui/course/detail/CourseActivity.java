@@ -49,20 +49,17 @@ public class CourseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
-
         setContentView(R.layout.activity_course);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitleColor(getResources().getColor(R.color.white));
+
         mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
         mainLayout.setVisibility(View.GONE);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
         CourseBriefInfo currentCourseBrief = courseModel.getCurrentCourseBrief();
-        if(currentCourseBrief != null) {
-            String title = currentCourseBrief.getCourseName();
-            this.setTitle(title);
-            new UpdateCourseDetailTask().execute();
-        } else {
-            Log.e("CourseActivity", "start with no currentCourse !!");
-        }
+        String title = currentCourseBrief.getCourseName();
+        this.setTitle(title);
+        new UpdateCourseDetailTask().execute();
 
         initPostAndQuestionLayoutFragment();
     }

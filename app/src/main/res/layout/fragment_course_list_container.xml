@@ -6,36 +6,43 @@
     android:orientation="vertical"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment">
 
-    <RadioGroup
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center|top">
-        <RadioButton
-            android:id="@+id/main_course_my_course_button"
+        android:orientation="vertical">
+
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:text="@string/main_course_my_course"
-            android:gravity="center"
-            android:textSize="@dimen/medium_font"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <RadioButton
+                android:id="@+id/main_course_my_course_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="@string/main_course_my_course"
+                android:gravity="center"
+                android:textSize="@dimen/medium_font"
+                android:paddingTop="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding" />
 
-        <RadioButton
-            android:id="@+id/main_course_all_course_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:text="@string/main_course_all_course"
-            android:gravity="center"
-            android:textSize="@dimen/medium_font"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"/>
+            <RadioButton
+                android:id="@+id/main_course_all_course_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="@string/main_course_all_course"
+                android:gravity="center"
+                android:textSize="@dimen/medium_font"
+                android:paddingTop="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"/>
 
-    </RadioGroup>
+        </RadioGroup>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/main_course_all_course_select_layout"

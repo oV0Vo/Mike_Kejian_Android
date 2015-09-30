@@ -30,6 +30,11 @@
         <activity android:name=".ui.course.management.AnnoucementPublishActivity"
             android:label="@string/annouc_publish_activity">
         </activity>
+
+        <activity android:name=".ui.course.annoucement.AnnoucListActivity"
+            android:label="@string/annouc_list_activity">
+        </activity>
+
         <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
@@ -82,7 +87,7 @@
             android:label="发帖">
         </activity>
         <activity android:name=".ui.main.MainActivity"
-            android:label="main_activity">
+            android:label="@string/app_name">
         </activity>
         <activity android:name=".ui.user.UserAttentionActivity"
             android:label="user_attention_activity">

@@ -130,24 +130,6 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         listner = null;
     }
 
-    /*private void setEmptyText() {
-        if(listView == null) {
-            Log.i("CourseListFragment", "empty on setEmpty Text");
-            return;
-        }
-
-        String emptyText = null;
-        if(showMyCourse)
-            emptyText = getResources().getString(R.string.main_course_no_my_course);
-        else
-            emptyText = getResources().getString(R.string.main_course_no_all_course);
-
-        View emptyView = listView.getEmptyView();
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
-    }*/
-
     private class CourseAdapter extends ArrayAdapter<CourseBriefInfo> {
 
         public CourseAdapter(Context context, int layoutId, List<CourseBriefInfo> courses) {

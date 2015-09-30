@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
@@ -30,7 +31,8 @@ import model.course.data.CourseType;
 public class CourseListContainerFragment extends Fragment {
 
     private RadioButton myCourseButton;
-    private TextView allCourseButton;
+    private RadioButton allCourseButton;
+    private RadioButton currentButton;
 
     private LinearLayout allCourseSelectLayout;
     private TextView academySelectText;
@@ -140,6 +142,26 @@ public class CourseListContainerFragment extends Fragment {
     }
 
     private void initCourseButtonListner() {
+
+        CompoundButton.OnCheckedChangeListener checkChangeListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if(currentButton != null)
+                        currentButton.setChecked(false);
+                    currentButton = (RadioButton)buttonView;
+                    buttonView.setTextColor(getResources().getColor(R.color.dark_blue));
+                    //buttonView.setBackgroundResource(R.drawable.green_bottom_border);
+                } else {
+                   // buttonView.setBackgroundDrawable(null);
+                    buttonView.setTextColor(getResources().getColor(R.color.black));
+                }
+            }
+        };
+        allCourseButton.setOnCheckedChangeListener(checkChangeListener);
+        myCourseButton.setOnCheckedChangeListener(checkChangeListener);
+        myCourseButton.setChecked(true);
+//
         allCourseButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -148,11 +170,11 @@ public class CourseListContainerFragment extends Fragment {
                     isShowMyCourse = false;
                     Log.e("CourseList", "" + Boolean.toString(isShowMyCourse));
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
-                    if(isSelectAcademy) {
+                    /*if(isSelectAcademy) {
                         courseListFg.showAcademyCourseList(selectText);
                     } else {
                         courseListFg.showCourseTypeList(CourseType.valueOf(selectText.toString()));
-                    }
+                    }*/
                 }
             }
         });
@@ -163,6 +185,7 @@ public class CourseListContainerFragment extends Fragment {
             public void onClick(View v) {
                 if(!isShowMyCourse) {
                     isShowMyCourse = true;
+                    allCourseSelectLayout.setVisibility(View.GONE);
                     courseListFg.showMyCourse();
                 }
             }

@@ -29,6 +29,7 @@
     <string name="main_course_type_title">性质</string>
     <string name="main_course_select_all_academy">所有院系</string>
     <string name="main_course_select_all_course">所有课程</string>
+    <string name="enter_course_text">进入课程</string>
     <string name="main_course_no_more_course">&#62;_&#60;没有更多课程了</string>
     <string name="main_course_no_my_course">你还没有加入任何课程哦</string>
     <string name="main_course_no_all_course">你们学校还没有在@string/app_name app上添加课程哦，赶快鼓动他们吧!</string>
@@ -60,7 +61,7 @@
     <string name="annouc_publish_activity">发布公告</string>
     <string name="question_publish_activity">发布题目</string>
     <string name="course_notice">课程公告</string>
-    <string name="annouc_detail_activity">课程公告</string>
+    <string name="annouc_list_activity">课程公告</string>
     <string name="course_naming_activity">课程点名</string>
     <string name="course_sign_in_activity">课程签到</string>
     <string name="new_reply">新的回复</string>
@@ -176,5 +177,17 @@
     <string name="annouc_on_top">[置顶]</string>
     <!--net error-->
     <string name="net_disconnet">网络不太好哦~~</string>
-    <string name="title_activity_annouc_detail">AnnoucDetailActivity</string>
+
+    <string-array name="brands">
+        <item>江苏</item>
+        <item>浙江</item>
+        <item>上海</item>
+        <item>四川</item>
+        <item>广州</item>
+        <item>济州岛</item>
+        <item>北海道</item>
+    </string-array>
+    <string name="why_bind_school_account"> <u>为什么要绑定教务网帐号</u></string>
+    <string name="skip_bind"> <u>跳过此步骤，暂不绑定</u></string>
+
 </resources>
