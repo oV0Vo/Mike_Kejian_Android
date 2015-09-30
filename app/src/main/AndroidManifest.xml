@@ -91,6 +91,8 @@
             android:label="发送验证码"></activity>
         <activity android:name=".ui.user.UserSchoolAccountActivity"
             android:label="绑定教务网帐号"></activity>
+        <activity android:name=".ui.user.UserAttentionCourse"
+            android:label="关注的课程"></activity>
         <uses-permission android:name="android.permission.INTERNET"/>
         <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
     </application>

@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.user;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
@@ -27,9 +30,7 @@ import java.util.List;
 import bl.MessageBLService;
 import model.message.MentionMe;
 import model.message.Reply;
-
-
-
+import model.user.UserToken;
 
 
 public class UserAttentionActivity extends Activity implements View.OnClickListener,OnRefreshListener {
@@ -40,19 +41,20 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
     private ProgressBar progressBar;
     private BaseAdapter adapter;
     public Context context;
+    private UserToken userToken;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mention_me);
+        setContentView(R.layout.activity_attention_people);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.context=this;
-        this.mainLayout = (LinearLayout)findViewById(R.id.mention_me);
+        this.mainLayout = (LinearLayout)findViewById(R.id.attention_people_layout);
         this.mainLayout.setVisibility(View.GONE);
-        this.progressBar = (ProgressBar)findViewById(R.id.mention_me_progress_bar);
+        this.progressBar = (ProgressBar)findViewById(R.id.attention_people_progress_bar);
         System.out.println("in userAttentionActivity3");
         initData();
         System.out.println("in userAttentionActivity4");
@@ -64,16 +66,23 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
     }
     private void initViews(){
 
-        this.container = (RefreshListView)findViewById(R.id.mention_container);
+        this.container = (RefreshListView)findViewById(R.id.attention_people_container);
         this.myInflater = getLayoutInflater();
-        TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
-        mention_num_view.setText("共12 " + MessageBLService.totalMentionMe + " 条");
+
         System.out.println("in userAttentionActivity1");
         //this.adapter=new AttentionListAdapter(0,null,context);
         System.out.println("in userAttentionActivity2");
         this.adapter = new MentionMeAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.mentionMes);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent();
+                intent.setClass(context, PostDetailActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -132,11 +141,32 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
             mainLayout.setVisibility(View.VISIBLE);
         }
     }
-    static class ViewHolder{
+    public  class ViewHolder{
         ImageView avatar_view;
         TextView mentioner_view;
         TextView post_view;
         TextView time_view;
+        Context activityContext;
+        public ViewHolder(){
+
+//            avatar_view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+
+//            avatar_view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    Intent intent=new Intent();
+//                    intent.setClass(context,UserBaseInfoOtherView.class);
+//
+//                    startActivity(intent);
+//                }
+//            });
+        }
     }
 
     private class MentionMeAdapter extends ArrayAdapter<MentionMe> {
@@ -147,22 +177,30 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = myInflater.inflate(R.layout.layout_mention_me
+                convertView = myInflater.inflate(R.layout.layout_user_attention_item_people
                         , null);
                 viewHolder = new ViewHolder();
-                viewHolder.avatar_view = (ImageView)convertView.findViewById(R.id.avatar_view);
-                viewHolder.mentioner_view = (TextView)convertView.findViewById(R.id.mentioner_view);
-                viewHolder.post_view = (TextView)convertView.findViewById(R.id.post_view);
-                viewHolder.time_view = (TextView)convertView.findViewById(R.id.time_view);
+                viewHolder.avatar_view = (ImageView)convertView.findViewById(R.id.photoView);
+                viewHolder.mentioner_view = (TextView)convertView.findViewById(R.id.publisherView);
+                viewHolder.post_view = (TextView)convertView.findViewById(R.id.postDetailView);
+                viewHolder.time_view = (TextView)convertView.findViewById(R.id.timeView);
                 convertView.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Reply reply = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.huiyuanai);
+            viewHolder.avatar_view.setImageResource(R.drawable.photo);
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
             viewHolder.time_view.setText(reply.getReplyTime());
+            viewHolder.avatar_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
+
             return convertView;
         }
     }
