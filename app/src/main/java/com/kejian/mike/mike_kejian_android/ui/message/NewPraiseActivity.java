@@ -282,6 +282,10 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == android.R.id.home){
+            MessageBLService.unreadPraiseNum = 0;
+            NewPraiseActivity.this.finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

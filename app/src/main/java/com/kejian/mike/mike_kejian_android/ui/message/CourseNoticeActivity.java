@@ -34,6 +34,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_notice);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        this.layout_title = findViewById(R.id.layout_bar);
         this.mainLayout =(LinearLayout)findViewById(R.id.course_notice);
@@ -280,7 +281,8 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }else if(id == R.id.home){
+        }else if(id == android.R.id.home){
+            MessageBLService.unreadCourseNoticeNum = 0;
             this.finish();
             return true;
         }
