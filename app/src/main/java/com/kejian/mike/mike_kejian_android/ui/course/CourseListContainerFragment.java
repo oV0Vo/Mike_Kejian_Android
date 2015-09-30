@@ -105,6 +105,8 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence academyName = item.getTitle();
                     academySelectText.setText(academyName);
+                    isSelectAcademy = true;
+                    selectText = academyName.toString();
                     showAcademyCourseList(academyName);
                     academySelectMenu.dismiss();
                     return true;
@@ -147,6 +149,8 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence courseTypeName = item.getTitle();
                     courseTypeSelectText.setText(courseTypeName);
+                    isSelectAcademy = false;
+                    selectText = courseTypeName;
                     showCourseTypeList(courseTypeName);
                     courseTypeSelectMenu.dismiss();
                     return true;
@@ -194,11 +198,15 @@ public class CourseListContainerFragment extends Fragment {
                     isShowMyCourse = false;
                     Log.e("CourseList", "" + Boolean.toString(isShowMyCourse));
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
-                    /*if(isSelectAcademy) {
+                    if(selectText == null) {
+                        courseListFg.showAllCourse();
+                        return;
+                    }
+                    if(isSelectAcademy) {
                         courseListFg.showAcademyCourseList(selectText);
                     } else {
                         courseListFg.showCourseTypeList(CourseType.valueOf(selectText.toString()));
-                    }*/
+                    }
                 }
             }
         });
