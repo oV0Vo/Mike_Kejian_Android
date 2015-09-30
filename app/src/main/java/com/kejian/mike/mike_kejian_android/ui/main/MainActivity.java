@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private RadioButton courseButton;
     private RadioButton messageButton;
     private RadioButton campusButton;
+    private RadioButton currentButton;
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     private MenuItem action_course_add;
 
     private ArrayList<MenuItem> visibleActions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +123,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initRadioButtons() {
+        CompoundButton.OnCheckedChangeListener checkChangeListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if(currentButton != null)
+                        currentButton.setChecked(false);
+                    currentButton = (RadioButton)buttonView;
+                    buttonView.setBackgroundResource(R.drawable.dark_blue_top_border);
+                } else {
+                    buttonView.setBackgroundDrawable(null);
+                }
+            }
+        };
+
         courseButton = (RadioButton)findViewById(R.id.main_course_button);
         courseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +144,9 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(0);
             }
         });
+        //courseButton.setOnCheckedChangeListener(checkChangeListener);
+        courseButton.setChecked(true);
+
         messageButton = (RadioButton)findViewById(R.id.main_message_button);
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +154,8 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(1);
             }
         });
+        //messageButton.setOnCheckedChangeListener(checkChangeListener);
+
         campusButton = (RadioButton)findViewById(R.id.main_campus_button);
         campusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +163,8 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(2);
             }
         });
+        //campusButton.setOnCheckedChangeListener(checkChangeListener);
+
     }
 
     @Override
@@ -207,24 +231,28 @@ public class MainActivity extends AppCompatActivity
 
         @NeedRefinedAnnotation
         @Override
-        public Fragment getItem(int position) {Log.e("MainActivity", "viewPager getItem " + new Integer(position).toString());
+        public Fragment getItem(int position) {Log.e("MainActivity", "viewPager getItehttps://github.com/oV0Vo/Mike_Kejian_Android.gitm " + new Integer(position).toString());
             switch(position) {
                 case 0:
                     if(courseFg == null) { Log.e("MainActivity", "courseFg null");
                         courseFg = new CourseListContainerFragment();
                     }
+                    courseButton.setChecked(true);
                     //setCourseMenu();
                     return courseFg;
                 case 1:
                     if(msgFg == null) { Log.e("MainActivity", "msgFg null");
                         msgFg = new Fragment_Msg();
                     }
+                    messageButton.setChecked(true);
                     return msgFg;
-                case 2:Log.e("MainActivity", "get campusFg");
+                case 2:
+                    Log.e("MainActivity", "get campusFg");
                     if(campusFg == null) {
                         getSupportActionBar().setTitle("校内动态");
                         campusFg = new PostListContainerFragment();
                     }
+                    campusButton.setChecked(true);
                     return campusFg;
                 default:
                     //unreach block

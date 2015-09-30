@@ -7,9 +7,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/white"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingActivity">
 
     <LinearLayout
+        android:id="@+id/course_naming_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,12 +20,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/extreme_big_padding"
+            android:background="@drawable/dark_thin_bottom_border">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/check_white"/>
+                android:layout_width="@dimen/extreme_big_icon_size"
+                android:layout_height="@dimen/extreme_big_icon_size"
+                android:background="@drawable/check_green"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,61 +36,81 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/small_padding"
+                    android:paddingBottom="@dimen/small_padding"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/course_naming_current_time_title"
+                        android:id="@+id/course_naming_time_title_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/medium_padding"
-                        android:textSize="@dimen/medium_font"/>
+                        android:textSize="@dimen/sub_medium_font"/>
 
                     <TextView
-                        android:id="@+id/course_naming_current_time"
+                        android:id="@+id/course_naming_time_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/medium_font"/>
+                        android:textSize="@dimen/sub_medium_font"/>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/small_padding"
+                    android:paddingBottom="@dimen/small_padding"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bell"
-                        android:paddingRight="@dimen/medium_padding"/>
+                        android:drawableRight="@drawable/bell"
+                        android:paddingTop="@dimen/small_padding"
+                        android:paddingBottom="@dimen/small_padding"
+                        android:paddingRight="@dimen/medium_padding"
+                        android:textSize="@dimen/sub_medium_font"
+                        android:text="     "/>
+
 
                     <TextView
                         android:id="@+id/left_time_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/medium_font"/>
+                        android:paddingTop="@dimen/small_padding"
+                        android:paddingBottom="@dimen/small_padding"
+                        android:textSize="@dimen/sub_medium_font"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <TextView
-                            android:id="@+id/naming"
+                            android:id="@+id/naming_action_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="right"
                             style="@style/green_whiteText"
-                            android:textSize="@dimen/big_font"/>
+                            android:textSize="@dimen/extreme_big_font"/>
                     </LinearLayout>
+
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/course_naming_result_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/big_padding"
-            android:paddingBottom="@dimen/big_padding"
+            android:paddingTop="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/medium_padding"
             android:textSize="@dimen/big_font"
             android:textColor="@color/green"
             android:text="@string/course_naming_history_title"/>
@@ -94,8 +119,8 @@
             android:id="@+id/course_naming_history_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/big_padding"
-            android:paddingBottom="@dimen/big_padding">
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding">
         </ListView>
 
     </LinearLayout>

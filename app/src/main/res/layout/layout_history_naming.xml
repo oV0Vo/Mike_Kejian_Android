@@ -1,45 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/unknown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/medium_font"/>
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/small_padding"
+    android:paddingBottom="@dimen/small_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/medium_padding"
-            android:textSize="@dimen/medium_font"
+            android:textSize="@dimen/sub_medium_font"
             android:text="@string/course_naming_type_qiandao"/>
 
         <TextView
-            android:id="@+id/naming_time"
+            android:id="@+id/history_naming_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/medium_font" />
+            android:textSize="@dimen/sub_medium_font" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/medium_padding"
-            android:textSize="@dimen/medium_font"
+            android:textSize="@dimen/sub_medium_font"
             android:text="@string/course_naming_sign_in_stats_title"/>
 
         <TextView
@@ -50,20 +49,29 @@
             android:drawableRight="@drawable/user_small"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding">
 
-        <FrameLayout
-            android:id="@+id/percent_image"
-            android:layout_width="@dimen/half_screen"
-            android:layout_height="@dimen/medium_font">
-        </FrameLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
 
-        <TextView
-            android:id="@+id/percent_text"
-            android:layout_width="@dimen/quarter_screen"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/percent_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/percent_text"
+                android:layout_width="@dimen/quarter_screen"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

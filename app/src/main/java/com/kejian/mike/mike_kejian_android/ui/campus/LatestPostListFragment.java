@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.campus;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -23,7 +24,7 @@ import util.DensityUtil;
 /**
  * Created by showjoy on 15/9/17.
  */
-public class LatestPostListFragment extends Fragment{
+public class LatestPostListFragment extends Fragment implements View.OnClickListener{
     private View view;
     private LinearLayout container;
     private Activity ctx;
@@ -129,7 +130,10 @@ public class LatestPostListFragment extends Fragment{
         LinearLayout.LayoutParams layout_post = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         postContent.setText(post.getContent());
         postContent.setTextColor(getResources().getColor(R.color.grey));
-        postContent.setLayoutParams(layout_post);
+        postContent.setLayoutParams(layout_post);;
+        postContent.setTag(post.getPostId());
+        postContent.setOnClickListener(this);
+        postContent.setBackgroundResource(R.drawable.setting_item_selector);
 
         LinearLayout lastLineStr = new LinearLayout(ctx);
         LinearLayout.LayoutParams layout_lastLine = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -190,6 +194,14 @@ public class LatestPostListFragment extends Fragment{
         postLayout.addView(userImage);
         postLayout.addView(text);
         return postLayout;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        intent.setClass(ctx, PostDetailActivity.class);
+        intent.putExtra("postId", (String) v.getTag());
+        startActivity(intent);
     }
 
 }

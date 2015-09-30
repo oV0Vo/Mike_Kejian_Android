@@ -3,12 +3,14 @@ package com.kejian.mike.mike_kejian_android.ui.course;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import bl.AcademyBLService;
 import bl.UserInfoService;
 import model.course.CourseModel;
+import model.course.data.CourseType;
 
 /**
  *
@@ -28,12 +31,17 @@ import model.course.CourseModel;
 public class CourseListContainerFragment extends Fragment {
 
     private RadioButton myCourseButton;
-    private TextView allCourseButton;
+    private RadioButton allCourseButton;
+    private RadioButton currentButton;
 
     private LinearLayout allCourseSelectLayout;
+
     private TextView academySelectText;
+    private ViewGroup academySelectLayout;
     private PopupMenu academySelectMenu;
+
     private TextView courseTypeSelectText;
+    private ViewGroup courseTypeSelectLayout;
     private PopupMenu courseTypeSelectMenu;
 
     private CourseListFragment courseListFg;
@@ -72,6 +80,7 @@ public class CourseListContainerFragment extends Fragment {
         initCourseButtonListner();
         initAllCourseSelectLayout(v);
         myCourseButton.setChecked(true);
+        isShowMyCourse = true;
         return v;
     }
 
@@ -79,12 +88,12 @@ public class CourseListContainerFragment extends Fragment {
         allCourseSelectLayout = (LinearLayout)contentView.findViewById(R.id.main_course_all_course_select_layout);
         initAcademySelectView(allCourseSelectLayout);
         initCourseTypeSelectView(allCourseSelectLayout);
-       allCourseSelectLayout.setVisibility(View.GONE);
+        allCourseSelectLayout.setVisibility(View.GONE);
     }
 
     private void initAcademySelectView(View contentView) {
         academySelectText = (TextView)contentView.findViewById(R.id.main_course_academy_select_text);
-        academySelectText.setText(R.string.main_course_select_all_academy);
+        academySelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_academy_layout);
 
         AcademyBLService academyBL = AcademyBLService.getInstance();
         ArrayList<String> allNames = academyBL.getAllAcademyNamesMock();
@@ -96,14 +105,25 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence academyName = item.getTitle();
                     academySelectText.setText(academyName);
+                    isSelectAcademy = true;
+                    selectText = academyName.toString();
                     showAcademyCourseList(academyName);
+                    academySelectMenu.dismiss();
                     return true;
                 }
             });
         }
 
+        academySelectLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                academySelectMenu.show();
+            }
+        });
+
         MenuInflater menuInflater = academySelectMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_empty, menu);
+
     }
 
     private void showAcademyCourseList(CharSequence academyNameList) {
@@ -111,12 +131,13 @@ public class CourseListContainerFragment extends Fragment {
     }
 
     private void showCourseTypeList(CharSequence courseType) {
-        courseListFg.showCourseTypeList(courseType);
+        courseListFg.showCourseTypeList(CourseType.valueOf(courseType.toString()));
     }
 
     private void initCourseTypeSelectView(View contentView) {
         courseTypeSelectText = (TextView)contentView.findViewById(R.id.main_course_course_type_select_text);
         courseTypeSelectText.setText(R.string.main_course_select_all_course);
+        courseTypeSelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_type_layout);
 
         CourseModel courseModel = CourseModel.getInstance();
         ArrayList<String> allNames = courseModel.getAllCourseTypeNamesMock();
@@ -128,29 +149,64 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence courseTypeName = item.getTitle();
                     courseTypeSelectText.setText(courseTypeName);
+                    isSelectAcademy = false;
+                    selectText = courseTypeName;
                     showCourseTypeList(courseTypeName);
+                    courseTypeSelectMenu.dismiss();
                     return true;
                 }
             });
         }
+
+        courseTypeSelectLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                courseTypeSelectMenu.show();
+            }
+        });
 
         MenuInflater menuInflater = courseTypeSelectMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_empty, menu);
     }
 
     private void initCourseButtonListner() {
+
+        CompoundButton.OnCheckedChangeListener checkChangeListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if(currentButton != null)
+                        currentButton.setChecked(false);
+                    currentButton = (RadioButton)buttonView;
+                    buttonView.setTextColor(getResources().getColor(R.color.dark_blue));
+                    //buttonView.setBackgroundResource(R.drawable.green_bottom_border);
+                } else {
+                   // buttonView.setBackgroundDrawable(null);
+                    buttonView.setTextColor(getResources().getColor(R.color.black));
+                }
+            }
+        };
+        allCourseButton.setOnCheckedChangeListener(checkChangeListener);
+        myCourseButton.setOnCheckedChangeListener(checkChangeListener);
+        myCourseButton.setChecked(true);
+//
         allCourseButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 if(isShowMyCourse) {
                     isShowMyCourse = false;
+                    Log.e("CourseList", "" + Boolean.toString(isShowMyCourse));
+                    allCourseSelectLayout.setVisibility(View.VISIBLE);
+                    if(selectText == null) {
+                        courseListFg.showAllCourse();
+                        return;
+                    }
                     if(isSelectAcademy) {
                         courseListFg.showAcademyCourseList(selectText);
                     } else {
-                        courseListFg.showCourseTypeList(selectText);
+                        courseListFg.showCourseTypeList(CourseType.valueOf(selectText.toString()));
                     }
-
                 }
             }
         });
@@ -161,6 +217,7 @@ public class CourseListContainerFragment extends Fragment {
             public void onClick(View v) {
                 if(!isShowMyCourse) {
                     isShowMyCourse = true;
+                    allCourseSelectLayout.setVisibility(View.GONE);
                     courseListFg.showMyCourse();
                 }
             }

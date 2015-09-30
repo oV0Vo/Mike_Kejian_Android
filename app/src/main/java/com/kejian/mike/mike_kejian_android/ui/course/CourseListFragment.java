@@ -22,23 +22,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bl.UserInfoService;
+import bl.course.CourseBriefFilter;
 import model.course.data.CourseBriefInfo;
 import model.course.CourseModel;
+import model.course.data.CourseType;
 
 
 public class CourseListFragment extends Fragment implements AbsListView.OnItemClickListener{
 
     private AbsListView listView;
 
-    private CourseAdapter myCourseAdapter;
+    private ArrayList<CourseBriefInfo> listData;
 
-    private CourseAdapter allCourseAdapter;
+    private CourseAdapter listAdapter;
 
     private OnCourseSelectedListener listner;
 
     private CourseModel courseModel;
-
-    private boolean showMyCourse;
 
     private static final int MY_COURSE_FETCH_NUM = 50;
     private static final int ALL_COURSE_FETCH_NUM = 50;
@@ -48,54 +48,47 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
 
-        initMyCourseAdapter();
-        initAllCourseAdapter();
-        showMyCourse = true;
-    }
-
-    private void initMyCourseAdapter() {
-        ArrayList<CourseBriefInfo> myCourseBriefs = courseModel.getMyCourseBriefs();
-        if(myCourseBriefs.size() == 0)
+        listData = new ArrayList(courseModel.getMyCourseBriefs());
+        if(listData.size() == 0)
             new UpdateMyCourseBriefTask().execute();
-        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                myCourseBriefs);
-    }
-
-    private void initAllCourseAdapter() {
-        ArrayList<CourseBriefInfo> allCourseBriefs =courseModel.getAllCourseBriefs();
-        if(allCourseBriefs.size() == 0)
-            new UpdateAllCourseBriefTask().execute();
-        allCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                allCourseBriefs);
+        listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                listData);
+        new UpdateAllCourseBriefTask().execute();
     }
 
     public void showMyCourse() {
-        if(listView == null)
+        if (listView == null)
             return;
-        if(!showMyCourse) {
-            showMyCourse = true;
-            listView.setAdapter(myCourseAdapter);
-            //setEmptyText();
-        }
+        listData.clear();
+        listData.addAll(courseModel.getMyCourseBriefs());
+        listAdapter.notifyDataSetChanged();
     }
 
     public void showAllCourse() {
-        if(listView == null)
+        if (listView == null)
             return;
-
-        if(showMyCourse) {
-            showMyCourse = false;
-            listView.setAdapter(allCourseAdapter);
-            //setEmptyText();
-        }
+        listData.clear();
+        listData.addAll(courseModel.getAllCourseBriefs());
+        listAdapter.notifyDataSetChanged();
     }
 
-    public void showAcademyCourseList(CharSequence academyNameList) {
-
+    //@需要一个progressBar
+    public void showAcademyCourseList(CharSequence academyName) {
+        ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
+        ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
+                academyName);
+        listData.clear();
+        listData.addAll(filterResults);
+        listAdapter.notifyDataSetChanged();
     }
 
-    public void showCourseTypeList(CharSequence courseType) {
-
+    public void showCourseTypeList(CourseType courseType) {
+        ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
+        ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
+                courseType);
+        listData.clear();
+        listData.addAll(filterResults);
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -104,11 +97,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
         listView = (AbsListView) view.findViewById(R.id.main_course_list);
-        if(showMyCourse)
-            ((AdapterView<ListAdapter>) listView).setAdapter(myCourseAdapter);
-        else
-            ((AdapterView<ListAdapter>) listView).setAdapter(allCourseAdapter);
-
+        ((AdapterView<ListAdapter>) listView).setAdapter(listAdapter);
         listView.setOnItemClickListener(this);
         //setEmptyText();
 
@@ -118,14 +107,10 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(listner != null) {
-            CourseBriefInfo courseBrief = getCurrentAdapter().getItem(position);
+            CourseBriefInfo courseBrief = listAdapter.getItem(position);
             courseModel.setCurrentCourseBrief(courseBrief);
             listner.onCourseSelected();
         }
-    }
-
-    private CourseAdapter getCurrentAdapter() {
-        return showMyCourse? myCourseAdapter: allCourseAdapter;
     }
 
     @Override
@@ -143,24 +128,6 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     public void onDetach() {
         super.onDetach();
         listner = null;
-    }
-
-    private void setEmptyText() {
-        if(listView == null) {
-            Log.i("CourseListFragment", "empty on setEmpty Text");
-            return;
-        }
-
-        String emptyText = null;
-        if(showMyCourse)
-            emptyText = getResources().getString(R.string.main_course_no_my_course);
-        else
-            emptyText = getResources().getString(R.string.main_course_no_all_course);
-
-        View emptyView = listView.getEmptyView();
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
     }
 
     private class CourseAdapter extends ArrayAdapter<CourseBriefInfo> {
@@ -209,7 +176,10 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
             if(updateSuccess) {
-                myCourseAdapter.notifyDataSetChanged();
+                //@ mock here
+                listData.clear();
+                listData.addAll(courseModel.getMyCourseBriefs());
+                listAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             }
@@ -230,11 +200,6 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            if(updateSuccess) {
-                allCourseAdapter.notifyDataSetChanged();
-            } else {
-                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
-            }
         }
     }
     public interface OnCourseSelectedListener {

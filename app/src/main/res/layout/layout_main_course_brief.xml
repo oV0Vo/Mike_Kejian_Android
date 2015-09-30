@@ -7,22 +7,23 @@
 
     <ImageView
         android:id="@+id/course_brief_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/book_width"
+        android:layout_height="@dimen/book_height"
         android:layout_gravity="left|center"
         android:background="@drawable/default_book"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="@dimen/book_height"
+        android:orientation="vertical"
+        android:background="@drawable/green_bottom_thin_border">
 
         <TextView
             android:id="@+id/course_brief_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/green"
-            android:paddingBottom="12dp"
+            android:paddingBottom="@dimen/extreme_medium_padding"
             android:textSize="@dimen/big_font"/>
 
         <LinearLayout
@@ -46,21 +47,42 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
                 android:text="@string/main_course_brief_progress_week_prefix"
                 android:paddingRight="5dp"/>
 
             <TextView
                 android:id="@+id/course_brief_progress_week"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"/>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="@dimen/extreme_big_padding"
+                    android:paddingTop="@dimen/sub_medium_padding"
+                    android:paddingRight="@dimen/extreme_big_padding"
+                    android:paddingBottom="@dimen/sub_medium_padding"
+                    android:textSize="@dimen/sub_medium_font"
+                    android:textColor="@color/green"
+                    android:background="@drawable/green_thin_round_border"
+                    android:text="@string/enter_course_text"/>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

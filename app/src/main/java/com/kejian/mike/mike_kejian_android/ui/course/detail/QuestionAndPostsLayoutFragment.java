@@ -1,16 +1,14 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -23,6 +21,7 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
 
     private RadioButton commentsButton;
     private RadioButton questionButton;
+    private RadioButton currentButton;
 
     public QuestionAndPostsLayoutFragment() {
         // Required empty public constructor
@@ -43,23 +42,44 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         commentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commentsButton.setTextColor(getResources().getColor(R.color.green));
-                questionButton.setTextColor(getResources().getColor(R.color.black));
                 viewPager.setCurrentItem(0);
             }
         });
 
         questionButton = (RadioButton)v.findViewById(R.id.course_question_area_button);
-        questionButton.setOnClickListener(new View.OnClickListener(){
+        questionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                questionButton.setTextColor(getResources().getColor(R.color.green));
-                commentsButton.setTextColor(getResources().getColor(R.color.black));
                 viewPager.setCurrentItem(1);
             }
         });
-
+        initCheckChangeListener();
         return v;
+    }
+
+    private void initCheckChangeListener() {
+        CompoundButton.OnCheckedChangeListener checkChangeListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if(currentButton != null)
+                        currentButton.setChecked(false);
+                    currentButton = (RadioButton)buttonView;
+                    buttonView.setBackgroundResource(R.drawable.green_bottom_thin_border);
+                    buttonView.setTextColor(getResources().getColor(R.color.green));
+                } else {
+                    buttonView.setBackgroundDrawable(null);
+                    buttonView.setTextColor(getResources().getColor(R.color.black));
+                }
+            }
+        };
+        //questionButton.setOnCheckedChangeListener(checkChangeListener);
+        //commentsButton.setOnCheckedChangeListener(checkChangeListener);
+        commentsButton.setChecked(true);
+    }
+
+    private void initClickListener() {
+
     }
 
     private class CommentsPostFragmentAdapter extends FragmentStatePagerAdapter{
@@ -72,8 +92,10 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
+                    commentsButton.setChecked(true);
                     return new CommentsAreaFragment();
                 case 1:
+                    questionButton.setChecked(true);
                     return new CourseQuestionFragment();
                 default:
                     return null;

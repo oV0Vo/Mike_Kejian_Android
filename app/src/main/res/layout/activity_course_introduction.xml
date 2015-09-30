@@ -184,6 +184,9 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/big_padding"
+        android:paddingBottom="@dimen/big_padding"
+        android:background="@drawable/dark_thin_top_bottom_border"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/course_intro_brief_tab"
@@ -191,8 +194,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:button="@null"
             android:text="@string/course_intro_brief_tab_title"
             android:textSize="@dimen/sub_big_font"/>
@@ -202,8 +203,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:button="@null"
             android:text="@string/course_intro_teach_content_tab_title"
             android:textSize="@dimen/sub_big_font"/>
@@ -213,8 +212,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:button="@null"
             android:text="@string/course_intro_reference_tab_title"
             android:textSize="@dimen/sub_big_font"/>

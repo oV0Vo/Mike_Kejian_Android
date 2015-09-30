@@ -3,9 +3,7 @@ package net.UserDataBase;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
-import bl.UserBLResult;
 
 /**
  * Created by kisstheraik on 15/9/25.

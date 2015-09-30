@@ -108,12 +108,34 @@ public class CourseNetService {
         return null;
     }
 
-    private static final class CourseNetArg {
-        public static final String url = "";
-        public static final String arg1Name = "";
-        public static final String arg2Name = "";
+    public static ArrayList<CourseAnnoucement> getAnnouc(String courseId, int beginPos, int num,
+                                                         int time, TimeUnit timeUnit) {
+        return annoucMocks();
     }
 
+    private static ArrayList<CourseAnnoucement> annoucMocks() {
+        ArrayList<CourseAnnoucement> mocks = new ArrayList<CourseAnnoucement>();
+        mocks.add(annoucMock());
+        CourseAnnoucement onTopMock = annoucMock();
+        onTopMock.setOnTop(true);
+        mocks.add(onTopMock);
+        mocks.add(annoucMock());
+        mocks.add(annoucMock());
+        return mocks;
+    }
+
+    private static CourseAnnoucement annoucMock() {
+        CourseAnnoucement mock = new CourseAnnoucement();
+        mock.setContent("这么课需要大一的“高等数学”与“Python程序设计为基础。假如你不会Python编程，" +
+                "你可以重点听陈老师那部分；假如你高等数学忘得差不多了，你可以重点听范老师那部分。最好状况" +
+                "是两部分都能坚持下来”");
+        mock.setCourseId("sdfsd");
+        mock.setDate(new Date(System.currentTimeMillis()));
+        mock.setPersonId(PersonMocks.id5);
+        mock.setPersonName(PersonMocks.name5);
+        mock.setTitle("今天天气真好啊~");
+        return mock;
+    }
 
     private static final String courseMock1Id = "course1Id";
     private static final String courseMock2Id = "course2Id";
@@ -144,7 +166,9 @@ public class CourseNetService {
         references.add("java并发编程");
         course.setReferences(references);
         CourseAnnoucement annoucement = new CourseAnnoucement();
-        annoucement.setContent("隔壁老王说再也不偷情了");
+        annoucement.setContent("这么课需要大一的“高等数学”与“Python程序设计为基础。假如你不会Python编程，" +
+                "你可以重点听陈老师那部分；假如你高等数学忘得差不多了，你可以重点听范老师那部分。最好状况" +
+                "是两部分都能坚持下来”");
         annoucement.setCourseId(courseMock1Id);
         annoucement.setDate(new Date(115, 8, 12));
         annoucement.setPersonId(PersonMocks.id6);

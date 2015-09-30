@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:hint="标题"
+                android:singleLine="true"
                 android:background="@color/white"/>
 
             <LinearLayout
@@ -97,7 +98,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="关注帖子"
+            android:text="发表帖子"
             android:textSize="15sp"
             android:gravity="center"
             android:textColor="@color/grey">

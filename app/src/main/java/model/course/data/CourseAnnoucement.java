@@ -12,6 +12,7 @@ public class CourseAnnoucement {
     private Date date;
     private String title;
     private String content;
+    private boolean onTop;
 
     public String getCourseId() {
         return courseId;
@@ -47,6 +48,14 @@ public class CourseAnnoucement {
 
     public String getTitle() {
         return title;
+    }
+
+    public boolean isOnTop() {
+        return onTop;
+    }
+
+    public void setOnTop(boolean onTop) {
+        this.onTop = onTop;
     }
 
     public void setTitle(String title) {

@@ -7,20 +7,36 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/white"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.CourseSignInActivity">
 
     <LinearLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/no_current_naming_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/dark"
+            android:text="@string/course_sign_in_no_current_naming_text"
+            android:visibility="invisible"/>
+
         <LinearLayout
+            android:id="@+id/current_naming_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:paddingBottom="@dimen/extreme_big_padding"
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
-            <ImageView
-                android:id="@+id/course_sign_in_state_image"
+            <!---->
+            <TextView
+                android:id="@+id/course_sign_in_status_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -37,12 +53,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/medium_padding"
+                        android:textSize="@dimen/sub_medium_font"
                         android:text="@string/course_sign_in_time_title"/>
 
                     <TextView
-                        android:id="@+id/course_sign_in_time"
+                        android:id="@+id/course_sign_in_time_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_medium_font"/>
 
                 </LinearLayout>
 
@@ -54,12 +73,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/medium_padding"
+                        android:textSize="@dimen/sub_medium_font"
                         android:text="@string/course_sign_in_teacher_title"/>
 
                     <TextView
-                        android:id="@+id/course_sign_in_teacher"
+                        android:id="@+id/course_sign_in_teacher_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_medium_font"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -67,22 +89,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <FrameLayout
-                        android:id="@+id/course_sign_in_clock_container"
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    </FrameLayout>
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/medium_padding"
+                        android:background="@drawable/bell"/>
+
+                    <TextView
+                        android:id="@+id/left_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_medium_font"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <Button
-                            android:id="@+id/course_sign_in_sign_in_button"
+                        <TextView
+                            android:id="@+id/course_sign_in_sign_in_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:background="@color/green"/>
+                            android:textSize="@dimen/extreme_big_font"
+                            style="@style/green_whiteText"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -92,13 +121,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/course_sign_in_history_title"
-            android:textColor="@color/green"/>
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/green"
+            android:text="@string/course_sign_in_history_title"/>
 
         <ListView
             android:id="@+id/course_sign_in_history_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding">
         </ListView>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        style="?android:attr/progressBarStyleLarge"/>
+
 </RelativeLayout>

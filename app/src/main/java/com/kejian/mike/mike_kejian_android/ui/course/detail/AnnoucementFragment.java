@@ -13,6 +13,7 @@ import com.kejian.mike.mike_kejian_android.R;
 import model.course.data.CourseAnnoucement;
 import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
+import util.TimeFormat;
 
 
 public class AnnoucementFragment extends Fragment {
@@ -41,7 +42,7 @@ public class AnnoucementFragment extends Fragment {
             TextView authorView = (TextView) v.findViewById(R.id.course_detail_annoucement_author_name);
             authorView.setText(annoucement.getPersonName());
             TextView dateView = (TextView) v.findViewById(R.id.course_detail_annoucement_date);
-            dateView.setText(annoucement.getDate().toString());
+            dateView.setText(TimeFormat.toMinute(annoucement.getDate()));
         } else {
             contentView.setText((R.string.annoucement_no_annoucement));
         }

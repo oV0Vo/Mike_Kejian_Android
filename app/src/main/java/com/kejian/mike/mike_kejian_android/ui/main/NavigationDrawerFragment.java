@@ -30,6 +30,7 @@ import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserInfoActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserPostActivity;
+import com.kejian.mike.mike_kejian_android.ui.user.UserSchoolAccountActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.DrawerViewAdapter;
 
 /**
@@ -155,7 +156,7 @@ public class NavigationDrawerFragment extends Fragment {
         switch(index) {
             case 1:intent.setClass(this.getActivity(), UserInfoActivity.class);break;
             case 4:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);break;
-            case 2:intent.setClass(this.getActivity(), UserLoginActivity.class);break;
+            case 2:intent.setClass(this.getActivity(), UserSchoolAccountActivity.class);break;
             case 3:intent.setClass(this.getActivity(), UserAttentionListActivity.class);break;
         }
         startActivity(intent);

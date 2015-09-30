@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import bl.UserBLService;
+import model.user.UserToken;
 import model.user.user;
 
 /**
@@ -51,6 +53,10 @@ public class UserInfoActivity extends Activity{
     public void initViews(){
 
         user=(user)getIntent().getSerializableExtra(UserActivityComm.USER_INFO.name());
+        UserToken u=new UserToken();
+        u.setName("义薄云天");
+        u.setPassword("123456");
+        user= UserBLService.getInstance().login(u);
         userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
         baseInfoName=(TextView)findViewById(R.id.base_info_name);
         baseInfoGender=(TextView)findViewById(R.id.base_info_gender);
@@ -86,7 +92,7 @@ public class UserInfoActivity extends Activity{
             String name="姓名："+user.getName();
             String gender="性别："+user.getGender();
             String grade="年级："+user.getGrade();
-            String sign="个性签名："+user.getSign();
+            String sign=""+user.getSign();
             String identify="身份："+user.getIdentify();
 
             baseInfoGender.setText(gender);

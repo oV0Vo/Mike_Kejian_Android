@@ -3,14 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="120dp">
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/b16392dc6694"
+
+
+        android:layout_marginBottom="10dp">
+        <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+            android:id="@+id/user_photo_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
             android:src="@drawable/photo"
-            android:maxHeight="100dp"
-            android:adjustViewBounds="true"
+
+
+
             />
     </RelativeLayout>
     <LinearLayout
@@ -25,15 +35,15 @@
             android:layout_height="wrap_content"
             android:text="基本信息"
             android:textColor="#16a085"
-            android:textSize="18sp"
+
             android:layout_marginLeft="20dp"
             />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="__________________________________________"
+            android:text="_______________________________________________"
             android:textColor="#d2d2d2"
-            android:textSize="18sp"
+
             android:layout_marginLeft="20dp"
             />
         <TextView
@@ -46,25 +56,25 @@
 
         <TableRow>
             <TextView
-                android:textSize="18sp"
+
                 android:layout_marginLeft="20dp"
 
-                android:text="姓名"/>
+                android:text="姓名: Halo"/>
             <TextView
-                android:textSize="18sp"
+
 
                 android:layout_marginLeft="100dp"
-                android:text="性别"/>
+                android:text="性别: 菇凉"/>
         </TableRow>
         <TableRow
 
             android:layout_marginTop="5dp">
             <TextView
-                android:textSize="18sp"
+
                 android:layout_marginLeft="20dp"
-                android:text="昵称"/>
+                android:text="昵称: 夏至未至"/>
             <TextView
-                android:textSize="18sp"
+
                 android:layout_marginLeft="100dp"
                 android:text="生日"/>
         </TableRow>
@@ -72,20 +82,20 @@
             android:layout_marginTop="20dp"
             >
             <TextView
-                android:textSize="18sp"
+
                 android:layout_marginLeft="20dp"
-                android:text="院系"/>
+                android:text="院系: 文学院"/>
             <TextView
-                android:textSize="18sp"
+
                 android:layout_marginLeft="100dp"
-                android:text="专业"/>
+                android:text="专业: 宋词"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:textSize="18sp"
+
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
-                android:text="年级"/>
+                android:text="年级: 2013"/>
 
         </TableRow>
     </TableLayout>
@@ -104,7 +114,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="动态"
-            android:textSize="18sp"
+
             android:layout_marginTop="10dp"
 
             android:layout_marginLeft="20dp"
@@ -136,7 +146,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="关注他的人"
-                    android:textSize="18sp"
+
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:layout_gravity="center_vertical"
@@ -157,7 +167,7 @@
 
                     android:visibility="visible"
                     android:textColor="#7d7d7d"
-                    android:textSize="20sp"
+
                     android:layout_gravity="center_vertical" />
 
                 <ImageView
@@ -203,7 +213,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="他的课程"
-                    android:textSize="18sp"
+
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:layout_gravity="center_vertical"
@@ -224,7 +234,7 @@
                     android:text="11"
                     android:visibility="visible"
                     android:textColor="#7d7d7d"
-                    android:textSize="20sp"
+
                     android:layout_gravity="center_vertical" />
 
                 <ImageView
@@ -244,7 +254,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1.0dip" />
 
-        <!--mention me -->
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="60dp"
@@ -270,7 +280,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="他的帖子"
-                    android:textSize="18sp"
+
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:layout_gravity="center_vertical"
@@ -291,7 +301,7 @@
                     android:text="29"
                     android:visibility="visible"
                     android:textColor="#7d7d7d"
-                    android:textSize="20sp"
+
                     android:layout_gravity="center_vertical" />
 
                 <ImageView
@@ -304,7 +314,25 @@
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
+
+
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_marginRight="20dp">
+
+            <Button
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:text="关注"
+                android:layout_gravity="center"
+                android:background="@drawable/rec_button"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+
         </LinearLayout>
 
 
