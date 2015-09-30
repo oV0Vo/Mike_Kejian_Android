@@ -7,6 +7,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/why_bind_school_account"
+            android:id="@+id/why_bind"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -14,40 +22,42 @@
             android:orientation="horizontal"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="所在城市"
                 />
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="23dp"
-                android:background="@drawable/rec_edit"
-                android:inputType="textPassword"
-                /></LinearLayout>
+
+            <Spinner
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:entries="@array/brands"
+                android:layout_marginLeft="20dp"
+
+                ></Spinner>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="学校"
                 />
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="23dp"
-                android:background="@drawable/rec_edit"
-                android:inputType="textPassword"
-                /></LinearLayout>
+            <Spinner
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:entries="@array/brands"
+                android:layout_marginLeft="44dp"
+
+                ></Spinner></LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -69,6 +79,26 @@
                 android:inputType="textPassword"
                 /></LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="教务网密码"
+            />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="9dp"
+            android:background="@drawable/rec_edit"
+            android:inputType="textPassword"
+            /></LinearLayout>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -78,6 +108,14 @@
         android:layout_marginLeft="80dp"
         android:id="@+id/complete_reset_passport"
         android:text="完成"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_bind"
+        android:id="@+id/skip_bind"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
         />
 
 

@@ -177,7 +177,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/base_info_sign"
+
             />
     </LinearLayout>
     <TableLayout
@@ -188,7 +188,9 @@
             <TextView
 
                 android:layout_marginLeft="30dp"
-                android:text="The gay is lazy..."/>
+                android:text="The gay is lazy..."
+                android:id="@+id/base_info_sign"
+                />
         </TableRow>
     </TableLayout>
 

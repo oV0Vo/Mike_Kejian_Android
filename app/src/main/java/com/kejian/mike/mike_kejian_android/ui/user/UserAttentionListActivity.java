@@ -55,11 +55,14 @@ public class UserAttentionListActivity extends Activity{
             @Override
             public void onClick(View v) {
 
-ListView l=new ListView(context);
+                s(UserAttentionActivity.class);
+                ListView l = new ListView(context);
 //                l.setAdapter(new AttentionListAdapter(1,null,context));
 //
 //                container.addView(l);
                 //container.addView(new HottestPostListFragment(context));
+
+
             }
         });
 
@@ -67,7 +70,8 @@ ListView l=new ListView(context);
             @Override
             public void onClick(View v) {
 
-                ListView l=new ListView(context);
+                s(UserAttentionActivity.class);
+                ListView l = new ListView(context);
 //                l.setAdapter(new AttentionListAdapter(2,null,context));
 //
 //                container.addView(l);
@@ -76,24 +80,30 @@ ListView l=new ListView(context);
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                s(UserAttentionActivity.class);
 
-                ListView l=new ListView(context);
+                ListView l = new ListView(context);
 //                l.setAdapter(new AttentionListAdapter(3,null,context));
 //                container.addView(l);
 
             }
         });
-        activityManager=new LocalActivityManager(this,true);
+
+
+    }
+
+    public void s(Class type){
+
+        activityManager = new LocalActivityManager(this, true);
         // Bundle states = savedInstanceState != null? (Bundle) savedInstanceState.getBundle(STATES_KEY) : null;
         activityManager.dispatchCreate(bundle);
 
 
-        Intent intent = new Intent(context,UserAttentionActivity.class);
+        Intent intent = new Intent(context, UserAttentionActivity.class);
         intent.setAction("android.settings.SETTINGS");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         View v = activityManager.startActivity(UserAttentionActivity.class.getName(), intent).getDecorView();
         container.removeAllViews();
         container.addView(v);
-
     }
 }
