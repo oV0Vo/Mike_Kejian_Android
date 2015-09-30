@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kejian.mike.mike_kejian_android" >
+    package="com.kejian.mike.mike_kejian_android">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.user.UserLoginActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,32 +22,23 @@
         </activity>
         <activity
             android:name=".ui.course.detail.introduction.CourseIntroductionActivity"
-            android:label="@string/course_intro_activity" >
+            android:label="@string/course_intro_activity">
         </activity>
-        <activity
-            android:name=".ui.course.management.CourseCreateActivity"
-            android:label="@string/course_create_activity" >
+        <activity android:name=".ui.course.management.CourseCreateActivity"
+            android:label="@string/course_create_activity">
         </activity>
-        <activity
-            android:name=".ui.course.management.AnnoucementPublishActivity"
-            android:label="@string/annouc_publish_activity" >
-        </activity>
-        <activity
-            android:name=".ui.course.annoucement.AnnoucListActivity"
-            android:label="@string/annouc_detail_activity" >
+        <activity android:name=".ui.course.management.AnnoucementPublishActivity"
+            android:label="@string/annouc_publish_activity">
         </activity>
         <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
-        <activity
-            android:name=".ui.course.detail.naming.CourseNamingActivity"
-            android:label="@string/course_naming_activity" >
+
+        <activity android:name=".ui.course.detail.naming.CourseNamingActivity"
+            android:label="@string/course_naming_activity">
         </activity>
-        <activity
-            android:name=".ui.course.detail.CourseSignInActivity"
-            android:label="@string/course_sign_in_activity" >
-        </activity>
+
         <activity
             android:name=".ui.message.NewReplyActivity"
             android:label="@string/new_reply" >
@@ -68,35 +59,46 @@
             android:name=".ui.user.UserInfoActivity"
             android:label="user_info" >
         </activity>
-        <activity
-            android:name=".ui.user.UserLoginActivity"
-            android:label="user_login" >
-        </activity>
+        <!--<activity-->
+            <!--android:name=".ui.user.UserLoginActivity"-->
+            <!--android:label="user_login" >-->
+        <!--</activity>-->
         <activity
             android:name=".ui.user.UserBaseInfoOtherView"
             android:label="user_info_other" >
         </activity>
-        <activity
-            android:name=".ui.user.UserAttentionListActivity"
-            android:label="user_attention_list" />
-        <activity
-            android:name=".ui.user.UserForgetPasswordActivity"
-            android:label="user_forget_password" />
-        <activity
-            android:name=".ui.user.UserRegisterActivity"
-            android:label="user_register" />
-        <activity
-            android:name=".ui.campus.PostDetailActivity"
-            android:label="帖子内容" >
+        <activity android:name=".ui.user.UserAttentionListActivity"
+            android:label="关注列表"></activity>
+        <activity android:name=".ui.user.UserForgetPasswordActivity"
+            android:label="忘记密码"></activity>
+        <activity android:name=".ui.user.UserRegisterActivity"
+            android:label="注册"></activity>
+
+        <activity android:name=".ui.campus.PostDetailActivity"
+            android:label="帖子内容">
         </activity>
-        <activity
-            android:name=".ui.campus.PostPublishActivity"
-            android:label="发帖" >
+
+        <activity android:name=".ui.campus.PostPublishActivity"
+            android:label="发帖">
         </activity>
-        <activity
-            android:name=".ui.course.annoucement.AnnoucDetailActivity"
-            android:label="@string/title_activity_annouc_detail" >
+        <activity android:name=".ui.main.MainActivity"
+            android:label="main_activity">
         </activity>
+        <activity android:name=".ui.user.UserAttentionActivity"
+            android:label="user_attention_activity">
+        </activity>
+        <activity android:name=".ui.user.UserPasswordCode"
+            android:label="发送验证码"></activity>
+        <activity android:name=".ui.user.UserSchoolAccountActivity"
+            android:label="绑定教务网帐号"></activity>
+        <activity android:name=".ui.user.UserAttentionCourse"
+            android:label="关注的课程"></activity>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+
 
 </manifest>

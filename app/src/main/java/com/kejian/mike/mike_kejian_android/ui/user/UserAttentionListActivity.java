@@ -14,10 +14,12 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.HottestPostListFragment;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
+import com.kejian.mike.mike_kejian_android.ui.message.CourseNoticeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.MentionMeActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
 
 import bl.AcademyBLService;
+import model.user.UserToken;
 
 /**
  * Created by kisstheraik on 15/9/19.
@@ -30,14 +32,22 @@ public class UserAttentionListActivity extends Activity{
     private FrameLayout container;
     private Context context;
     private LocalActivityManager activityManager;
+    private UserToken userToken;
     private Bundle bundle;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_user_attention_list);
         context=this;
+        bundle=savedInstanceState;
 
-        savedInstanceState=bundle;
+        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+
+        if(userToken==null){
+
+            userToken=new UserToken();
+
+        }
 
 
         initViews();
@@ -55,11 +65,14 @@ public class UserAttentionListActivity extends Activity{
             @Override
             public void onClick(View v) {
 
-ListView l=new ListView(context);
+                s(UserAttentionActivity.class);
+                ListView l = new ListView(context);
 //                l.setAdapter(new AttentionListAdapter(1,null,context));
 //
 //                container.addView(l);
                 //container.addView(new HottestPostListFragment(context));
+
+
             }
         });
 
@@ -67,7 +80,8 @@ ListView l=new ListView(context);
             @Override
             public void onClick(View v) {
 
-                ListView l=new ListView(context);
+                s(UserAttentionCourse.class);
+                ListView l = new ListView(context);
 //                l.setAdapter(new AttentionListAdapter(2,null,context));
 //
 //                container.addView(l);
@@ -76,24 +90,33 @@ ListView l=new ListView(context);
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                s(UserAttentionActivity.class);
 
-                ListView l=new ListView(context);
+                ListView l = new ListView(context);
 //                l.setAdapter(new AttentionListAdapter(3,null,context));
 //                container.addView(l);
 
             }
         });
-        activityManager=new LocalActivityManager(this,true);
+
+
+    }
+
+    public void s(Class type){
+
+        activityManager = new LocalActivityManager(this, true);
         // Bundle states = savedInstanceState != null? (Bundle) savedInstanceState.getBundle(STATES_KEY) : null;
         activityManager.dispatchCreate(bundle);
 
 
-        Intent intent = new Intent(context,UserAttentionActivity.class);
+        Intent intent = new Intent(context, type);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(UserActivityComm.USER_TOKEN.name(),userToken);
+        intent.putExtras(bundle);
         intent.setAction("android.settings.SETTINGS");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         View v = activityManager.startActivity(UserAttentionActivity.class.getName(), intent).getDecorView();
         container.removeAllViews();
         container.addView(v);
-
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,7 @@ import com.kejian.mike.mike_kejian_android.R;
 /**
  * Created by kisstheraik on 15/9/19.
  */
-public class UserForgetPasswordActivity extends Activity{
+public class UserForgetPasswordActivity extends AppCompatActivity{
 
     private Button reset;
     private Context context;
@@ -27,8 +28,8 @@ public class UserForgetPasswordActivity extends Activity{
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent();
-                intent.setClass(context,UserLoginActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(context, UserLoginActivity.class);
                 startActivity(intent);
                 close();
 

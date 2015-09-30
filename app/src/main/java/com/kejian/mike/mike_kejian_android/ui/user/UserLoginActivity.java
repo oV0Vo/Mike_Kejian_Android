@@ -94,11 +94,11 @@ public class UserLoginActivity extends Activity {
             userToken = new UserToken();
 
 
-            userToken.setPassword(passwordView.getText().toString().trim());
 
-            userToken.setName(nameView.getText().toString().trim());
         }
+        userToken.setPassword(passwordView.getText().toString().trim());
 
+        userToken.setName(nameView.getText().toString().trim());
 
 
 
@@ -111,9 +111,7 @@ public class UserLoginActivity extends Activity {
 
             return UserOperationResult.LOGIN_ERROR_PASSWORD;
 
-        }
-
-        else {
+        } else {
             Intent intent = new Intent();
 
             intent.setClass(this, MainActivity.class);
@@ -165,7 +163,7 @@ public class UserLoginActivity extends Activity {
 
         login=(Button)findViewById(com.kejian.mike.mike_kejian_android.R.id.login_confirm);
 
-        forget_password.setOnClickListener(new AccountListener(UserForgetPasswordActivity.class));
+        forget_password.setOnClickListener(new AccountListener(UserPasswordCode.class));
 
         register.setOnClickListener(new AccountListener(UserRegisterActivity.class));
 

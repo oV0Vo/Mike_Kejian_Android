@@ -135,6 +135,7 @@ public class HottestPostListFragment extends Fragment implements View.OnClickLis
         postContent.setLayoutParams(layout_post);
         postContent.setTag(post.getPostId());
         postContent.setOnClickListener(this);
+        postContent.setBackgroundResource(R.drawable.setting_item_selector);
 
         LinearLayout lastLineStr = new LinearLayout(ctx);
         LinearLayout.LayoutParams layout_lastLine = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
