@@ -60,7 +60,9 @@
     <string name="annouc_publish_activity">发布公告</string>
     <string name="question_publish_activity">发布题目</string>
     <string name="course_notice">课程公告</string>
+    <string name="annouc_detail_activity">课程公告</string>
     <string name="course_naming_activity">课程点名</string>
+    <string name="course_sign_in_activity">课程签到</string>
     <string name="new_reply">新的回复</string>
     <string name="new_praise">收到的赞</string>
     <string name="mention_me">提到我的</string>
@@ -133,7 +135,6 @@
 
     <!--course naming-->
     <string name="course_naming_type_qiandao">签到时间:</string>
-    <string name="course_naming_type_shangke">上课时间</string>
     <string name="course_naming_not_start">未开始</string>
     <string name="course_naming_not_start_clock_text">- -:- -</string>
     <string name="course_naming_naming_action">我要点名</string>
@@ -148,9 +149,9 @@
 
     <!--course sign in-->
     <string name="course_sign_in_time_title">签到时间:</string>
-    <string name="course_sign_in_teacher_title">上课教师</string>
+    <string name="course_sign_in_teacher_title">上课教师:</string>
     <string name="course_sign_in_sign_in_action">我要签到</string>
-    <string name="course_sign_in_no_current_naming_text">当前没有点名哦</string>
+    <string name="course_sign_in_no_current_naming_text">&#62;_&#60;现在没有点名哦</string>
     <string name="course_sign_in_already_sign_in">已签到</string>
     <string name="course_sign_in_not_sign_in_status">未签到</string>
     <string name="course_sign_in_success">签到成功！</string>
@@ -172,6 +173,8 @@
     <string name="num_four">4</string>
     <string name="on_process">正在处理中，请稍等片刻</string>
 
+    <string name="annouc_on_top">[置顶]</string>
     <!--net error-->
     <string name="net_disconnet">网络不太好哦~~</string>
+    <string name="title_activity_annouc_detail">AnnoucDetailActivity</string>
 </resources>

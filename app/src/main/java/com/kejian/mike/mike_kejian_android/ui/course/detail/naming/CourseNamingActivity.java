@@ -2,11 +2,9 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.naming;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 
 import net.CourseNamingNetService;
-import net.CourseNetService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +33,7 @@ public class CourseNamingActivity extends AppCompatActivity {
     private ListView historyListView;
     private ArrayAdapter historyNamingAdapter;
 
+    private TextView namingTimeTitleText;
     private TextView namingTimeText;
     private TextView leftTimeClock;
     private TextView namingActionText;
@@ -50,6 +48,7 @@ public class CourseNamingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_naming);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
@@ -76,6 +75,7 @@ public class CourseNamingActivity extends AppCompatActivity {
     }
 
     private void updateViewOnGetCurrentNaming(CourseNamingRecord currentNaming) {
+        namingTimeTitleText = (TextView)findViewById(R.id.course_naming_time_title_text);
         namingTimeText = (TextView)findViewById(R.id.course_naming_time_text);
         leftTimeClock = (TextView)findViewById(R.id.left_time_text);
         namingActionText = (TextView)findViewById(R.id.naming_action_text);
@@ -85,6 +85,8 @@ public class CourseNamingActivity extends AppCompatActivity {
         } else {
             setViewOnNamingNotStart();
         }
+
+        updateViewIfAllTaskFinish();
     }
 
     private void setViewOnNaming(CourseNamingRecord currentNaming) {
@@ -93,6 +95,8 @@ public class CourseNamingActivity extends AppCompatActivity {
         String timeStr = TimeFormat.convertDateInterval(beginTime, endTime);
         namingTimeText.setText(timeStr);
 
+        namingTimeTitleText.setText(R.string.course_naming_type_qiandao);
+        namingActionText.setText(R.string.course_naming_on_naming);
         long leftTime = endTime.getTime() - beginTime.getTime();
         startLeftTimeClock(leftTime);
     }
@@ -258,11 +262,12 @@ public class CourseNamingActivity extends AppCompatActivity {
         @Override
         protected ArrayList<CourseNamingRecord> doInBackground(Void... params) {
             String courseId = CourseModel.getInstance().getCurrentCourseId();
-            return CourseNetService.getHistoryNamingRecords(courseId);
+            return CourseNamingNetService.getNamingRecords(courseId);
         }
 
         @Override
         protected void onPostExecute(ArrayList<CourseNamingRecord> namingRecords) {
+            taskCountDown--;
             updateViewOnGetHistoryNaming(namingRecords);
         }
     }
@@ -278,6 +283,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(CourseNamingRecord currentNaming) {
+            taskCountDown--;
             updateViewOnGetCurrentNaming(currentNaming);
         }
     }

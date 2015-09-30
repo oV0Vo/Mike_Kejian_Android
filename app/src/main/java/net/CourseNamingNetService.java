@@ -44,8 +44,8 @@ public class CourseNamingNetService {
         names.add("朱方圆");
         names.add("高阳一桥");
         mock.setAbsentNames(names);
-        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 3600 * 32));
-        mock.setEndTime(new Date(System.currentTimeMillis() -  - 1000 * 3600 * 31));
+        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 2700));
+        mock.setEndTime(new Date(System.currentTimeMillis() -  - 1000 * 3600));
         mock.setNamingId("dsfsdfsdfds");
         mock.setSignInNum(92);
         mock.setTeacherId("tvbccvbcvbcv");

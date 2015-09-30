@@ -59,7 +59,7 @@ public class PostMocks {
         replys.add(reply3);
 
         post1.setReplyList(replys);
-        post1.setTitle("屌丝们快进来");
+        post1.setTitle("大神快进来帮我分析下我的堆栈dump情况");
         post1.setUserId(PersonMocks.name9);
         post1.setAuthorName(PersonMocks.name1);
     }
@@ -121,7 +121,7 @@ public class PostMocks {
         replys.add(reply5);
 
         post2.setReplyList(replys);
-        post2.setTitle("小明滚进来!!!");
+        post2.setTitle("大神快进来帮我分析下我的堆栈dump情况");
         post2.setUserId(PersonMocks.id1);
         post2.setAuthorName(PersonMocks.name1);
     }
@@ -159,7 +159,7 @@ public class PostMocks {
         replys.add(reply3);
 
         post3.setReplyList(replys);
-        post3.setTitle("你们这群渣渣");
+        post3.setTitle("大神快进来帮我分析下我的堆栈dump情况");
         post3.setUserId(PersonMocks.id11);
         post3.setAuthorName(PersonMocks.name11);
     }
@@ -212,7 +212,7 @@ public class PostMocks {
         replys.add(reply5);
 
         post4.setReplyList(replys);
-        post4.setTitle("乖孩子召唤闺蜜好孩子");
+        post4.setTitle("助教大人快进来，良辰有事相求");
         post4.setUserId(PersonMocks.id10);
         post4.setAuthorName(PersonMocks.name10);
         post4.setDate(new Date(115, 8, 13, 11, 25, 24));

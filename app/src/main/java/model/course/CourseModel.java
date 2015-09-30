@@ -12,7 +12,6 @@ import model.course.data.CourseBriefInfo;
 import model.course.data.CourseDetailInfo;
 import model.course.data.question.BasicQuestion;
 import model.course.data.question.CurrentQuestion;
-import model.user.CourseBrief;
 import util.NeedAsyncAnnotation;
 import util.NetOperateResultMessage;
 
@@ -249,6 +248,28 @@ public class CourseModel {
                 , annoucement.getTitle(), annoucement.getContent());
     }
 
+    public ArrayList<CourseAnnoucement> getAnnoucs() {
+        return currentCourse.annoucs;
+    }
+
+    public CourseAnnoucement getOnTopAnnouc() {
+        ArrayList<CourseAnnoucement> annoucs = currentCourse.annoucs;
+        for(CourseAnnoucement annouc: annoucs)
+            if(annouc.isOnTop())
+                return annouc;
+        return null;
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CourseAnnoucement> updateAnnoucs() {
+        return updateAnnoucs(Integer.MAX_VALUE, TimeUnit.SECONDS);
+    }
+
+    @NeedAsyncAnnotation
+    public ArrayList<CourseAnnoucement> updateAnnoucs(int time, TimeUnit timeUnit) {
+        return currentCourse.updateAnnouc(time, timeUnit);
+    }
+
     public ArrayList<String> getAllCourseTypeNamesMock() {
         ArrayList<String> names = new ArrayList<String>();
         names.add("通识课");
@@ -271,12 +292,16 @@ public class CourseModel {
         private ArrayList<Post> posts;
         private Post currentPost;
 
+        private ArrayList<CourseAnnoucement> annoucs;
+
         private static final int HISTORY_QUESTION_UPDATE_NUM = 20;
         private static final int CURRENT_QUESTION_UPDATE_NUM = 5;
+        private static final int ANNOUC_UPDATE_NUM = 5;
 
         public CurrentCourseModel(CourseBriefInfo courseBrief) {
             historyQuestions = new ArrayList<BasicQuestion>();
             currentQuestions = new ArrayList<CurrentQuestion>();
+            annoucs = new ArrayList<CourseAnnoucement>();
             posts = new ArrayList<Post>();
             this.courseBrief = courseBrief;
             this.courseId = courseBrief.getCourseId();
@@ -328,6 +353,17 @@ public class CourseModel {
             }
             return updateInfos;
 
+        }
+
+        public ArrayList<CourseAnnoucement> updateAnnouc(int time, TimeUnit timeUnit) {
+            int beginPos = annoucs.size();
+            int updateNum = ANNOUC_UPDATE_NUM;
+            ArrayList<CourseAnnoucement> updateInfos = CourseNetService.getAnnouc(courseId,
+                    beginPos, updateNum, time, timeUnit);
+            if(updateInfos != null) {
+                annoucs.addAll(updateInfos);
+            }
+            return updateInfos;
         }
 
     }

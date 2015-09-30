@@ -9,8 +9,6 @@ import model.campus.Post;
 import model.course.data.CourseAnnoucement;
 import model.course.data.CourseBriefInfo;
 import model.course.data.CourseDetailInfo;
-import model.course.data.CourseNamingRecord;
-import model.course.data.CourseSignInRecord;
 import model.course.data.CourseType;
 import model.course.data.PersonMocks;
 import model.course.data.PostMocks;
@@ -110,41 +108,32 @@ public class CourseNetService {
         return null;
     }
 
-    public static ArrayList<CourseNamingRecord> getHistoryNamingRecords(String courseId) {
-            return historyNamingMocks();
+    public static ArrayList<CourseAnnoucement> getAnnouc(String courseId, int beginPos, int num,
+                                                         int time, TimeUnit timeUnit) {
+        return annoucMocks();
     }
 
-    public static NetOperateResultMessage courseSignIn(String sid, String namingId) {
-        return null;
-    }
-
-    private static ArrayList<CourseNamingRecord> historyNamingMocks() {
-        ArrayList<CourseNamingRecord> mocks = new ArrayList<CourseNamingRecord>();
-        mocks.add(historyNamingMock());
-        mocks.add(historyNamingMock());
+    private static ArrayList<CourseAnnoucement> annoucMocks() {
+        ArrayList<CourseAnnoucement> mocks = new ArrayList<CourseAnnoucement>();
+        mocks.add(annoucMock());
+        CourseAnnoucement onTopMock = annoucMock();
+        onTopMock.setOnTop(true);
+        mocks.add(onTopMock);
+        mocks.add(annoucMock());
+        mocks.add(annoucMock());
         return mocks;
     }
 
-    private static CourseNamingRecord historyNamingMock() {
-        CourseNamingRecord mock = new CourseNamingRecord();
-        ArrayList<String> sids = new ArrayList<String>();
-        sids.add("131250666");
-        sids.add("131250777");
-        sids.add("131250888");
-        sids.add("131250999");
-        mock.setAbsentIds(sids);
-        ArrayList<String> names = new ArrayList<String>();
-        names.add("黄崇和");
-        names.add("洪传旺");
-        names.add("朱方圆");
-        names.add("高阳一桥");
-        mock.setAbsentNames(names);
-        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 3600 * 32));
-        mock.setEndTime(new Date(System.currentTimeMillis() -  - 1000 * 3600 * 31));
-        mock.setNamingId("dsfsdfsdfds");
-        mock.setSignInNum(92);
-        mock.setTeacherId("tvbccvbcvbcv");
-        mock.setTotalNum(122);
+    private static CourseAnnoucement annoucMock() {
+        CourseAnnoucement mock = new CourseAnnoucement();
+        mock.setContent("这么课需要大一的“高等数学”与“Python程序设计为基础。假如你不会Python编程，" +
+                "你可以重点听陈老师那部分；假如你高等数学忘得差不多了，你可以重点听范老师那部分。最好状况" +
+                "是两部分都能坚持下来”");
+        mock.setCourseId("sdfsd");
+        mock.setDate(new Date(System.currentTimeMillis()));
+        mock.setPersonId(PersonMocks.id5);
+        mock.setPersonName(PersonMocks.name5);
+        mock.setTitle("今天天气真好啊~");
         return mock;
     }
 
@@ -177,7 +166,9 @@ public class CourseNetService {
         references.add("java并发编程");
         course.setReferences(references);
         CourseAnnoucement annoucement = new CourseAnnoucement();
-        annoucement.setContent("隔壁老王说再也不偷情了");
+        annoucement.setContent("这么课需要大一的“高等数学”与“Python程序设计为基础。假如你不会Python编程，" +
+                "你可以重点听陈老师那部分；假如你高等数学忘得差不多了，你可以重点听范老师那部分。最好状况" +
+                "是两部分都能坚持下来”");
         annoucement.setCourseId(courseMock1Id);
         annoucement.setDate(new Date(115, 8, 12));
         annoucement.setPersonId(PersonMocks.id6);

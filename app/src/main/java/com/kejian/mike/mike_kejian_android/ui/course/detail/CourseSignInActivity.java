@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,7 +66,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         new GetCurrentNamingTask().execute();
     }
 
-    private void updateView(ArrayList<CourseSignInRecord> records) {
+    private void updateViewOnGetHistoryRecord(ArrayList<CourseSignInRecord> records) {
         if(mainLayout == null) {
             return;
         }
@@ -77,14 +78,15 @@ public class CourseSignInActivity extends AppCompatActivity {
 
         UpdateIfAllTaskFinish();
     }
-
-    private void updateView(CourseSignInRecord currentNaming) {
+ 
+    private void updateViewOnGetCurrentSignRecord(CourseSignInRecord currentNaming) {
         if(mainLayout == null) {
             return;
         }
 
-        if(currentNaming == null) {
+        if(currentNaming != null) {
             ViewGroup currentNamingLayout = (ViewGroup)findViewById(R.id.current_naming_layout);
+            currentNamingLayout.setVisibility(View.VISIBLE);
             signInStatusText = (TextView)findViewById(R.id.course_sign_in_status_text);
             signInActionText = (TextView)findViewById(R.id.course_sign_in_sign_in_text);
 
@@ -134,7 +136,7 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private void setNotSignInView() {
         signInStatusText.setText(R.string.course_sign_in_not_sign_in_status);
-        //signInStatusText.setBackground(R.color.dark);
+        signInStatusText.setBackgroundColor(getResources().getColor(R.color.dark));
 
         signInActionText.setText(R.string.course_sign_in_sign_in_action);
         signInActionText.setOnClickListener(new View.OnClickListener() {
@@ -147,8 +149,10 @@ public class CourseSignInActivity extends AppCompatActivity {
     }
 
     private void setHasSignInView() {
+        progressBar.setVisibility(View.GONE);
         signInStatusText.setText(R.string.course_sign_in_already_sign_in);
-        //signInStatusText.setBackground(R.color.green);
+        signInStatusText.setTextColor(getResources().getColor(R.color.white));
+        signInStatusText.setBackgroundColor(getResources().getColor(R.color.green));
 
         signInActionText.setText(R.string.course_sign_in_already_sign_in);
         signInActionText.setEnabled(false);
@@ -191,7 +195,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.layout_history_naming, null);
+                convertView = getLayoutInflater().inflate(R.layout.layout_history_sign_in, null);
             }
 
             CourseSignInRecord  r = getItem(position);
@@ -199,12 +203,12 @@ public class CourseSignInActivity extends AppCompatActivity {
             Date beginTime = r.getBeginTime();
             Date endTime = r.getEndTime();
             String timeStr = TimeFormat.convertDateInterval(beginTime, endTime);
-            TextView textView = (TextView)convertView.findViewById(R.id.course_sign_in_time_text);
+            TextView textView = (TextView)convertView.findViewById(R.id.history_course_sign_in_time);
             textView.setText(timeStr);
 
             String tn = r.getTeacherName();
             TextView teacherNameText = (TextView)convertView.findViewById(R.id.
-                    course_sign_in_teacher_text);
+                    history_course_sign_in_teacher);
             teacherNameText.setText(tn);
 
             ImageView signInImage = (ImageView)convertView.findViewById(R.id.
@@ -238,23 +242,23 @@ public class CourseSignInActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<CourseSignInRecord> signInRecords) {
             taskCountDown--;
-            updateView(signInRecords);
+            updateViewOnGetHistoryRecord(signInRecords);
         }
     }
 
-    private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseNamingRecord> {
+    private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseSignInRecord> {
 
         @Override
-        protected CourseNamingRecord doInBackground(Void... params) {
+        protected CourseSignInRecord doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseNamingNetService.getCurrentNamingRecord(courseId);
+            return CourseSignInNetService.getCurrentSignInRecord(courseId, sidMock);
         }
 
         @Override
-        protected void onPostExecute(CourseNamingRecord currentNaming) {
+        protected void onPostExecute(CourseSignInRecord currentNaming) {
             taskCountDown--;
-            //updateView(currentNaming);
+            updateViewOnGetCurrentSignRecord(currentNaming);
         }
     }
 
@@ -264,7 +268,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseSignInNetService.signIn("", "");
+            return CourseSignInNetService.signIn(courseId, sidMock);
         }
 
         @Override

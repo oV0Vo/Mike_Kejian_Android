@@ -3,6 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.course;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -145,13 +146,13 @@ public class CourseListContainerFragment extends Fragment {
             public void onClick(View v) {
                 if(isShowMyCourse) {
                     isShowMyCourse = false;
+                    Log.e("CourseList", "" + Boolean.toString(isShowMyCourse));
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
                     if(isSelectAcademy) {
                         courseListFg.showAcademyCourseList(selectText);
                     } else {
                         courseListFg.showCourseTypeList(CourseType.valueOf(selectText.toString()));
                     }
-
                 }
             }
         });

@@ -52,7 +52,7 @@ public class TimeFormat {
     public static String convertDateInterval(Date begin, Date endDate) {
         StringBuilder strBuilder = new StringBuilder();
 
-        int by = begin.getYear();
+        int by = begin.getYear() + 1900;
         strBuilder.append(Integer.toString(by) + "/");
 
         int bm = begin.getMonth();
@@ -71,7 +71,7 @@ public class TimeFormat {
         append(strBuilder, bs);
         strBuilder.append("-");
 
-        int ey = endDate.getYear();
+        int ey = endDate.getYear() + 1900;
         if(by != ey)
             strBuilder.append(Integer.toString(ey) + "/");
 

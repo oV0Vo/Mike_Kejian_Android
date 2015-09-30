@@ -3,7 +3,6 @@ package com.kejian.mike.mike_kejian_android.ui.user;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -51,12 +50,12 @@ public class UserInfoActivity extends Activity{
     public void initViews(){
 
         user=(user)getIntent().getSerializableExtra(UserActivityComm.USER_INFO.name());
-        userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
+        /*userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
         baseInfoName=(TextView)findViewById(R.id.base_info_name);
         baseInfoGender=(TextView)findViewById(R.id.base_info_gender);
         baseInfoGrade=(TextView)findViewById(R.id.user_school_info_grade);
         baseInfoIdentify=(TextView)findViewById(R.id.user_school_info_identify);
-        baseInfoSign=(TextView)findViewById(R.id.base_info_sign);
+        baseInfoSign=(TextView)findViewById(R.id.base_info_sign);*/
         setUserInfo();
 
         assert user==null:"do not get user";

@@ -3,9 +3,9 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,19 +18,19 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.annoucement.AnnoucListActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity;
-import com.kejian.mike.mike_kejian_android.ui.course.detail.menu.StudentActionProvider;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
-import model.course.data.CourseBriefInfo;
-import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
+import model.course.data.CourseBriefInfo;
 
 public class CourseActivity extends AppCompatActivity implements
         AnnoucementFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
-        StudentActionProvider.OnStudentMenuSelectListener,
         CommentsAreaFragment.OnPostSelectedListener {
 
     private CourseModel courseModel;
@@ -41,6 +41,7 @@ public class CourseActivity extends AppCompatActivity implements
     private AnnoucementFragment annoucemntFg;
     private QuestionAndPostsLayoutFragment postsAndQuestionFg;
 
+    private MenuItem downInfoItem;
     private MenuItem addItem;
     private PopupWindow addItemSubMenu;
 
@@ -108,7 +109,7 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void initCommonMenu(Menu menu) {
-        MenuItem downInfoItem = menu.findItem(R.id.course_down_info_menu_item);
+        downInfoItem = menu.findItem(R.id.course_down_info_menu_item);
         downInfoItem.setOnMenuItemClickListener(new MenuHideClickListener());
         initTeacherAddMenuItem(menu);
         //init search menu item
@@ -142,11 +143,31 @@ public class CourseActivity extends AppCompatActivity implements
                 addItemSubMenu.dismiss();
             }
         });
+
+        ViewGroup namingLayout = (ViewGroup)subMenuView.findViewById(R.id.course_submenu_teacher_naming);
+        namingLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNamingActivity();
+                addItemSubMenu.dismiss();
+            }
+        });
+
+        ViewGroup addPostLayout = (ViewGroup)subMenuView.findViewById(R.id.course_submenu_teacher_publish_post);
+        addPostLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPublishPostActivity();
+                addItemSubMenu.dismiss();
+            }
+        });
+
         return subMenuView;
     }
 
     private void startPublishPostActivity() {
-
+        Intent intent = new Intent(this, PostPublishActivity.class);
+        startActivity(intent);
     }
 
     private void startPublishAnnoucActivity() {
@@ -196,7 +217,8 @@ public class CourseActivity extends AppCompatActivity implements
 
     @Override
     public void onAnnoucementClick() {
-        Log.i("CourseActivity", "OnAnnoucementClick");
+        Intent intent = new Intent(this, AnnoucListActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -205,19 +227,20 @@ public class CourseActivity extends AppCompatActivity implements
         startActivity(startIntro);
     }
 
-    @Override
+ /*   @Override
     public void onPublishPost() {
         startPublishPostActivity();
-    }
-
+    }*/
+/*
     @Override
     public void onCourseSignIn() {
         startSignInActivity();
-    }
+    }*/
 
     @Override
     public void onPostSelected() {
-
+        Intent intent = new Intent(this, PostDetailActivity.class);
+        startActivity(intent);
     }
 
     private class UpdateCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
@@ -247,12 +270,17 @@ public class CourseActivity extends AppCompatActivity implements
         public boolean onMenuItemClick(MenuItem item) {
             boolean isHide = (count % 2 == 0);
             count++;
-            if(isHide)
+            if(isHide) {
                 hideBriefInfoAndAnnouc();
-            else
+                downInfoItem.setIcon(R.drawable.up_info);
+            }
+            else {
                 showBriefInfoAndAnnouc();
+                downInfoItem.setIcon(R.drawable.down_info);
+            }
             return true;
         }
+
     }
 
 }

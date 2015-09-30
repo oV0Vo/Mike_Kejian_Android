@@ -79,7 +79,7 @@
                 android:paddingLeft="@dimen/big_padding"
                 android:paddingRight="@dimen/big_padding"
                 android:textSize="@dimen/sub_medium_font"
-                android:text="@string/main_course_academy_type_title"/>
+                android:text="@string/main_course_type_title"/>
 
             <TextView
                 android:id="@+id/main_course_course_type_select_text"

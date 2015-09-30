@@ -27,6 +27,9 @@ public class UserInfoService {
     private String password = "1213";
 
     public static UserInfoService getInstance() {
+        //@mock
+        if(instance == null)
+            createInstance();
         return instance;
     }
 
