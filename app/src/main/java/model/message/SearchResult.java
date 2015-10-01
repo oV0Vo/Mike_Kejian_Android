@@ -10,6 +10,13 @@ import android.text.style.ForegroundColorSpan;
  */
 public class SearchResult {
     SpannableStringBuilder builder;
+    private boolean isCourse = true;
+    public void setIsCourse(boolean isCourse){
+        this.isCourse = isCourse;
+    }
+    public boolean isCourse(){
+        return this.isCourse;
+    }
     public String getTitle() {
         return title;
     }

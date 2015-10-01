@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.content.Context;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import bl.MessageBLService;
@@ -36,8 +39,15 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher,Vie
     private LayoutInflater myInflater;
     private ListView courseContainer;
     private ListView postContainer;
+    private TextView course_tag;
+    private TextView post_tag;
     private ArrayAdapter<SearchResult> courseAdapter;
     private ArrayAdapter<SearchResult> postAdapter;
+
+    private TextView no_result;
+    private boolean has_result = false;
+
+    private SearchTask currentTask = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +66,9 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher,Vie
         this.clearSearch.setOnClickListener(this);
 
         this.myInflater = getLayoutInflater();
+        this.course_tag = (TextView)findViewById(R.id.course_tag);
         this.courseContainer = (ListView)findViewById(R.id.course_container);
+        this.post_tag = (TextView)findViewById(R.id.post_tag);
         this.postContainer = (ListView)findViewById(R.id.post_container);
 
         this.courseAdapter = new SearchResultAdapter(this, android.R.layout.simple_list_item_1, SearchBLService.courses);
@@ -64,6 +76,8 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher,Vie
 
         this.courseContainer.setAdapter(this.courseAdapter);
         this.postContainer.setAdapter(this.postAdapter);
+
+        this.no_result = (TextView)findViewById(R.id.no_result);
 
     }
     static class ViewHolder{
@@ -127,11 +141,62 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher,Vie
 
     @Override
     public void afterTextChanged(Editable s) {
+        SearchBLService.posts.clear();
+        SearchBLService.courses.clear();
         if(s.length() > 0){
             this.clearSearch.setVisibility(View.VISIBLE);
+            if(this.currentTask != null){
+                currentTask.cancel(true);
+            }else{
+                this.currentTask = new SearchTask();
+                this.currentTask.execute(s.toString());
+            }
 
         }
 
+    }
+    private class SearchTask extends AsyncTask<String, Integer, String> {
+        @Override
+        public String doInBackground(String... params) {
+            String key = params[0];
+            SearchBLService.search(key);
+            if(isCancelled()){
+                return null;
+            }
+            return "";
+        }
+
+        @Override
+        public void onPostExecute(String result) {
+            if(SearchBLService.courses.size()>0){
+                no_result.setVisibility(View.GONE);
+                course_tag.setVisibility(View.VISIBLE);
+                courseContainer.setVisibility(View.VISIBLE);
+                courseAdapter.notifyDataSetChanged();
+                has_result = true;
+            }else{
+                course_tag.setVisibility(View.GONE);
+                courseContainer.setVisibility(View.GONE);
+            }
+
+            if(SearchBLService.posts.size()>0){
+                no_result.setVisibility(View.GONE);
+                post_tag.setVisibility(View.VISIBLE);
+                postContainer.setVisibility(View.VISIBLE);
+                postAdapter.notifyDataSetChanged();
+                has_result = true;
+            }else{
+                post_tag.setVisibility(View.GONE);
+                postContainer.setVisibility(View.GONE);
+            }
+
+            if(!has_result){
+                no_result.setVisibility(View.VISIBLE);
+            }else{
+                has_result = false;
+            }
+
+        }
     }
 
     @Override
