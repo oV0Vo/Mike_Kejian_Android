@@ -22,12 +22,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/over_big_padding"
             android:background="@drawable/dark_thin_bottom_border">
 
             <ImageView
-                android:layout_width="@dimen/extreme_big_icon_size"
-                android:layout_height="@dimen/extreme_big_icon_size"
+                android:layout_width="@dimen/over_big_icon_size"
+                android:layout_height="@dimen/over_big_icon_size"
                 android:background="@drawable/check_green"/>
 
             <LinearLayout
@@ -93,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             style="@style/green_whiteText"
-                            android:textSize="@dimen/extreme_big_font"/>
+                            android:textSize="@dimen/over_big_font"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -109,7 +109,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/extreme_big_padding"
+            android:paddingTop="@dimen/over_big_padding"
             android:paddingBottom="@dimen/medium_padding"
             android:textSize="@dimen/big_font"
             android:textColor="@color/green"

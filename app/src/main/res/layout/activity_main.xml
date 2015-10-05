@@ -21,55 +21,27 @@
         </FrameLayout>
 
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal"
-                android:background="@color/dark_blue">
-                <RadioButton
-                    android:id="@+id/main_course_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/course_tab_tag"
-                    android:gravity="center|bottom"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:textColor="@color/white"
-                    android:drawableTop="@drawable/book2"
-                    android:paddingTop="@dimen/sub_big_padding"
-                    android:paddingBottom="@dimen/small_padding"
-                    android:layout_weight="1"
-                    />
-                <RadioButton
-                    android:id="@+id/main_message_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/message_tab_tag"
-                    android:gravity="center|bottom"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:textColor="@color/white"
-                    android:drawableTop="@drawable/book2"
-                    android:paddingTop="@dimen/sub_big_padding"
-                    android:paddingBottom="@dimen/small_padding"
-                    android:layout_weight="1"
-                    />
-                <RadioButton
-                    android:id="@+id/main_campus_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/campus_tab_tag"
-                    android:gravity="center|bottom"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:textColor="@color/white"
-                    android:drawableTop="@drawable/book2"
-                    android:paddingTop="@dimen/sub_big_padding"
-                    android:paddingBottom="@dimen/small_padding"
-                    android:layout_weight="1"
-                    />
-            </RadioGroup>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/main_course_button"
+                style="@style/main_tab"
+                android:drawableTop="@drawable/book2"
+                android:text="@string/course_tab_tag" />
+            <RadioButton
+                android:id="@+id/main_message_button"
+                style="@style/main_tab"
+                android:drawableTop="@drawable/book2"
+                android:text="@string/message_tab_tag" />
+            <RadioButton
+                android:id="@+id/main_campus_button"
+                style="@style/main_tab"
+                android:drawableTop="@drawable/book2"
+                android:text="@string/campus_tab_tag" />
+        </RadioGroup>
 
 
     </RelativeLayout>

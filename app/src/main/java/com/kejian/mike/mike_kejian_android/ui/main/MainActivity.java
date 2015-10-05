@@ -3,21 +3,20 @@ package com.kejian.mike.mike_kejian_android.ui.main;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -119,24 +118,38 @@ public class MainActivity extends AppCompatActivity
         viewPager = new ViewPager(this);
         viewPager.setId(R.id.main_view_pager);
         viewPager.setAdapter(mainPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch(position) {
+                    case 0:
+                        courseButton.setChecked(true);
+                        break;
+                    case 1:
+                        messageButton.setChecked(true);
+                        break;
+                    case 2:
+                        campusButton.setChecked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         viewPagerContainer.addView(viewPager);
     }
 
     private void initRadioButtons() {
-        CompoundButton.OnCheckedChangeListener checkChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if(currentButton != null)
-                        currentButton.setChecked(false);
-                    currentButton = (RadioButton)buttonView;
-                    buttonView.setBackgroundResource(R.drawable.dark_blue_top_border);
-                } else {
-                    buttonView.setBackgroundDrawable(null);
-                }
-            }
-        };
-
         courseButton = (RadioButton)findViewById(R.id.main_course_button);
         courseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +157,6 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(0);
             }
         });
-        //courseButton.setOnCheckedChangeListener(checkChangeListener);
         courseButton.setChecked(true);
 
         messageButton = (RadioButton)findViewById(R.id.main_message_button);
@@ -154,7 +166,6 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(1);
             }
         });
-        //messageButton.setOnCheckedChangeListener(checkChangeListener);
 
         campusButton = (RadioButton)findViewById(R.id.main_campus_button);
         campusButton.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +174,6 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(2);
             }
         });
-        //campusButton.setOnCheckedChangeListener(checkChangeListener);
 
     }
 

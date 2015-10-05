@@ -20,7 +20,7 @@
             android:id="@+id/question_choice_correct_answer_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/extreme_small_font"
+            android:textSize="@dimen/over_small_font"
             android:textColor="@color/green"
             android:text="@string/question_publish_correct_answer"
             android:visibility="invisible"/>
@@ -30,6 +30,7 @@
         android:id="@+id/question_choice_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_padding"
         android:textColor="@color/green"
         android:textSize="@dimen/medium_font"/>
 

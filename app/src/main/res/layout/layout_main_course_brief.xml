@@ -15,7 +15,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/book_height"
-        android:paddingLeft="@dimen/big_padding"
         android:orientation="vertical"
         android:background="@drawable/green_bottom_thin_border">
 
@@ -23,8 +22,9 @@
             android:id="@+id/course_brief_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/big_padding"
+            android:paddingBottom="@dimen/over_medium_padding"
             android:textColor="@color/green"
-            android:paddingBottom="@dimen/extreme_medium_padding"
             android:textSize="@dimen/big_font"/>
 
         <RelativeLayout
@@ -41,6 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/medium_padding"
+                    android:paddingLeft="@dimen/big_padding"
                     android:layout_alignParentLeft="true"
                     android:orientation="horizontal">
 
@@ -60,19 +61,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
-                    android:paddingBottom="@dimen/medium_padding"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingRight="@dimen/medium_padding"
+                        android:paddingLeft="@dimen/big_padding"
+                        android:background="@drawable/green_bottom_border"
                         android:text="@string/main_course_brief_progress_week_prefix"/>
 
                     <TextView
                         android:id="@+id/course_brief_progress_week"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/medium_padding"/>
 
                 </LinearLayout>
 

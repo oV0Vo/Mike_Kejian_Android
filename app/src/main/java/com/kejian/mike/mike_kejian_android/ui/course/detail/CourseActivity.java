@@ -272,11 +272,11 @@ public class CourseActivity extends AppCompatActivity implements
             count++;
             if(isHide) {
                 hideBriefInfoAndAnnouc();
-                downInfoItem.setIcon(R.drawable.up_info);
+                downInfoItem.setIcon(R.drawable.down_info);
             }
             else {
                 showBriefInfoAndAnnouc();
-                downInfoItem.setIcon(R.drawable.down_info);
+                downInfoItem.setIcon(R.drawable.up_info);
             }
             return true;
         }

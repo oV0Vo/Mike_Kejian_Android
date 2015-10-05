@@ -17,14 +17,14 @@
         android:id="@+id/annoucment_publish_course_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/extreme_big_font"
+        android:textSize="@dimen/over_big_font"
         android:textColor="@color/green"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/big_padding"
-        android:paddingBottom="@dimen/extreme_medium_padding"
+        android:paddingBottom="@dimen/over_medium_padding"
         android:orientation="horizontal">
 
         <TextView
@@ -39,14 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/medium_font"
-            android:background="@color/dark"/>
+            android:background="@color/dark_half_trans"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/extreme_medium_padding"
-        android:paddingBottom="@dimen/extreme_medium_padding"
+        android:paddingTop="@dimen/over_medium_padding"
+        android:paddingBottom="@dimen/over_medium_padding"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/medium_font"
-            android:background="@color/dark"
+            android:background="@color/dark_half_trans"
             android:inputType="textMultiLine"
             android:gravity="left|top"
             android:minLines="8"

@@ -2,11 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <stroke android:color="@color/dark" android:width="@dimen/line_normal"/>
+            <solid android:color="@color/dark_half_trans"/>
+            <stroke android:color="@color/dark_half_trans" android:width="@dimen/line_over_medium"/>
         </shape>
     </item>
 
-    <item android:top="@dimen/line_normal">
+    <item android:top="@dimen/line_over_medium">
         <shape>
             <solid android:color="@color/dark_blue"/>
         </shape>

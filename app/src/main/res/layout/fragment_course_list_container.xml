@@ -23,7 +23,7 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/negative_one_medium_font"
                 android:paddingRight="@dimen/negative_one_medium_font"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingBottom="@dimen/sub_big_padding"
                 android:button="@null"
                 android:background="@drawable/green_bottom_border_selector"
                 android:textSize="@dimen/medium_font"
@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/negative_one_medium_font"
                 android:paddingRight="@dimen/negative_one_medium_font"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingBottom="@dimen/sub_big_padding"
                 android:button="@null"
                 android:background="@drawable/green_bottom_border_selector"
                 android:textSize="@dimen/medium_font"
@@ -54,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"
+        android:paddingBottom="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <LinearLayout

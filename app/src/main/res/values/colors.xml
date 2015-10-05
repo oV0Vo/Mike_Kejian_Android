@@ -9,8 +9,12 @@
     <color name="bar_color">#232325</color>
     <color name="black">#000000</color>
     <color name="green">#16a085</color>
-    <color name="green_shallow">#16c085</color>
+    <color name="green_half_trans">#7f16a085</color>
+    <color name="green_shallow">#16d085</color>
     <color name="grey">#bbbbbb</color>
     <color name="my_red">#e74c3c</color>
-    <color name="dark">#d2d2d2</color>
+    <color name="dark">#e0d2d2d2</color>
+    <color name="dark_most_trans">#3fd2d2d2</color>
+    <color name="dark_half_trans">#7fd2d2d2</color>
+    <color name="trans">#ffffffff</color>
 </resources>

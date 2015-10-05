@@ -70,7 +70,7 @@
             android:id="@+id/history_course_sign_in_state_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/extreme_small_font"/>
+            android:textSize="@dimen/over_small_font"/>
 
     </LinearLayout>
 

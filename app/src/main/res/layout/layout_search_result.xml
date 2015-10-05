@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="离散数学"
-            android:textSize="@dimen/extreme_big_font"
+            android:textSize="@dimen/over_big_font"
             android:layout_marginLeft="@dimen/sub_big_padding"
             android:layout_marginTop="@dimen/small_padding" />
 </LinearLayout>

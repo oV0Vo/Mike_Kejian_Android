@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/over_big_padding"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -104,8 +104,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/extreme_big_padding"
-            android:paddingBottom="@dimen/extreme_big_padding"
+            android:paddingTop="@dimen/over_big_padding"
+            android:paddingBottom="@dimen/over_big_padding"
             android:orientation="horizontal">
 
             <TextView
@@ -141,8 +141,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/extreme_big_padding"
-            android:paddingBottom="@dimen/extreme_big_padding"
+            android:paddingTop="@dimen/over_big_padding"
+            android:paddingBottom="@dimen/over_big_padding"
             android:orientation="horizontal">
 
             <TextView

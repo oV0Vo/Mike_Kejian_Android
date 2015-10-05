@@ -2,19 +2,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingTop="@dimen/over_medium_padding"
+    android:paddingBottom="@dimen/over_medium_padding"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/medium_padding"
+        android:background="@drawable/dark_thin_bottom_border"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="@dimen/small_icon_width"
             android:layout_height="@dimen/small_icon_height"
-            android:paddingTop="@dimen/small_padding"
+            android:layout_marginTop="@dimen/small_padding"
             android:background="@drawable/notification_green"/>
 
         <TextView
@@ -31,8 +33,8 @@
         android:id="@+id/course_detail_annoucement_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingTop="@dimen/sub_big_padding"
+        android:paddingBottom="@dimen/sub_big_padding"
         android:singleLine="false"
         android:maxLines="3"
         android:ellipsize="end"/>
@@ -40,6 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/course_detail_annoucement_author_name"

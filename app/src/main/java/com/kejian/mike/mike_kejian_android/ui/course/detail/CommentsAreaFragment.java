@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.campus.Post;
-import model.course.data.CourseDetailInfo;
 import model.course.CourseModel;
+import model.course.data.CourseDetailInfo;
+import util.TimeFormat;
 
 public class CommentsAreaFragment extends Fragment implements AbsListView.OnItemClickListener {
 
@@ -146,7 +146,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
             authorView.setText(post.getAuthorName());
 
             TextView timeView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_time);
-            timeView.setText(post.getDate().toString());
+            timeView.setText(TimeFormat.toMinute(post.getDate()));
 
             TextView viewNumView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_view_num);
             String viewNumText = new Integer(post.getViewNum()).toString();

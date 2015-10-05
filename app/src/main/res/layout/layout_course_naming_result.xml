@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/extreme_big_padding"
+            android:paddingRight="@dimen/over_big_padding"
             android:textSize="@dimen/medium_font"
             android:text="@string/course_naming_sign_in_num_title"/>
 
@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/extreme_big_padding">
+            android:paddingRight="@dimen/over_big_padding">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

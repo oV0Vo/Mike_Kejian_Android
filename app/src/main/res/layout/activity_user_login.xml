@@ -128,7 +128,7 @@
             android:text="忘记密码"
             android:textSize="@dimen/big_font"
             android:id="@+id/forget_password"
-            android:paddingLeft="@dimen/extreme_big_padding"
+            android:paddingLeft="@dimen/over_big_padding"
             />
     </LinearLayout>
 

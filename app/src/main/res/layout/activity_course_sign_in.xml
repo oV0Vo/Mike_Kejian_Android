@@ -30,7 +30,7 @@
             android:id="@+id/current_naming_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/extreme_big_padding"
+            android:paddingBottom="@dimen/over_big_padding"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -110,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:textSize="@dimen/extreme_big_font"
+                            android:textSize="@dimen/over_big_font"
                             style="@style/green_whiteText"/>
                     </LinearLayout>
 
