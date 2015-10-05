@@ -6,12 +6,7 @@
         <item name="android:typeface">monospace</item>
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="homeAsUpIndicator">@drawable/left</item>
-        <item name="android:titleTextStyle">@style/titleStyle</item>
-    </style>
-
-    <style name="titleStyle" parent="@android:style/TextAppearance.Holo.Large">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/big_font</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
 
     <style name="myActionBarStyle" parent="android:Widget.ActionBar">
@@ -38,4 +33,14 @@
         <item name="android:background">@color/green</item>
     </style>
 
+    <style name="white_greenText_round">
+        <item name="android:paddingLeft">@dimen/extreme_big_padding</item>
+        <item name="android:paddingTop">@dimen/sub_medium_padding</item>
+        <item name="android:paddingRight">@dimen/extreme_big_padding</item>
+        <item name="android:paddingBottom">@dimen/sub_medium_padding</item>
+        <item name="android:textSize">@dimen/sub_medium_font</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:background">@drawable/green_thin_round_border</item>
+
+    </style>
 </resources>

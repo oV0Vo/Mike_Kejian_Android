@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +19,13 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 import model.course.CourseModel;
 import model.course.data.question.BasicQuestion;
 import model.course.data.question.CurrentQuestion;
 import util.TimeFormat;
+import util.TimerThread;
 
 
 public class CourseQuestionFragment extends Fragment {
@@ -44,7 +43,7 @@ public class CourseQuestionFragment extends Fragment {
 
     private int taskCountDown;
 
-    private ArrayList<CountDownThread> timerThreads;
+    private ArrayList<TimerThread> timerThreads;
 
     public CourseQuestionFragment() {
         // Required empty public constructor
@@ -54,7 +53,7 @@ public class CourseQuestionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
-        timerThreads = new ArrayList<CountDownThread>();
+        timerThreads = new ArrayList<TimerThread>();
         initCurrentAdpater();
         initHistoryAdapter();
     }
@@ -127,8 +126,9 @@ public class CourseQuestionFragment extends Fragment {
     }
 
     private void appendNewTimer(CountDownTimer timer) {
+        Log.i("CourseQuestion", "append new clock");
         removeDeadCountDownThread();
-        CountDownThread newThread = new CountDownThread(timer);
+        TimerThread newThread = new TimerThread(timer);
         timerThreads.add(newThread);
         newThread.start();
     }
@@ -293,17 +293,4 @@ public class CourseQuestionFragment extends Fragment {
         }
     }
 
-    private class CountDownThread extends Thread {
-
-        private CountDownTimer timer;
-
-        public CountDownThread(CountDownTimer timer) {
-            this.timer = timer;
-        }
-
-        @Override
-        public void run() {
-            timer.start();
-        }
-    }
 }

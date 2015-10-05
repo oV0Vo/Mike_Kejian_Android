@@ -3,14 +3,12 @@ package com.kejian.mike.mike_kejian_android.ui.course;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
@@ -77,7 +75,8 @@ public class CourseListContainerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_course_list_container, container, false);
         allCourseButton = (RadioButton)v.findViewById(R.id.main_course_all_course_button);
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
-        initCourseButtonListner();
+        initCourseButtonListener();
+        myCourseButton.setChecked(true);
         initAllCourseSelectLayout(v);
         myCourseButton.setChecked(true);
         isShowMyCourse = true;
@@ -169,34 +168,15 @@ public class CourseListContainerFragment extends Fragment {
         menuInflater.inflate(R.menu.menu_empty, menu);
     }
 
-    private void initCourseButtonListner() {
-
-        CompoundButton.OnCheckedChangeListener checkChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if(currentButton != null)
-                        currentButton.setChecked(false);
-                    currentButton = (RadioButton)buttonView;
-                    buttonView.setTextColor(getResources().getColor(R.color.dark_blue));
-                    //buttonView.setBackgroundResource(R.drawable.green_bottom_border);
-                } else {
-                   // buttonView.setBackgroundDrawable(null);
-                    buttonView.setTextColor(getResources().getColor(R.color.black));
-                }
-            }
-        };
-        allCourseButton.setOnCheckedChangeListener(checkChangeListener);
-        myCourseButton.setOnCheckedChangeListener(checkChangeListener);
+    private void initCourseButtonListener() {
         myCourseButton.setChecked(true);
-//
+
         allCourseButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 if(isShowMyCourse) {
                     isShowMyCourse = false;
-                    Log.e("CourseList", "" + Boolean.toString(isShowMyCourse));
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
                     if(selectText == null) {
                         courseListFg.showAllCourse();

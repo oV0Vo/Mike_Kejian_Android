@@ -1,14 +1,17 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,7 +27,6 @@ import model.course.data.question.BasicQuestion;
 import model.course.data.question.CurrentQuestion;
 import model.course.data.question.MultiChoiceQuestion;
 import model.course.data.question.SingleChoiceQuestion;
-import util.NetOperateResultMessage;
 
 public class QuestionPublishActivity extends AppCompatActivity {
 
@@ -35,7 +37,10 @@ public class QuestionPublishActivity extends AppCompatActivity {
     private ViewGroup choiceContainer;
     private ViewGroup choiceContentContainer;
 
-    private Button choiceNumButton;
+    private TextView choiceNumButton;
+    private PopupMenu choiceNumMenu;
+    private final int DEFAULT_CHOICE_NUM = 4;
+    private final Integer[] avalableChoiceNum = {2, 3, 4, 5, 6, 7, 8};
 
     private ArrayList<EditText> choiceContentViews;
     private ArrayList<RadioButton> choiceButtons;
@@ -47,16 +52,16 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
     private byte singleChoiceMask = 0x1;
     private byte multiChoiceMask = 0x2;
-    private int otherMask = 0x4;
+    private byte otherMask = 0x4;
 
     //use in single choice mode
     private RadioButton currentCheckedButton;
-    private TextView currentCorrectHint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_publish);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         timeLimitView = (EditText)findViewById(R.id.question_publish_time_limit_text);
         initQuestionTypeChoices();
@@ -72,13 +77,46 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
     private void initChoiceContainer() {
         choiceContainer = (ViewGroup)findViewById(R.id.question_publish_choice_container);
-        choiceNumButton = (Button)choiceContainer.findViewById(R.id.
-                question_publish_choice_num_button);
-        choiceNumButton.setText(R.string.num_four);
-
+        initChoiceNumButton();
         choiceContentContainer = (ViewGroup)findViewById(R.id.
                 question_publish_choice_content_container);
-        choiceContentViews = new ArrayList<EditText>();
+
+        choiceContentViews = new ArrayList<>();
+        choiceButtons = new ArrayList<>();
+        correctButtonHints = new ArrayList<>();
+
+        setChoiceViewByNum(DEFAULT_CHOICE_NUM);
+        choiceContentContainer.setVisibility(View.VISIBLE);
+    }
+
+    private void initChoiceNumButton() {
+        choiceNumButton = (TextView)choiceContainer.findViewById(R.id.
+                question_publish_choice_num_button);
+        choiceNumButton.setText(Integer.toString(DEFAULT_CHOICE_NUM));
+
+        choiceNumMenu = new PopupMenu(this, choiceNumButton);
+        Menu realMenu = choiceNumMenu.getMenu();
+        for(final Integer choiceNum: avalableChoiceNum) {
+            realMenu.add(Integer.toString(choiceNum)).setOnMenuItemClickListener(new MenuItem.
+                    OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    setChoiceViewByNum(choiceNum);
+                    choiceNumButton.setText(Integer.toString(choiceNum));
+                    return true;
+                }
+            });
+        }
+
+     /*   MenuInflater menuInflater = choiceNumMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.menu_empty, realMenu);//@?一定得加这句吗*/
+
+        choiceNumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choiceNumMenu.show();
+            }
+        });
     }
 
     private void initQuestionTypeChoices() {
@@ -86,57 +124,44 @@ public class QuestionPublishActivity extends AppCompatActivity {
         questionTypeChoices.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                boolean isSingleChoice = (typeMask & singleChoiceMask) != 0;
-                boolean isMultiChoice = (typeMask & multiChoiceMask) != 0;
-                boolean isOtherChoice = (typeMask & otherMask) != 0;
+                boolean singleChoiceBefore = (typeMask & singleChoiceMask) != 0;
+                boolean multiChoiceBefore = (typeMask & multiChoiceMask) != 0;
+                boolean otherChoiceBefore = (typeMask & otherMask) != 0;
 
                 switch (checkedId) {
-                    case R.id.question_publish_type_single_choice:
-                        if (isSingleChoice) {
-                            break;
-                        } else if (isMultiChoice) {
+                    case R.id.question_publish_type_single_choice:Log.e("QuestionPublish", "change to singleChoice");
+                        if (multiChoiceBefore) {
                             clearCorrectChoices();
-                        } else if (isOtherChoice) {
-                            clearCorrectChoices();
-                            choiceContainer.setVisibility(View.VISIBLE);
-                        } else {
-                            //impossible
+                        } else if (otherChoiceBefore) {
+                            choiceContentContainer.setVisibility(View.VISIBLE);
                         }
-                        typeMask &= singleChoiceMask;
+                        typeMask = singleChoiceMask;
                         break;
 
-                    case R.id.question_publish_type_multi_choice:
-                        if (isSingleChoice) {
+                    case R.id.question_publish_type_multi_choice:Log.e("QuestionPublish", "change to ,multiChoice");
+                        if (singleChoiceBefore) {
                             clearCorrectChoices();
-                        } else if (isMultiChoice) {
-                            break;
-                        } else if (isOtherChoice) {
-                            clearCorrectChoices();
-                            choiceContainer.setVisibility(View.VISIBLE);
-                        } else {
-                            //impossible
+                        } else if (otherChoiceBefore) {
+                            choiceContentContainer.setVisibility(View.VISIBLE);
                         }
-                        typeMask &= multiChoiceMask;
+                        typeMask = multiChoiceMask;
                         break;
-
-                    case R.id.question_publish_type_other:
-                        if (isSingleChoice) {
-                            choiceContainer.setVisibility(View.INVISIBLE);
-                        } else if (isMultiChoice) {
-                            choiceContainer.setVisibility(View.INVISIBLE);
-                        } else if (isOtherChoice) {
-                            break;
-                        } else {
-                            //impossible
+                    case R.id.question_publish_type_other:Log.e("QuestionPublish", "change to otherChoice");
+                        if (singleChoiceBefore) {
+                            choiceContentContainer.setVisibility(View.INVISIBLE);
+                        } else if (multiChoiceBefore) {
+                            choiceContentContainer.setVisibility(View.INVISIBLE);
                         }
-                        typeMask &= otherMask;
+                        typeMask = otherMask;
                         break;
                     default:
-                        //impossible
                         break;
                 }
             }
         });
+        RadioButton singleChoiceButton = (RadioButton)findViewById(R.id.
+                question_publish_type_single_choice);
+        singleChoiceButton.setChecked(true);
     }
 
     private void setChoiceViewByNum(int choiceNum) {
@@ -145,44 +170,50 @@ public class QuestionPublishActivity extends AppCompatActivity {
             createNewChoiceView(choiceIndex);
     }
 
-    private void createNewChoiceView(final int choiceIndex) {
+    private void createNewChoiceView(int choiceIndex) {
         ViewGroup newChoiceView = (ViewGroup)getLayoutInflater().inflate(
                 R.layout.layout_question_choice_content, null);
+        choiceContentContainer.addView(newChoiceView);
         TextView choiceIndexView = (TextView)newChoiceView.findViewById(R.id.question_choice_index);
-        choiceIndexView.setText(Integer.toString(choiceIndex));
+        choiceIndexView.setText(toChoiceStr(choiceIndex));
 
         EditText choiceContentView = (EditText)newChoiceView.findViewById(R.id.
                 question_choice_choice_content);
         choiceContentViews.add(choiceContentView);
 
-        final TextView correctHint = (TextView)newChoiceView.findViewById(R.id.
+        TextView correctHint = (TextView)newChoiceView.findViewById(R.id.
                 question_choice_correct_answer_hint);
         correctButtonHints.add(correctHint);
 
-        final RadioButton choiceButton = (RadioButton)newChoiceView.findViewById(
+        RadioButton choiceButton = (RadioButton)newChoiceView.findViewById(
                 R.id.question_choice_radio_button);
         choiceButtons.add(choiceButton);
         choiceButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { Log.e("QuestionPublish", "choiceButton check changed");
                 if (isChecked) {
-                    if (isSingleChoice()) {
-                        if (currentCheckedButton != buttonView) {
-                            //disable pre checked button view
+                    getCorrectHint((RadioButton) buttonView).setVisibility(View.VISIBLE);
+                    //单选题的话还要把前一个选择的正确选项给消掉
+                    if (isSingleChoice() && buttonView != currentCheckedButton) {
+                        if (currentCheckedButton != null)
                             currentCheckedButton.setChecked(false);
-                            currentCorrectHint.setVisibility(View.INVISIBLE);
-
-                            //set current checked button view
-                            currentCheckedButton = choiceButton;
-                            currentCorrectHint = correctHint;
-                            correctHint.setVisibility(View.VISIBLE);
-                        }
-                    } else { //multi choice
-                        correctHint.setVisibility(View.VISIBLE);
+                        currentCheckedButton = (RadioButton) buttonView;
                     }
+                } else {
+                    getCorrectHint((RadioButton) buttonView).setVisibility(View.INVISIBLE);
                 }
             }
         });
+    }
+
+    private String toChoiceStr(int choiceIndex) {
+        char choice = (char)('A' + choiceIndex);
+        return Character.toString(choice);
+    }
+
+    private TextView getCorrectHint(RadioButton choiceButton) {
+        int choiceIndex = choiceButtons.indexOf(choiceButton);
+        return correctButtonHints.get(choiceIndex);
     }
 
     private void clearChoiceViews() {

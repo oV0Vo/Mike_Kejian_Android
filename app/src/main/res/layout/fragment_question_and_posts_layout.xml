@@ -6,46 +6,46 @@
     android:orientation="vertical"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.QuestionAndPostsLayoutFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/dark_thin_top_bottom_border">
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/dark_thin_top_bottom_border"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/comments_area_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingTop="@dimen/big_padding"
+                android:layout_marginTop="@dimen/big_padding"
                 android:paddingBottom="@dimen/big_padding"
-                android:paddingLeft="@dimen/extreme_big_padding"
-                android:paddingRight="@dimen/extreme_big_padding"
+                android:paddingLeft="@dimen/medium_button_padding"
+                android:paddingRight="@dimen/medium_button_padding"
                 android:button="@null"
-                android:text="@string/comments_area_button_text"
-                android:textSize="@dimen/big_font"/>
+                android:background="@drawable/green_bottom_border_selector"
+                android:textSize="@dimen/big_font"
+                android:textColor="@color/green_on_select"
+                android:text="@string/comments_area_button_text"/>
             <RadioButton
                 android:id="@+id/course_question_area_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingTop="@dimen/big_padding"
+                android:layout_marginTop="@dimen/big_padding"
                 android:paddingBottom="@dimen/big_padding"
-                android:paddingLeft="@dimen/extreme_big_padding"
-                android:paddingRight="@dimen/extreme_big_padding"
+                android:paddingLeft="@dimen/sub_medium_button_padding"
+                android:paddingRight="@dimen/sub_medium_button_padding"
                 android:button="@null"
-                android:text="@string/course_question_area_button_text"
-                android:textSize="@dimen/big_font"/>
+                android:background="@drawable/green_bottom_border_selector"
+                android:textSize="@dimen/big_font"
+                android:textColor="@color/green_on_select"
+                android:text="@string/course_question_area_button_text" />
         </RadioGroup>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/comments_post_view_pager"

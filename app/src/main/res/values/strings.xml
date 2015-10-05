@@ -163,8 +163,6 @@
     <!--util-->
     <string name="zhankai">展开</string>
     <string name="shouqi">收起</string>
-    <string name="title_activity_course_naming">CourseNamingActivity</string>
-    <string name="title_activity_question_publish">QuestionPublishActivity</string>
     <string name="minute">分钟</string>
     <string name="single_choice_question">单选题</string>
     <string name="multi_choice_question">多选题</string>

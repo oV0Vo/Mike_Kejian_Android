@@ -23,6 +23,7 @@ import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.annoucement.AnnoucListActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
 import model.course.CourseModel;
@@ -141,7 +142,8 @@ public class CourseActivity extends AppCompatActivity implements
             }
         });
 
-        ViewGroup namingLayout = (ViewGroup)subMenuView.findViewById(R.id.course_submenu_teacher_naming);
+        ViewGroup namingLayout = (ViewGroup)subMenuView.findViewById(R.id.
+                course_submenu_teacher_naming);
         namingLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +152,8 @@ public class CourseActivity extends AppCompatActivity implements
             }
         });
 
-        ViewGroup addPostLayout = (ViewGroup)subMenuView.findViewById(R.id.course_submenu_teacher_publish_post);
+        ViewGroup addPostLayout = (ViewGroup)subMenuView.findViewById(R.id.
+                course_submenu_teacher_publish_post);
         addPostLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +162,15 @@ public class CourseActivity extends AppCompatActivity implements
             }
         });
 
+        ViewGroup addQuestionLayout = (ViewGroup)subMenuView.findViewById(R.id.
+                course_submenu_teacher_question);
+        addQuestionLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startQuestionActivity();
+                addItemSubMenu.dismiss();
+            }
+        });
         return subMenuView;
     }
 
@@ -178,7 +190,8 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void startQuestionActivity() {
-
+        Intent intent = new Intent(this, QuestionPublishActivity.class);
+        startActivity(intent);
     }
 
     private void startSignInActivity() {
@@ -223,16 +236,6 @@ public class CourseActivity extends AppCompatActivity implements
         Intent startIntro = new Intent(this, CourseIntroductionActivity.class);
         startActivity(startIntro);
     }
-
- /*   @Override
-    public void onPublishPost() {
-        startPublishPostActivity();
-    }*/
-/*
-    @Override
-    public void onCourseSignIn() {
-        startSignInActivity();
-    }*/
 
     @Override
     public void onPostSelected() {
