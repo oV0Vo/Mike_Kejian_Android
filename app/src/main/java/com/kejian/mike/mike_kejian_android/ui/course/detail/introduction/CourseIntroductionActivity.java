@@ -17,8 +17,8 @@ import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
 
-import model.course.data.CourseBriefInfo;
-import model.course.data.CourseDetailInfo;
+import dataType.course.CourseBriefInfo;
+import dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
 import util.StringUtil;
 

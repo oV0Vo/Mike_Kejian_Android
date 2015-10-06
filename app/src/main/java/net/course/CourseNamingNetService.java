@@ -1,10 +1,9 @@
-package net;
+package net.course;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import model.course.data.CourseNamingRecord;
-import util.NetOperateResultMessage;
+import dataType.course.CourseNamingRecord;
 
 /**
  * Created by violetMoon on 2015/9/29.

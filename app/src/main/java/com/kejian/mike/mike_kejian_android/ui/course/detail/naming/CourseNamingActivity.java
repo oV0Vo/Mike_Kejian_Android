@@ -15,14 +15,14 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import net.CourseNamingNetService;
+import net.course.CourseNamingNetService;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import model.course.CourseModel;
-import model.course.data.CourseNamingRecord;
+import dataType.course.CourseNamingRecord;
 import util.TimeFormat;
 import util.TimerThread;
 

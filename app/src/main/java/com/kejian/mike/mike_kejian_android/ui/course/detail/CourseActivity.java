@@ -27,7 +27,7 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPub
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
 import model.course.CourseModel;
-import model.course.data.CourseBriefInfo;
+import dataType.course.CourseBriefInfo;
 
 public class CourseActivity extends AppCompatActivity implements
         AnnoucementFragment.OnAnnoucementClickListener,

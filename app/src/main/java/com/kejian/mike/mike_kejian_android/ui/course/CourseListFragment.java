@@ -23,8 +23,8 @@ import java.util.List;
 
 import bl.course.CourseBriefFilter;
 import model.course.CourseModel;
-import model.course.data.CourseBriefInfo;
-import model.course.data.CourseType;
+import dataType.course.CourseBriefInfo;
+import dataType.course.CourseType;
 
 
 public class CourseListFragment extends Fragment implements AbsListView.OnItemClickListener{

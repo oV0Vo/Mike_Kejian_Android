@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,9 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataType.course.question.BasicQuestion;
+import dataType.course.question.CurrentQuestion;
 import model.course.CourseModel;
-import model.course.data.question.BasicQuestion;
-import model.course.data.question.CurrentQuestion;
 import util.TimeFormat;
 import util.TimerThread;
 
@@ -126,7 +125,6 @@ public class CourseQuestionFragment extends Fragment {
     }
 
     private void appendNewTimer(CountDownTimer timer) {
-        Log.i("CourseQuestion", "append new clock");
         removeDeadCountDownThread();
         TimerThread newThread = new TimerThread(timer);
         timerThreads.add(newThread);
@@ -245,14 +243,14 @@ public class CourseQuestionFragment extends Fragment {
                     isZhankai = false;
                     actionTextView.setMaxLines(minLines);
                     textView.setText(R.string.zhankai);
-                    textView.setCompoundDrawables(null, null,
-                            getResources().getDrawable(R.drawable.down), null);
+                   /* textView.setCompoundDrawables(null, null,
+                            getResources().getDrawable(R.drawable.down), null);*/
                 } else {
                     isZhankai = true;
                     actionTextView.setMaxLines(Integer.MAX_VALUE);
                     textView.setText(R.string.shouqi);
-                    textView.setCompoundDrawables(null, null,
-                            getResources().getDrawable(R.drawable.up1), null);
+                   /* textView.setCompoundDrawables(null, null,
+                            getResources().getDrawable(R.drawable.up1), null);*/
                 }
             }
         });

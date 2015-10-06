@@ -2,9 +2,8 @@ package bl.course;
 
 import java.util.ArrayList;
 
-import model.course.data.CourseBriefInfo;
-import model.course.data.CourseType;
-import model.user.CourseBrief;
+import dataType.course.CourseBriefInfo;
+import dataType.course.CourseType;
 
 /**
  * Created by violetMoon on 2015/9/29.

@@ -3,10 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleLarge"
+        android:visibility="visible"/>
+
 <LinearLayout
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="gone">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -74,7 +84,8 @@
                 <ImageView
                     android:id="@+id/stats_zhankai_image"
                     android:layout_width="@dimen/sub_medium_icon_width"
-                    android:layout_height="@dimen/half_sub_medium_icon_height" />
+                    android:layout_height="@dimen/half_sub_medium_icon_height"
+                    android:src="@drawable/down"/>
 
             </RelativeLayout>
         </LinearLayout>
@@ -83,7 +94,8 @@
             android:id="@+id/question_answer_stats_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -182,7 +194,8 @@
             <ImageView
                 android:id="@+id/all_answer_zhankai_image"
                 android:layout_width="@dimen/sub_medium_icon_width"
-                android:layout_height="@dimen/half_sub_medium_icon_height" />
+                android:layout_height="@dimen/half_sub_medium_icon_height"
+                android:src="@drawable/down"/>
 
         </RelativeLayout>
     </LinearLayout>
@@ -191,9 +204,11 @@
             android:id="@+id/question_answer_all_question_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ListView
+                android:id="@+id/question_answer_answer_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </ListView>

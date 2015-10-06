@@ -43,6 +43,8 @@
     <dimen name="over_big_icon_size">60dp</dimen>
     <dimen name="big_icon_width">50dp</dimen>
     <dimen name="big_icon_height">50dp</dimen>
+    <dimen name="medium_icon_width">40dp</dimen>
+    <dimen name="medium_icon_height">40dp</dimen>
     <dimen name="sub_medium_icon_width">30dp</dimen>
     <dimen name="sub_medium_icon_height">30dp</dimen>
     <dimen name="half_sub_medium_icon_height">15dp</dimen>

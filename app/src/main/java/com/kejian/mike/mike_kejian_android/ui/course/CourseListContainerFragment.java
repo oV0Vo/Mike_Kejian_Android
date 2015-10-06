@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import bl.AcademyBLService;
 import bl.UserInfoService;
 import model.course.CourseModel;
-import model.course.data.CourseType;
+import dataType.course.CourseType;
 
 /**
  *

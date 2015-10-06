@@ -16,14 +16,14 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import net.CourseSignInNetService;
+import net.course.CourseSignInNetService;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import model.course.CourseModel;
-import model.course.data.CourseSignInRecord;
+import dataType.course.CourseSignInRecord;
 import util.TimeFormat;
 import util.TimerThread;
 

@@ -1,10 +1,9 @@
-package net;
+package net.course;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import model.course.data.CourseNamingRecord;
-import model.course.data.CourseSignInRecord;
+import dataType.course.CourseSignInRecord;
 
 /**
  * Created by violetMoon on 2015/9/29.

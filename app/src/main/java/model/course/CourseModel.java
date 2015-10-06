@@ -1,17 +1,18 @@
 package model.course;
 
-import net.CourseNetService;
+import net.course.CourseInfoNetService;
+import net.course.CourseQuestionNetService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import model.campus.Post;
-import model.course.data.CourseAnnoucement;
-import model.course.data.CourseBriefInfo;
-import model.course.data.CourseDetailInfo;
-import model.course.data.question.BasicQuestion;
-import model.course.data.question.CurrentQuestion;
+import dataType.course.CourseAnnoucement;
+import dataType.course.CourseBriefInfo;
+import dataType.course.CourseDetailInfo;
+import dataType.course.question.BasicQuestion;
+import dataType.course.question.CurrentQuestion;
 import util.NeedAsyncAnnotation;
 import util.NetOperateResultMessage;
 
@@ -118,7 +119,7 @@ public class CourseModel {
     public ArrayList<CourseBriefInfo> updateMyCourseBriefs(int time, TimeUnit timeUnit) {
         int beginPos = myCourseBriefs.size();
         int updateNum = MY_COURSE_BRIEF_UPDATE_NUM;
-        ArrayList<CourseBriefInfo> updateInfos = CourseNetService.getMyCourseBrief(sidMock, beginPos,
+        ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getMyCourseBrief(sidMock, beginPos,
                 updateNum, time, timeUnit);
         this.myCourseBriefs.addAll(updateInfos);
         return updateInfos;
@@ -133,7 +134,7 @@ public class CourseModel {
     public ArrayList<CourseBriefInfo> updateAllCourseBriefs(int time, TimeUnit timeUnit) {
         int beginPos = allCourseBriefs.size();
         int updateNum = ALL_COURSE_BRIEF_UPDATE_NUM;
-        ArrayList<CourseBriefInfo> updateInfos = CourseNetService.getAllCourseBrief(schoolIdMock,
+        ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getAllCourseBrief(schoolIdMock,
                 beginPos, updateNum, time, timeUnit);
         this.allCourseBriefs.addAll(updateInfos);
         return updateInfos;
@@ -205,7 +206,7 @@ public class CourseModel {
 
     @NeedAsyncAnnotation
     public boolean addNewQuestion(CurrentQuestion question) {
-        return CourseNetService.addNewQuestion(question) != null;
+        return CourseQuestionNetService.addNewQuestion(question) != null;
     }
 
     public ArrayList<Post> getCurrentCoursePosts() {
@@ -244,7 +245,7 @@ public class CourseModel {
 
     @NeedAsyncAnnotation
     public NetOperateResultMessage newAnnoucement(CourseAnnoucement annoucement) {
-        return CourseNetService.newAnnoucement(annoucement.getCourseId(), annoucement.getPersonId()
+        return CourseInfoNetService.newAnnoucement(annoucement.getCourseId(), annoucement.getPersonId()
                 , annoucement.getTitle(), annoucement.getContent());
     }
 
@@ -312,7 +313,7 @@ public class CourseModel {
         }
 
         public boolean updateCourseDetail(int time, TimeUnit timeUnit) {
-            CourseDetailInfo newCourseDetail = CourseNetService.getCourseDetail(courseId, time, timeUnit);
+            CourseDetailInfo newCourseDetail = CourseInfoNetService.getCourseDetail(courseId, time, timeUnit);
             if (newCourseDetail != null) {
                 this.courseDetail = newCourseDetail;
                 return true;
@@ -324,7 +325,7 @@ public class CourseModel {
         public ArrayList<BasicQuestion> updateHistoryQuestions(int time, TimeUnit timeUnit) {
             int beginPos = historyQuestions.size();
             int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<BasicQuestion> updateInfos = CourseNetService.getHistroryQuestions(courseId,
+            ArrayList<BasicQuestion> updateInfos = CourseQuestionNetService.getHistroryQuestions(courseId,
                     beginPos, updateNum, time, timeUnit);
             if(updateInfos != null) {
                 historyQuestions.addAll(updateInfos);
@@ -335,7 +336,7 @@ public class CourseModel {
         public ArrayList<CurrentQuestion> updateCurrentQuestions(int time, TimeUnit timeUnit) {
             int beginPos = currentQuestions.size();
             int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<CurrentQuestion> updateInfos = CourseNetService.getCurrentQuestions(courseId,
+            ArrayList<CurrentQuestion> updateInfos = CourseQuestionNetService.getCurrentQuestions(courseId,
                     beginPos, updateNum, time, timeUnit);
             if(updateInfos != null) {
                 currentQuestions.addAll(updateInfos);
@@ -346,7 +347,7 @@ public class CourseModel {
         public ArrayList<Post> updatePosts(int time, TimeUnit timeUnit) {
             int beginPos = currentQuestions.size();
             int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<Post> updateInfos = CourseNetService.getCoursePosts(courseId,
+            ArrayList<Post> updateInfos = CourseInfoNetService.getCoursePosts(courseId,
                     beginPos, updateNum, time, timeUnit);
             if(updateInfos != null) {
                 posts.addAll(updateInfos);
@@ -358,7 +359,7 @@ public class CourseModel {
         public ArrayList<CourseAnnoucement> updateAnnouc(int time, TimeUnit timeUnit) {
             int beginPos = annoucs.size();
             int updateNum = ANNOUC_UPDATE_NUM;
-            ArrayList<CourseAnnoucement> updateInfos = CourseNetService.getAnnouc(courseId,
+            ArrayList<CourseAnnoucement> updateInfos = CourseInfoNetService.getAnnouc(courseId,
                     beginPos, updateNum, time, timeUnit);
             if(updateInfos != null) {
                 annoucs.addAll(updateInfos);

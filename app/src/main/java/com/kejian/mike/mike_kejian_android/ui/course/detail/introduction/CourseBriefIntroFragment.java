@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import model.course.data.CourseDetailInfo;
+import dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
 
 

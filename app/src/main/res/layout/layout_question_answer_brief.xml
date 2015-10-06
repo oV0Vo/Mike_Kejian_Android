@@ -5,41 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/medium_padding"
-    android:paddingBottom="@dimen/medium_padding">
+    android:paddingBottom="@dimen/medium_padding"
+    android:paddingLeft="@dimen/big_padding"
+    android:paddingRight="@dimen/big_padding">
 
-    <ImageView
-        android:id="@+id/question_answer_brief_user_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+        android:id="@+id/user_image"
+        android:layout_width="@dimen/medium_icon_width"
+        android:layout_height="@dimen/medium_icon_height"
+        android:src="@drawable/photo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/medium_padding"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/question_answer_user_name"
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding"
+            android:textSize="@dimen/sub_medium_font"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/question_answer_brief_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
+            android:id="@+id/answer_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:singleLine="false"
+            android:maxLines="3"
+            android:ellipsize="end" />
 
-            <Button
-                android:id="@+id/question_answer_brief_zhankai_button"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding">
+
+            <TextView
+                android:id="@+id/zhankai_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@string/zhankai"
-                android:drawableRight="@null"/>
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:textColor="@color/green"
+                android:text="@string/zhankai" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

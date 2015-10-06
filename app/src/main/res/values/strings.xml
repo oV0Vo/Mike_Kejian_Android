@@ -109,6 +109,7 @@
     <string name="question_answer_stats_correct_rate_title">答题正确率</string>
     <string name="question_answer_stats_distribute_title">各项答题人数</string>
     <string name="question_answer_all_answer_title_text">全部答案</string>
+    <string name="question_answer_no_question_answer">此问题还没有人回答哦</string>
     <string name="question_answer_all_answer_no_more_question">没有更多问题了</string>
 
     <!--question publish-->

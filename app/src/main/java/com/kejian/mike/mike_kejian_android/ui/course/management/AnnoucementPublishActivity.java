@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,8 +15,8 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 
 import bl.UserInfoService;
-import model.course.data.CourseAnnoucement;
-import model.course.data.CourseBriefInfo;
+import dataType.course.CourseAnnoucement;
+import dataType.course.CourseBriefInfo;
 import model.course.CourseModel;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;
