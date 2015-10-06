@@ -2,12 +2,9 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,7 +16,6 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import net.CourseNamingNetService;
 import net.CourseSignInNetService;
 
 import java.util.ArrayList;
@@ -27,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 
 import model.course.CourseModel;
-import model.course.data.CourseNamingRecord;
 import model.course.data.CourseSignInRecord;
 import util.TimeFormat;
 import util.TimerThread;
@@ -194,10 +189,11 @@ public class CourseSignInActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.layout_history_sign_in, null);
+            if (convertView != null) {
+                return convertView;
             }
 
+            convertView = getLayoutInflater().inflate(R.layout.layout_history_sign_in, null);
             CourseSignInRecord  r = getItem(position);
 
             Date beginTime = r.getBeginTime();

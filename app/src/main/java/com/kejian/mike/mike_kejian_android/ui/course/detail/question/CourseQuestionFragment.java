@@ -155,11 +155,12 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(
-                        R.layout.layout_current_question, null);
+            if(convertView != null) {
+                return convertView;
             }
 
+            convertView = getActivity().getLayoutInflater().inflate(
+                    R.layout.layout_current_question, null);
             CurrentQuestion currentQuestion = getItem(position);
 
             TextView contentView = (TextView)convertView.findViewById(R.id.current_question_content);
@@ -178,8 +179,8 @@ public class CourseQuestionFragment extends Fragment {
 
                 @Override
                 public void onFinish() {
-                   /* if(leftTimeClock != null)
-                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));*/
+                    if(leftTimeClock != null)
+                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
                 }
             };
 
@@ -255,6 +256,30 @@ public class CourseQuestionFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private class AnswerQuestionClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    private class ShutDownQuestionClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    private class ShowQuestionStatsClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 
     private class UpdateHistoryQuestionTask extends AsyncTask<Void, Void, Boolean> {

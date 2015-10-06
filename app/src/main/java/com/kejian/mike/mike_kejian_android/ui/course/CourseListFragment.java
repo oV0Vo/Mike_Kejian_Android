@@ -21,10 +21,9 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import bl.UserInfoService;
 import bl.course.CourseBriefFilter;
-import model.course.data.CourseBriefInfo;
 import model.course.CourseModel;
+import model.course.data.CourseBriefInfo;
 import model.course.data.CourseType;
 
 
@@ -141,11 +140,12 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_main_course_brief
-                        , null);
+            if (convertView != null) {
+                return convertView;
             }
 
+            convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_main_course_brief
+                    , null);
             CourseBriefInfo courseBriefInfo = getItem(position);
 
             ImageView imageView = (ImageView)convertView.findViewById(R.id.course_brief_image);

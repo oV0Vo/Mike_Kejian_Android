@@ -131,10 +131,11 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if(convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_post_brief, null);
+            if(convertView != null) {
+                return convertView;
             }
 
+            convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_post_brief, null);
             Post post = getItem(position);
 
             TextView titleView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_title);

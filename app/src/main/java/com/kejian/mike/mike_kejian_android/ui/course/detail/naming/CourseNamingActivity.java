@@ -226,10 +226,11 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if(convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.layout_history_naming, null);
+            if(convertView != null) {
+                return convertView;
             }
 
+            convertView = getLayoutInflater().inflate(R.layout.layout_history_naming, null);
             CourseNamingRecord r = getItem(position);
             Date beginTime = r.getBeginTime();
             Date endTime = r.getEndTime();

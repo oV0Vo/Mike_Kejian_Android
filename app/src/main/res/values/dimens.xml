@@ -5,6 +5,7 @@
 
     <!--line-->
     <dimen name="line_thin">1dp</dimen>
+    <dimen name="line_sub_medium">2dp</dimen>
     <dimen name="line_medium">3dp</dimen>
     <dimen name="line_over_medium">5dp</dimen>
     <dimen name="line_sub_thick">8dp</dimen>
@@ -23,7 +24,8 @@
     <dimen name="sub_medium_button_padding">31dp</dimen>
     <dimen name="medium_button_padding">36dp</dimen>
 
-    <dimen name="medium_radius">5dp</dimen>
+    <dimen name="small_radius">5dp</dimen>
+    <dimen name="medium_radius">10dp</dimen>
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
@@ -43,6 +45,7 @@
     <dimen name="big_icon_height">50dp</dimen>
     <dimen name="sub_medium_icon_width">30dp</dimen>
     <dimen name="sub_medium_icon_height">30dp</dimen>
+    <dimen name="half_sub_medium_icon_height">15dp</dimen>
     <dimen name="over_small_icon_width">25dp</dimen>
     <dimen name="over_small_icon_height">25dp</dimen>
     <dimen name="small_icon_width">20dp</dimen>
