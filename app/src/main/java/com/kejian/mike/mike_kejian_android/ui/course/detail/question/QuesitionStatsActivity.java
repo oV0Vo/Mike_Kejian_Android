@@ -3,33 +3,41 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.util.ColorBarFragment;
 
 import net.course.CourseQuestionNetService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dataType.course.question.BasicQuestion;
+import dataType.course.question.ChoiceQuestion;
 import dataType.course.question.QuestionAnswer;
 import dataType.course.question.QuestionStats;
+import model.course.CourseModel;
 import util.UnImplementedAnnotation;
 
 public class QuesitionStatsActivity extends AppCompatActivity {
 
     public static final String ARG_QUESTION_ID = "quesitonId";
 
-    private String questionId;
+    private BasicQuestion question;
 
     private ArrayList<QuestionAnswer> answers;
+
+    private CourseModel courseModel;
 
     private static final int ANSWER_INIT_NUM = 50;
     private static final int ANSWER_UPDATE_NUM = 10;
@@ -55,8 +63,9 @@ public class QuesitionStatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_stats);
 
-        questionId = getIntent().getExtras().getString(ARG_QUESTION_ID);
         answers = new ArrayList<>();
+        courseModel = CourseModel.getInstance();
+        question = courseModel.getFocusQuestion();
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.main_layout);
@@ -68,9 +77,43 @@ public class QuesitionStatsActivity extends AppCompatActivity {
         initAnswerLayout();
     }
 
-    @UnImplementedAnnotation
     private void initQuestionContentView() {
+        TextView questionContentText = (TextView)findViewById(R.id.question_content_text);
+        questionContentText.setText(question.getContent());
 
+        if(question instanceof ChoiceQuestion)
+            setChoiceContentView();
+
+        initContentZhankaiButton();
+    }
+
+    private void setChoiceContentView() {
+        ViewGroup choiceContainer = (ViewGroup)findViewById(R.id.choice_container);
+
+        ChoiceQuestion choiceQuestion = (ChoiceQuestion)question;
+        ArrayList<String> choiceContents = choiceQuestion.getChoiceContents();
+        for(int i=0; i<choiceContents.size(); ++i){
+            ViewGroup choiceContentLayout = (ViewGroup)getLayoutInflater().inflate(R.layout.
+                    layout_quesiton_choice_content, null);
+
+            TextView choiceIndexText = (TextView)choiceContentLayout.findViewById(
+                    R.id.choice_index_text);
+            choiceIndexText.setText(Character.toString((char)('A' + i)));
+
+            TextView choiceContentText = (TextView)choiceContentLayout.findViewById
+                    (R.id.choice_content_text);
+            choiceContentText.setText(choiceContents.get(i));
+
+            choiceContainer.addView(choiceContentLayout);
+        }
+
+        choiceContainer.setVisibility(View.VISIBLE);
+    }
+
+    @UnImplementedAnnotation
+    private void initContentZhankaiButton() {
+        Button zhankaiButton = (Button)findViewById(R.id.question_answer_question_detail);
+        zhankaiButton.setVisibility(View.GONE);
     }
 
     private void initStatsLayout() {
@@ -134,6 +177,26 @@ public class QuesitionStatsActivity extends AppCompatActivity {
 
     @UnImplementedAnnotation
     private void updateViewOnGetQuestionStats(QuestionStats stats) {
+        ViewGroup statsContentLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.layout_question_stats, null);
+
+        int joinNum = stats.getTotalAnswerNum();
+        int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
+        String joinNumStr = Integer.toString(joinNum) + "/" + Integer.toString(totalNum);
+        TextView joinNumText = (TextView)statsContentLayout.findViewById(R.id.join_num_text);
+        joinNumText.setText(joinNumStr);
+
+        int colorBarWidth = (int)getResources().getDimension(R.dimen.color_bar_width);
+        int colorBarHeight = (int)getResources().getDimension(R.dimen.color_bar_height);
+        int redColor = getResources().getColor(R.color.my_red);
+        int greenColor = getResources().getColor(R.color.green);
+
+        double joinRate = ((double)joinNum) / totalNum;
+        ColorBarFragment colorBarFragment = ColorBarFragment.getInstance(redColor, greenColor, joinRate,
+                colorBarWidth, colorBarHeight);
+        FragmentManager fm = getSupportFragmentManager();
+        ViewGroup statsContainer = (ViewGroup)findViewById(R.id.stats_container);
+
         showViewIfInitTaskFinish();
     }
 
@@ -153,7 +216,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
 
         @Override
         protected QuestionStats doInBackground(Void... params) {
-            return CourseQuestionNetService.getQuestionStats(questionId);
+            return CourseQuestionNetService.getQuestionStats(question.getQuestionId());
         }
 
         @Override
@@ -170,7 +233,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
             int beginPos = 0;
             int num = ANSWER_INIT_NUM;
             ArrayList<QuestionAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswer
-                    (questionId, beginPos, num);
+                    (question.getQuestionId(), beginPos, num);
             answers.addAll(initAnswers);
             return true;
         }
@@ -189,7 +252,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
             int beginPos = answers.size();
             int num = ANSWER_UPDATE_NUM;
             ArrayList<QuestionAnswer> newAnswers = CourseQuestionNetService.getQuestionAnswer
-                    (questionId, beginPos, num);
+                    (question.getQuestionId(), beginPos, num);
             answers.addAll(newAnswers);
             return true;
         }

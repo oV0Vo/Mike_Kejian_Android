@@ -24,19 +24,36 @@
         android:paddingTop="@dimen/medium_padding"
         android:paddingBottom="@dimen/big_padding">
 
-        <TextView
-            android:id="@+id/question_answer_question"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_sub_medium_icon_height"
             android:paddingTop="@dimen/sub_medium_button_padding"
             android:paddingLeft="@dimen/medium_button_padding"
             android:paddingRight="@dimen/medium_button_padding"
-            android:background="@drawable/green_round_top_border"
-            android:maxLines="4"
-            android:singleLine="false"
-            android:ellipsize="end"
-            android:textSize="@dimen/sub_medium_font"/>
+            android:orientation="vertical"
+            android:background="@drawable/green_round_top_border">
+
+            <TextView
+                android:id="@+id/question_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:singleLine="false"
+                android:ellipsize="end"
+                android:textSize="@dimen/sub_medium_font"/>
+
+            <LinearLayout
+                android:id="@+id/choice_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/sub_big_padding"
+                android:paddingTop="@dimen/sub_big_padding">
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <ImageView
             android:layout_width="@dimen/sub_medium_icon_width"
@@ -90,85 +107,12 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/question_answer_stats_detail"
+        <FrameLayout
+            android:id="@+id/stats_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:visibility="gone">
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount="2"
-                android:columnCount="3">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/question_answer_stats_join_num_title"/>
-
-                <TextView
-                    android:id="@+id/question_answer_join_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@null"/>
-
-                <TextView />
-                <TextView />
-
-                <TextView
-                    android:id="@+id/question_answer_join_num_image"/>
-                <TextView />
-
-                <TextView
-                    android:id="@+id/quetsion_answer_join_percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </GridLayout>
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount="2"
-                android:columnCount="3">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/question_answer_stats_correct_rate_title"/>
-
-                <TextView
-                    android:id="@+id/question_answer_correct_rate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@null"/>
-
-                <TextView />
-                <TextView />
-
-                <TextView
-                    android:id="@+id/question_answer_correct_rate_image"/>
-                <TextView />
-
-                <TextView
-                    android:id="@+id/quetsion_answer_correct_rate_percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </GridLayout>
-
-            <LinearLayout
-                android:id="@+id/question_answer_distribute_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/question_answer_stats_distribute_title"/>
-            </LinearLayout>
-        </LinearLayout>
+        </FrameLayout>
 
 
     <LinearLayout
