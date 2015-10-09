@@ -16,10 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.util.TextExpandListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dataType.course.UserTypeInCourse;
 import dataType.course.question.BasicQuestion;
 import dataType.course.question.CurrentQuestion;
 import model.course.CourseModel;
@@ -104,7 +106,6 @@ public class CourseQuestionFragment extends Fragment {
     }
 
     private void notifytTaskFinished() {
-        taskCountDown -= 1;
         if(progressBar != null && taskCountDown == 0) {
             mainLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
@@ -161,31 +162,90 @@ public class CourseQuestionFragment extends Fragment {
                     R.layout.layout_current_question, null);
             CurrentQuestion currentQuestion = getItem(position);
 
-            TextView contentView = (TextView)convertView.findViewById(R.id.current_question_content);
             String content = currentQuestion.getQuestion().getContent();
-            contentView.setText(content);
+            TextView contentText = initContentText(convertView, content);
 
-            final TextView leftTimeClock = (TextView)convertView.findViewById(R.id.
+            initTextExpandLayout(convertView, contentText);
+
+            UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
+            TextView actionText = initActionText(convertView, userType);
+
+            long leftMillis = currentQuestion.getLeftMills();
+            initLeftTimeText(convertView, actionText, leftMillis, userType);
+
+            return convertView;
+        }
+
+        private TextView initContentText(View convertView, String content) {
+            TextView contentText = (TextView)convertView.findViewById(R.id.current_question_content);
+            contentText.setText(content);
+            return contentText;
+        }
+
+        private void initTextExpandLayout(View convertView, TextView contentText) {
+            ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);
+            TextView zhankaiText = (TextView)convertView.findViewById(R.id.zhankai_text);
+            ImageView zhankaiImage = (ImageView)convertView.findViewById(R.id.zhankai_image);
+            TextExpandListener textExpandListener = new TextExpandListener(contentText, zhankaiText,
+                    zhankaiImage, 3);
+            zhankaiLayout.setOnClickListener(textExpandListener);
+        }
+
+        private TextView initActionText(View convertView, UserTypeInCourse userType) {
+            TextView actionText = (TextView)convertView.findViewById(R.id.action_text);
+            switch(userType) {
+                case TEACHER:
+                    actionText.setOnClickListener(new ShutDownQuestionClickListener());
+                    break;
+                case STUDENT:
+                    actionText.setOnClickListener(new AnswerQuestionClickListener());
+                    break;
+                case ASSISTANT:
+                    actionText.setOnClickListener(new ShutDownQuestionClickListener());
+                    break;
+                case VISITOR:
+                    actionText.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+            return actionText;
+        }
+
+        private void initLeftTimeText(View convertView, final TextView actionText, long leftMills,
+                                      final UserTypeInCourse userType) {
+            final TextView leftTimeText = (TextView)convertView.findViewById(R.id.
                     current_question_countdown_time_text);
-            final long leftTime = currentQuestion.getLeftMills();
-            CountDownTimer timer = new CountDownTimer(leftTime, 1000L) {
+            CountDownTimer timer = new CountDownTimer(leftMills, 1000L) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if(leftTimeClock != null)
-                        leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
+                    if(leftTimeText != null)
+                        leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
                 }
 
                 @Override
                 public void onFinish() {
-                    if(leftTimeClock != null)
-                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
+                    if(leftTimeText != null)
+                        leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.my_red));
+                    switch(userType) {
+                        case TEACHER:
+                            actionText.setOnClickListener(new ShowQuestionStatsClickListener());
+                            break;
+                        case STUDENT:
+                            actionText.setText(R.string.question_finish_text);
+                            actionText.setEnabled(false);
+                            break;
+                        case ASSISTANT:
+                            actionText.setOnClickListener(new ShowQuestionStatsClickListener());
+                            break;
+                        case VISITOR:
+                            break;
+                        default:
+                            break;
+                    }
                 }
             };
-
             appendNewTimer(timer);
-            initZhanKaiButton(convertView, contentView, 3);
-
-            return convertView;
         }
     }
 
@@ -197,15 +257,15 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(
-                        R.layout.layout_history_question_brief, null);
-            }
+            if(convertView != null)
+                return convertView;
 
+            convertView = getActivity().getLayoutInflater().inflate(
+                    R.layout.layout_history_question_brief, null);
             BasicQuestion question = getItem(position);
 
-            TextView timeView = (TextView)convertView.findViewById(R.id.history_question_brief_time);
-            timeView.setText(TimeFormat.toMinute(question.getQuestionDate()));
+            TextView timeText = (TextView)convertView.findViewById(R.id.history_question_brief_time);
+            timeText.setText(TimeFormat.toMinute(question.getQuestionDate()));
 
             ImageView joinedView = (ImageView)convertView.findViewById(R.id.
                     history_question_brief_join_image);
@@ -219,41 +279,20 @@ public class CourseQuestionFragment extends Fragment {
                 unJoinedTextView.setVisibility(View.VISIBLE);
             }
 
-            TextView contentView = (TextView)convertView.findViewById(R.id.
+            TextView contentText = (TextView)convertView.findViewById(R.id.
                     history_question_brief_content);
             String content = question.getContent();
-            contentView.setText(content);
+            contentText.setText(content);
 
-            initZhanKaiButton(convertView, contentView, 2);
+            ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);
+            TextView zhankaiText = (TextView)convertView.findViewById(R.id.zhankai_text);
+            ImageView zhankaiImage = (ImageView)convertView.findViewById(R.id.zhankai_image);
+            TextExpandListener textExpandListener = new TextExpandListener(contentText, zhankaiText,
+                    zhankaiImage, 2);
+            zhankaiLayout.setOnClickListener(textExpandListener);
 
             return convertView;
         }
-    }
-
-    private void initZhanKaiButton(View contentView, final TextView actionTextView,
-                                   final int minLines) {
-        ViewGroup zhankaiLayout = (ViewGroup)contentView.findViewById(R.id.zhankai_layout);
-        final TextView textView = (TextView)zhankaiLayout.findViewById(R.id.zhankai_text);
-        zhankaiLayout.setOnClickListener(new View.OnClickListener() {
-            private boolean isZhankai = false;
-
-            @Override
-            public void onClick(View v) {
-                if (isZhankai) {
-                    isZhankai = false;
-                    actionTextView.setMaxLines(minLines);
-                    textView.setText(R.string.zhankai);
-                   /* textView.setCompoundDrawables(null, null,
-                            getResources().getDrawable(R.drawable.down), null);*/
-                } else {
-                    isZhankai = true;
-                    actionTextView.setMaxLines(Integer.MAX_VALUE);
-                    textView.setText(R.string.shouqi);
-                   /* textView.setCompoundDrawables(null, null,
-                            getResources().getDrawable(R.drawable.up1), null);*/
-                }
-            }
-        });
     }
 
     private class AnswerQuestionClickListener implements View.OnClickListener {
@@ -285,6 +324,7 @@ public class CourseQuestionFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             ArrayList<BasicQuestion> updateInfos = courseModel.updateHistoryQuestions();
+            taskCountDown--;
             return updateInfos != null;
         }
 
@@ -303,6 +343,7 @@ public class CourseQuestionFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             ArrayList<CurrentQuestion> updateInfos = courseModel.updateCurrentQuestions();
+            taskCountDown--;
             return updateInfos != null;
         }
 

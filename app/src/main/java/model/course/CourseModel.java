@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import model.campus.Post;
 import dataType.course.CourseAnnoucement;
 import dataType.course.CourseBriefInfo;
 import dataType.course.CourseDetailInfo;
+import dataType.course.UserTypeInCourse;
 import dataType.course.question.BasicQuestion;
 import dataType.course.question.CurrentQuestion;
+import model.campus.Post;
 import util.NeedAsyncAnnotation;
 import util.NetOperateResultMessage;
 
@@ -30,6 +31,7 @@ public class CourseModel {
     private static final int ALL_COURSE_BRIEF_UPDATE_NUM = 20;
 
     private CurrentCourseModel currentCourse;
+    private UserTypeInCourse currentUserType;
 
     private String sidMock = "131250012";
     private String schoolIdMock = "南京大学";
@@ -213,7 +215,6 @@ public class CourseModel {
         return currentCourse.focusQuestion;
     }
 
-
     public void setFoucusQuestion(BasicQuestion question) {
         currentCourse.focusQuestion = question;
     }
@@ -245,6 +246,17 @@ public class CourseModel {
     @NeedAsyncAnnotation
     public boolean updateCourseDetail() {
         return updateCourseDetail(Integer.MAX_VALUE, TimeUnit.SECONDS);
+    }
+
+    @NeedAsyncAnnotation
+    public boolean updateUserTypeInCurrentCourse() {
+        currentUserType = CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId,
+                sidMock);
+        return true;
+    }
+
+    public UserTypeInCourse getUserTypeInCurrentCourse() {
+        return currentUserType;
     }
 
     @NeedAsyncAnnotation

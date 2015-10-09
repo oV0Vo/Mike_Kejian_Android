@@ -10,6 +10,7 @@ import dataType.course.CourseDetailInfo;
 import dataType.course.CourseType;
 import dataType.course.PersonMocks;
 import dataType.course.PostMocks;
+import dataType.course.UserTypeInCourse;
 import model.campus.Post;
 import util.NetOperateResultMessage;
 
@@ -55,13 +56,8 @@ public class CourseInfoNetService {
         return postMocks;
     }
 
-    public static NetOperateResultMessage addViewToPost(String schoolId, String courseName, String postId) {
-        return null;
-    }
-
-    public static NetOperateResultMessage addAnswerToPost(String schoolId, String courseName, String postId,
-                                                          String answer) {
-        return null;
+    public static UserTypeInCourse getUserTypeInCourse(String courseId, String userId) {
+        return UserTypeInCourse.TEACHER;
     }
 
     public static NetOperateResultMessage addAnswerToProblem(String schoolId, String courseName, String pageId,

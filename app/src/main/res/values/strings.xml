@@ -59,6 +59,7 @@
     <string name="post_action_name">发表于</string>
 
     <string name="answer_question_text">我要答题</string>
+    <string name="question_finish_text">问题已结束</string>
     <string name="close_question_text">关闭答题</string>
     <string name="history_question_list_title">往期问题</string>
 

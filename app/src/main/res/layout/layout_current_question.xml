@@ -19,23 +19,34 @@
         android:ellipsize="end"
         android:textSize="@dimen/medium_font"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/zhankai_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/zhankai_text"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:drawableRight="@drawable/down"
-            android:textSize="@dimen/small_font"
-            android:textColor="@color/green"
-            android:text="@string/zhankai"/>
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/zhankai_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textSize="@dimen/small_font"
+                android:textColor="@color/green"
+                android:text="@string/zhankai"/>
+
+            <ImageView
+                android:id="@+id/zhankai_image"
+                android:layout_width="@dimen/small_icon_size"
+                android:layout_height="@dimen/small_icon_size"
+                android:src="@drawable/down"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,11 +72,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/current_question_answer_button"
+                android:id="@+id/action_text"
                 android:layout_gravity="right"
                 style="@style/green_whiteText"
-                android:textSize="@dimen/big_font"
-                android:text="@string/answer_question_text" />
+                android:textSize="@dimen/big_font" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -29,8 +29,8 @@
             
             <ImageView
                 android:id="@+id/history_question_brief_join_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/small_icon_size"
+                android:layout_height="@dimen/small_icon_size"
                 android:layout_gravity="right"/>
             
         </LinearLayout>
@@ -55,11 +55,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:drawableRight="@drawable/down"
             android:textSize="@dimen/small_font"
             android:textColor="@color/green"
             android:text="@string/zhankai"/>
 
+        <ImageView
+            android:id="@+id/zhankai_image"
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:src="@drawable/down"/>
     </LinearLayout>
 
 

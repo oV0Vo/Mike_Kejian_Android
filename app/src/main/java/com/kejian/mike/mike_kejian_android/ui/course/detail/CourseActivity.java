@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
@@ -26,8 +26,10 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingA
 import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
-import model.course.CourseModel;
+import bl.UserInfoServiceMock;
 import dataType.course.CourseBriefInfo;
+import dataType.course.UserTypeInCourse;
+import model.course.CourseModel;
 
 public class CourseActivity extends AppCompatActivity implements
         AnnoucementFragment.OnAnnoucementClickListener,
@@ -37,30 +39,43 @@ public class CourseActivity extends AppCompatActivity implements
     private CourseModel courseModel;
 
     private ProgressBar progressBar;
+    private TextView errorMessageText;
+
     private LinearLayout mainLayout;
+
     private CourseBriefInfoFragment courseBriefFg;
     private AnnoucementFragment annoucemntFg;
     private QuestionAndPostsLayoutFragment postsAndQuestionFg;
 
     private MenuItem downInfoItem;
     private MenuItem addItem;
-    private PopupWindow addItemSubMenu;
+    private View addSubMenuView;
+    private PopupWindow addItemPopupWindow;
+
+    private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
+
+    private int taskCountDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        courseModel = CourseModel.getInstance();
         setContentView(R.layout.activity_course);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitleColor(getResources().getColor(R.color.white));
 
+        courseModel = CourseModel.getInstance();
         mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
-        mainLayout.setVisibility(View.GONE);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
+        errorMessageText = (TextView)findViewById(R.id.error_message_text);
+
         CourseBriefInfo currentCourseBrief = courseModel.getCurrentCourseBrief();
         String title = currentCourseBrief.getCourseName();
         this.setTitle(title);
-        new UpdateCourseDetailTask().execute();
+
+        taskCountDown++;
+        new InitCourseDetailTask().execute();
+
+        taskCountDown++;
+        new InitUserTypeTask().execute();
 
         initPostAndQuestionLayoutFragment();
     }
@@ -101,75 +116,156 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course, menu);
-        initCommonMenu(menu);
-
+        initDownInfoMenuItem(menu);
+        initSearchMenuItem(menu);
+        addItem = menu.findItem(R.id.course_add_menu_item);
+        addItem.setVisible(false);
         return true;
     }
 
-    private void initCommonMenu(Menu menu) {
+    private void initDownInfoMenuItem(Menu menu) {
         downInfoItem = menu.findItem(R.id.course_down_info_menu_item);
         downInfoItem.setOnMenuItemClickListener(new MenuHideClickListener());
-        //init search menu item
     }
 
-    private void initTeacherAddMenuItem(Menu menu) {
-        addItem = menu.findItem(R.id.course_add_menu_item);
+    private void initSearchMenuItem(Menu menu) {
 
-        View subMenuView = createTeacherAddItemSubMenuView();
-        addItemSubMenu = new PopupWindow(subMenuView, ViewGroup.LayoutParams.WRAP_CONTENT,
+    }
+
+    private void initAddMenuItem() {
+        UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
+        switch(userType) {
+            case TEACHER:
+                addSubMenuView = createTeacherAddSubMenuView();
+                break;
+            case STUDENT:
+                addSubMenuView = createStudentAddSubMenuView();
+                break;
+            case ASSISTANT:
+                addSubMenuView = createAssistantAddSubMenuView();
+                break;
+            case VISITOR:
+                addItem.setVisible(false);
+                return;
+            default:
+                break;
+        }
+
+        addItem.setVisible(true);
+        addItemPopupWindow = new PopupWindow(addSubMenuView, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        addItemSubMenu.setTouchable(true);
-        addItemSubMenu.setBackgroundDrawable(new BitmapDrawable());
+        addItemPopupWindow.setTouchable(true);
+        addItemPopupWindow.setBackgroundDrawable(new BitmapDrawable());
 
         addItem.getActionView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItemSubMenu.showAsDropDown(v);
+                addItemPopupWindow.showAsDropDown(v);
             }
         });
     }
 
-    private View createTeacherAddItemSubMenuView() {
-        View subMenuView =  View.inflate(CourseActivity.this, R.layout.layout_submenu_course_teacher, null);
+    private View createTeacherAddSubMenuView() {
+        View subMenuView =  getLayoutInflater().inflate(R.layout.layout_submenu_course_teacher,
+                null);
 
-        ViewGroup annoucPublishLayout = (ViewGroup)subMenuView.findViewById(R.id.course_submenu_teacher_publish_annouc);
+        ViewGroup annoucPublishLayout = (ViewGroup)subMenuView.findViewById(R.id.annouc_publish_layout);
         annoucPublishLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startPublishAnnoucActivity();
-                addItemSubMenu.dismiss();
+                addItemPopupWindow.dismiss();
             }
         });
 
         ViewGroup namingLayout = (ViewGroup)subMenuView.findViewById(R.id.
-                course_submenu_teacher_naming);
+                course_naming_layout);
         namingLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startNamingActivity();
-                addItemSubMenu.dismiss();
+                addItemPopupWindow.dismiss();
             }
         });
 
         ViewGroup addPostLayout = (ViewGroup)subMenuView.findViewById(R.id.
-                course_submenu_teacher_publish_post);
+                post_publish_layout);
         addPostLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startPublishPostActivity();
-                addItemSubMenu.dismiss();
+                addItemPopupWindow.dismiss();
             }
         });
 
         ViewGroup addQuestionLayout = (ViewGroup)subMenuView.findViewById(R.id.
-                course_submenu_teacher_question);
+                ask_question_layout);
         addQuestionLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startQuestionActivity();
-                addItemSubMenu.dismiss();
+                addItemPopupWindow.dismiss();
             }
         });
+        return subMenuView;
+    }
+
+    private View createStudentAddSubMenuView() {
+        View subMenuView = getLayoutInflater().inflate(R.layout.layout_submenu_course_student,
+                null);
+
+        ViewGroup addPostLayout = (ViewGroup)subMenuView.findViewById(R.id.post_publish_layout);
+        addPostLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPublishPostActivity();
+                addItemPopupWindow.dismiss();
+            }
+        });
+
+        ViewGroup signInLayout = (ViewGroup)subMenuView.findViewById(R.id.sign_in_layout);
+        signInLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSignInActivity();
+                addItemPopupWindow.dismiss();
+            }
+        });
+        return subMenuView;
+    }
+
+    private View createAssistantAddSubMenuView() {
+        View subMenuView = getLayoutInflater().inflate(R.layout.layout_submenu_course_assistant,
+                null);
+
+        ViewGroup addPostLayout = (ViewGroup)subMenuView.findViewById(R.id.post_publish_layout);
+        addPostLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPublishPostActivity();
+                addItemPopupWindow.dismiss();
+            }
+        });
+
+        ViewGroup annoucPublishLayout = (ViewGroup)subMenuView.findViewById(R.id.annouc_publish_layout);
+        annoucPublishLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPublishAnnoucActivity();
+                addItemPopupWindow.dismiss();
+            }
+        });
+
+        ViewGroup addQuestionLayout = (ViewGroup)subMenuView.findViewById(R.id.
+                ask_question_layout);
+        addQuestionLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startQuestionActivity();
+                addItemPopupWindow.dismiss();
+            }
+        });
+
         return subMenuView;
     }
 
@@ -242,23 +338,67 @@ public class CourseActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
-    private class UpdateCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
+    private void updateViewOnInitCourseDetailFinish() {
+        initCourseBriefFragment();
+        initCourseAnnoucementFragment();
+        updateViewIfAllTaskFinish();
+    }
+
+    private void updateViewOnInitUserTypeFinish() {
+        initAddMenuItem();
+        updateViewIfAllTaskFinish();
+    }
+
+    private void updateViewOnTaskFail() {
+        progressBar.setVisibility(View.GONE);
+        errorMessageText.setVisibility(View.VISIBLE);
+    }
+
+    private void updateViewIfAllTaskFinish() {
+        if(taskCountDown == 0 && mainLayout != null) {
+            progressBar.setVisibility(View.GONE);
+            mainLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         public Boolean doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
-            return courseModel.updateCourseDetail();
+            boolean updateSuccess = courseModel.updateCourseDetail();
+            if (updateSuccess)
+                taskCountDown--;
+            return updateSuccess;
         }
 
         @Override
         public void onPostExecute(Boolean getSuccess) {
             progressBar.setVisibility(View.GONE);
             if(getSuccess) {
-                initCourseBriefFragment();
-                initCourseAnnoucementFragment();
-                mainLayout.setVisibility(View.VISIBLE);
+                updateViewOnInitCourseDetailFinish();
             } else {
-                Toast.makeText(CourseActivity.this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                updateViewOnTaskFail();
+            }
+        }
+    }
+
+    private class InitUserTypeTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean updateSuccess = courseModel.updateUserTypeInCurrentCourse();
+            if(updateSuccess)
+                taskCountDown--;
+            return updateSuccess;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateSuccess) {
+            if(updateSuccess) {
+                updateViewOnInitUserTypeFinish();
+            } else {
+                updateViewOnTaskFail();
             }
         }
     }

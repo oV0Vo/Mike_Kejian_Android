@@ -4,9 +4,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:textSize">@dimen/small_font</item>
         <item name="android:typeface">monospace</item>
-        <item name="colorPrimary">@color/dark_blue</item>
         <item name="homeAsUpIndicator">@drawable/left</item>
         <item name="titleTextColor">@color/white</item>
+        <item name="colorPrimary">@color/dark_blue</item>
     </style>
 
     <style name="myActionBarStyle" parent="android:Widget.ActionBar">

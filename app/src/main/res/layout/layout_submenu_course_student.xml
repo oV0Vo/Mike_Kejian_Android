@@ -1,45 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_marginTop="@dimen/big_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/big_padding"
     style="@style/submenuStyle">
 
     <LinearLayout
-        android:id="@+id/course_submenu_student_publish_post"
+        android:id="@+id/post_publish_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
+        android:paddingBottom="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/comment3"/>
+            android:layout_width="@dimen/small_icon_width"
+            android:layout_height="@dimen/small_icon_height"
+            android:background="@drawable/comment2"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/big_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_publish_post"/>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/course_submenu_student_sign_in"
+        android:id="@+id/sign_in_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/small_icon_width"
+            android:layout_height="@dimen/small_icon_height"
             android:background="@drawable/check_green"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/big_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_sign_in"/>
     </LinearLayout>
 

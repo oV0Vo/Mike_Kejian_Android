@@ -8,7 +8,7 @@
     style="@style/submenuStyle">
 
     <LinearLayout
-        android:id="@+id/course_submenu_teacher_publish_annouc"
+        android:id="@+id/annouc_publish_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/medium_padding"
@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/course_submenu_teacher_publish_post"
+        android:id="@+id/post_publish_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"
@@ -51,7 +51,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/course_submenu_teacher_question"
+        android:id="@+id/ask_question_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"
@@ -73,7 +73,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/course_submenu_teacher_naming"
+        android:id="@+id/course_naming_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -55,7 +54,7 @@ public class StudentActionProvider extends ActionProvider {
     private View createStudentSubmenuView() {
         View studentSubMenu = View.inflate(context, R.layout.layout_submenu_course_student, null);
 
-        ViewGroup postPublishView = (ViewGroup)studentSubMenu.findViewById(R.id.course_submenu_student_publish_post);
+        ViewGroup postPublishView = (ViewGroup)studentSubMenu.findViewById(R.id.post_publish_layout);
         postPublishView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -67,7 +66,7 @@ public class StudentActionProvider extends ActionProvider {
             }
         });
 
-        ViewGroup signInView = (ViewGroup)studentSubMenu.findViewById(R.id.course_submenu_student_sign_in);
+        ViewGroup signInView = (ViewGroup)studentSubMenu.findViewById(R.id.sign_in_layout);
         signInView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -96,8 +95,8 @@ public class StudentActionProvider extends ActionProvider {
         return listener;
     }
 
-    public static interface OnStudentMenuSelectListener {
-        public void onPublishPost();
-        public void onCourseSignIn();
+    public interface OnStudentMenuSelectListener {
+        void onPublishPost();
+        void onCourseSignIn();
     }
 }

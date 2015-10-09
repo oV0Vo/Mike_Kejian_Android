@@ -10,7 +10,8 @@
         android:id="@+id/course_detail_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <FrameLayout
             android:id="@+id/course_detail_brief_info_container"
@@ -36,8 +37,15 @@
         android:id="@+id/course_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        style="?android:attr/progressBarStyleLarge"/>
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/error_message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/net_disconnet"
+        android:textSize="@dimen/big_font"
+        android:visibility="gone"/>
 
 </RelativeLayout>

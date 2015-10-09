@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<MenuItem> visibleItems;
 
+    /**
+     * 用来保存标题
+     */
     private CharSequence title;
 
     @Override
@@ -114,14 +118,17 @@ public class MainActivity extends AppCompatActivity
                         setCourseMenu();
                         break;
                     case 1:
+                        Log.i("MainActivity", "message page selected");
                         messageButton.setChecked(true);
                         fgState = FgState.MESSAGE;
                         setMessageMenu();
+                        setTitle(R.string.message_title);
                         break;
                     case 2:
                         campusButton.setChecked(true);
                         fgState = FgState.CAMPUS;
                         setCampusMenu();
+                        setTitle(R.string.campus_title);
                         break;
                     default:
                         break;
