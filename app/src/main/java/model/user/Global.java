@@ -24,6 +24,8 @@ import java.util.HashMap;
 
         itemList.put(name,item);
 
+        user userInfo=(user)Global.getObjectByName("user");
+
 
     }
 
