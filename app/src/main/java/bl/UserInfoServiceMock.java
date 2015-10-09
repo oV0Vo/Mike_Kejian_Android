@@ -3,16 +3,14 @@ package bl;
 import java.util.ArrayList;
 
 import model.user.UserType;
-import model.user.user;
 import util.NameAndValuePair;
-import util.NeedAsyncAnnotation;
 import util.PropertiesFileIO;
 import util.UnImplementedAnnotation;
 
 /**
  * Created by violetMoon on 2015/9/10.
  */
-public class UserInfoService {
+public class UserInfoServiceMock {
 
     private static final String ARG_SID = "学号";
 
@@ -20,23 +18,22 @@ public class UserInfoService {
 
     private static final String ACCOUNT_FILE = "user.info";
 
-    private static UserInfoService instance;
+    private static UserInfoServiceMock instance;
 
     private String sid = "131250012";
 
     private String password = "1213";
 
-    public static UserInfoService getInstance() {
+    public static UserInfoServiceMock getInstance() {
         //@mock
         if(instance == null)
             createInstance();
         return instance;
     }
 
-    @NeedAsyncAnnotation
-    public static void createInstance() {
+    private static void createInstance() {
         if(instance == null) {
-            instance = new UserInfoService();
+            instance = new UserInfoServiceMock();
             //instance.init();
         }
     }
@@ -79,16 +76,8 @@ public class UserInfoService {
         }
     }
 
-    public UserType getTeacherTypeMock() {
+    public UserType getUserType() {
         return UserType.TEACHER;
-    }
-
-    public UserType getStudentTypeMock() {
-        return UserType.STUDENT;
-    }
-
-    public UserType getAssistantTypeMock() {
-        return UserType.ASSISTANT;
     }
 
     @UnImplementedAnnotation

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import bl.UserInfoService;
+import bl.UserInfoServiceMock;
 import dataType.course.CourseAnnoucement;
 import dataType.course.CourseBriefInfo;
 import model.course.CourseModel;
@@ -64,7 +64,7 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
                 }
 
                 CourseBriefInfo courseBrief = CourseModel.getInstance().getCurrentCourseBrief();
-                String personId = UserInfoService.getInstance().getPersonId();
+                String personId = UserInfoServiceMock.getInstance().getPersonId();
                 if(courseBrief == null || personId == null) {
                     Toast.makeText(AnnoucementPublishActivity.this, R.string.internal_logic_error_message
                             , Toast.LENGTH_SHORT).show();

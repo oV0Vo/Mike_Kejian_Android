@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/over_medium_padding"
+    android:paddingRight="@dimen/over_medium_padding">
+
+    <TextView
+        android:id="@+id/choice_index_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/over_medium_padding"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/choice_bar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/over_medium_padding"/>
+
+    <TextView
+        android:id="@+id/choice_distribute_num_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+</LinearLayout>

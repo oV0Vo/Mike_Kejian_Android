@@ -59,6 +59,9 @@
     <dimen name="color_bar_width">160dp</dimen>
     <dimen name="color_bar_height">10dp</dimen>
 
+    <dimen name="choice_distribute_bar_width">30dp</dimen>
+    <dimen name="choice_distribute_bar_max_height">60dp</dimen>
+
     <dimen name="quarter_screen">60dp</dimen>
 
     <dimen name="book_height">85dp</dimen>

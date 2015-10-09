@@ -19,9 +19,8 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import bl.AcademyBLService;
-import bl.UserInfoService;
-import model.course.CourseModel;
 import dataType.course.CourseType;
+import model.course.CourseModel;
 
 /**
  *
@@ -30,7 +29,6 @@ public class CourseListContainerFragment extends Fragment {
 
     private RadioButton myCourseButton;
     private RadioButton allCourseButton;
-    private RadioButton currentButton;
 
     private LinearLayout allCourseSelectLayout;
 
@@ -56,7 +54,6 @@ public class CourseListContainerFragment extends Fragment {
         FragmentManager fm = getChildFragmentManager();
         CourseListFragment fg= (CourseListFragment)fm.findFragmentById(R.id.main_course_course_list);
         if(fg == null) {
-            String studentId = UserInfoService.getInstance().getSid();
             fg = new CourseListFragment();
             fm.beginTransaction().add(R.id.main_course_course_list, fg).commit();
         }
@@ -72,6 +69,13 @@ public class CourseListContainerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //@maybe bug
+        if(isShowMyCourse) {
+            getActivity().setTitle(R.string.my_course_title);
+        } else {
+            getActivity().setTitle(R.string.all_course_title);
+        }
+
         View v = inflater.inflate(R.layout.fragment_course_list_container, container, false);
         allCourseButton = (RadioButton)v.findViewById(R.id.main_course_all_course_button);
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
@@ -178,6 +182,8 @@ public class CourseListContainerFragment extends Fragment {
                 if(isShowMyCourse) {
                     isShowMyCourse = false;
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
+                    getActivity().setTitle(R.string.all_course_title);
+
                     if(selectText == null) {
                         courseListFg.showAllCourse();
                         return;
@@ -198,6 +204,7 @@ public class CourseListContainerFragment extends Fragment {
                 if(!isShowMyCourse) {
                     isShowMyCourse = true;
                     allCourseSelectLayout.setVisibility(View.GONE);
+                    getActivity().setTitle(R.string.my_course_title);
                     courseListFg.showMyCourse();
                 }
             }

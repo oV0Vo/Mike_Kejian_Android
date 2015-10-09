@@ -20,9 +20,14 @@
 
     <string name="action_settings">Settings</string>
 
+    <!--main-->
     <string name="navigation_tab_course">课程</string>
     <string name="navigation_tab_message">消息</string>
     <string name="navigation_tab_campus">校内</string>
+    <string name="my_course_title">我的课程</string>
+    <string name="all_course_title">全部课程</string>
+    <string name="message_title">我的消息</string>
+    <string name="campus_title">校内动态</string>
 
     <!--course brief-->
     <string name="main_course_my_course">我的课程</string>

@@ -2,17 +2,12 @@ package com.kejian.mike.mike_kejian_android.ui.campus;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
@@ -23,10 +18,8 @@ public class PostListContainerFragment extends Fragment {
     private View view;
     private FragmentTabHost mTabHost;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
 
@@ -54,18 +47,4 @@ public class PostListContainerFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_campus, menu);
-        MenuItem add_item = menu.findItem(R.id.publish_post);
-        add_item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), PostPublishActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-    }
 }
