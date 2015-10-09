@@ -1,0 +1,9 @@
+
+
+使用的类：HttpRequest(单例模式)
+
+使用的函数 sendPostRequest(String url,HashMap<String,String> para);
+          sendGetRequest(String url,HashMap<String,String> para);
+
+函数的说明:第一个为网址，第二个为参数集
+
