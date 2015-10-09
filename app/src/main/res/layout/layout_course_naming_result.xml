@@ -27,24 +27,25 @@
             android:drawableRight="@drawable/user_small"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingBottom="@dimen/medium_padding">
 
         <FrameLayout
             android:id="@+id/percent_image"
-            android:layout_width="@dimen/half_screen"
-            android:layout_height="@dimen/medium_font">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
         </FrameLayout>
 
         <TextView
             android:id="@+id/percent_text"
-            android:layout_width="@dimen/quarter_screen"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:textSize="@dimen/sub_medium_font"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

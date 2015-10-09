@@ -109,7 +109,6 @@ public class CourseActivity extends AppCompatActivity implements
     private void initCommonMenu(Menu menu) {
         downInfoItem = menu.findItem(R.id.course_down_info_menu_item);
         downInfoItem.setOnMenuItemClickListener(new MenuHideClickListener());
-        initTeacherAddMenuItem(menu);
         //init search menu item
     }
 

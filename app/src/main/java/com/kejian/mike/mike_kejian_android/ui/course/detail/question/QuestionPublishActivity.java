@@ -172,7 +172,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
     private void createNewChoiceView(int choiceIndex) {
         ViewGroup newChoiceView = (ViewGroup)getLayoutInflater().inflate(
-                R.layout.layout_question_choice_content, null);
+                R.layout.layout_question_choice_input, null);
         choiceContentContainer.addView(newChoiceView);
         TextView choiceIndexView = (TextView)newChoiceView.findViewById(R.id.question_choice_index);
         choiceIndexView.setText(toChoiceStr(choiceIndex));

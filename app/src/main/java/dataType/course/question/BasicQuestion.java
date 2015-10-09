@@ -6,12 +6,22 @@ import java.util.Date;
  * Created by violetMoon on 2015/9/18.
  */
 public abstract class BasicQuestion {
+    private String questionId;
     private String courseId;
     private String authorId;
+    //这个属性有点多余
     private QuestionType questionType;
     private String content;
     private Date questionDate;
     private boolean IJoined;
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
 
     public String getCourseId() {
         return courseId;
@@ -33,7 +43,7 @@ public abstract class BasicQuestion {
         return questionType;
     }
 
-    public void setQuestionType(QuestionType questionType) {
+    protected void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
     }
 

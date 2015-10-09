@@ -7,21 +7,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
@@ -29,8 +26,9 @@ import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActi
 
 import java.util.ArrayList;
 
-import bl.UserInfoService;
+import bl.UserInfoServiceMock;
 import model.course.CourseModel;
+import model.user.UserType;
 import util.NeedRefinedAnnotation;
 
 public class MainActivity extends AppCompatActivity
@@ -38,12 +36,9 @@ public class MainActivity extends AppCompatActivity
             MainFragment.OnFragmentInteractionListener,
             CourseListFragment.OnCourseSelectedListener
 {
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
 
-    private FragmentTabHost tabHost;
+    private NavigationDrawerFragment mNavigationDrawerFragment;
 
     private ViewPager viewPager;
     private MainPagerAdapter mainPagerAdapter;
@@ -51,34 +46,35 @@ public class MainActivity extends AppCompatActivity
     private RadioButton courseButton;
     private RadioButton messageButton;
     private RadioButton campusButton;
-    private RadioButton currentButton;
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
     private PostListContainerFragment campusFg;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
-    private CharSequence mTitle;
+    private enum FgState {
+        COURSE, MESSAGE, CAMPUS
+    }
 
-    private TextView messageView;
+    private FgState fgState;
 
-    private MenuItem action_course_add;
+    private MenuItem addCourseItem;
+    private MenuItem addPostItem;
 
-    private ArrayList<MenuItem> visibleActions;
+    private ArrayList<MenuItem> visibleItems;
 
+    private CharSequence title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTitle = getTitle();
-        initUserAccountBLService();
+        title = getTitle();
+
         initNavigationDrawer();
         initViewPager();
         initRadioButtons();
         initBLService();
+        fgState = FgState.COURSE;
         courseButton.setChecked(true);
     }
 
@@ -95,21 +91,6 @@ public class MainActivity extends AppCompatActivity
 
     private void initBLService() {
         new CourseModelCreateTask().execute();
-    }
-
-    /*
-    这个不应该放到这来的，感觉应该放到Login里面
-     */
-    private void initUserAccountBLService() {
-        if(UserInfoService.getInstance() == null) {
-            new AsyncTask<Void, Void, Void>(){
-                @Override
-                protected Void doInBackground(Void... params) {
-                    UserInfoService.createInstance();
-                    return null;
-                }
-            }.execute();
-        }
     }
 
     private void initViewPager() {
@@ -129,12 +110,18 @@ public class MainActivity extends AppCompatActivity
                 switch(position) {
                     case 0:
                         courseButton.setChecked(true);
+                        fgState = FgState.COURSE;
+                        setCourseMenu();
                         break;
                     case 1:
                         messageButton.setChecked(true);
+                        fgState = FgState.MESSAGE;
+                        setMessageMenu();
                         break;
                     case 2:
                         campusButton.setChecked(true);
+                        fgState = FgState.CAMPUS;
+                        setCampusMenu();
                         break;
                     default:
                         break;
@@ -185,24 +172,38 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
 
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+    public void restoreActionBar(Menu menu) {
+        setTitle(title);
+        addCourseItem = menu.findItem(R.id.action_course_add);
+        addCourseItem.setVisible(false);
+        addPostItem = menu.findItem(R.id.publish_post);
+        addPostItem.setVisible(false);
+        visibleItems = new ArrayList<MenuItem>();
+        switch(fgState) {
+            case COURSE:
+                setCourseMenu();
+                break;
+            case MESSAGE:
+                setMessageMenu();
+                break;
+            case CAMPUS:
+                setCampusMenu();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
+            restoreActionBar(menu);
             return true;
+        } else {
+            title = getTitle();
+            return super.onCreateOptionsMenu(menu);
         }
-        getMenuInflater().inflate(R.menu.main, menu);
-        visibleActions = new ArrayList<MenuItem>();
-        action_course_add = (MenuItem)menu.findItem(R.id.action_course_add);
-        return true;
     }
 
     @Override
@@ -210,16 +211,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch(id) {
             case R.id.action_course_add:
-                startCourseAddActivity();
+                startAddCourseActivity();
                 return true;
+            case R.id.publish_post:
+                startAddPostActivity();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void startCourseAddActivity() {
+    private void startAddCourseActivity() {
         Intent courseAdd = new Intent(this, CourseCreateActivity.class);
         startActivity(courseAdd);
+    }
+
+    private void startAddPostActivity() {
+        Intent intent = new Intent(this, PostPublishActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -241,32 +249,24 @@ public class MainActivity extends AppCompatActivity
 
         @NeedRefinedAnnotation
         @Override
-        public Fragment getItem(int position) {Log.e("MainActivity", "viewPager getItehttps://github.com/oV0Vo/Mike_Kejian_Android.gitm " + new Integer(position).toString());
+        public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    if(courseFg == null) { Log.e("MainActivity", "courseFg null");
+                    if(courseFg == null) {
                         courseFg = new CourseListContainerFragment();
                     }
-                    courseButton.setChecked(true);
-                    //setCourseMenu();
                     return courseFg;
                 case 1:
-                    if(msgFg == null) { Log.e("MainActivity", "msgFg null");
+                    if(msgFg == null) {
                         msgFg = new Fragment_Msg();
                     }
-                    messageButton.setChecked(true);
                     return msgFg;
                 case 2:
-                    Log.e("MainActivity", "get campusFg");
                     if(campusFg == null) {
-                        getSupportActionBar().setTitle("校内动态");
                         campusFg = new PostListContainerFragment();
                     }
-                    campusButton.setChecked(true);
                     return campusFg;
                 default:
-                    //unreach block
-                    Log.i("MainActivity", "getItem logic error");
                     return null;
             }
         }
@@ -278,20 +278,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setCourseMenu() {
-        if(visibleActions == null || action_course_add == null) {
-            return;
-        }
-        Log.e("MainActivity", "I come here");
-
         disableCurrentMenu();
-        action_course_add.setVisible(true);
-        visibleActions.add(action_course_add);
+        if(userInfoMock.getUserType() == UserType.TEACHER) {
+            addCourseItem.setVisible(true);
+            visibleItems.add(addCourseItem);
+        }
+    }
+
+    private void setMessageMenu() {
+        disableCurrentMenu();
+    }
+
+    private void setCampusMenu() {
+        disableCurrentMenu();
+        addPostItem.setVisible(true);
+        visibleItems.add(addPostItem);
     }
 
     private void disableCurrentMenu() {
-        for(MenuItem item: visibleActions)
+        for(MenuItem item: visibleItems)
             item.setVisible(false);
-        visibleActions.clear();
+        visibleItems.clear();
     }
 
     private class CourseModelCreateTask extends AsyncTask<Void, Void, Void> {

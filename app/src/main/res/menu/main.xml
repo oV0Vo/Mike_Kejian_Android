@@ -4,5 +4,7 @@
     tools:context=".MainActivity">
     <item android:id="@+id/action_course_add" android:title="@string/course_add"
         android:icon="@drawable/add" app:showAsAction="always"/>
-
+    <item android:id="@+id/publish_post" android:title=""
+        android:icon="@drawable/add" app:showAsAction="always">
+    </item>
 </menu>

@@ -209,6 +209,15 @@ public class CourseModel {
         return CourseQuestionNetService.addNewQuestion(question) != null;
     }
 
+    public BasicQuestion getFocusQuestion() {
+        return currentCourse.focusQuestion;
+    }
+
+
+    public void setFoucusQuestion(BasicQuestion question) {
+        currentCourse.focusQuestion = question;
+    }
+
     public ArrayList<Post> getCurrentCoursePosts() {
         return currentCourse.posts;
     }
@@ -289,6 +298,7 @@ public class CourseModel {
 
         private ArrayList<BasicQuestion> historyQuestions;
         private ArrayList<CurrentQuestion> currentQuestions;
+        private BasicQuestion focusQuestion;
 
         private ArrayList<Post> posts;
         private Post currentPost;
