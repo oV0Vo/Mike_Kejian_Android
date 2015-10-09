@@ -8,10 +8,11 @@ import model.user.CourseBrief;
 
 /**
  * Created by I322233 on 10/1/2015.
+ *
  */
 public class SearchNetService {
-    private static ArrayList<Post> posts = new ArrayList<>();
-    private static ArrayList<CourseBrief> courseBriefs = new ArrayList<>();
+    private static ArrayList<Post> posts = new ArrayList();
+    private static ArrayList<CourseBrief> courseBriefs = new ArrayList();
     static {
         String[] words = {"数","我","是","蘑","故","事","会","大","街","上","人","无","为","可","你","个","扣","品","未"};
         for(int i = 0;i<5;i++){
@@ -50,7 +51,7 @@ public class SearchNetService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ArrayList<SearchResult> searchResults = new ArrayList<>();
+        ArrayList<SearchResult> searchResults = new ArrayList();
         for(int i = 0;i<courseBriefs.size();i++){
             String courseName = courseBriefs.get(i).getCourseName();
             if(courseName.contains(key)){

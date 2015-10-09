@@ -190,5 +190,6 @@
     </string-array>
     <string name="why_bind_school_account"> <u>为什么要绑定教务网帐号</u></string>
     <string name="skip_bind"> <u>跳过此步骤，暂不绑定</u></string>
+    <string name="user_info">个人信息</string>
 
 </resources>

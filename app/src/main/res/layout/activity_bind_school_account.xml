@@ -31,10 +31,11 @@
                 />
 
             <Spinner
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:entries="@array/brands"
                 android:layout_marginLeft="20dp"
+                android:id="@+id/city_list_view"
 
                 ></Spinner>
         </LinearLayout>
@@ -52,10 +53,11 @@
                 android:text="学校"
                 />
             <Spinner
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:entries="@array/brands"
                 android:layout_marginLeft="44dp"
+                android:id="@+id/school_list_view"
 
                 ></Spinner></LinearLayout>
 
@@ -77,6 +79,7 @@
                 android:layout_marginLeft="9dp"
                 android:background="@drawable/rec_edit"
                 android:inputType="textPassword"
+                android:id="@+id/school_account_view"
                 /></LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -97,6 +100,7 @@
             android:layout_marginLeft="9dp"
             android:background="@drawable/rec_edit"
             android:inputType="textPassword"
+            android:id="@+id/school_account_pad_view"
             /></LinearLayout>
 
     <Button
@@ -106,7 +110,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginRight="80dp"
         android:layout_marginLeft="80dp"
-        android:id="@+id/complete_reset_passport"
+        android:id="@+id/complete_bind"
         android:text="完成"
         />
     <TextView

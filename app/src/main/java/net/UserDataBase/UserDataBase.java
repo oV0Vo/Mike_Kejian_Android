@@ -105,7 +105,7 @@ public class UserDataBase {
         userInfoSet1.put("name","义薄云天");
         userInfoSet1.put("gender","菇凉");
         userInfoSet1.put("grade","2013");
-        userInfoSet1.put("icon","http");
+        userInfoSet1.put("icon","http://i13.tietuku.com/7d21c824e03bd708.jpg");
         userInfoSet1.put("sign","The truth that you leave");
         userInfoSet1.put("identify","");
         userInfoSet1.put("id",1);
@@ -120,7 +120,7 @@ public class UserDataBase {
         userInfoSet2.put("name","十里长亭");
         userInfoSet2.put("gender","菇凉");
         userInfoSet2.put("grade","2013");
-        userInfoSet2.put("icon","http");
+        userInfoSet2.put("icon","http://i13.tietuku.com/ae982ba13b0620a3.jpg");
         userInfoSet2.put("sign","The truth that you leave");
         userInfoSet2.put("identify","");
         userInfoSet2.put("id",1);
@@ -136,7 +136,7 @@ public class UserDataBase {
         userInfoSet3.put("name","Viva La");
         userInfoSet3.put("gender","菇凉");
         userInfoSet3.put("grade","1096");
-        userInfoSet3.put("icon","http");
+        userInfoSet3.put("icon","http://i11.tietuku.com/a72f8717fea7ac8a.jpg");
         userInfoSet3.put("sign","先王万代");
         userInfoSet3.put("identify","路易十六");
         userInfoSet3.put("id",1);
@@ -157,7 +157,7 @@ public class UserDataBase {
         userInfoSet4.put("name","test");
         userInfoSet4.put("gender","菇凉");
         userInfoSet4.put("grade","1096");
-        userInfoSet4.put("icon","http");
+        userInfoSet4.put("icon","http://i11.tietuku.com/6ea9ba0147b54200.jpg");
         userInfoSet4.put("sign","先王万代");
         userInfoSet4.put("identify","路易十六");
         userInfoSet4.put("id",1);
@@ -172,6 +172,26 @@ public class UserDataBase {
         userAttentionUser.put((String)userInfoSet4.get("name"), new ArrayList());
         userAttentionCourse.put((String)userInfoSet4.get("name"), new ArrayList());
         userAttentionPost.put((String)userInfoSet4.get("name"), new ArrayList());
+
+        HashMap<String ,Object> userInfoSet5=new HashMap<String, Object>();
+        userInfoSet5.put("name","");
+        userInfoSet5.put("gender","菇凉");
+        userInfoSet5.put("grade","1096");
+        userInfoSet5.put("icon","http://i11.tietuku.com/6ea9ba0147b54200.jpg");
+        userInfoSet5.put("sign","先王万代");
+        userInfoSet5.put("identify","路易十六");
+        userInfoSet5.put("id",1);
+        userInfoSet5.put("nickname","");
+        userInfoSet5.put("department","法兰西共和国");
+        userInfoSet5.put("major","国王");
+        userInfoSet5.put("background","hello");
+        userInfoSet5.put("password","test");
+
+
+        userInfoCollection.put("",userInfoSet5);
+        userAttentionUser.put((String)userInfoSet5.get("name"), new ArrayList());
+        userAttentionCourse.put((String)userInfoSet5.get("name"), new ArrayList());
+        userAttentionPost.put((String)userInfoSet5.get("name"), new ArrayList());
 
     }
 }

@@ -1,22 +1,26 @@
-package net.course;
+package net;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import dataType.course.CourseAnnoucement;
-import dataType.course.CourseBriefInfo;
-import dataType.course.CourseDetailInfo;
-import dataType.course.CourseType;
-import dataType.course.PersonMocks;
-import dataType.course.PostMocks;
 import model.campus.Post;
+import model.course.data.CourseAnnoucement;
+import model.course.data.CourseBriefInfo;
+import model.course.data.CourseDetailInfo;
+import model.course.data.CourseType;
+import model.course.data.PersonMocks;
+import model.course.data.PostMocks;
+import model.course.data.question.BasicQuestion;
+import model.course.data.question.CurrentQuestion;
+import model.course.data.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
 
 /**
  * Created by violetMoon on 2015/9/10.
  */
-public class CourseInfoNetService {
+public class CourseNetService implements CourseNetServiceInterface {
 
     public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num,
                                                               int time, TimeUnit timeUnit) {
@@ -70,6 +74,37 @@ public class CourseInfoNetService {
     }
 
     public static NetOperateResultMessage newAnnoucement(String courseId, String personId, String title, String content) {
+        return null;
+    }
+
+    public static ArrayList<BasicQuestion> getHistroryQuestions(String courseId, int beginPos, int num,
+                                                                int time, TimeUnit timeUnit) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return getHistoryQuestionMocks();
+    }
+
+    public static ArrayList<CurrentQuestion> getCurrentQuestions(String courseId, int beginPos,
+                                                                 int num, int time, TimeUnit timeUnit) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return getCurrentQuestionMocks();
+    }
+
+    public static NetOperateResultMessage addNewQuestion(CurrentQuestion question) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -163,4 +198,37 @@ public class CourseInfoNetService {
         return posts;
     }
 
+    private static ArrayList<BasicQuestion> getHistoryQuestionMocks() {
+        ArrayList<BasicQuestion> mocks = new ArrayList<BasicQuestion>();
+        mocks.add(getQuestionMock());
+        mocks.add(getQuestionMock());
+        mocks.add(getQuestionMock());
+        mocks.add(getQuestionMock());
+
+        return mocks;
+    }
+
+    private static ArrayList<CurrentQuestion> getCurrentQuestionMocks() {
+        ArrayList<CurrentQuestion> currentQuestions = new ArrayList<CurrentQuestion>();
+        Random random = new Random(System.currentTimeMillis());
+        int limit = 1000;
+        currentQuestions.add(new CurrentQuestion(getQuestionMock(), random.nextInt(limit) * 1000));
+        return currentQuestions;
+    }
+
+    private static BasicQuestion getQuestionMock() {
+        SingleChoiceQuestion q = new SingleChoiceQuestion();
+        q.setCorrectChoice(1);
+        q.setAuthorId(PersonMocks.id9);
+        ArrayList<String> contents = new ArrayList<String>();
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        contents.add("为了更接地气,微软在中国用百度取代了“亲儿子”必应");
+        q.setChoiceContents(contents);
+        q.setContent("百度已经是中国用户上网操作的使用习惯,甚至是不少中国用户为数不多的几个入口之一。");
+        q.setCourseId("zhe bu shi yi ge id");
+        q.setQuestionDate(new Date(System.currentTimeMillis()));
+        return q;
+    }
 }

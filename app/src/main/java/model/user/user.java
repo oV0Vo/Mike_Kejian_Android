@@ -34,9 +34,6 @@ public class user implements Serializable{
 
 
 
-
-
-
     public user(){
 
     }

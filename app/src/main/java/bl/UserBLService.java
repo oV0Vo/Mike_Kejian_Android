@@ -10,6 +10,7 @@ import model.user.UserPost;
 import model.user.UserToken;
 import model.user.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,13 @@ public class UserBLService {
 
     }
 
+    public HashMap<String,ArrayList<String>> getCityAndSchool(){
+
+        return UserNetService.getCityAndSchool();
+
+
+    }
+
     public static UserBLService getInstance(){
         return (service==null)?(new UserBLService()):service;
     }
@@ -31,6 +39,7 @@ public class UserBLService {
         return null;
 
     }
+
     public List<Object> getUserAttention(){
 
         return null;
@@ -67,6 +76,14 @@ public class UserBLService {
             return UserBLResult.REGISTER_SUCCEED;
 
         }
+
+    }
+
+    public static UserBLResult  CheckAccount(String name,String code){
+
+
+
+        return UserBLResult.ACCOUNT_RIGHT;
 
     }
 

@@ -18,12 +18,50 @@ public class UserToken implements Serializable{
     private String userId;
     private String password;
     private String phoneNumber;
+    private String schoolAccount;
+    private String schoolAccountPassword;
+    private boolean ifBindSchoolAccount;
 
+    public boolean ifBindSchoolAccount(){
+
+        return ifBindSchoolAccount;
+
+    }
+
+    public void bindSchoolAccount(){
+
+        this.ifBindSchoolAccount=true;
+
+    }
 
 
     public void setIsGetCode(boolean b){
 
         isGetCode=true;
+
+    }
+
+    public String getSchoolAccount(){
+
+        return schoolAccount;
+
+    }
+
+    public String getSchoolAccountPassword(){
+
+        return schoolAccountPassword;
+
+    }
+
+    public void setSchoolAccount(String schoolAccount){
+
+        this.schoolAccount=schoolAccount;
+
+    }
+
+    public void setSchoolAccountPassword(String schoolAccountPassword){
+
+        this.schoolAccountPassword=schoolAccountPassword;
 
     }
 

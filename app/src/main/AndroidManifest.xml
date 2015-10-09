@@ -62,7 +62,7 @@
         </activity>
         <activity
             android:name=".ui.user.UserInfoActivity"
-            android:label="user_info" >
+            android:label="@string/user_info" >
         </activity>
         <!--<activity-->
             <!--android:name=".ui.user.UserLoginActivity"-->
@@ -70,7 +70,7 @@
         <!--</activity>-->
         <activity
             android:name=".ui.user.UserBaseInfoOtherView"
-            android:label="user_info_other" >
+            android:label="用户信息" >
         </activity>
         <activity android:name=".ui.user.UserAttentionListActivity"
             android:label="关注列表"></activity>
@@ -90,7 +90,7 @@
             android:label="@string/app_name">
         </activity>
         <activity android:name=".ui.user.UserAttentionActivity"
-            android:label="user_attention_activity">
+            android:label="关注的人">
         </activity>
         <activity android:name=".ui.user.UserPasswordCode"
             android:label="发送验证码"></activity>
@@ -104,6 +104,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
 </manifest>
