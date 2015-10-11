@@ -1,0 +1,5 @@
+
+使用的类: PictureUploadUtil
+使用的方法: public static PictureLink upload(File picture)
+参数: picture为需要上传的图片
+返回值: PictureLink包含三个外链 linkurl为原图的外链,t_url为缩略图的外链,s_url为展示图的外链(大小居中)
