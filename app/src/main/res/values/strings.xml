@@ -169,6 +169,14 @@
     <string name="course_sign_in_success">签到成功！</string>
     <string name="course_sign_in_miss">错过了</string>
     <string name="course_sign_in_history_title">签到历史</string>
+
+    <!--campus publish-->
+    <string name="campus_publish_title">标题</string>
+    <string name="campus_publish_content">内容</string>
+    <string name="campus_publish_invite">邀请</string>
+    <string name="campus_publish_invite_answer">邀请回答</string>
+    <string name="campus_publish_publish">发表帖子</string>
+
     <!--util-->
     <string name="zhankai">展开</string>
     <string name="shouqi">收起</string>
