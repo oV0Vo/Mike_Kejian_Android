@@ -144,6 +144,7 @@
     <string name="title_activity_course">CourseActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
+    <string name="user_info">用户信息</string>
 
     <!--course naming-->
     <string name="course_naming_type_qiandao">签到时间:</string>
@@ -199,5 +200,8 @@
     <string name="why_bind_school_account"> <u>为什么要绑定教务网帐号</u></string>
     <string name="skip_bind"> <u>跳过此步骤，暂不绑定</u></string>
     <string name="title_activity_question_answer">QuestionAnswerActivity</string>
+    <string name="user_login">登录</string>
+    <string name="user_forget_password">忘记密码</string>
+    <string name="user_regist">注册</string>
 
 </resources>

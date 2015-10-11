@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kejian.mike.mike_kejian_android" >
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    package="com.kejian.mike.mike_kejian_android">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.user.UserLoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,28 +22,28 @@
         </activity>
         <activity
             android:name=".ui.course.detail.introduction.CourseIntroductionActivity"
-            android:label="@string/course_intro_activity" >
+            android:label="@string/course_intro_activity">
         </activity>
-        <activity
-            android:name=".ui.course.management.CourseCreateActivity"
-            android:label="@string/course_create_activity" >
+        <activity android:name=".ui.course.management.CourseCreateActivity"
+            android:label="@string/course_create_activity">
         </activity>
-        <activity
-            android:name=".ui.course.management.AnnoucementPublishActivity"
-            android:label="@string/annouc_publish_activity" >
+        <activity android:name=".ui.course.management.AnnoucementPublishActivity"
+            android:label="@string/annouc_publish_activity">
         </activity>
-        <activity
-            android:name=".ui.course.annoucement.AnnoucListActivity"
-            android:label="@string/annouc_list_activity" >
+
+        <activity android:name=".ui.course.annoucement.AnnoucListActivity"
+            android:label="@string/annouc_list_activity">
         </activity>
+
         <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
-        <activity
-            android:name=".ui.course.detail.naming.CourseNamingActivity"
-            android:label="@string/course_naming_activity" >
+
+        <activity android:name=".ui.course.detail.naming.CourseNamingActivity"
+            android:label="@string/course_naming_activity">
         </activity>
+
         <activity
             android:name=".ui.message.NewReplyActivity"
             android:label="@string/new_reply" >
@@ -65,58 +62,80 @@
         </activity>
         <activity
             android:name=".ui.user.UserInfoActivity"
-            android:label="user_info" >
+            android:label="@string/user_info" >
         </activity>
-        <!-- <activity -->
-        <!-- android:name=".ui.user.UserLoginActivity" -->
-        <!-- android:label="user_login" > -->
-        <!-- </activity> -->
+        <!--<activity-->
+            <!--android:name=".ui.user.UserLoginActivity"-->
+            <!--android:label="user_login" >-->
+        <!--</activity>-->
         <activity
             android:name=".ui.user.UserBaseInfoOtherView"
-            android:label="user_info_other" >
+            android:label="用户信息" >
         </activity>
-        <activity
-            android:name=".ui.user.UserAttentionListActivity"
-            android:label="关注列表" />
-        <activity
-            android:name=".ui.user.UserForgetPasswordActivity"
-            android:label="忘记密码" />
-        <activity
-            android:name=".ui.user.UserRegisterActivity"
-            android:label="注册" />
-        <activity
-            android:name=".ui.campus.PostDetailActivity"
-            android:label="帖子内容" >
-        </activity>
-        <activity
-            android:name=".ui.campus.PostPublishActivity"
-            android:label="发帖" >
-        </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".ui.user.UserAttentionActivity"
-            android:label="user_attention_activity" >
-        </activity>
-        <activity
-            android:name=".ui.user.UserPasswordCode"
-            android:label="发送验证码" />
-        <activity
-            android:name=".ui.user.UserSchoolAccountActivity"
-            android:label="绑定教务网帐号" />
-        <activity
-            android:name=".ui.user.UserAttentionCourse"
-            android:label="关注的课程" />
+        <activity android:name=".ui.user.UserAttentionListActivity"
+            android:label="关注列表"></activity>
+        <activity android:name=".ui.user.UserForgetPasswordActivity"
+            android:label="忘记密码"></activity>
+        <activity android:name=".ui.user.UserRegisterActivity"
+            android:label="注册"></activity>
 
+        <activity android:name=".ui.campus.PostDetailActivity"
+            android:label="帖子内容">
+        </activity>
+
+        <activity android:name=".ui.campus.PostPublishActivity"
+            android:label="发帖">
+        </activity>
+        <activity android:name=".ui.main.MainActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name=".ui.user.UserAttentionActivity"
+            android:label="关注的人">
+        </activity>
+        <activity android:name=".ui.user.UserPasswordCode"
+            android:label="发送验证码"></activity>
+        <activity android:name=".ui.user.UserSchoolAccountActivity"
+            android:label="绑定教务网帐号"></activity>
+        <activity android:name=".ui.user.UserAttentionCourse"
+            android:label="关注的课程"></activity>
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
         <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
-
-        <activity
-            android:name=".ui.course.detail.question.QuestionAnswerActivity"
-            android:label="@string/title_activity_question_answer" >
-        </activity>
+        <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.RECEIVE_SMS" />
+        <uses-permission android:name="android.permission.GET_TASKS" />
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+
 
 </manifest>

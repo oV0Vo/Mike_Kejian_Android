@@ -8,6 +8,8 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import model.user.Global;
+
 /**
  * Created by kisstheraik on 15/10/9.
  */
@@ -46,6 +48,7 @@ public class HttpRequest {
             connection.setRequestProperty("accept","*/*");
             connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("connection","Keep-Alive");
+            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -58,6 +61,14 @@ public class HttpRequest {
             reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             String temp=null;
+            String cookie = connection.getHeaderField("Set-cookie");
+
+            //把cookie添加到全局变量中
+            if(cookie!=null){
+
+                Global.addGlobalItem("cookie",cookie);
+
+            }
 
             while((temp=reader.readLine())!=null){
 
@@ -114,10 +125,19 @@ public class HttpRequest {
             connection.setRequestProperty("connection","Keep-Alive");//
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");//表明客户端是哪种浏览器
 
+            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
             connection.connect();//建立连接
 
             input=new BufferedReader(new InputStreamReader(connection.getInputStream()));//包装成文本字符流
 
+            String cookie = connection.getHeaderField("Set-cookie");
+
+            //把cookie添加到全局变量中
+            if(cookie!=null){
+
+                Global.addGlobalItem("cookie",cookie);
+
+            }
 
             String temp=null;
             while((temp=input.readLine())!=null){

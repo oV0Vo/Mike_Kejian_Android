@@ -6,11 +6,9 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/b16392dc6694"
+        android:layout_height="170dp"
+
+        android:background="@drawable/bg"
 
 
         android:layout_marginBottom="10dp">
@@ -76,11 +74,13 @@
                 android:maxHeight="40dp"
                 android:maxWidth="40dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/mail"
+                android:src="@drawable/pwd"
                 android:layout_gravity="center_vertical" />
             <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
+                android:inputType="textPassword"
+
 
             android:background="@drawable/login_edit"
             android:id="@+id/login_password"/>
@@ -93,7 +93,7 @@
 
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Log In"
+            android:text="@string/user_login"
             android:background="@drawable/rec_button"
             android:id="@+id/login_confirm"
             android:layout_marginTop="30dp"
@@ -110,7 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册"
+            android:text="@string/user_regist"
             android:textSize="@dimen/big_font"
             android:paddingRight="@dimen/big_padding"
             android:id="@+id/register"
@@ -125,7 +125,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="忘记密码"
+            android:text="@string/user_forget_password"
             android:textSize="@dimen/big_font"
             android:id="@+id/forget_password"
             android:paddingLeft="@dimen/over_big_padding"
