@@ -339,7 +339,7 @@ public class CourseQuestionFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(getActivity(), QuesitionStatsActivity.class);
-            getActivity().startActivity(i);
+            //getActivity().startActivity(i);
         }
     }
 

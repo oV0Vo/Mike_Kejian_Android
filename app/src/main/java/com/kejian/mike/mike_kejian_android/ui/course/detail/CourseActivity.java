@@ -133,6 +133,10 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void initAddMenuItem() {
+        if(addItem == null) {
+            Log.i("CourseQuestionFg", "addItem null");
+            return;
+        }
         UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
         switch(userType) {
             case TEACHER:
