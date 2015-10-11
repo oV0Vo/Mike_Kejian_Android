@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.util.TextExpandListener;
+
+import net.course.CourseQuestionNetService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,7 +171,8 @@ public class CourseQuestionFragment extends Fragment {
             initTextExpandLayout(convertView, contentText);
 
             UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
-            TextView actionText = initActionText(convertView, userType);
+            TextView actionText = initActionText(convertView, userType,
+                    currentQuestion.getQuestion().getQuestionId());
 
             long leftMillis = currentQuestion.getLeftMills();
             initLeftTimeText(convertView, actionText, leftMillis, userType);
@@ -191,17 +195,20 @@ public class CourseQuestionFragment extends Fragment {
             zhankaiLayout.setOnClickListener(textExpandListener);
         }
 
-        private TextView initActionText(View convertView, UserTypeInCourse userType) {
+        private TextView initActionText(View convertView, UserTypeInCourse userType, String questionId) {
             TextView actionText = (TextView)convertView.findViewById(R.id.action_text);
             switch(userType) {
                 case TEACHER:
-                    actionText.setOnClickListener(new ShutDownQuestionClickListener());
+                    actionText.setOnClickListener(new ShutDownQuestionClickListener(questionId, actionText));
+                    actionText.setText(R.string.close_question_text);
                     break;
                 case STUDENT:
                     actionText.setOnClickListener(new AnswerQuestionClickListener());
+                    actionText.setText(R.string.answer_question_text);
                     break;
                 case ASSISTANT:
-                    actionText.setOnClickListener(new ShutDownQuestionClickListener());
+                    actionText.setOnClickListener(new ShutDownQuestionClickListener(questionId, actionText));
+                    actionText.setText(R.string.close_question_text);
                     break;
                 case VISITOR:
                     actionText.setVisibility(View.GONE);
@@ -299,15 +306,31 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(getActivity(), QuestionAnswerActivity.class);
+            getActivity().startActivity(i);
         }
     }
 
     private class ShutDownQuestionClickListener implements View.OnClickListener {
 
+        private String questionId;
+
+        private TextView actionText;
+
+        public ShutDownQuestionClickListener(String questionId, TextView actionText) {
+            this.questionId = questionId;
+            this.actionText = actionText;
+        }
+
         @Override
         public void onClick(View v) {
-
+            boolean shutDownSuccess = CourseQuestionNetService.shutDownQuestion(questionId);
+            if(shutDownSuccess) {
+                actionText.setText(R.string.show_question_stats);
+                actionText.setOnClickListener(new ShowQuestionStatsClickListener());
+            } else {
+                Toast.makeText(getActivity(), R.string.close_question_error_message, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -315,7 +338,8 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(getActivity(), QuesitionStatsActivity.class);
+            getActivity().startActivity(i);
         }
     }
 

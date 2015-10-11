@@ -61,6 +61,8 @@
     <string name="answer_question_text">我要答题</string>
     <string name="question_finish_text">问题已结束</string>
     <string name="close_question_text">关闭答题</string>
+    <string name="close_question_error_message">网络出了点小问题，没能关闭问题，请稍后再试</string>
+    <string name="show_question_stats">查看答案统计</string>
     <string name="history_question_list_title">往期问题</string>
 
     <string name="course_detail_activity">课程页面</string>
@@ -196,5 +198,6 @@
     </string-array>
     <string name="why_bind_school_account"> <u>为什么要绑定教务网帐号</u></string>
     <string name="skip_bind"> <u>跳过此步骤，暂不绑定</u></string>
+    <string name="title_activity_question_answer">QuestionAnswerActivity</string>
 
 </resources>

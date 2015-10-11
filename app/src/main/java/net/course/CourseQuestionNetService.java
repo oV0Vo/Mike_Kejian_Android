@@ -7,8 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 import dataType.course.PersonMocks;
 import dataType.course.question.BasicQuestion;
+import dataType.course.question.CommitAnswerResultMessage;
 import dataType.course.question.CurrentQuestion;
 import dataType.course.question.QuestionAnswer;
+import dataType.course.question.QuestionShowAnswer;
 import dataType.course.question.QuestionStats;
 import dataType.course.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
@@ -49,7 +51,7 @@ public class CourseQuestionNetService {
         return null;
     }
 
-    public static ArrayList<QuestionAnswer> getQuestionAnswer(String questionId, int beginPos,
+    public static ArrayList<QuestionShowAnswer> getQuestionAnswer(String questionId, int beginPos,
                                                               int num) {
         try {
             Thread.sleep(500);
@@ -70,6 +72,22 @@ public class CourseQuestionNetService {
         return questionStatsMock();
     }
 
+    public static CommitAnswerResultMessage commitAnswer(QuestionAnswer answer) {
+        int choice = (int)(System.currentTimeMillis() % 4);
+        switch(choice) {
+            case 0:
+                return CommitAnswerResultMessage.NET_ERROR;
+            case 1:
+                return CommitAnswerResultMessage.QUESITON_TIME_OUT;
+            case 2:
+                return CommitAnswerResultMessage.QUESTION_SHUT_DOWN;
+            case 3:
+                return CommitAnswerResultMessage.SUCCESS;
+            default:
+                return null;
+        }
+    }
+
     private static QuestionStats questionStatsMock() {
         QuestionStats mock = new QuestionStats();
 
@@ -85,8 +103,8 @@ public class CourseQuestionNetService {
         return mock;
     }
 
-    private static ArrayList<QuestionAnswer> questionAnswerMocks() {
-        ArrayList<QuestionAnswer> mocks = new ArrayList<QuestionAnswer>();
+    private static ArrayList<QuestionShowAnswer> questionAnswerMocks() {
+        ArrayList<QuestionShowAnswer> mocks = new ArrayList<QuestionShowAnswer>();
         mocks.add(questionAnswerMock());
         mocks.add(questionAnswerMock());
         mocks.add(questionAnswerMock());
@@ -95,8 +113,8 @@ public class CourseQuestionNetService {
         return mocks;
     }
 
-    private static QuestionAnswer questionAnswerMock() {
-        QuestionAnswer mock = new QuestionAnswer();
+    private static QuestionShowAnswer questionAnswerMock() {
+        QuestionShowAnswer mock = new QuestionShowAnswer();
         mock.setAnswer("有一美人兮，见之不忘。\n" +
                 "一日不见兮，思之如狂。\n" +
                 "凤飞翱翔兮，四海求凰。\n" +
@@ -117,6 +135,10 @@ public class CourseQuestionNetService {
         mock.setStudentName("黄圣达");
 
         return mock;
+    }
+
+    public static boolean shutDownQuestion(String questionId) {
+        return true;
     }
 
     private static ArrayList<BasicQuestion> getHistoryQuestionMocks() {

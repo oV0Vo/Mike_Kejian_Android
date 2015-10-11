@@ -1,17 +1,25 @@
 package dataType.course.question;
 
 /**
- * Created by violetMoon on 2015/10/6.
+ * Created by violetMoon on 2015/10/11.
  */
 public class QuestionAnswer {
+
+    private String questionId;
 
     private String studentId;
 
     private String studentName;
 
-    private String headIconUrl;
-
     private String answer;
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
 
     public String getStudentId() {
         return studentId;
@@ -29,14 +37,6 @@ public class QuestionAnswer {
         this.studentName = studentName;
     }
 
-    public String getHeadIconUrl() {
-        return headIconUrl;
-    }
-
-    public void setHeadIconUrl(String headIconUrl) {
-        this.headIconUrl = headIconUrl;
-    }
-
     public String getAnswer() {
         return answer;
     }
@@ -44,5 +44,4 @@ public class QuestionAnswer {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
 }

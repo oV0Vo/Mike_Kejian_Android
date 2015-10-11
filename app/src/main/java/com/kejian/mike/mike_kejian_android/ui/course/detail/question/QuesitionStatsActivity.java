@@ -25,7 +25,7 @@ import java.util.List;
 
 import dataType.course.question.BasicQuestion;
 import dataType.course.question.ChoiceQuestion;
-import dataType.course.question.QuestionAnswer;
+import dataType.course.question.QuestionShowAnswer;
 import dataType.course.question.QuestionStats;
 import model.course.CourseModel;
 import util.UnImplementedAnnotation;
@@ -36,7 +36,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
 
     private BasicQuestion question;
 
-    private ArrayList<QuestionAnswer> answers;
+    private ArrayList<QuestionShowAnswer> answers;
 
     private CourseModel courseModel;
 
@@ -298,7 +298,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             int beginPos = 0;
             int num = ANSWER_INIT_NUM;
-            ArrayList<QuestionAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswer
+            ArrayList<QuestionShowAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswer
                     (question.getQuestionId(), beginPos, num);
             answers.addAll(initAnswers);
             return true;
@@ -311,9 +311,9 @@ public class QuesitionStatsActivity extends AppCompatActivity {
         }
     }
 
-    private class QuestionAnswerAdapter extends ArrayAdapter<QuestionAnswer> {
+    private class QuestionAnswerAdapter extends ArrayAdapter<QuestionShowAnswer> {
 
-        public QuestionAnswerAdapter(Context context, int resource, List<QuestionAnswer> objects) {
+        public QuestionAnswerAdapter(Context context, int resource, List<QuestionShowAnswer> objects) {
             super(context, resource, objects);
         }
 
@@ -324,7 +324,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
 
             convertView = View.inflate(QuesitionStatsActivity.this, R.layout.
                     layout_question_answer_brief, null);//@null?
-            QuestionAnswer answer = getItem(position);
+            QuestionShowAnswer answer = getItem(position);
 
             ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
             userImageView.setImageDrawable(null);
