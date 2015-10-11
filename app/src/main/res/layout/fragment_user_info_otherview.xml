@@ -9,17 +9,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/b16392dc6694"
-
-
         android:layout_marginBottom="10dp">
+
         <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
             android:id="@+id/user_photo_view"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
             android:src="@drawable/photo"
-
-
 
             />
     </RelativeLayout>

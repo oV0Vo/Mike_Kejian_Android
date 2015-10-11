@@ -23,7 +23,6 @@ import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
-import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
 
 import java.util.List;
 
@@ -233,4 +232,10 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
         //UserAttentionActivity.this.finish();
 
     }
+
+    /**
+     * Created by kisstheraik on 15/9/30.
+     */
+
+
 }

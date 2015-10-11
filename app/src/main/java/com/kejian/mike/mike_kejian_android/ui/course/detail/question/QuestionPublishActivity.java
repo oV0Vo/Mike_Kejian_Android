@@ -81,9 +81,9 @@ public class QuestionPublishActivity extends AppCompatActivity {
         choiceContentContainer = (ViewGroup)findViewById(R.id.
                 question_publish_choice_content_container);
 
-        choiceContentViews = new ArrayList<>();
-        choiceButtons = new ArrayList<>();
-        correctButtonHints = new ArrayList<>();
+        choiceContentViews = new ArrayList();
+        choiceButtons = new ArrayList();
+        correctButtonHints = new ArrayList();
 
         setChoiceViewByNum(DEFAULT_CHOICE_NUM);
         choiceContentContainer.setVisibility(View.VISIBLE);
