@@ -70,6 +70,8 @@ public class PictureUploadUtil {
             conn.disconnect();
             return link;
 
+            //return null;
+
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -17,6 +17,8 @@ public class TokenTool {
     private static final long albumId = 1141904;
 
     private static String base64(byte[] target) {
+
+       // return null;
         return new Base64().encodeToString(target).replace('+', '-').replace('/', '_');
     }
 

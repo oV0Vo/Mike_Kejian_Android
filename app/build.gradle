@@ -17,17 +17,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile files('src/main/libs/commons-beanutils-1.8.3.jar')
-    compile files('src/main/libs/xom-1.2.8.jar')
+    compile project(':ssmssdk')
     compile files('src/main/libs/json-lib-2.1.jar')
-    compile files('src/main/libs/commons-collections-3.2.1.jar')
-    compile files('src/main/libs/commons-logging-1.1.1.jar')
-    compile files('src/main/libs/ezmorph-1.0.6.jar')
-    compile files('src/main/libs/commons-lang-2.6.jar')
     compile files('src/main/libs/commons-codec-1.9.jar')
+    compile files('src/main/libs/commons-beanutils-1.8.3.jar')
+    compile files('src/main/libs/commons-collections-3.2.1.jar')
 }
+
+
