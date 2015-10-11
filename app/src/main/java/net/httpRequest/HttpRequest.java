@@ -15,15 +15,15 @@ public class HttpRequest {
 
     private static HttpRequest instance;
 
-    private static HttpRequest getInstance(){
+    public static HttpRequest getInstance(){
 
         if(instance==null){
 
-            synchronized(instance){
 
-                instance=new HttpRequest();
-                return instance;
-            }
+
+            instance=new HttpRequest();
+            return instance;
+
         }else{
 
             return instance;
@@ -41,7 +41,7 @@ public class HttpRequest {
 
         try {
 
-            URL urlObject = new URL("");
+            URL urlObject = new URL(url);
             URLConnection connection=urlObject.openConnection();
             connection.setRequestProperty("accept","*/*");
             connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
@@ -66,6 +66,9 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
+
+
+            System.out.println("Post 请求出错!");
 
         }
         finally {
@@ -98,7 +101,8 @@ public class HttpRequest {
 
     public synchronized  String sentGetRequest(String url,HashMap<String,String> para){
 
-        String getUrl=url+"?"+mapToString(para);
+        String getUrl=url+mapToString(para);
+        System.out.println(getUrl);
         BufferedReader input=null;
         String result="";
 
@@ -123,6 +127,8 @@ public class HttpRequest {
 
         }catch (Exception e){
 
+            System.out.println("Get 请求出错!");
+
         }
         finally {
 
@@ -145,19 +151,34 @@ public class HttpRequest {
 
     private String mapToString(HashMap<String,String> map){
 
+        if(map==null){
+
+            return "";
+
+        }
+
         Iterator iterator=map.keySet().iterator();
-        String paraString=null;
+        String paraString="";
 
         while(iterator.hasNext()){
 
             String key=(String)iterator.next();
             String value=(String)map.get(key);
 
-            paraString+=key+"="+value+"&";
+            paraString+=key+"/"+value+"/";
 
         }
 
         return paraString.substring(0,paraString.length()-1);
+    }
+
+    public static void main(String[] args){
+
+        HttpRequest httpRequest=HttpRequest.getInstance();
+        HashMap hashMap=new HashMap();
+        hashMap.put("id","2");
+
+        System.out.println(httpRequest.sentGetRequest("http://112.124.101.41:80/mike_server_v02/index.php/Home/User/getUser/",hashMap));
     }
 
 }
