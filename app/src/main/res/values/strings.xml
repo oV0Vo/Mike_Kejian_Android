@@ -60,16 +60,10 @@
 
     <string name="answer_question_text">我要答题</string>
     <string name="question_finish_text">问题已结束</string>
-    <string name="shut_down_question_text">关闭答题</string>
-    <string name="shut_down_question_on_progress">正在关闭问题...</string>
+    <string name="close_question_text">关闭答题</string>
     <string name="close_question_error_message">网络出了点小问题，没能关闭问题，请稍后再试</string>
     <string name="show_question_stats">查看答案统计</string>
     <string name="history_question_list_title">往期问题</string>
-
-    <!--answer question-->
-    <string name="answer_question_success_message">问题回答成功！</string>
-    <string name="answer_question_time_out">问题已经截止了~~~</string>
-    <string name="answer_question_on_progress">正在提交答案，请耐心等待</string>
 
     <string name="course_detail_activity">课程页面</string>
     <string name="course_intro_activity">课程详情</string>
@@ -89,6 +83,7 @@
     <string name="course_intro_student_num_postfix">人在学</string>
     <string name="course_intro_teacher_title">授课教师</string>
     <string name="course_intro_assistant_title">助教</string>
+    <string name="course_intro_add_assistant">添加</string>
     <string name="course_intro_brief_tab_title">课程概述</string>
     <string name="course_intro_teach_content_tab_title">教学内容</string>
     <string name="course_intro_reference_tab_title">参考资料</string>
@@ -149,6 +144,7 @@
     <string name="title_activity_course">CourseActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_ssdfsdsddssd">ssdfsdsddssd</string>
+    <string name="user_info">用户信息</string>
 
     <!--course naming-->
     <string name="course_naming_type_qiandao">签到时间:</string>
@@ -174,11 +170,18 @@
     <string name="course_sign_in_success">签到成功！</string>
     <string name="course_sign_in_miss">错过了</string>
     <string name="course_sign_in_history_title">签到历史</string>
+
+    <!--campus publish-->
+    <string name="campus_publish_title">标题</string>
+    <string name="campus_publish_content">内容</string>
+    <string name="campus_publish_invite">邀请</string>
+    <string name="campus_publish_invite_answer">邀请回答</string>
+    <string name="campus_publish_publish">发表帖子</string>
+
     <!--util-->
     <string name="zhankai">展开</string>
     <string name="shouqi">收起</string>
     <string name="minute">分钟</string>
-    <string name="add">添加</string>
     <string name="single_choice_question">单选题</string>
     <string name="multi_choice_question">多选题</string>
     <string name="other">其他</string>
@@ -201,10 +204,12 @@
         <item>广州</item>
         <item>济州岛</item>
         <item>北海道</item>
-
     </string-array>
     <string name="why_bind_school_account"> <u>为什么要绑定教务网帐号</u></string>
     <string name="skip_bind"> <u>跳过此步骤，暂不绑定</u></string>
-    <string name="title_activity_question_answer">问题回答</string>
-    <string name="title_activity_question_stats">答题统计</string>
+    <string name="title_activity_question_answer">QuestionAnswerActivity</string>
+    <string name="user_login">登录</string>
+    <string name="user_forget_password">忘记密码</string>
+    <string name="user_regist">注册</string>
+
 </resources>

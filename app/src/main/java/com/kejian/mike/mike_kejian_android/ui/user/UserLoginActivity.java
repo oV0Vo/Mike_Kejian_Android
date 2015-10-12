@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
 
 import bl.UserBLService;
+import cn.smssdk.SMSSDK;
+import model.user.Global;
 import model.user.UserToken;
 import model.user.user;
 
@@ -36,6 +38,12 @@ public class UserLoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
+
+
+
+
+
+
         setContentView(com.kejian.mike.mike_kejian_android.R.layout.activity_user_login);
         context=this;
         initViews();
@@ -121,11 +129,13 @@ public class UserLoginActivity extends Activity {
 
             bundle.putSerializable(UserActivityComm.USER_INFO.name(), user);
 
+
             intent.putExtras(bundle);
 
             //intent.putExtra(UserActivityComm.USER_INFO.name(),user);
 
-
+            //把user添加到全局变量中
+            Global.addGlobalItem("user",user);
 
             startActivity(intent);
 

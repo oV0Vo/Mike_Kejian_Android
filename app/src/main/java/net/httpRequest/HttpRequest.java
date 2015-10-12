@@ -8,6 +8,8 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import model.user.Global;
+
 /**
  * Created by kisstheraik on 15/10/9.
  */
@@ -15,15 +17,15 @@ public class HttpRequest {
 
     private static HttpRequest instance;
 
-    private static HttpRequest getInstance(){
+    public static HttpRequest getInstance(){
 
         if(instance==null){
 
-            synchronized(instance){
 
-                instance=new HttpRequest();
-                return instance;
-            }
+
+            instance=new HttpRequest();
+            return instance;
+
         }else{
 
             return instance;
@@ -41,11 +43,12 @@ public class HttpRequest {
 
         try {
 
-            URL urlObject = new URL("");
+            URL urlObject = new URL(url);
             URLConnection connection=urlObject.openConnection();
             connection.setRequestProperty("accept","*/*");
             connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("connection","Keep-Alive");
+            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -58,6 +61,14 @@ public class HttpRequest {
             reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             String temp=null;
+            String cookie = connection.getHeaderField("Set-cookie");
+
+            //把cookie添加到全局变量中
+            if(cookie!=null){
+
+                Global.addGlobalItem("cookie",cookie);
+
+            }
 
             while((temp=reader.readLine())!=null){
 
@@ -66,6 +77,9 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
+
+
+            System.out.println("Post 请求出错!");
 
         }
         finally {
@@ -98,7 +112,8 @@ public class HttpRequest {
 
     public synchronized  String sentGetRequest(String url,HashMap<String,String> para){
 
-        String getUrl=url+"?"+mapToString(para);
+        String getUrl=url+mapToString(para);
+        System.out.println(getUrl);
         BufferedReader input=null;
         String result="";
 
@@ -110,10 +125,19 @@ public class HttpRequest {
             connection.setRequestProperty("connection","Keep-Alive");//
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");//表明客户端是哪种浏览器
 
+            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
             connection.connect();//建立连接
 
             input=new BufferedReader(new InputStreamReader(connection.getInputStream()));//包装成文本字符流
 
+            String cookie = connection.getHeaderField("Set-cookie");
+
+            //把cookie添加到全局变量中
+            if(cookie!=null){
+
+                Global.addGlobalItem("cookie",cookie);
+
+            }
 
             String temp=null;
             while((temp=input.readLine())!=null){
@@ -122,6 +146,8 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
+
+            System.out.println("Get 请求出错!");
 
         }
         finally {
@@ -145,19 +171,34 @@ public class HttpRequest {
 
     private String mapToString(HashMap<String,String> map){
 
+        if(map==null){
+
+            return "";
+
+        }
+
         Iterator iterator=map.keySet().iterator();
-        String paraString=null;
+        String paraString="";
 
         while(iterator.hasNext()){
 
             String key=(String)iterator.next();
             String value=(String)map.get(key);
 
-            paraString+=key+"="+value+"&";
+            paraString+=key+"/"+value+"/";
 
         }
 
         return paraString.substring(0,paraString.length()-1);
+    }
+
+    public static void main(String[] args){
+
+        HttpRequest httpRequest=HttpRequest.getInstance();
+        HashMap hashMap=new HashMap();
+        hashMap.put("id","2");
+
+        System.out.println(httpRequest.sentGetRequest("http://112.124.101.41:80/mike_server_v02/index.php/Home/User/getUser/",hashMap));
     }
 
 }

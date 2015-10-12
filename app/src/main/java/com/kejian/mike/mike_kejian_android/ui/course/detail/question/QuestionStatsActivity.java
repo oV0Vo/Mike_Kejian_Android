@@ -66,7 +66,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_stats);
         initAttrs();
 
-        answers = new ArrayList<>();
+        answers = new ArrayList();
         courseModel = CourseModel.getInstance();
         question = courseModel.getStatsFocusQuestion();
 

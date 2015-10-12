@@ -12,9 +12,14 @@ import android.widget.EditText;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import java.util.HashMap;
+
 import bl.User.Register;
 import bl.UserBLResult;
 import bl.UserBLService;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.gui.RegisterPage;
 import model.user.UserToken;
 
 /**
@@ -59,7 +64,25 @@ public class UserRegisterActivity extends Activity{
                 }
 
 
+                SMSSDK.initSDK(context, "ab3e9212084e", "5fbc8aeaf6291b8d97647a5972905456");
 
+                //打开注册页面
+                RegisterPage registerPage = new RegisterPage();
+                registerPage.setRegisterCallback(new EventHandler() {
+                    public void afterEvent(int event, int result, Object data) {
+// 解析注册结果
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            @SuppressWarnings("unchecked")
+                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
+                            String country = (String) phoneMap.get("country");
+                            String phone = (String) phoneMap.get("phone");
+
+// 提交用户信息
+                            //registerUser(country, phone);
+                        }
+                    }
+                });
+                registerPage.show(context);
                 code="131250";
 
 

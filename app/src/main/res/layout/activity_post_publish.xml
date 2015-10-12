@@ -9,21 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/black2"
-        android:fillViewport="false">
+        android:fillViewport="false"
+        android:background="@color/black2">
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/white">
             
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:hint="标题"
+                android:hint="@string/campus_publish_title"
                 android:singleLine="true"
-                android:background="@color/white"/>
+                android:padding="@dimen/sub_big_padding"
+                android:background="@null"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,9 +38,10 @@
                 android:singleLine="false"
                 android:gravity="top|left"
                 android:minLines="15"
-                android:padding="10dp"
-                android:hint="内容"
-                android:background="@color/white"/>
+                android:hint="@string/campus_publish_content"
+                android:padding="@dimen/sub_big_padding"
+                android:background="@null"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,16 +52,15 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:hint="邀请"
-                android:background="@color/white"/>
+                android:hint="@string/campus_publish_invite"
+                android:padding="@dimen/sub_big_padding"
+                android:background="@null"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/grey">
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -74,17 +75,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
-            android:text="邀请回答"
+            android:padding="@dimen/sub_big_padding"
+            android:text="@string/campus_publish_invite_answer"
             android:textSize="15sp"
-            android:gravity="center"
-            android:textColor="@color/grey">
+            android:gravity="center">
         </TextView>
 
         <LinearLayout
@@ -97,11 +98,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
-            android:text="发表帖子"
+            android:padding="@dimen/sub_big_padding"
+            android:text="@string/campus_publish_publish"
             android:textSize="15sp"
-            android:gravity="center"
-            android:textColor="@color/grey">
+            android:gravity="center">
         </TextView>
     </LinearLayout>
 </LinearLayout>
