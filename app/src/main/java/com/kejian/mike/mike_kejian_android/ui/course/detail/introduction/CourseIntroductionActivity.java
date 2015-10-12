@@ -1,12 +1,11 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,35 +30,27 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     private RadioButton teachContentTab;
     private RadioButton referenceTab;
 
-    private RadioButton currentTab;
+    private CourseBriefInfo courseBrief;
+    private CourseDetailInfo courseDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_introduction);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContent();
 
+        CourseModel courseModel = CourseModel.getInstance();
+        courseBrief = courseModel.getCurrentCourseBrief();
+        courseDetail = courseModel.getCurrentCourseDetail();
+
+        initCourseBrief();
+        initTeacherInfo();
+        initAssitantLayout();
+        initTabButton();
+        initViewPager();
     }
 
-    private void setContent() {
-        CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
-        if(courseDetail == null) {
-            Log.e("CourseIntro", "current CourseDetail null!");
-            return;
-        }
-
-        CourseBriefInfo courseBrief = CourseModel.getInstance().getCurrentCourseBrief();
-        if(courseBrief == null) {
-            Log.e("CourseIntro", "current CourseBrief null!");
-            return;
-        }
-
-        /*
-        ImageView courseImage = (ImageView)findViewById(R.id.course_intro_course_image);
-        courseImage.setBackground();
-         */
-
+    private void initCourseBrief() {
         TextView courseTitleView = (TextView)findViewById(R.id.course_intro_course_name);
         courseTitleView.setText(courseBrief.getCourseName());
 
@@ -73,7 +64,9 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         TextView studentNumView = (TextView)findViewById(R.id.course_intro_student_num);
         String studentNumText = new Integer(courseDetail.getCurrentStudents()).toString();
         studentNumView.setText(studentNumText);
+    }
 
+    private void initTeacherInfo() {
         TextView teacherNameView = (TextView)findViewById(R.id.course_intro_teacher_name);
         ArrayList<String> teacherNames = courseDetail.getTeacherNames();
         String teacherName = StringUtil.toString(teacherNames, " ");
@@ -83,43 +76,61 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         String teacherBriefIntro = "南京大学教授、博士生导师";
         teacherBriefIntroView.setText(teacherBriefIntro);
 
-        initViewPager();
-        initTabButton();
+    }
+
+    private void initAssitantLayout() {
+
     }
 
     private void initViewPager() {
         viewPager = (ViewPager)findViewById(R.id.course_intro_detail_view_pager);
         viewPagerAdapter = new CourseContentAdpater(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch(position) {
+                    case 0:
+                        briefTab.setChecked(true);
+                        break;
+                    case 1:
+                        teachContentTab.setChecked(true);
+                        break;
+                    case 2:
+                        referenceTab.setChecked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initTabButton() {
         briefTab = (RadioButton)findViewById(R.id.course_intro_brief_tab);
-        briefTab.setChecked(true);
-        currentTab = briefTab;
-        briefTab.setTextColor(getResources().getColor(R.color.green));
         briefTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentTab != briefTab) {
-                    currentTab.setTextColor(getResources().getColor(R.color.black));
-                    briefTab.setTextColor(getResources().getColor(R.color.green));
-                    currentTab = briefTab;
-                    viewPager.setCurrentItem(0);
-                }
+                viewPager.setCurrentItem(0);
             }
         });
+        briefTab.setChecked(true);
 
         teachContentTab = (RadioButton)findViewById(R.id.course_intro_teach_content_tab);
         teachContentTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentTab != teachContentTab) {
-                    currentTab.setTextColor(getResources().getColor(R.color.black));
-                    teachContentTab.setTextColor(getResources().getColor(R.color.green));
-                    currentTab = teachContentTab;
-                    viewPager.setCurrentItem(1);
-                }
+                viewPager.setCurrentItem(1);
             }
         });
 
@@ -127,16 +138,10 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         referenceTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentTab != referenceTab) {
-                    currentTab.setTextColor(getResources().getColor(R.color.black));
-                    referenceTab.setTextColor(getResources().getColor(R.color.green));
-                    currentTab = referenceTab;
-                    viewPager.setCurrentItem(2);
-                }
+                viewPager.setCurrentItem(2);
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -57,7 +57,7 @@ public class CourseInfoNetService {
     }
 
     public static UserTypeInCourse getUserTypeInCourse(String courseId, String userId) {
-        return UserTypeInCourse.TEACHER;
+        return UserTypeInCourse.STUDENT;
     }
 
     public static NetOperateResultMessage addAnswerToProblem(String schoolId, String courseName, String pageId,

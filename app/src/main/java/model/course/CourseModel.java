@@ -211,14 +211,6 @@ public class CourseModel {
         return CourseQuestionNetService.addNewQuestion(question) != null;
     }
 
-    public BasicQuestion getFocusQuestion() {
-        return currentCourse.focusQuestion;
-    }
-
-    public void setFoucusQuestion(BasicQuestion question) {
-        currentCourse.focusQuestion = question;
-    }
-
     public ArrayList<Post> getCurrentCoursePosts() {
         return currentCourse.posts;
     }
@@ -292,6 +284,22 @@ public class CourseModel {
         return currentCourse.updateAnnouc(time, timeUnit);
     }
 
+    public void setStatsFocusQuestion(BasicQuestion question) {
+        currentCourse.statsFocusQuesiton = question;
+    }
+
+    public void setAnswerFocusQuestion(BasicQuestion question) {
+        currentCourse.answerFocusQuestion = question;
+    }
+
+    public BasicQuestion getStatsFocusQuestion() {
+        return currentCourse.statsFocusQuesiton;
+    }
+
+    public BasicQuestion getAnswerFocusQuestion() {
+        return currentCourse.answerFocusQuestion;
+    }
+
     public ArrayList<String> getAllCourseTypeNamesMock() {
         ArrayList<String> names = new ArrayList<String>();
         names.add("通识课");
@@ -310,7 +318,9 @@ public class CourseModel {
 
         private ArrayList<BasicQuestion> historyQuestions;
         private ArrayList<CurrentQuestion> currentQuestions;
-        private BasicQuestion focusQuestion;
+
+        private BasicQuestion statsFocusQuesiton;
+        private BasicQuestion answerFocusQuestion;
 
         private ArrayList<Post> posts;
         private Post currentPost;

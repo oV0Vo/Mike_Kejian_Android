@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
@@ -24,10 +25,9 @@ import dataType.course.question.CommitAnswerResultMessage;
 import dataType.course.question.MultiChoiceQuestion;
 import dataType.course.question.QuestionAnswer;
 import dataType.course.question.SingleChoiceQuestion;
+import model.course.CourseModel;
 
 public class QuestionAnswerActivity extends AppCompatActivity {
-
-    public static final String ARG_QUESTION = "question";
 
     private BasicQuestion question;
 
@@ -43,9 +43,9 @@ public class QuestionAnswerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_answer);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        question = (BasicQuestion) getIntent().getSerializableExtra(ARG_QUESTION);
-
+        question = CourseModel.getInstance().getAnswerFocusQuestion();
         String questionContent = question.getContent();
         setQuestionContentView(questionContent);
 
@@ -76,9 +76,7 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         ArrayList<String> choiceContents = singleChoiceQuestion.getChoiceContents();
         for (int i = 0; i < choiceContents.size(); ++i) {
-            RadioButton choiceButton = new RadioButton(this);
-            choiceButton.setSingleLine(false);
-            choiceButton.setText(Character.toString((char) ('A' + i)) + " " + choiceContents.get(i));
+            RadioButton choiceButton = createChoiceButton(i, choiceContents.get(i));
             singleChoiceGroup.addView(choiceButton);
             choiceButtons.add(choiceButton);
         }
@@ -94,13 +92,21 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         ArrayList<String> choiceContents = multiChoiceQuestion.getChoiceContents();
         for (int i = 0; i < choiceContents.size(); ++i) {
-            RadioButton choiceButton = new RadioButton(this);
-            choiceButton.setSingleLine(false);
-            choiceButton.setText(Character.toString((char) ('A' + i)) + " " + choiceContents.get(i));
+            RadioButton choiceButton = createChoiceButton(i, choiceContents.get(i));
             choiceContainer.addView(choiceButton);
         }
 
         choiceContainer.setVisibility(View.VISIBLE);
+    }
+
+    private RadioButton createChoiceButton(int choiceIndex, String choiceContent) {
+        RadioButton choiceButton = new RadioButton(this);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        choiceButton.setLayoutParams(layoutParams);
+        choiceButton.setSingleLine(false);
+        choiceButton.setText(Character.toString((char) ('A' + choiceIndex)) + " " + choiceContent);
+        return choiceButton;
     }
 
     private void setApplicationQuestionView(BasicQuestion question) {
@@ -117,6 +123,12 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            QuestionAnswer answer = getAnswer();
+            new CommitAnswerTask().execute(answer);
+            updateViewOnPostAnswer();
+        }
+
+        private QuestionAnswer getAnswer() {
             QuestionAnswer answer = new QuestionAnswer();
             String studentNameMock = "黄崇和";
             answer.setStudentName(studentNameMock);
@@ -138,6 +150,8 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                     break;
             }
             answer.setAnswer(questionAnswer);
+
+            return answer;
         }
 
         private String getSingleChoiceAnswer() {
@@ -168,20 +182,34 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         }
     }
 
-    private void updateViewOnNetError() {
+    private void updateViewOnPostAnswer() {
+        disableAnswerActionText();
+        Toast.makeText(this, R.string.answer_question_on_progress, Toast.LENGTH_LONG).show();
+    }
 
+    private void updateViewOnNetError() {
+        Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
+        enableAnswerActionText();
     }
 
     private void updateViewOnCommitSuccess() {
-
-    }
-
-    private void updateViewOnQuestionShutDown() {
-
+        Toast.makeText(this, R.string.answer_question_success_message, Toast.LENGTH_LONG).show();
+        enableAnswerActionText();
     }
 
     private void updateViewOnQuestionTimeOut() {
+        Toast.makeText(this, R.string.answer_question_time_out, Toast.LENGTH_LONG).show();
+        enableAnswerActionText();
+    }
 
+    private void disableAnswerActionText() {
+        answerActionText.setEnabled(false);
+        answerActionText.setBackgroundColor(getResources().getColor(R.color.dark));
+    }
+
+    private void enableAnswerActionText() {
+        answerActionText.setEnabled(true);
+        answerActionText.setBackgroundColor(getResources().getColor(R.color.green));
     }
 
     private class CommitAnswerTask extends AsyncTask<QuestionAnswer, Void, CommitAnswerResultMessage> {
@@ -201,9 +229,6 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                     break;
                 case QUESITON_TIME_OUT:
                     updateViewOnQuestionTimeOut();
-                    break;
-                case QUESTION_SHUT_DOWN:
-                    updateViewOnQuestionShutDown();
                     break;
                 case NET_ERROR:
                     updateViewOnNetError();

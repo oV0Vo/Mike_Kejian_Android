@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/zhankai_layout"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/zhankai_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/small_padding"
+        android:textColor="@color/green"
+        android:text="@string/zhankai"/>
+
+    <ImageView
+        android:id="@+id/zhankai_image"
+        android:layout_width="@dimen/over_small_icon_size"
+        android:layout_height="@dimen/over_small_icon_size"
+        android:layout_marginBottom="@dimen/sub_small_padding"
+        android:src="@drawable/down"/>
+
+</LinearLayout>

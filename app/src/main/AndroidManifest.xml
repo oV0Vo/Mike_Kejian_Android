@@ -117,6 +117,12 @@
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
         </activity>
+
+        <activity
+            android:name=".ui.course.detail.question.QuestionStatsActivity"
+            android:label="@string/title_activity_question_stats">
+        </activity>
+
     </application>
 
 </manifest>

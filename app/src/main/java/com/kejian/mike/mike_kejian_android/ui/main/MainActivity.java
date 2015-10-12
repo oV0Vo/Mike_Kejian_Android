@@ -24,6 +24,8 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengMessageHandler;
 
 import java.util.ArrayList;
 
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence title;
 
+    private PushAgent pushAgent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity
         initViewPager();
         initRadioButtons();
         initBLService();
+        initPushAgent();
         fgState = FgState.COURSE;
         courseButton.setChecked(true);
     }
@@ -95,6 +100,13 @@ public class MainActivity extends AppCompatActivity
 
     private void initBLService() {
         new CourseModelCreateTask().execute();
+    }
+
+    private void initPushAgent() {
+        pushAgent = PushAgent.getInstance(this);
+        pushAgent.enable();
+        pushAgent.onAppStart();
+        pushAgent.setMessageHandler(new MyUmengMessageHandler());
     }
 
     private void initViewPager() {

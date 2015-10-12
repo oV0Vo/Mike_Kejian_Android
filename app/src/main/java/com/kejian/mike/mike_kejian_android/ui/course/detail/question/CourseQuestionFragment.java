@@ -171,11 +171,10 @@ public class CourseQuestionFragment extends Fragment {
             initTextExpandLayout(convertView, contentText);
 
             UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
-            TextView actionText = initActionText(convertView, userType,
-                    currentQuestion.getQuestion().getQuestionId());
+            TextView actionText = initActionText(convertView, userType, currentQuestion.getQuestion());
 
             long leftMillis = currentQuestion.getLeftMills();
-            initLeftTimeText(convertView, actionText, leftMillis, userType);
+            initLeftTimeText(convertView, actionText, leftMillis, userType, currentQuestion.getQuestion());
 
             return convertView;
         }
@@ -195,20 +194,21 @@ public class CourseQuestionFragment extends Fragment {
             zhankaiLayout.setOnClickListener(textExpandListener);
         }
 
-        private TextView initActionText(View convertView, UserTypeInCourse userType, String questionId) {
+        private TextView initActionText(View convertView, UserTypeInCourse userType,
+                                        BasicQuestion question) {
             TextView actionText = (TextView)convertView.findViewById(R.id.action_text);
             switch(userType) {
                 case TEACHER:
-                    actionText.setOnClickListener(new ShutDownQuestionClickListener(questionId, actionText));
-                    actionText.setText(R.string.close_question_text);
+                    actionText.setOnClickListener(new ShutDownQuestionClickListener(question, actionText));
+                    actionText.setText(R.string.shut_down_question_text);
                     break;
                 case STUDENT:
-                    actionText.setOnClickListener(new AnswerQuestionClickListener());
+                    actionText.setOnClickListener(new AnswerQuestionClickListener(question));
                     actionText.setText(R.string.answer_question_text);
                     break;
                 case ASSISTANT:
-                    actionText.setOnClickListener(new ShutDownQuestionClickListener(questionId, actionText));
-                    actionText.setText(R.string.close_question_text);
+                    actionText.setOnClickListener(new ShutDownQuestionClickListener(question, actionText));
+                    actionText.setText(R.string.shut_down_question_text);
                     break;
                 case VISITOR:
                     actionText.setVisibility(View.GONE);
@@ -219,39 +219,12 @@ public class CourseQuestionFragment extends Fragment {
             return actionText;
         }
 
-        private void initLeftTimeText(View convertView, final TextView actionText, long leftMills,
-                                      final UserTypeInCourse userType) {
-            final TextView leftTimeText = (TextView)convertView.findViewById(R.id.
+        private void initLeftTimeText(View convertView, TextView actionText, long leftMills,
+                                      UserTypeInCourse userType, BasicQuestion question) {
+            TextView leftTimeText = (TextView)convertView.findViewById(R.id.
                     current_question_countdown_time_text);
-            CountDownTimer timer = new CountDownTimer(leftMills, 1000L) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    if(leftTimeText != null)
-                        leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
-                }
-
-                @Override
-                public void onFinish() {
-                    if(leftTimeText != null)
-                        leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.my_red));
-                    switch(userType) {
-                        case TEACHER:
-                            actionText.setOnClickListener(new ShowQuestionStatsClickListener());
-                            break;
-                        case STUDENT:
-                            actionText.setText(R.string.question_finish_text);
-                            actionText.setEnabled(false);
-                            break;
-                        case ASSISTANT:
-                            actionText.setOnClickListener(new ShowQuestionStatsClickListener());
-                            break;
-                        case VISITOR:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            };
+            CountDownTimer timer = new MyCountDownTimer(leftTimeText, actionText, question,
+                    userType, leftMills, 1000L);
             appendNewTimer(timer);
         }
     }
@@ -304,42 +277,57 @@ public class CourseQuestionFragment extends Fragment {
 
     private class AnswerQuestionClickListener implements View.OnClickListener {
 
+        private BasicQuestion question;
+
+        public AnswerQuestionClickListener(BasicQuestion question) {
+            this.question = question;
+        }
+
         @Override
         public void onClick(View v) {
             Intent i = new Intent(getActivity(), QuestionAnswerActivity.class);
+            courseModel.setAnswerFocusQuestion(question);
             getActivity().startActivity(i);
         }
     }
 
     private class ShutDownQuestionClickListener implements View.OnClickListener {
 
-        private String questionId;
-
         private TextView actionText;
 
-        public ShutDownQuestionClickListener(String questionId, TextView actionText) {
-            this.questionId = questionId;
+        private ShutDownQuestionTask shutDownTask;
+
+        public ShutDownQuestionClickListener(BasicQuestion question, TextView actionText) {
             this.actionText = actionText;
+            shutDownTask = new ShutDownQuestionTask(actionText, question);
         }
 
         @Override
         public void onClick(View v) {
-            boolean shutDownSuccess = CourseQuestionNetService.shutDownQuestion(questionId);
-            if(shutDownSuccess) {
-                actionText.setText(R.string.show_question_stats);
-                actionText.setOnClickListener(new ShowQuestionStatsClickListener());
-            } else {
-                Toast.makeText(getActivity(), R.string.close_question_error_message, Toast.LENGTH_LONG).show();
-            }
+            disableActionText();
+            shutDownTask.execute();
+        }
+
+        private void disableActionText() {
+            actionText.setText(R.string.shut_down_question_on_progress);
+            actionText.setEnabled(false);
+            actionText.setBackgroundColor(getResources().getColor(R.color.dark));
         }
     }
 
     private class ShowQuestionStatsClickListener implements View.OnClickListener {
 
+        private BasicQuestion question;
+
+        public ShowQuestionStatsClickListener(BasicQuestion question) {
+            this.question = question;
+        }
+
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(getActivity(), QuesitionStatsActivity.class);
-            //getActivity().startActivity(i);
+            Intent i = new Intent(getActivity(), QuestionStatsActivity.class);
+            courseModel.setStatsFocusQuestion(question);
+            getActivity().startActivity(i);
         }
     }
 
@@ -381,4 +369,94 @@ public class CourseQuestionFragment extends Fragment {
         }
     }
 
+    private class ShutDownQuestionTask extends AsyncTask<Void, Void, Boolean> {
+
+        private TextView actionText;
+
+        private BasicQuestion question;
+
+        public ShutDownQuestionTask(TextView actionText, BasicQuestion question) {
+            this.actionText = actionText;
+            this.question = question;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Boolean shutDownSuccess = CourseQuestionNetService.shutDownQuestion(question.getQuestionId());
+            return shutDownSuccess;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean shutDownSuccess) {
+            if(shutDownSuccess) {
+                updateViewOnShutDownSuccess();
+            } else {
+                updateViewOnShutDownFail();
+            }
+        }
+
+        private void updateViewOnShutDownSuccess() {
+            actionText.setEnabled(true);
+            actionText.setText(R.string.show_question_stats);
+            actionText.setBackgroundColor(getResources().getColor(R.color.green));
+            actionText.setOnClickListener(new ShowQuestionStatsClickListener(question));
+        }
+
+        private void updateViewOnShutDownFail() {
+            actionText.setEnabled(true);
+            actionText.setText(R.string.shut_down_question_text);
+            actionText.setBackgroundColor(getResources().getColor(R.color.green));
+            Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class MyCountDownTimer extends CountDownTimer {
+
+        private TextView leftTimeText;
+
+        private TextView actionText;
+
+        private BasicQuestion question;
+
+        private UserTypeInCourse userType;
+
+        public MyCountDownTimer(TextView leftTimeText, TextView actionText, BasicQuestion question,
+                                UserTypeInCourse userType, long totalTime, long interval) {
+            super(totalTime, interval);
+            this.leftTimeText = leftTimeText;
+            this.actionText = actionText;
+            this.question = question;
+            this.userType = userType;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if(leftTimeText != null)
+                leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
+        }
+
+        @Override
+        public void onFinish() {
+            if(leftTimeText != null)
+                leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.my_red));
+            switch(userType) {
+                case TEACHER:
+                    actionText.setText(R.string.show_question_stats);
+                    actionText.setOnClickListener(new ShowQuestionStatsClickListener(question));
+                    break;
+                case STUDENT:
+                    actionText.setText(R.string.question_finish_text);
+                    actionText.setEnabled(false);
+                    break;
+                case ASSISTANT:
+                    actionText.setText(R.string.show_question_stats);
+                    actionText.setOnClickListener(new ShowQuestionStatsClickListener(question));
+                    break;
+                case VISITOR:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
