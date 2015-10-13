@@ -17,7 +17,7 @@ import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
 
-import dataType.course.CourseDetailInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;
 

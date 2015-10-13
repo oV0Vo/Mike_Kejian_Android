@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dataType.course.CourseNamingRecord;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
 import model.course.CourseModel;
 import util.TimeFormat;
 import util.TimerThread;

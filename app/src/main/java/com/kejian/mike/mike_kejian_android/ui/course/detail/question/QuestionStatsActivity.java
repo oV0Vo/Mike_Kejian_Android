@@ -24,10 +24,10 @@ import net.course.CourseQuestionNetService;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataType.course.question.BasicQuestion;
-import dataType.course.question.ChoiceQuestion;
-import dataType.course.question.QuestionShowAnswer;
-import dataType.course.question.QuestionStats;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionShowAnswer;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionStats;
 import model.course.CourseModel;
 
 public class QuestionStatsActivity extends AppCompatActivity {

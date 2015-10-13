@@ -5,14 +5,14 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import dataType.course.PersonMocks;
-import dataType.course.question.BasicQuestion;
-import dataType.course.question.CommitAnswerResultMessage;
-import dataType.course.question.CurrentQuestion;
-import dataType.course.question.QuestionAnswer;
-import dataType.course.question.QuestionShowAnswer;
-import dataType.course.question.QuestionStats;
-import dataType.course.question.SingleChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.PersonMocks;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.CommitAnswerResultMessage;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionAnswer;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionShowAnswer;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionStats;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoiceQuestion;
 import util.NetOperateResultMessage;
 
 /**

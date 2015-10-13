@@ -11,18 +11,18 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-import dataType.pushMessage.AnnoucPublishPushMessage;
-import dataType.pushMessage.AtPushMessage;
-import dataType.pushMessage.PushMessage;
-import dataType.pushMessage.QuestionNoticePushMessage;
-import dataType.pushMessage.IdolQuestionPublishPM;
-import dataType.pushMessage.QuestionReplyPushMessage;
-import dataType.pushMessage.ReceiverInfo;
-import dataType.pushMessage.ReplyCommentPushMessage;
-import dataType.pushMessage.ReplyInvitePushMessage;
-import dataType.pushMessage.ReplyPraisePushMessage;
-import dataType.pushMessage.SenderInfo;
-import dataType.pushMessage.UserNoticePushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.AnnoucPublishPushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.AtPushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.PushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.QuestionNoticePushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.IdolQuestionPublishPM;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.QuestionReplyPushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReceiverInfo;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReplyCommentPushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReplyInvitePushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReplyPraisePushMessage;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.SenderInfo;
+import com.kejian.mike.mike_kejian_android.dataType.pushMessage.UserNoticePushMessage;
 
 /**
  * Created by violetMoon on 2015/10/11.
@@ -207,7 +207,7 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
             String annoucId = jObj.getString(ARG_ANNOUC_CONTENT.ID);
             String annoucContent = jObj.getString(ARG_ANNOUC_CONTENT.CONTENT);
             String courseId = jObj.getString(ARG_COURSE_INFO.ID);
-            String courseName = jObj.getString(ARG_COURSE_INFO.NAME)
+            String courseName = jObj.getString(ARG_COURSE_INFO.NAME);
             AnnoucPublishPushMessage m = new AnnoucPublishPushMessage();
             m.setAnnoucContent(annoucContent);
             m.setAnnoucId(annoucId);

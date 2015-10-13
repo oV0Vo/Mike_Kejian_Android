@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import dataType.course.CourseAnnoucement;
-import dataType.course.CourseBriefInfo;
-import dataType.course.CourseDetailInfo;
-import dataType.course.UserTypeInCourse;
-import dataType.course.question.BasicQuestion;
-import dataType.course.question.CurrentQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
 import model.campus.Post;
 import util.NeedAsyncAnnotation;
 import util.NetOperateResultMessage;

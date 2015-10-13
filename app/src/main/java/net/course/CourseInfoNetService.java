@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import dataType.course.CourseAnnoucement;
-import dataType.course.CourseBriefInfo;
-import dataType.course.CourseDetailInfo;
-import dataType.course.CourseType;
-import dataType.course.PersonMocks;
-import dataType.course.PostMocks;
-import dataType.course.UserTypeInCourse;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
+import com.kejian.mike.mike_kejian_android.dataType.course.PersonMocks;
+import com.kejian.mike.mike_kejian_android.dataType.course.PostMocks;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import model.campus.Post;
 import util.NetOperateResultMessage;
 

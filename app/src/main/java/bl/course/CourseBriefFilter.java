@@ -2,8 +2,8 @@ package bl.course;
 
 import java.util.ArrayList;
 
-import dataType.course.CourseBriefInfo;
-import dataType.course.CourseType;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
 
 /**
  * Created by violetMoon on 2015/9/29.

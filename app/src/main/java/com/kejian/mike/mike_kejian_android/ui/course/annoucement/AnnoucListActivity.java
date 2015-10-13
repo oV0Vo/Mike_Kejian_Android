@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.course.CourseModel;
-import dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
 import util.TimeFormat;
 
 public class AnnoucListActivity extends AppCompatActivity {

@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 
 import bl.UserInfoServiceMock;
-import dataType.course.CourseAnnoucement;
-import dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import model.course.CourseModel;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;

@@ -20,11 +20,11 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
-import dataType.course.question.BasicQuestion;
-import dataType.course.question.CommitAnswerResultMessage;
-import dataType.course.question.MultiChoiceQuestion;
-import dataType.course.question.QuestionAnswer;
-import dataType.course.question.SingleChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.CommitAnswerResultMessage;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.MultiChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionAnswer;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoiceQuestion;
 import model.course.CourseModel;
 
 public class QuestionAnswerActivity extends AppCompatActivity {

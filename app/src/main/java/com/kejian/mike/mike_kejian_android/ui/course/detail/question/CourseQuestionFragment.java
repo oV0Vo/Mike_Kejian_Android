@@ -24,9 +24,9 @@ import net.course.CourseQuestionNetService;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataType.course.UserTypeInCourse;
-import dataType.course.question.BasicQuestion;
-import dataType.course.question.CurrentQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
 import model.course.CourseModel;
 import util.TimeFormat;
 import util.TimerThread;

@@ -27,8 +27,8 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPub
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
 import bl.UserInfoServiceMock;
-import dataType.course.CourseBriefInfo;
-import dataType.course.UserTypeInCourse;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import model.course.CourseModel;
 
 public class CourseActivity extends AppCompatActivity implements

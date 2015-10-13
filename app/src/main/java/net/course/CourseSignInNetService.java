@@ -3,7 +3,7 @@ package net.course;
 import java.util.ArrayList;
 import java.util.Date;
 
-import dataType.course.CourseSignInRecord;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseSignInRecord;
 
 /**
  * Created by violetMoon on 2015/9/29.

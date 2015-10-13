@@ -24,8 +24,8 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
+import com.kejian.mike.mike_kejian_android.ui.util.MyUmengMessageHandler;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengMessageHandler;
 
 import java.util.ArrayList;
 
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         pushAgent.enable();
         pushAgent.onAppStart();
         pushAgent.setMessageHandler(new MyUmengMessageHandler());
+        new GetDeviceTokenTask().execute();
     }
 
     private void initViewPager() {
@@ -324,6 +325,21 @@ public class MainActivity extends AppCompatActivity
         @Override
         public Void doInBackground(Void... params) {
             CourseModel.createInstance();
+            return null;
+        }
+    }
+
+    /**
+     * 测试友盟推送用
+     */
+    private class GetDeviceTokenTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            String deviceToken = null;
+            while(deviceToken  == null)
+                deviceToken = pushAgent.getRegistrationId();
+            Log.i("UmengDeviceTokenTest", deviceToken);
             return null;
         }
     }

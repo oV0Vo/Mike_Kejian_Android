@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.course.CourseModel;
-import dataType.course.CourseSignInRecord;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseSignInRecord;
 import util.TimeFormat;
 import util.TimerThread;
 
