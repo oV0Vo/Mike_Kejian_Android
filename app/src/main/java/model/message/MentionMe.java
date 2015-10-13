@@ -6,8 +6,8 @@ import java.sql.Timestamp;
  * Created by I322233 on 9/15/2015.
  */
 public class MentionMe extends Reply {
-    public MentionMe(String mentioner, String post, Timestamp timestamp){
-        super(mentioner,post,timestamp);
+    public MentionMe(int id, String mentioner, String post, Timestamp timestamp){
+        super(id, mentioner,post,timestamp);
     }
 
     @Override

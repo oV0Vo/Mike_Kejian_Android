@@ -4,6 +4,7 @@ package model.message;
  * Created by I322233 on 9/12/2015.
  */
 public class CourseNotice {
+    private int id;
     private String courseName;
     private String content;
     private String publisher;
@@ -24,8 +25,13 @@ public class CourseNotice {
         return publishTime;
     }
 
+    public int getId(){
+        return this.id;
+    }
+
     private String publishTime;
-    public CourseNotice(String courseName,String content,String publisher,String publishTime){
+    public CourseNotice(int id, String courseName,String content,String publisher,String publishTime){
+        this.id = id;
         this.courseName = courseName;
         this.content = content;
         this.publisher = publisher;
