@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容"
+                android:id="@+id/single_reply_content_view"
                 android:paddingTop="5pt">
 
             </TextView>
@@ -55,7 +55,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="小明"
                         android:textSize="10sp"
                         android:gravity="center"
                         android:paddingTop="2pt"
@@ -66,7 +65,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="19:07 today"
                         android:textSize="10sp"
                         android:gravity="center"
                         android:paddingLeft="2pt"
