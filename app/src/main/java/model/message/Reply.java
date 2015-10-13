@@ -9,11 +9,13 @@ import java.util.Date;
  * Created by I322233 on 9/13/2015.
  */
 public class Reply {
+    protected int id;
     protected String replyer;
     protected String post;
     protected String replyTime;
     protected Timestamp timestamp;
-    public Reply(String replyer,String post,Timestamp timestamp){
+    public Reply(int id,String replyer,String post,Timestamp timestamp){
+        this.id = id;
         this.replyer = replyer;
         this.post = post;
         this.timestamp = timestamp;
@@ -45,5 +47,8 @@ public class Reply {
     }
     public String getReplyTime(){
         return this.replyTime;
+    }
+    public int getId(){
+        return this.id;
     }
 }
