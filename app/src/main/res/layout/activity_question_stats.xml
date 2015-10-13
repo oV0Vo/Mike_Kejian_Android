@@ -3,14 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        style="?android:attr/progressBarStyleLarge"
-        android:visibility="visible"/>
-
 <LinearLayout
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
@@ -43,45 +35,32 @@
                 android:ellipsize="end"
                 android:textSize="@dimen/sub_medium_font"/>
 
-            <LinearLayout
-                android:id="@+id/choice_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/sub_big_padding"
-                android:paddingTop="@dimen/sub_big_padding">
-            </LinearLayout>
-
         </LinearLayout>
 
 
         <ImageView
             android:layout_width="@dimen/sub_medium_icon_width"
             android:layout_height="@dimen/sub_medium_icon_height"
+            android:layout_marginLeft="@dimen/over_medium_padding"
             android:background="@drawable/question"/>
 
     </RelativeLayout>
 
 
         <RelativeLayout
+            android:id="@+id/zhankai_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/big_padding"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/question_answer_question_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="展开"/>
-
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/question_answer_stats_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/big_padding"
             android:paddingBottom="@dimen/big_padding"
             android:orientation="horizontal"
@@ -100,8 +79,9 @@
 
                 <ImageView
                     android:id="@+id/stats_zhankai_image"
-                    android:layout_width="@dimen/sub_medium_icon_width"
-                    android:layout_height="@dimen/half_sub_medium_icon_height"
+                    android:layout_width="@dimen/big_icon_width"
+                    android:layout_height="@dimen/sub_medium_icon_height"
+                    android:layout_alignParentRight="true"
                     android:src="@drawable/down"/>
 
             </RelativeLayout>
@@ -111,23 +91,27 @@
         android:id="@+id/question_stats_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/big_padding"
-        android:paddingBottom="@dimen/big_padding">
+        android:paddingBottom="@dimen/big_padding"
+        android:visibility="gone">
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:rowCount="3"
             android:columnCount="2">
 
             <TextView
-                android:layout_marginBottom="@dimen/sub_big_padding"
-                android:paddingRight="@dimen/sub_big_padding"
+                android:layout_marginBottom="@dimen/over_medium_padding"
+                android:paddingRight="@dimen/over_medium_padding"
                 android:text="@string/question_answer_stats_join_num_title"/>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/sub_big_padding"
-                android:paddingLeft="@dimen/sub_big_padding"
+                android:layout_marginBottom="@dimen/over_medium_padding"
+                android:paddingLeft="@dimen/over_medium_padding"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -169,12 +153,13 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="@dimen/sub_big_padding"
+                android:layout_marginTop="@dimen/over_medium_padding"
+                android:layout_marginBottom="@dimen/over_medium_padding"
                 android:text="@string/question_answer_stats_correct_rate_title"/>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/sub_big_padding"
-                android:paddingLeft="@dimen/sub_big_padding"
+                android:layout_marginTop="@dimen/over_medium_padding"
+                android:layout_marginBottom="@dimen/over_medium_padding"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -217,10 +202,12 @@
 
             <TextView
                 android:id="@+id/distribute_title_text"
+                android:paddingTop="@dimen/over_medium_padding"
                 android:text="@string/question_answer_stats_distribute_title"/>
 
             <com.kejian.mike.mike_kejian_android.ui.util.FlowLayout
                 android:id="@+id/distribute_container"
+                android:layout_marginTop="@dimen/over_medium_padding"
                 android:paddingLeft="@dimen/sub_medium_icon_width"
                 android:paddingTop="@dimen/sub_medium_icon_width">
             </com.kejian.mike.mike_kejian_android.ui.util.FlowLayout>
@@ -229,16 +216,16 @@
 
     </RelativeLayout>
 
-
-
     <LinearLayout
         android:id="@+id/all_answer_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/big_padding"
         android:paddingBottom="@dimen/big_padding"
         android:orientation="horizontal"
-        android:background="@drawable/dark_thin_top_bottom_border">
+        android:background="@drawable/dark_thin_bottom_border">
 
         <TextView
             android:layout_width="wrap_content"
@@ -253,8 +240,9 @@
 
             <ImageView
                 android:id="@+id/all_answer_zhankai_image"
-                android:layout_width="@dimen/sub_medium_icon_width"
-                android:layout_height="@dimen/half_sub_medium_icon_height"
+                android:layout_width="@dimen/big_icon_width"
+                android:layout_height="@dimen/sub_medium_icon_height"
+                android:layout_alignParentRight="true"
                 android:src="@drawable/down"/>
 
         </RelativeLayout>
@@ -264,6 +252,8 @@
             android:id="@+id/question_answer_all_question_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -276,9 +266,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sub_big_padding"
+                android:gravity="center"
                 android:text="@string/question_answer_all_answer_no_more_question"/>
         </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleLarge"
+        android:visibility="visible"/>
 
 </LinearLayout>
 </ScrollView>

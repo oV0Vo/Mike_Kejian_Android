@@ -1,12 +1,9 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
-import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,18 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.kejian.mike.mike_kejian_android.R;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import bl.MessageBLService;
-import model.message.CourseNotice;
 import model.message.Praise;
-import util.DensityUtil;
 
 public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
 //    private View layout_title;
@@ -163,7 +154,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Praise praise = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.huiyuanai);
+            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());
             viewHolder.time_view.setText(praise.getReplyTime());

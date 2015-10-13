@@ -9,14 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.util.ColorBarFragment;
+import com.kejian.mike.mike_kejian_android.ui.util.TextExpandListener;
 
 import net.course.CourseQuestionNetService;
 
@@ -28,9 +29,8 @@ import dataType.course.question.ChoiceQuestion;
 import dataType.course.question.QuestionShowAnswer;
 import dataType.course.question.QuestionStats;
 import model.course.CourseModel;
-import util.UnImplementedAnnotation;
 
-public class QuesitionStatsActivity extends AppCompatActivity {
+public class QuestionStatsActivity extends AppCompatActivity {
 
     public static final String ARG_QUESTION_ID = "quesitonId";
 
@@ -64,10 +64,11 @@ public class QuesitionStatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_stats);
+        initAttrs();
 
         answers = new ArrayList();
         courseModel = CourseModel.getInstance();
-        question = courseModel.getFocusQuestion();
+        question = courseModel.getStatsFocusQuestion();
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.main_layout);
@@ -92,12 +93,44 @@ public class QuesitionStatsActivity extends AppCompatActivity {
 
     private void initQuestionContentView() {
         TextView questionContentText = (TextView)findViewById(R.id.question_content_text);
-        questionContentText.setText(question.getContent());
+        String content = question.getContent();
 
-        if(question instanceof ChoiceQuestion)
-            setChoiceContentView();
+        if(question instanceof  ChoiceQuestion) {
+            StringBuilder strBuilder = new StringBuilder(content);
+            ChoiceQuestion choiceQuestion = (ChoiceQuestion)question;
+            ArrayList<String> choiceContents = choiceQuestion.getChoiceContents();
+            for(int i=0; i<choiceContents.size(); ++i) {
+                strBuilder.append("\n");
+                strBuilder.append("  ");
+                String indexStr = Character.toString((char)('A' + i));
+                strBuilder.append(indexStr);
+                strBuilder.append("  ");
+                String choiceContent = choiceContents.get(i);
+                strBuilder.append(choiceContent);
+            }
+            content = strBuilder.toString();
+        }
 
-        initContentZhankaiButton();
+        questionContentText.setText(content);
+
+        initQCTextExpandView(questionContentText);
+    }
+
+    private void initQCTextExpandView(TextView questionContentText) {
+        ViewGroup zhankaiLayout = (ViewGroup)getLayoutInflater().inflate(R.layout.layout_zhankai, null);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        zhankaiLayout.setLayoutParams(layoutParams);
+
+        TextView zhankaiText = (TextView)zhankaiLayout.findViewById(R.id.zhankai_text);
+        ImageView zhankaiImage = (ImageView)zhankaiLayout.findViewById(R.id.zhankai_image);
+        TextExpandListener textListener = new TextExpandListener(questionContentText, zhankaiText,
+                zhankaiImage, 4);
+        zhankaiLayout.setOnClickListener(textListener);
+
+        ViewGroup zhankaiContainer = (ViewGroup)findViewById(R.id.zhankai_container);
+        zhankaiContainer.addView(zhankaiLayout);
     }
 
     private void setChoiceContentView() {
@@ -123,12 +156,6 @@ public class QuesitionStatsActivity extends AppCompatActivity {
         choiceContainer.setVisibility(View.VISIBLE);
     }
 
-    @UnImplementedAnnotation
-    private void initContentZhankaiButton() {
-        Button zhankaiButton = (Button)findViewById(R.id.question_answer_question_detail);
-        zhankaiButton.setVisibility(View.GONE);
-    }
-
     private void initStatsLayout() {
         statsContentLayout = (ViewGroup)findViewById(R.id.question_stats_container);
         statsTitleLayout = (ViewGroup)findViewById(R.id.question_answer_stats_title);
@@ -140,9 +167,11 @@ public class QuesitionStatsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isShow) {
+                    isShow = false;
                     statsContentLayout.setVisibility(View.GONE);
                     actionImageView.setImageDrawable(getResources().getDrawable(R.drawable.down));
                 } else {
+                    isShow = true;
                     statsContentLayout.setVisibility(View.VISIBLE);
                     actionImageView.setImageDrawable(getResources().getDrawable(R.drawable.up1));
                 }
@@ -164,9 +193,11 @@ public class QuesitionStatsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isShow) {
+                    isShow = false;
                     answerContentListLayout.setVisibility(View.GONE);
                     actionImageView.setImageDrawable(getResources().getDrawable(R.drawable.down));
                 } else {
+                    isShow = true;
                     answerContentListLayout.setVisibility(View.VISIBLE);
                     actionImageView.setImageDrawable(getResources().getDrawable(R.drawable.up1));
                 }
@@ -322,7 +353,7 @@ public class QuesitionStatsActivity extends AppCompatActivity {
             if(convertView != null)
                 return convertView;
 
-            convertView = View.inflate(QuesitionStatsActivity.this, R.layout.
+            convertView = View.inflate(QuestionStatsActivity.this, R.layout.
                     layout_question_answer_brief, null);//@null?
             QuestionShowAnswer answer = getItem(position);
 

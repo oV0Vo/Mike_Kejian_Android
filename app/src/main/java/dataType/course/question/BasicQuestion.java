@@ -1,11 +1,12 @@
 package dataType.course.question;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by violetMoon on 2015/9/18.
  */
-public abstract class BasicQuestion {
+public abstract class BasicQuestion implements Serializable{
     private String questionId;
     private String courseId;
     private String authorId;

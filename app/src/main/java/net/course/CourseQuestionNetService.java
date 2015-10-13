@@ -73,15 +73,13 @@ public class CourseQuestionNetService {
     }
 
     public static CommitAnswerResultMessage commitAnswer(QuestionAnswer answer) {
-        int choice = (int)(System.currentTimeMillis() % 4);
+        int choice = (int)(System.currentTimeMillis() % 3);
         switch(choice) {
             case 0:
                 return CommitAnswerResultMessage.NET_ERROR;
             case 1:
                 return CommitAnswerResultMessage.QUESITON_TIME_OUT;
             case 2:
-                return CommitAnswerResultMessage.QUESTION_SHUT_DOWN;
-            case 3:
                 return CommitAnswerResultMessage.SUCCESS;
             default:
                 return null;

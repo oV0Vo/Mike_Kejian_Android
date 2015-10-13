@@ -11,210 +11,242 @@
     android:background="@color/white"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity">
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:rowCount="4"
-        android:columnCount="2">
+        android:paddingBottom="@dimen/big_padding"
+        android:orientation="horizontal">
 
-        <!--1,1-->
         <ImageView
             android:id="@+id/course_intro_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/planet"/>
+            android:layout_width="@dimen/over_big_icon_size"
+            android:layout_height="@dimen/over_big_icon_size"
+            android:background="@drawable/flower"/>
 
-        <!--1,2-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/over_big_icon_size"
+            android:paddingLeft="@dimen/sub_big_padding"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/course_intro_course_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:paddingTop="0dp"
                 android:textSize="@dimen/over_big_font"
-                android:paddingBottom="@dimen/sub_big_padding"/>
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/course_intro_course_academy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/big_padding"
+                        android:textSize="@dimen/sub_medium_font"/>
+
+                    <TextView
+                        android:id="@+id/course_intro_course_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sub_medium_font"
+                        android:textColor="@color/green"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true">
+
+                            <ImageView
+                                android:layout_width="@dimen/small_icon_size"
+                                android:layout_height="@dimen/small_icon_size"
+                                android:background="@drawable/user_small"/>
+
+                            <TextView
+                                android:id="@+id/course_intro_student_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sub_medium_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/course_intro_student_num_postfix"
+                                android:textSize="@dimen/sub_medium_font"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/big_padding"
+        android:text="@string/course_intro_teacher_title"
+        android:textSize="@dimen/sub_big_font"
+        android:textColor="@color/green"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/big_padding"
+        android:orientation="horizontal"
+        android:background="@drawable/dark_thin_bottom_border">
+
+        <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+            android:id="@+id/course_intro_teacher_image"
+            android:layout_width="@dimen/big_icon_width"
+            android:layout_height="@dimen/big_icon_height"
+            android:layout_marginLeft="@dimen/sub_big_padding"
+            android:layout_marginRight="@dimen/sub_big_padding"
+            android:background="@drawable/xiaoxin"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/over_medium_padding">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/sub_big_padding">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/course_intro_course_academy"
+                    android:id="@+id/course_intro_teacher_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/sub_medium_font"
-                    android:textSize="@dimen/medium_font"/>
-
-                <TextView
-                    android:id="@+id/course_intro_course_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="30dp"
+                    android:layout_marginBottom="@dimen/over_medium_padding"
                     android:textSize="@dimen/sub_medium_font"
-                    android:textColor="@color/green"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/user_small"/>
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/course_intro_student_num"
+                    android:id="@+id/course_intro_teacher_brief_intro"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:textColor="@color/dark"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_intro_student_num_postfix"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:textColor="@color/dark"/>
-
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
-        </LinearLayout>
 
-        <!--2,1-->
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/sub_big_padding"
+        android:paddingBottom="@dimen/sub_big_padding"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/big_padding"
-            android:paddingBottom="@dimen/big_padding"
-            android:text="@string/course_intro_teacher_title"
-            android:textSize="@dimen/sub_big_font"
-            android:textColor="@color/green"/>
-
-        <!--2,2 empty text-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <!--3,1-->
-        <ImageView
-            android:id="@+id/course_intro_teacher_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/sub_big_padding"
-            android:paddingBottom="@dimen/big_padding"
-            android:layout_gravity="center"
-            android:background="@drawable/huiyuanai"/>
-
-        <!--3,2-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/sub_big_padding"
-            android:paddingBottom="@dimen/big_padding">
-
-            <TextView
-                android:id="@+id/course_intro_teacher_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_font"/>
-
-            <TextView
-                android:id="@+id/course_intro_teacher_brief_intro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <!--4,1-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/big_padding"
+            android:paddingRight="@dimen/over_small_icon_size"
             android:textSize="@dimen/sub_big_font"
             android:textColor="@color/green"
             android:text="@string/course_intro_assistant_title"/>
 
-        <!--4,2-->
-        <LinearLayout
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="@dimen/small_padding"
+             android:paddingLeft="@dimen/small_padding"
+             android:paddingTop="@dimen/small_padding"
+             android:paddingRight="@dimen/small_padding"
+             android:paddingBottom="@dimen/small_padding"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:paddingLeft="@dimen/small_padding"
+                 android:text="@string/add"
+                 android:textSize="@dimen/sub_medium_font" />
+
+             <ImageView
+                 android:layout_width="@dimen/small_icon_size"
+                 android:layout_height="@dimen/small_icon_size"
+                 android:src="@drawable/add"/>
+
+         </LinearLayout>
+
+        <com.kejian.mike.mike_kejian_android.ui.util.FlowLayout
+            android:id="@+id/course_intro_assistants_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/big_padding">
-
-            <LinearLayout
-                android:id="@+id/course_intro_assistants_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingRight="10dp"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:text="李雷"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/sub_medium_font"
-                    android:paddingRight="10dp"
-                    android:text="韩梅梅"/>
-            </LinearLayout>
-
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/course_intro_add_assistant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark"
-                    android:text="@string/course_intro_add_assistant"
-                    android:drawableLeft="@null"/>
-            </LinearLayout>-->
-        </LinearLayout>
-
-    </GridLayout>
+            android:orientation="horizontal">
+        </com.kejian.mike.mike_kejian_android.ui.util.FlowLayout>
+    </LinearLayout>
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/big_padding"
-        android:paddingBottom="@dimen/big_padding"
         android:background="@drawable/dark_thin_top_bottom_border"
+        android:paddingLeft="@dimen/over_medium_padding"
+        android:paddingRight="@dimen/over_medium_padding"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/course_intro_brief_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="@dimen/sub_big_padding"
+            android:paddingBottom="@dimen/sub_big_padding"
+            android:background="@drawable/green_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_brief_tab_title"
-            android:textSize="@dimen/sub_big_font"/>
+            android:textSize="@dimen/sub_big_font"
+            android:textColor="@color/green_on_select"/>
         <RadioButton
             android:id="@+id/course_intro_teach_content_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="@dimen/sub_big_padding"
+            android:paddingBottom="@dimen/sub_big_padding"
+            android:background="@drawable/green_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_teach_content_tab_title"
-            android:textSize="@dimen/sub_big_font"/>
+            android:textSize="@dimen/sub_big_font"
+            android:textColor="@color/green_on_select"/>
         <RadioButton
             android:id="@+id/course_intro_reference_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="@dimen/sub_big_padding"
+            android:paddingBottom="@dimen/sub_big_padding"
+            android:background="@drawable/green_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_reference_tab_title"
-            android:textSize="@dimen/sub_big_font"/>
+            android:textSize="@dimen/sub_big_font"
+            android:textColor="@color/green_on_select"/>
     </RadioGroup>
 
     <android.support.v4.view.ViewPager
