@@ -20,7 +20,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:padding="5pt"
-                android:text="测试标题"
                 android:textColor="@color/black"
                 android:id="@+id/title_view">
             </TextView>
@@ -34,7 +33,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容"
                 android:textSize="14sp"
                 android:padding="5pt"
                 android:id="@+id/content_view">
@@ -57,7 +55,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textColor="@color/green"
-                        android:text="小明"
                         android:textSize="10sp"
                         android:gravity="center"
                         android:padding="5pt"
@@ -67,7 +64,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="19:07 today"
                         android:textSize="10sp"
                         android:gravity="center"
                         android:paddingLeft="2pt"
@@ -98,7 +94,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textSize="10sp"
-                        android:text="10"
                         android:paddingLeft="2pt"
                         android:paddingRight="5pt"
                         android:gravity="center"
@@ -119,7 +114,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textSize="10sp"
-                        android:text="10"
                         android:padding="5pt"
                         android:gravity="center"
                         android:id="@+id/comment_num_view">
@@ -146,8 +140,7 @@
                     android:padding="5pt"
                     android:text="邀请回答"
                     android:textSize="15sp"
-                    android:gravity="center"
-                    android:textColor="@color/black">
+                    android:gravity="center">
                 </TextView>
 
                 <LinearLayout
@@ -163,8 +156,7 @@
                     android:padding="5pt"
                     android:text="关注帖子"
                     android:textSize="15sp"
-                    android:gravity="center"
-                    android:textColor="@color/grey">
+                    android:gravity="center">
                 </TextView>
             </LinearLayout>
 
@@ -180,7 +172,24 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingLeft="@dimen/medium_padding"
+                android:paddingRight="@dimen/medium_padding"
                 android:background="@color/black2">
+
+                <TextView
+                    android:id="@+id/reply_num_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:padding="@dimen/over_medium_padding"
+                    android:textSize="@dimen/big_font"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/grey">
+                </LinearLayout>
+
             </LinearLayout>
 
 

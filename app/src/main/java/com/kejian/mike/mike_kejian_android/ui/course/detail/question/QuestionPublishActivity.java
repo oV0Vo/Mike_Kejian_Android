@@ -22,11 +22,11 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import model.course.CourseModel;
-import dataType.course.question.ApplicationQuestion;
-import dataType.course.question.BasicQuestion;
-import dataType.course.question.CurrentQuestion;
-import dataType.course.question.MultiChoiceQuestion;
-import dataType.course.question.SingleChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.MultiChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoiceQuestion;
 
 public class QuestionPublishActivity extends AppCompatActivity {
 

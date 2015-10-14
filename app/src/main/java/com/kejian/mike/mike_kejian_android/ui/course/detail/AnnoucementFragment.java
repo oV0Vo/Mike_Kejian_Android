@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import dataType.course.CourseAnnoucement;
-import dataType.course.CourseDetailInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
 import util.TimeFormat;
 

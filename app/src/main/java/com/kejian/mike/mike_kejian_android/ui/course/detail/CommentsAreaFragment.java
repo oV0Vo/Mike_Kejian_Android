@@ -23,7 +23,7 @@ import java.util.List;
 
 import model.campus.Post;
 import model.course.CourseModel;
-import dataType.course.CourseDetailInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import util.TimeFormat;
 
 public class CommentsAreaFragment extends Fragment implements AbsListView.OnItemClickListener {

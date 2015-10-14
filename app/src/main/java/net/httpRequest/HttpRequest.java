@@ -124,8 +124,10 @@ public class HttpRequest {
             connection.setRequestProperty("accept", "*/*");//接受什么类型的介质，此处为任何类型，*为通配符
             connection.setRequestProperty("connection","Keep-Alive");//
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");//表明客户端是哪种浏览器
-
-            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
+            Object cookieObject = Global.getObjectByName("cookie");
+            if(cookieObject != null){
+                connection.setRequestProperty("cookie",(String)Global.getObjectByName("cookie"));
+            }
             connection.connect();//建立连接
 
             input=new BufferedReader(new InputStreamReader(connection.getInputStream()));//包装成文本字符流
@@ -147,7 +149,7 @@ public class HttpRequest {
 
         }catch (Exception e){
 
-            System.out.println("Get 请求出错!");
+            e.printStackTrace();
 
         }
         finally {

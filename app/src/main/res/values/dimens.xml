@@ -37,11 +37,11 @@
     <dimen name="small_font">12sp</dimen>
     <dimen name="big_font">18sp</dimen>
     <dimen name="sub_big_font">17sp</dimen>
-    <dimen name="over_small_font">10sp</dimen>
+    <dimen name="sub_small_font">10sp</dimen>
     <dimen name="over_big_font">22sp</dimen>
 
     <!--icon size-->
-    <dimen name="over_big_icon_size">60dp</dimen>
+    <dimen name="over_big_icon_size">70dp</dimen>
     <dimen name="big_icon_width">50dp</dimen>
     <dimen name="big_icon_height">50dp</dimen>
     <dimen name="medium_icon_width">40dp</dimen>
@@ -49,6 +49,7 @@
     <dimen name="sub_medium_icon_width">30dp</dimen>
     <dimen name="sub_medium_icon_height">30dp</dimen>
     <dimen name="half_sub_medium_icon_height">15dp</dimen>
+    <dimen name="over_small_icon_size">25dp</dimen>
     <dimen name="over_small_icon_width">25dp</dimen>
     <dimen name="over_small_icon_height">25dp</dimen>
     <dimen name="small_icon_size">20dp</dimen>
@@ -57,7 +58,7 @@
     <dimen name="sub_small_icon_width">15dp</dimen>
     <dimen name="sub_small_icon_height">15dp</dimen>
 
-    <dimen name="color_bar_width">160dp</dimen>
+    <dimen name="color_bar_width">180dp</dimen>
     <dimen name="color_bar_height">10dp</dimen>
 
     <dimen name="choice_distribute_bar_width">30dp</dimen>

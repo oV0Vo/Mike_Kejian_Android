@@ -19,7 +19,7 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import bl.AcademyBLService;
-import dataType.course.CourseType;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
 import model.course.CourseModel;
 
 /**

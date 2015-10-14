@@ -1,11 +1,9 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,16 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.kejian.mike.mike_kejian_android.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import bl.MessageBLService;
 import model.message.MentionMe;
 import model.message.Reply;
-import util.DensityUtil;
 
 public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
 //    private View layout_title;
@@ -160,7 +155,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Reply reply = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.huiyuanai);
+            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
             viewHolder.time_view.setText(reply.getReplyTime());

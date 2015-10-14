@@ -200,7 +200,7 @@ public class LatestPostListFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         Intent intent = new Intent();
         intent.setClass(ctx, PostDetailActivity.class);
-        intent.putExtra("postId", (String) v.getTag());
+        intent.putExtra("postId","0001");
         startActivity(intent);
     }
 

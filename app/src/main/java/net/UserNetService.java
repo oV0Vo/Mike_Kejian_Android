@@ -1,6 +1,10 @@
 package net;
 
 import net.UserDataBase.UserDataBase;
+import net.httpRequest.HttpRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +20,8 @@ import model.user.user;
  * Created by kisstheraik on 15/9/23.
  */
 public class UserNetService {
-
-
+    private static String baseUrl = "http://112.124.101.41/mike_server_v02/index.php/Home/User/";
+    private static HttpRequest httpRequest = HttpRequest.getInstance();
 
     private UserNetService instance=new UserNetService();
 
@@ -39,24 +43,44 @@ public class UserNetService {
 
         System.out.println("search in database "+userToken.getName());
 
+        HashMap<String,String> par = new HashMap<>();
+        par.put("userId",userToken.getName());
+        par.put("password",userToken.getPassword());
 
-        HashMap userInfo=userDataBase.getUser(userToken.getName(),userToken.getPassword());
-
-
-        if(userInfo!=null){
-
-            return new user(userInfo);
-
-        }
-        else{
-
+        String userData = httpRequest.sentGetRequest(baseUrl+"login/",par);
+        if(userData.equals("")){
             return null;
-
+        }else{
+            try{
+                JSONObject userDataJson = new JSONObject(userData);
+                HashMap<String,Object> userInfo = new HashMap<>();
+                userInfo.put("name",userDataJson.getString("name"));
+                userInfo.put("gender",userDataJson.getString("gender"));
+                userInfo.put("grade",userDataJson.getString("grade"));
+                userInfo.put("icon",userDataJson.getString("icon_url"));
+                userInfo.put("sign",userDataJson.getString("signal"));
+                userInfo.put("identify",userDataJson.getString("identify"));
+                userInfo.put("id",userDataJson.getInt("id"));
+                userInfo.put("password",userDataJson.getString("password"));
+                return new user(userInfo);
+            }catch (JSONException e){
+                e.printStackTrace();
+                return null;
+            }
         }
-
-
-
-
+//        HashMap userInfo=userDataBase.getUser(userToken.getName(),userToken.getPassword());
+//
+//
+//        if(userInfo!=null){
+//
+//            return new user(userInfo);
+//
+//        }
+//        else{
+//
+//            return null;
+//
+//        }
 
     }
 
