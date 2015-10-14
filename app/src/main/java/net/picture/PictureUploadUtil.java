@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import net.sf.json.JSONObject;
+import org.json.JSONObject;
 
 public class PictureUploadUtil {
 
@@ -65,7 +65,7 @@ public class PictureUploadUtil {
             while ((b = in.read()) != -1) {
                 out.write(b);
             }
-            JSONObject obj = JSONObject.fromObject(new String(out.toByteArray()));
+            JSONObject obj = new JSONObject(new String(out.toByteArray()));
             PictureLink link = new PictureLink(obj.getString("linkurl"), obj.getString("t_url"), obj.getString("s_url"));
             conn.disconnect();
             return link;

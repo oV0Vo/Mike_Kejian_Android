@@ -219,7 +219,7 @@ public class UserInfoActivity extends AppCompatActivity{
 
         protected String doInBackground(Bitmap...Para){
 
-            System.out.println("net photo paht:"+PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],Para[0].toString())));
+            System.out.println("net photo paht:"+PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],Para[0].toString())).getLinkurl());
 
             return "";
 
