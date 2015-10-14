@@ -4,14 +4,21 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import java.util.Date;
+
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import model.user.Global;
 import model.user.UserToken;
 
 /**
@@ -26,6 +33,7 @@ public class UserPasswordCode extends AppCompatActivity {
     private Button finish;
     private UserToken userToken;
     private String code;
+    private boolean state=false;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -36,7 +44,59 @@ public class UserPasswordCode extends AppCompatActivity {
         if(userToken==null){
             userToken=new UserToken();
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
+        SMSSDK.initSDK(this, "ab3e9212084e", "5fbc8aeaf6291b8d97647a5972905456");
+        EventHandler eventHandler=new EventHandler(){
+
+
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+                System.out.println("finish get countries");
+
+                if (result == SMSSDK.RESULT_COMPLETE) {
+
+                    System.out.println(data.toString());
+                    //回调完成
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        state=true;
+                        System.out.println("验证成功！");
+
+                        Looper.prepare();
+
+                        Toast.makeText(context, "验证成功！", Toast.LENGTH_SHORT).show();
+                        System.out.println("add to global " + data.toString());
+
+
+                        Global.addGlobalItem("code", data.toString());
+                        //提交验证码成功
+                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+
+
+
+
+                        System.out.println(data.toString());
+                        //获取验证码成功
+                    }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+                        //返回支持发送验证码的国家列表
+                        Looper.prepare();
+
+                        Toast.makeText(context, "获取国家列表成功", Toast.LENGTH_SHORT).show();
+
+                        System.out.println(data.toString());
+
+
+
+
+
+
+                    }
+                }else{
+                    ((Throwable)data).printStackTrace();
+                }
+            }
+        };
+        SMSSDK.registerEventHandler(eventHandler);
 
 
     }
@@ -59,6 +119,7 @@ public class UserPasswordCode extends AppCompatActivity {
     }
 
     public void resetPassword(){
+
 
         Intent intent=new Intent();
         Bundle bundle=new Bundle();
@@ -84,13 +145,16 @@ public class UserPasswordCode extends AppCompatActivity {
 
             String inputCode=(String)codeView.getText().toString().trim();
 
-            if(code!=null&&inputCode.equals(code)){
+            SMSSDK.submitVerificationCode("86",(String)phoneNumberView.getText().toString().trim(),inputCode);
+
+            if(true){
 
                 resetPassword();
                 code=null;
 
             }
             else{
+
 
                 System.out.println(code+":"+inputCode);
                 new UserUIError("验证码错误","请重新获取验证码",context);
@@ -116,11 +180,10 @@ public class UserPasswordCode extends AppCompatActivity {
             }
             else{
 
-                new AlertDialog.Builder(context)
-                        .setMessage("已经发送验证码")
-                        .show();
+                Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
             }
 
+            SMSSDK.getVerificationCode("86",phoneNumber);
             code="131250114";
 
 

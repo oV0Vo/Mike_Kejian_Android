@@ -5,10 +5,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
@@ -20,12 +27,13 @@ import bl.UserBLService;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
+import model.user.Global;
 import model.user.UserToken;
 
 /**
  * Created by kisstheraik on 15/9/20.
  */
-public class UserRegisterActivity extends Activity{
+public class UserRegisterActivity extends AppCompatActivity{
 
     private Button confirm;
     private Context context;
@@ -37,15 +45,23 @@ public class UserRegisterActivity extends Activity{
     private UserToken userToken;
     private Button sendCode;
     private String code;
+    private TextView countryNumberView;
+    private Spinner countryChooseView;
+
 
 
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
-        //
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+        setCodeMechine();
         initViews();
+
+
 
         if(userToken==null){
 
@@ -64,25 +80,9 @@ public class UserRegisterActivity extends Activity{
                 }
 
 
-                SMSSDK.initSDK(context, "ab3e9212084e", "5fbc8aeaf6291b8d97647a5972905456");
 
-                //打开注册页面
-                RegisterPage registerPage = new RegisterPage();
-                registerPage.setRegisterCallback(new EventHandler() {
-                    public void afterEvent(int event, int result, Object data) {
-// 解析注册结果
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-                            @SuppressWarnings("unchecked")
-                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
-                            String country = (String) phoneMap.get("country");
-                            String phone = (String) phoneMap.get("phone");
+                getCode("86",phoneNumberView.getText().toString().trim());
 
-// 提交用户信息
-                            //registerUser(country, phone);
-                        }
-                    }
-                });
-                registerPage.show(context);
                 code="131250";
 
 
@@ -112,6 +112,10 @@ public class UserRegisterActivity extends Activity{
         nameView=(EditText)findViewById(R.id.name_view);
         codeInputView=(EditText)findViewById(R.id.code_input);
         sendCode=(Button)findViewById(R.id.code_send);
+        countryNumberView=(TextView)findViewById(R.id.country_number);
+
+        getSupportCountries();
+       // countryChooseView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, cityList));
 
 
     }
@@ -128,9 +132,10 @@ public class UserRegisterActivity extends Activity{
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mention_me, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_user_register, menu);
         return true;
+
     }
 
 
@@ -150,17 +155,20 @@ public class UserRegisterActivity extends Activity{
         userToken.setPhoneNumber(phoneNumber);
         userToken.setName(name);
         userToken.setPassword(password);
-        System.out.println("注册名字："+userToken.getName());
+        System.out.println("注册名字：" + userToken.getName());
+
+        checkCode("86", phoneNumberView.getText().toString().trim(), codeInputView.getText().toString().trim());
 
 
 
-        if(!inputCode.equals(code)){
 
-            new UserUIError("验证码错误","请重新获取验证码",this);
-            code=null;
-            return ;
-
-        }
+//        if(((String)Global.getObjectByName("code")).equals("true")){
+//
+//            new UserUIError("验证码错误","请重新获取验证码",this);
+//            code=null;
+//            return ;
+//
+//        }
 
 
 
@@ -179,13 +187,13 @@ public class UserRegisterActivity extends Activity{
 
             bundle.putSerializable(UserActivityComm.USER_TOKEN.name(), userToken);
 
-            intent.putExtra(UserActivityComm.USER_TOKEN.name(),userToken);
+            intent.putExtra(UserActivityComm.USER_TOKEN.name(), userToken);
 
             intent.setClass(context, UserLoginActivity.class);
 
-            startActivity(intent);
+            //startActivity(intent);
 
-            close();
+            //close();
 
 
         }
@@ -221,6 +229,120 @@ public class UserRegisterActivity extends Activity{
         return null;
 
     }
+
+    public void setCodeMechine(){
+
+
+        SMSSDK.initSDK(this, "ab3e9212084e", "5fbc8aeaf6291b8d97647a5972905456");
+        EventHandler eventHandler=new EventHandler(){
+
+
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+                System.out.println("finish get countries");
+
+                if (result == SMSSDK.RESULT_COMPLETE) {
+
+                    System.out.println(data.toString());
+                    //回调完成
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        System.out.println("验证成功！");
+
+                        Looper.prepare();
+
+                        Toast.makeText(context, "验证成功！", Toast.LENGTH_SHORT).show();
+                        System.out.println("add to global " + data.toString());
+
+
+                        Global.addGlobalItem("code",data.toString());
+                        //提交验证码成功
+                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+
+
+
+
+                        System.out.println(data.toString());
+                        //获取验证码成功
+                    }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+                        //返回支持发送验证码的国家列表
+                        Looper.prepare();
+
+                        Toast.makeText(context, "获取国家列表成功", Toast.LENGTH_SHORT).show();
+
+                        System.out.println(data.toString());
+
+
+
+
+
+
+                    }
+                }else{
+                    ((Throwable)data).printStackTrace();
+                }
+            }
+        };
+        SMSSDK.registerEventHandler(eventHandler);
+       // System.out.println("hello");
+
+        //SMSSDK.getGroupedCountryList();
+
+    }
+
+    public void test(){
+        Looper.prepare();
+        Toast.makeText(context, "获取国家列表成功", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void checkCode(String country,String phoneNumber,String code){
+
+        SMSSDK.submitVerificationCode(country, phoneNumber, code);
+
+
+
+
+    }
+    public void getSupportCountries(){
+
+
+
+        SMSSDK.getSupportedCountries();
+
+    }
+
+    public void getCode(String country,String phoneNumber){
+
+        SMSSDK.getVerificationCode(country, phoneNumber);
+        Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+//        //打开注册页面
+//        RegisterPage registerPage = new RegisterPage();
+//        registerPage.setRegisterCallback(new EventHandler() {
+//            public void afterEvent(int event, int result, Object data) {
+//// 解析注册结果
+//                if (result == SMSSDK.RESULT_COMPLETE) {
+//                    @SuppressWarnings("unchecked")
+//                    HashMap<String, Object> phoneMap = (HashMap<String, Object>) data;
+//                    String country = (String) phoneMap.get("country");
+//                    String phone = (String) phoneMap.get("phone");
+//
+//// 提交用户信息
+//                    //registerUser(country, phone);
+//                }
+//            }
+//        });
+//
+//        registerPage.show(context);
+        //
+
+    }
+
 
 
     public void close(){
