@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="170dp"
+        android:layout_height="190dp"
 
         android:background="@drawable/bg"
 
@@ -48,13 +48,14 @@
                 android:maxHeight="40dp"
                 android:maxWidth="40dp"
                 android:adjustViewBounds="true"
+                android:background="@drawable/login_user"
                 android:src="@drawable/user"
                 android:layout_gravity="center_vertical" />
             <EditText
             android:layout_width="fill_parent"
             android:layout_height="40dp"
 
-            android:background="@drawable/login_edit"
+            android:background="@drawable/login_input"
             android:id="@+id/login_name"/>
 
 
@@ -75,6 +76,7 @@
                 android:maxWidth="40dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/pwd"
+                android:background="@drawable/login_user"
                 android:layout_gravity="center_vertical" />
             <EditText
             android:layout_width="fill_parent"
@@ -82,7 +84,7 @@
                 android:inputType="textPassword"
 
 
-            android:background="@drawable/login_edit"
+            android:background="@drawable/login_input"
             android:id="@+id/login_password"/>
 
         </LinearLayout>
@@ -93,10 +95,11 @@
 
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="@string/user_login"
             android:background="@drawable/rec_button"
             android:id="@+id/login_confirm"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:layout_gravity="center"
             />
 
@@ -111,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_regist"
-            android:textSize="@dimen/big_font"
+            android:textSize="@dimen/medium_font"
             android:paddingRight="@dimen/big_padding"
             android:id="@+id/register"
           />
@@ -126,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_forget_password"
-            android:textSize="@dimen/big_font"
+            android:textSize="@dimen/medium_font"
             android:id="@+id/forget_password"
             android:paddingLeft="@dimen/over_big_padding"
             />

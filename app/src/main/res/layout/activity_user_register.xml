@@ -11,7 +11,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="40dp">
+        android:layout_height="60dp">
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="60dp"
@@ -19,7 +19,7 @@
             android:editable="false"
             android:id="@+id/country_input"
             android:text="  "
-            android:background="@drawable/rec_edit"
+            android:background="@drawable/register_country_input"
             />
         <TextView
             android:layout_width="80dp"
@@ -29,16 +29,20 @@
             android:id="@+id/country_zone"
 
             android:text="国家/地区"
+            android:textColor="@color/black"
+            android:background="@drawable/register_country"
 
             />
-        <CheckedTextView
-            android:layout_width="80dp"
+
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:gravity="center"
+            android:entries="@array/brands"
+            android:layout_marginLeft="20dp"
+
             android:layout_toRightOf="@+id/country_zone"
             android:text="国家"
             android:id="@+id/country_choose"
-
 
             />
 
@@ -55,7 +59,8 @@
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
             android:gravity="center"
-            android:background="@drawable/rec_edit"
+            android:background="@drawable/register_middle_show"
+            android:textColor="@color/black"
 
 
             android:text="名字"
@@ -64,8 +69,8 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/rec_edit"
-            android:hint="6-16位数字或密码"
+            android:background="@drawable/register_middle_input"
+            android:hint="用户名"
             android:id="@+id/name_view"
 
             />
@@ -85,13 +90,15 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="+86"
-            android:background="@drawable/rec_edit"
+            android:id="@+id/country_number"
+            android:textColor="@color/black"
+            android:background="@drawable/register_middle_show"
             />
         <EditText
             android:layout_width="fill_parent"
 
             android:layout_height="60dp"
-            android:background="@drawable/rec_edit"
+            android:background="@drawable/register_middle_input"
             android:hint="请输入手机号"
             android:id="@+id/phone_number_view"
 
@@ -112,7 +119,8 @@
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
             android:gravity="center"
-            android:background="@drawable/rec_edit"
+            android:background="@drawable/register_middle_bottom_show"
+            android:textColor="@color/black"
 
 
             android:text="密码"
@@ -121,7 +129,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/rec_edit"
+            android:background="@drawable/register_middle_bottom_input"
             android:hint="6-16位数字或密码"
             android:id="@+id/password_view"
 
@@ -140,19 +148,24 @@
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:text="短信验证码"
+            android:textColor="@color/black"
 
             android:id="@+id/text_code"
-            android:background="@drawable/rec_edit"
+            android:background="@drawable/register_message"
 
             android:layout_alignParentTop="true"
             android:gravity="center"
             />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="60dp"
 
-            android:background="@drawable/rec_edit"
+
+            android:background="@drawable/register_message_input"
             android:hint="请输入短信验证码"
             android:id="@+id/code_input"
 
@@ -168,8 +181,12 @@
             android:background="@drawable/rec_button"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentEnd="true"
+
 
             />
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>
@@ -186,9 +203,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
 
+
             android:id="@+id/register_confirm"
             android:background="@drawable/rec_button"
             android:text="注册"
+            android:textColor="@color/white"
             android:gravity="center"
             />
     </LinearLayout>
