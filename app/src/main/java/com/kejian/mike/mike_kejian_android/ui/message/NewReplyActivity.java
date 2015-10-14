@@ -65,28 +65,34 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshReplyNumView();
             }
         }.execute(new Void[]{});
     }
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalReply > MessageBLService.replies.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addReplies("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addReplies("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
+
 
     }
 
@@ -114,8 +120,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
 //        tv.setText("新的回复");
         this.container = (RefreshListView)findViewById(R.id.reply_container);
         this.myInflater = getLayoutInflater();
-        TextView replyNumText = (TextView)this.findViewById(R.id.reply_num);
-        replyNumText.setText("共 "+MessageBLService.totalReply+ " 条");
+        this.refreshReplyNumView();
 //        for(int i = 0;i<this.replyNum;i++){
 //            this.container.addView(this.genReplyLayout(this.replies.get(i)));
 //            this.container.addView(this.genLineSplitView());
@@ -124,6 +129,10 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
         this.adapter = new NewReplyAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.replies);
         this.container.setAdapter(this.adapter);
         this.container.setOnRefreshListener(this);
+    }
+    private void refreshReplyNumView(){
+        TextView replyNumText = (TextView)this.findViewById(R.id.reply_num);
+        replyNumText.setText("共 "+MessageBLService.totalReply+ " 条");
     }
     static class ViewHolder{
         ImageView avatar_view;
@@ -155,7 +164,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
             viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.replyer_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
-            viewHolder.time_view.setText(reply.getReplyTime());
+            viewHolder.time_view.setText(reply.getAdjustTime());
             return convertView;
         }
     }

@@ -68,28 +68,34 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
             protected void onPostExecute(Void result) {
                 praiseArrayAdapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshPraiseNumView();
             }
         }.execute(new Void[]{});
     }
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalPraise > MessageBLService.praises.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addPraises("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addPraises("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                praiseArrayAdapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    praiseArrayAdapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
+
 
     }
 
@@ -117,8 +123,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
 //        tv.setText("收到的赞");
         this.container = (RefreshListView)findViewById(R.id.praise_container);
         this.myInflater = getLayoutInflater();
-        TextView praise_num_text = (TextView)this.findViewById(R.id.praise_num);
-        praise_num_text.setText("共 "+MessageBLService.totalPraise+ " 条");
+        this.refreshPraiseNumView();
 //        for(int i = 0;i<this.praiseNum;i++){
 //            this.container.addView(genPraiseLayout(this.praises.get(i)));
 //            this.container.addView(genLineSplitView());
@@ -127,6 +132,10 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
         this.container.setAdapter(this.praiseArrayAdapter);
         this.container.setOnRefreshListener(this);
 
+    }
+    private void refreshPraiseNumView(){
+        TextView praise_num_text = (TextView)this.findViewById(R.id.praise_num);
+        praise_num_text.setText("共 "+MessageBLService.totalPraise+ " 条");
     }
     static class ViewHolder{
         ImageView avatar_view;
@@ -157,7 +166,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
             viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());
-            viewHolder.time_view.setText(praise.getReplyTime());
+            viewHolder.time_view.setText(praise.getAdjustTime());
             return convertView;
         }
     }
