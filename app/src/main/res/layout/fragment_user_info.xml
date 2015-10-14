@@ -64,24 +64,33 @@
           >
            <TextView
                android:text="姓名"
-               android:id="@+id/base_info_name"
+
                android:layout_marginLeft="30dp"
 
                />
-           <TextView />
+
+           <TextView
+
+               android:id="@+id/base_info_name"/>
            <TextView
                android:text="性别"
-               android:id="@+id/base_info_gender"
+
 
 
                android:layout_marginLeft="100dp"/>
+           <TextView
+
+               android:id="@+id/base_info_gender"/>
        </TableRow>
        <TableRow>
            <TextView
                android:layout_marginTop="20dp"
                android:layout_marginLeft="30dp"
-               android:id="@+id/base_info_nickname"
+
                android:text="昵称"/>
+           <TextView
+               android:id="@+id/base_info_nickname"
+               />
        </TableRow>
    </TableLayout>
     <LinearLayout
@@ -121,27 +130,40 @@
             >
             <TextView
                 android:text="院系"
-                android:id="@+id/user_school_info_department"
+
                 android:layout_marginLeft="30dp"
 
                 />
             <TextView
+
+                android:id="@+id/user_school_info_department"
+                />
+            <TextView
                 android:text="专业"
-                android:id="@+id/user_school_info_major"
+
 
 
                 android:layout_marginLeft="100dp"/>
+            <TextView
+                android:id="@+id/user_school_info_major"
+                />
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"
-                android:id="@+id/user_school_info_identify"
+
                 android:text="身份"/>
+            <TextView
+                android:id="@+id/user_school_info_identify"
+                />
             <TextView
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="100dp"
                 android:text="年级"
+
+                />
+            <TextView
                 android:id="@+id/user_school_info_grade"
                 />
         </TableRow>
@@ -151,8 +173,10 @@
                 android:layout_marginLeft="30dp"
                 android:text="教务网账号"
 
-                android:id="@+id/user_school_info_number"
+
                 />
+            <TextView
+                android:id="@+id/user_school_info_number"/>
         </TableRow>
     </TableLayout>
     <LinearLayout
@@ -169,6 +193,7 @@
             android:textColor="#16a085"
             android:layout_marginLeft="30dp"
             />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dip"
@@ -192,7 +217,9 @@
                 android:layout_marginLeft="30dp"
                 android:text="The gay is lazy..."
                 android:id="@+id/base_info_sign"
+
                 />
+           
         </TableRow>
     </TableLayout>
 

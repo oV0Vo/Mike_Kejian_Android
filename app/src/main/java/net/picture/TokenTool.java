@@ -3,12 +3,14 @@ package net.picture;
 /**
  * Created by showjoy on 15/10/11.
  */
+import android.util.Base64;
+
 import java.util.Date;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
+//import org.apache.commons.codec.binary.Base64;
 
 public class TokenTool {
 
@@ -18,8 +20,24 @@ public class TokenTool {
 
     private static String base64(byte[] target) {
 
-       // return null;
-        return new Base64().encodeToString(target).replace('+', '-').replace('/', '_');
+      //b System.out.println("base64 runtime path:"+Base64.class.getProtectionDomain().getCodeSource().getLocation());
+
+        //android.util.Base64 base64=new android.util.Base64();
+       // Base64 base=Base64.;
+
+        //System.out.println("base64 runtime path:"+Base64.class.getProtectionDomain().getCodeSource().getLocation());
+
+
+        System.out.println("base");
+
+        // return null;
+
+        //return "hello";
+
+        return com.ta.utdid2.android.utils.Base64.encodeToString(target,Base64.DEFAULT).replace('+', '-').replace('/', '_');
+
+        //return Base64.encodeToString(target,Base64.DEFAULT).replace('+', '-').replace('/', '_');
+       // return base64.encodeToString(target).replace('+', '-').replace('/', '_');
     }
 
     private static String hmac_sha1(String value, String key) {
