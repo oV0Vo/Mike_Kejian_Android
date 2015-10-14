@@ -61,8 +61,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 //        tv.setText("提到我的");
         this.container = (RefreshListView)findViewById(R.id.mention_container);
         this.myInflater = getLayoutInflater();
-        TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
-        mention_num_view.setText("共 " + MessageBLService.totalMentionMe + " 条");
+        this.refreshMentionMeNumView();
 //        for(int i = 0;i<this.mention_num;i++){
 //            this.container.addView(this.genMentionLayout(this.mentionMes.get(i)));
 //            this.container.addView(this.genLineSplitView());
@@ -71,6 +70,10 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
 
+    }
+    private void refreshMentionMeNumView(){
+        TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
+        mention_num_view.setText("共 " + MessageBLService.totalMentionMe + " 条");
     }
 
     @Override
@@ -87,6 +90,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshMentionMeNumView();
             }
         }.execute(new Void[]{});
 
@@ -94,22 +98,27 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalMentionMe > MessageBLService.mentionMes.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addMentionMes("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addMentionMes("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
+
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -158,7 +167,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
             viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
-            viewHolder.time_view.setText(reply.getReplyTime());
+            viewHolder.time_view.setText(reply.getAdjustTime());
             return convertView;
         }
     }

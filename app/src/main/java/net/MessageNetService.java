@@ -6,7 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import model.message.CourseNotice;
@@ -30,18 +32,18 @@ public class MessageNetService {
         }
         return num;
     }
+    private static String long2timeString(long time){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date(time));
+    }
     public static int getTotalCourseNoticeNum(){
         String result = httpRequest.sentGetRequest(baseUrl+"getTotalCourseNoticeNum/",null);
         return handleNumData(result);
     }
-    public static ArrayList<CourseNotice> getNextCourseNotices(String userId, int lastId,int max_num){
-        ArrayList<CourseNotice> courseNotices = new ArrayList();
-        HashMap<String,String> params = new HashMap();
-        params.put("lastId",lastId+"");
-        params.put("num",max_num+"");
-        String result = httpRequest.sentGetRequest(baseUrl+"getNextCourseNotices/",params);
+    private static ArrayList<CourseNotice> handleCourseNoticesJsonData(String jsonString){
+        ArrayList<CourseNotice> courseNotices = new ArrayList<>();
         try {
-            JSONArray courseNoticesArray = new JSONArray(result);
+            JSONArray courseNoticesArray = new JSONArray(jsonString);
             for(int i = 0;i<courseNoticesArray.length();i++){
                 JSONObject courseNoticeJson = courseNoticesArray.getJSONObject(i);
                 int id = courseNoticeJson.getInt("id");
@@ -55,6 +57,14 @@ public class MessageNetService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return courseNotices;
+    }
+    public static ArrayList<CourseNotice> getNextCourseNotices(String userId, int lastId,int max_num){
+        HashMap<String,String> params = new HashMap();
+        params.put("lastId",lastId+"");
+        params.put("num",max_num+"");
+        String result = httpRequest.sentGetRequest(baseUrl+"getNextCourseNotices/",params);
+        ArrayList<CourseNotice> courseNotices = handleCourseNoticesJsonData(result);
 //        for(int i = 0;i<max_num;i++){
 //            courseNotices.add(new CourseNotice("数据结构与算法分析","微信公众平台,给个人、企业和组织提供业务服务与用户管理能力的全新服务平台。卡账单、额度及积分企业和组织提供业务服务与用户管理能力的全新服务平台...","管登荣","2015-09-09 12:00:00"));
 //        }
@@ -68,15 +78,19 @@ public class MessageNetService {
 
     }
     public static ArrayList<CourseNotice> getLatestCourseNotices(String userId, long startTime,long endTime){
-        ArrayList<CourseNotice> courseNotices = new ArrayList();
-        for(int i = 0;i<2;i++){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("fromTime",long2timeString(startTime));
+        params.put("toTime",long2timeString(endTime));
+        String result = httpRequest.sentGetRequest(baseUrl+"getLatestCourseNotices/",params);
+        ArrayList<CourseNotice> courseNotices = handleCourseNoticesJsonData(result);
+//        for(int i = 0;i<2;i++){
 //            courseNotices.add(new CourseNotice("数据结构","微信公众平台,给个人、企业和组织提供业务服务与用户管理能力的全新服务平台。卡账单、额度及积分企业和组织提供业务服务与用户管理能力的全新服务平台...","管登荣","2015-09-09 12:00:00"));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return courseNotices;
 
     }
@@ -84,90 +98,169 @@ public class MessageNetService {
         String result = httpRequest.sentGetRequest(baseUrl+"getTotalReplyNum/",null);
         return handleNumData(result);
     }
-    public static ArrayList<Reply> getNextReplies(String userId,int index, int max_num){
-        ArrayList<Reply> replies = new ArrayList();
-        java.util.Date date = new java.util.Date();
-        for(int i = 0;i<max_num;i++){
-//            replies.add(new Reply("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
+    private static ArrayList<Reply> handleRepliesJsonData(String jsonReplies){
+        ArrayList<Reply> replies = new ArrayList<>();
+        try{
+            JSONArray repliesJson = new JSONArray(jsonReplies);
+            for(int i =0;i<repliesJson.length();i++){
+                JSONObject replyJson = repliesJson.getJSONObject(i);
+                int id = replyJson.getInt("id");
+                String replyer = replyJson.getString("user_name");
+                String post = replyJson.getString("content");
+                String replyTime = replyJson.getString("timestamp");
+                Reply reply = new Reply(id,replyer,post,replyTime);
+                replies.add(reply);
+            }
+        }catch (JSONException e){
             e.printStackTrace();
         }
         return replies;
     }
-    public static ArrayList<Reply> getLatestReplies(String userId,long startTime, long endTime){
-        ArrayList<Reply> replies = new ArrayList();
-        java.util.Date date = new java.util.Date();
-        for(int i = 0;i<2;i++){
+    public static ArrayList<Reply> getNextReplies(String userId,int lastId, int max_num){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("lastId",lastId+"");
+        params.put("num",max_num+"");
+        String result = httpRequest.sentGetRequest(baseUrl+"getNextReplies/",params);
+        ArrayList<Reply> replies = handleRepliesJsonData(result);
+//        java.util.Date date = new java.util.Date();
+//        for(int i = 0;i<max_num;i++){
 //            replies.add(new Reply("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        return replies;
+    }
+    public static ArrayList<Reply> getLatestReplies(String userId,long startTime, long endTime){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("fromTime",long2timeString(startTime));
+        params.put("toTime",long2timeString(endTime));
+        String result = httpRequest.sentGetRequest(baseUrl+"getLatestReplies/",params);
+        ArrayList<Reply> replies = handleRepliesJsonData(result);
+//        java.util.Date date = new java.util.Date();
+//        for(int i = 0;i<2;i++){
+//            replies.add(new Reply("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return replies;
     }
     public static int getTotalPraiseNum(){
         String result = httpRequest.sentGetRequest(baseUrl+"getTotalPraiseNum/",null);
         return handleNumData(result);
     }
-    public static ArrayList<Praise> getNextPraises(String userId, int index, int max_num){
+    private static ArrayList<Praise> handlePraisesJson(String json){
         ArrayList<Praise> praises = new ArrayList();
-        java.util.Date date = new java.util.Date();
-        for(int i = 0;i<max_num;i++){
-//            praises.add(new Praise("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
+        try{
+            JSONArray praisesJsonArray = new JSONArray(json);
+            for(int i =0;i<praisesJsonArray.length();i++){
+                JSONObject praiseJson = praisesJsonArray.getJSONObject(i);
+                int id = praiseJson.getInt("id");
+                String praiser = praiseJson.getString("sender_name");
+                String post = praiseJson.getString("post_content");
+                String replyTime = praiseJson.getString("time");
+                Praise praise = new Praise(id,praiser,post,replyTime);
+                praises.add(praise);
+            }
+        }catch(JSONException e){
             e.printStackTrace();
         }
         return praises;
     }
-    public static ArrayList<Praise> getLatestPraises(String userId, long startTime, long endTime){
-        ArrayList<Praise> praises = new ArrayList();
-        java.util.Date date = new java.util.Date();
-        for(int i = 0;i<2;i++){
-//            praises.add(new Praise("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
+    private static ArrayList<MentionMe> handleMentionMesJson(String json){
+        ArrayList<MentionMe> praises = new ArrayList();
+        try{
+            JSONArray mentionMesJsonArray = new JSONArray(json);
+            for(int i =0;i<mentionMesJsonArray.length();i++){
+                JSONObject mentionMeJson = mentionMesJsonArray.getJSONObject(i);
+                int id = mentionMeJson.getInt("id");
+                String praiser = mentionMeJson.getString("sender_name");
+                String post = mentionMeJson.getString("post_content");
+                String replyTime = mentionMeJson.getString("time");
+                MentionMe mentionMe = new MentionMe(id,praiser,post,replyTime);
+                praises.add(mentionMe);
+            }
+        }catch(JSONException e){
             e.printStackTrace();
         }
+        return praises;
+    }
+    public static ArrayList<Praise> getNextPraises(String userId, int lastId, int max_num){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("lastId",lastId+"");
+        params.put("num",max_num+"");
+        String result = httpRequest.sentGetRequest(baseUrl+"getNextPraises/",params);
+        ArrayList<Praise> praises = handlePraisesJson(result);
+//        java.util.Date date = new java.util.Date();
+//        for(int i = 0;i<max_num;i++){
+//            praises.add(new Praise("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        return praises;
+    }
+    public static ArrayList<Praise> getLatestPraises(String userId, long startTime, long endTime){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("fromTime",long2timeString(startTime));
+        params.put("toTime",long2timeString(endTime));
+        String result = httpRequest.sentGetRequest(baseUrl+"getLatestPraises/",params);
+        ArrayList<Praise> praises = handlePraisesJson(result);
+
+//        java.util.Date date = new java.util.Date();
+//        for(int i = 0;i<2;i++){
+//            praises.add(new Praise("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return praises;
     }
     public static int getTotalMentionMeNum(){
         String result = httpRequest.sentGetRequest(baseUrl+"getTotalMentionMeNum/",null);
         return handleNumData(result);
     }
-    public static ArrayList<MentionMe> getNextMentionMes(String userId, int index, int max_num){
-        ArrayList<MentionMe> mentionMes = new ArrayList();
-        java.util.Date date = new java.util.Date();
-        for(int i = 0;i<max_num;i++){
+    public static ArrayList<MentionMe> getNextMentionMes(String userId, int lastId, int max_num){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("lastId",lastId+"");
+        params.put("num",max_num+"");
+        String result = httpRequest.sentGetRequest(baseUrl+"getNextMentionMes/",params);
+        ArrayList<MentionMe> mentionMes = handleMentionMesJson(result);
+//        java.util.Date date = new java.util.Date();
+//        for(int i = 0;i<max_num;i++){
 //            mentionMes.add(new MentionMe("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return mentionMes;
     }
     public static ArrayList<MentionMe> getLatestMentionMes(String userId, long startTime, long endTime){
-        ArrayList<MentionMe> mentionMes = new ArrayList();
-        java.util.Date date = new java.util.Date();
-        for(int i = 0;i<2;i++){
+        HashMap<String,String> params = new HashMap<>();
+        params.put("fromTime",long2timeString(startTime));
+        params.put("toTime",long2timeString(endTime));
+        String result = httpRequest.sentGetRequest(baseUrl+"getLatestMentionMes/",params);
+        ArrayList<MentionMe> mentionMes = handleMentionMesJson(result);
+//        java.util.Date date = new java.util.Date();
+//        for(int i = 0;i<2;i++){
 //            mentionMes.add(new MentionMe("我不是小明","啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦",new Timestamp(date.getTime())));
-        }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return mentionMes;
     }
 }

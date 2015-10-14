@@ -83,11 +83,11 @@ public class MessageBLService {
     }
 
     public static void addCourseNotices(String userId){
-        ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId, course_notice_last_id, 5);
-        for(int i = 0;i < newCourseNotices.size();i++){
-            courseNotices.add(newCourseNotices.get(i));
-        }
-        refreshLastId(0);
+            ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId, course_notice_last_id, 5);
+            for(int i = 0;i < newCourseNotices.size();i++){
+                courseNotices.add(newCourseNotices.get(i));
+            }
+            refreshLastId(0);
 
     }
     //刷新，相当于获取前一次刷新时间到当前时间之间的课程公告

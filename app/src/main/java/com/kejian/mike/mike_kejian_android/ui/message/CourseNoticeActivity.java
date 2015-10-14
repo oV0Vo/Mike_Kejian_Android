@@ -61,6 +61,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshTotalCourseNoticeNum();
             }
         }.execute(new Void[]{});
 
@@ -68,22 +69,27 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalCourseNotice > MessageBLService.courseNotices.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addCourseNotices("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addCourseNotices("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
+
 
     }
 
@@ -116,8 +122,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 //        tv.setText("课程公告");
         this.container = (RefreshListView)findViewById(R.id.course_notice_container);
         this.myInflater = getLayoutInflater();
-        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
-        course_notice_num.setText("共 "+MessageBLService.totalCourseNotice+" 条");
+        this.refreshTotalCourseNoticeNum();
 //        for(int i = 0;i<this.courseNotices.size();i++){
 //            this.container.addView(this.genCourseNoticeLayout(this.courseNotices.get(i)));
 //            this.container.addView(this.genLineSplitView());
@@ -127,6 +132,10 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
         this.container.setOnRefreshListener(this);
 
 
+    }
+    private void refreshTotalCourseNoticeNum(){
+        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
+        course_notice_num.setText("共 "+MessageBLService.totalCourseNotice+" 条");
     }
     static class ViewHolder{
         TextView course_name_view;
