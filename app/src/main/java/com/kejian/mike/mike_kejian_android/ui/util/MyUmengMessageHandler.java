@@ -81,6 +81,9 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         }
 
         PushMessage pushMessage = parseMessageContent(messageContent, infoType);
+        if(pushMessage  == null) {
+            Log.i(TAG, "pushMessage null!");
+        }
         if(pushMessage == null || receiverInfo == null || senderInfo == null) {
             return;
         }
