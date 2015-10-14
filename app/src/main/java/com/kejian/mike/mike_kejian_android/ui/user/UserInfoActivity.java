@@ -26,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 import bl.UserBLService;
 import model.user.Global;
@@ -207,6 +208,30 @@ public class UserInfoActivity extends AppCompatActivity{
         System.out.println("set the photo from the net work!");
 
         photo.setImageBitmap(bitmap);
+
+    }
+
+    private class resetUserInfo extends AsyncTask<HashMap,Integer,String>{
+
+        protected void onPreExecute(){
+
+        }
+
+        protected String doInBackground(HashMap...Para){
+
+
+            HashMap info=Para[0];
+
+           /*
+
+            这里调用修改用户信息的接口
+            */
+
+
+            return "";
+
+        }
+
 
     }
 
