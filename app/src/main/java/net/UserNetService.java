@@ -35,21 +35,45 @@ public class UserNetService {
 
     }
 
+
     private user register(UserToken userToken){
+
+
 
 
 
         HashMap<String,String> para=new HashMap<String, String>();
 
-        para.put(null,null);
+        para.put(null, null);
 
-        HttpRequest.getInstance().sentGetRequest("",para);
+        JSONObject jsonObject=new JSONObject(para);
+
+        HashMap h=new HashMap();
+
+        h.put("userToken", jsonObject.toString());
+
+
+        String result=HttpRequest.getInstance().sentGetRequest(baseUrl+"register/",h);
+
+
+        try {
+
+            JSONObject netResult = new JSONObject(result);
+
+            result=netResult.getString("result");
+
+        }catch(Exception e){
+
+            e.printStackTrace();
+
+        }
 
 
 
-        JSONObject jsonObject=new JSONObject();
 
-        return null;
+
+
+        return new user();
     }
 
     public static user getUser(UserToken userToken){
