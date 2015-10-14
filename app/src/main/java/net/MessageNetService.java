@@ -36,7 +36,7 @@ public class MessageNetService {
     }
     public static ArrayList<CourseNotice> getNextCourseNotices(String userId, int lastId,int max_num){
         ArrayList<CourseNotice> courseNotices = new ArrayList();
-        HashMap<String,String> params = new HashMap<>();
+        HashMap<String,String> params = new HashMap();
         params.put("lastId",lastId+"");
         params.put("num",max_num+"");
         String result = httpRequest.sentGetRequest(baseUrl+"getNextCourseNotices/",params);

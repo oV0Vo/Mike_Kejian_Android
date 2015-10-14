@@ -27,6 +27,20 @@ public class UserToken implements Serializable{
         return ifBindSchoolAccount;
 
     }
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public String getTokenId(){
+
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId){
+
+        this.tokenId=tokenId;
+
+    }
 
     public void bindSchoolAccount(){
 
