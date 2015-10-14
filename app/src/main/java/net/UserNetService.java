@@ -1,5 +1,7 @@
 package net;
 
+import android.os.AsyncTask;
+
 import net.UserDataBase.UserDataBase;
 import net.httpRequest.HttpRequest;
 
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import bl.UserBLResult;
 import model.user.AttentionList;
 import model.user.Friend;
+import model.user.Invitee;
 import model.user.UserToken;
 import model.user.user;
 
@@ -32,28 +35,46 @@ public class UserNetService {
 
     }
 
-    private user register(){
+    private user register(UserToken userToken){
 
-        user user=new user(null);
 
-        return user;
+
+        HashMap<String,String> para=new HashMap<String, String>();
+
+        para.put(null,null);
+
+        HttpRequest.getInstance().sentGetRequest("",para);
+
+
+
+        JSONObject jsonObject=new JSONObject();
+
+        return null;
     }
 
     public static user getUser(UserToken userToken){
 
-        System.out.println("search in database "+userToken.getName());
+        System.out.println("search in database " + userToken.getName());
 
-        HashMap<String,String> par = new HashMap<>();
+        HashMap<String,String> par = new HashMap();
         par.put("userId",userToken.getName());
         par.put("password",userToken.getPassword());
 
+
+        System.out.println("Start http request!");
+
+
         String userData = httpRequest.sentGetRequest(baseUrl+"login/",par);
+
+        System.out.println("user data:"+userData);
+
+
         if(userData.equals("")){
             return null;
         }else{
             try{
                 JSONObject userDataJson = new JSONObject(userData);
-                HashMap<String,Object> userInfo = new HashMap<>();
+                HashMap<String,Object> userInfo = new HashMap();
                 userInfo.put("name",userDataJson.getString("name"));
                 userInfo.put("gender",userDataJson.getString("gender"));
                 userInfo.put("grade",userDataJson.getString("grade"));
@@ -148,6 +169,9 @@ public class UserNetService {
 
 
     }
+
+
+
 
 
 

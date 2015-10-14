@@ -10,13 +10,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
+
+import net.UserNetService;
 
 import bl.UserBLService;
 import cn.smssdk.SMSSDK;
@@ -50,7 +54,7 @@ public class UserLoginActivity extends Activity {
         userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
         if(userToken!=null){
 
-            login();
+
 
         }
 
@@ -64,7 +68,7 @@ public class UserLoginActivity extends Activity {
 
             System.out.println("直接登录");
 
-            login();
+            new LoginTask().execute(new UserToken());
 
         }
 
@@ -81,7 +85,7 @@ public class UserLoginActivity extends Activity {
 
         if(userToken!=null) {
 
-            login();
+            new LoginTask().execute(new UserToken());
 
         }
         else{
@@ -129,10 +133,12 @@ public class UserLoginActivity extends Activity {
 
             bundle.putSerializable(UserActivityComm.USER_INFO.name(), user);
 
+            System.out.println("user name:"+user.getName());
+
 
             intent.putExtras(bundle);
 
-            //intent.putExtra(UserActivityComm.USER_INFO.name(),user);
+            intent.putExtra(UserActivityComm.USER_INFO.name(),user);
 
             //把user添加到全局变量中
             Global.addGlobalItem("user",user);
@@ -153,6 +159,8 @@ public class UserLoginActivity extends Activity {
     public void errorInLogInfo(String title,String errorDetail){
 
 
+
+        Looper.prepare();
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(errorDetail)
@@ -181,7 +189,7 @@ public class UserLoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-               login();
+               new LoginTask().execute(new UserToken());
 
             }
         });
@@ -213,6 +221,22 @@ public class UserLoginActivity extends Activity {
             intent.setClass(context,target);
             startActivity(intent);
 
+        }
+    }
+
+    private class LoginTask extends AsyncTask<UserToken,Integer,user> {
+
+
+        protected void onPreExecute(){
+
+        }
+
+        protected user doInBackground(UserToken... params){
+
+
+
+            login();
+            return UserNetService.getUser(params[0]);
         }
     }
 
