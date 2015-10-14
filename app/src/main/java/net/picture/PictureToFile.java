@@ -19,7 +19,7 @@ public class PictureToFile {
         int quality = 100;
         OutputStream stream = null;
         try {
-            stream = new FileOutputStream("/sdcard/" +"qw");
+            stream = new FileOutputStream("/sdcard/" +"qw2");
         } catch (FileNotFoundException e) {
 // TODO Auto-generated catch block
             e.printStackTrace();
@@ -28,7 +28,10 @@ public class PictureToFile {
        bitmap.compress(format, quality, stream);
 
 
-        return new File("/sdcard/" +"qw");
+        System.out.println("file path:"+"/sdcard/" +"qw2");
+
+
+        return new File("/sdcard/" +"qw2");
 
 
 

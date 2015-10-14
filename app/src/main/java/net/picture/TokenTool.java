@@ -18,6 +18,8 @@ public class TokenTool {
 
     private static String base64(byte[] target) {
 
+       System.out.println("base64 runtime path:"+Base64.class.getProtectionDomain().getCodeSource().getLocation());
+
        // return null;
         return new Base64().encodeToString(target).replace('+', '-').replace('/', '_');
     }
