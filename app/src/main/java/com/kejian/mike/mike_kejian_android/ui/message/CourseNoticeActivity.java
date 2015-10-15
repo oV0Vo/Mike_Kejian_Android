@@ -1,8 +1,10 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -10,19 +12,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
 
 import java.util.List;
 
 import bl.MessageBLService;
 import model.message.CourseNotice;
+import model.message.MessageType;
 
-public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener, OnRefreshListener{
+public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener, OnRefreshListener, AdapterView.OnItemClickListener{
 
 //    private View layout_title;
     private RefreshListView container;
@@ -94,6 +99,13 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(ReceiverActions.increment_action);
+        intent.putExtra("messageType", MessageType.mentionMe);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
     private class InitDataTask extends AsyncTask<String, Integer, String> {
         @Override
         public String doInBackground(String... params) {
@@ -131,6 +143,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
         this.adapter = new CourseNoticeAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.courseNotices);
         this.container.setAdapter(this.adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(this);
 
 
     }
