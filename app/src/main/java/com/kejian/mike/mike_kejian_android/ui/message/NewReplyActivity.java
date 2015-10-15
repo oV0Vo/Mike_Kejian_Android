@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -295,6 +296,18 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         MessageBLService.unreadReplyNum = 0;
         NewReplyActivity.this.finish();
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            MessageBLService.unreadReplyNum = 0;
+            NewReplyActivity.this.finish();
+        }
+
+        return false;
 
     }
 }
