@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import model.message.CourseNotice;
 import model.message.MentionMe;
+import model.message.MessageType;
 import model.message.Praise;
 import model.message.Reply;
 
@@ -17,9 +18,26 @@ import model.message.Reply;
  */
 public class MessageBLService {
     public static int unreadCourseNoticeNum = 1;
-    public static int unreadReplyNum = 2;
-    public static int unreadPraiseNum = 3;
-    public static int unreadMentionNum = 4;
+    public static int unreadReplyNum = 0;
+    public static int unreadPraiseNum = 0;
+    public static int unreadMentionNum = 0;
+
+    public static void incrementUnReadMessageNum(MessageType type){
+        switch (type){
+            case courseNotice:
+                unreadCourseNoticeNum++;
+                break;
+            case reply:
+                unreadReplyNum++;
+                break;
+            case praise:
+                unreadPraiseNum++;
+                break;
+            case mentionMe:
+                unreadMentionNum++;
+                break;
+        }
+    }
 
     public static int totalCourseNotice = -1;
     public static ArrayList<CourseNotice> courseNotices = null;

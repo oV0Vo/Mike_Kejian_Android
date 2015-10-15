@@ -1,21 +1,29 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
 import com.kejian.mike.mike_kejian_android.ui.message.CourseNoticeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.MentionMeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.NewPraiseActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.NewReplyActivity;
 
 import bl.MessageBLService;
+import model.message.MessageType;
 
 public class Fragment_Msg extends Fragment implements View.OnClickListener{
     private View layout;
@@ -25,6 +33,25 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
     private TextView unreadCourseNoticeLabel;
     private TextView unreadReplyLabel;
     private TextView unreadMentionLabel;
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ReceiverActions.increment_action);//建议把它写一个公共的变量，这里方便阅读就不写了。
+        BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent){
+                MessageType type = (MessageType)intent.getSerializableExtra("messageType");
+                MessageBLService.incrementUnReadMessageNum(type);
+                refreshUnReadLabel(type);
+            }
+        };
+        broadcastManager.registerReceiver(messageReceiver, intentFilter);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,21 +84,49 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
         this.unreadPraiseLabel = (TextView) layout.findViewById(R.id.unread_newPraise_number);
         this.unreadMentionLabel = (TextView)layout.findViewById(R.id.unread_mentionMe_number);
 
-        showUnreadLabel(MessageBLService.unreadCourseNoticeNum,this.unreadCourseNoticeLabel);
-        showUnreadLabel(MessageBLService.unreadReplyNum,this.unreadReplyLabel);
-        showUnreadLabel(MessageBLService.unreadPraiseNum,this.unreadPraiseLabel);
-        showUnreadLabel(MessageBLService.unreadMentionNum,this.unreadMentionLabel);
+        refreshUnReadLabel(MessageType.courseNotice);
+        refreshUnReadLabel(MessageType.reply);
+        refreshUnReadLabel(MessageType.praise);
+        refreshUnReadLabel(MessageType.mentionMe);
 
     }
     private void initData(){
 
     }
-    private void showUnreadLabel(int count,TextView tv){
-        if(count > 0){
-            tv.setText(String.valueOf(count));
-            tv.setVisibility(View.VISIBLE);
-        }else{
-            tv.setVisibility(View.INVISIBLE);
+    public void refreshUnReadLabel(MessageType type){
+        switch (type){
+            case courseNotice:
+                if(MessageBLService.unreadCourseNoticeNum > 0){
+                    this.unreadCourseNoticeLabel.setText(String.valueOf(MessageBLService.unreadCourseNoticeNum));
+                    this.unreadCourseNoticeLabel.setVisibility(View.VISIBLE);
+                }else{
+                    this.unreadCourseNoticeLabel.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case reply:
+                if(MessageBLService.unreadReplyNum > 0){
+                    this.unreadReplyLabel.setText(String.valueOf(MessageBLService.unreadReplyNum));
+                    this.unreadReplyLabel.setVisibility(View.VISIBLE);
+                }else {
+                    this.unreadReplyLabel.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case praise:
+                if(MessageBLService.unreadPraiseNum > 0){
+                    this.unreadPraiseLabel.setText(String.valueOf(MessageBLService.unreadPraiseNum));
+                    this.unreadPraiseLabel.setVisibility(View.VISIBLE);
+                }else{
+                    this.unreadPraiseLabel.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case mentionMe:
+                if(MessageBLService.unreadMentionNum > 0){
+                    this.unreadMentionLabel.setText(String.valueOf(MessageBLService.unreadMentionNum));
+                    this.unreadMentionLabel.setVisibility(View.VISIBLE);
+                }else {
+                    this.unreadMentionLabel.setVisibility(View.INVISIBLE);
+                }
+                break;
         }
     }
     private void setOnListener(){
