@@ -1,0 +1,31 @@
+1. getCourseDetail的返回参数缺少学生数量
+
+2. getCoursePosts目前不可用
+
+3. 发布问题感觉不太适合用get，因为内容比较多
+
+4. 签到结束的判断不合理，签到是否结束应该根据服务器的时间来判断，根据目前给的接口看来
+做法是获取最新签到数据，然后再客户端自己计算时间来判断是否结束的。获取用户某课程最新签到
+也是这个问题
+
+5. 获取签到数据的格式不太合理，没有给点名的教师的名字，如果客户端还要根据返回的id再去
+获取名字会变得很麻烦
+
+5. 获取某用户的某门课程的签到数据应该是不用传入studentId的（既然都用了session来记录登录的
+用户的id），返回的数据里user_id和user_name目前是没有用的
+
+6. 根据服务端接口，客户端的一些逻辑改变：
+	1. 获取我的课程由获取部分改为获取全部
+	2. 获取课程帖子由获取部分改为获取全部
+	3. 获取课堂历史问题由获取部分改为获取全部
+	4. 获取问题回答由获取部分改为获取全部
+	
+7. 原来的课程相关网络参数定义里面缺少两个接口：
+	1. UserTypeInCourse getUserTypeInCourse(String courseId);
+	public enum UserTypeInCourse {
+    		TEACHER, STUDENT, ASSISTANT, VISITOR
+	}
+
+	2. boolean showInterestTo(String courseId)
+
+	3. boolean isInterestedIn(String courseId);
