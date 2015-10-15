@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 
+import net.picture.DownloadPicture;
 import net.picture.PictureToFile;
 import net.picture.PictureUploadUtil;
 
@@ -101,6 +102,18 @@ public class UserInfoActivity extends AppCompatActivity{
         baseInfoIdentify=(TextView)findViewById(R.id.user_school_info_identify);
         baseInfoSign=(TextView)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
+
+        DownloadPicture d=new DownloadPicture(this){
+
+            @Override
+            public void updateView(Bitmap bitmap){
+
+                photo.setImageBitmap(bitmap);
+
+            }
+        };
+
+        d.getBitMapFromNet("http://i11.tietuku.com/139f6a761dadc909.jpg","");
 
         System.out.println("user in userinfo view:"+user);
 

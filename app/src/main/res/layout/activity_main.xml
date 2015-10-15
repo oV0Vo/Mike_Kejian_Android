@@ -29,17 +29,23 @@
             <RadioButton
                 android:id="@+id/main_course_button"
                 style="@style/main_tab"
-                android:drawableTop="@drawable/book2"
+                android:drawableTop="@drawable/book21"
+                android:maxHeight="48px"
+                android:maxWidth="48px"
                 android:text="@string/course_tab_tag" />
             <RadioButton
                 android:id="@+id/main_message_button"
                 style="@style/main_tab"
-                android:drawableTop="@drawable/book2"
+                android:drawableTop="@drawable/forum2"
+                android:maxHeight="48px"
+                android:maxWidth="48px"
                 android:text="@string/message_tab_tag" />
             <RadioButton
                 android:id="@+id/main_campus_button"
                 style="@style/main_tab"
-                android:drawableTop="@drawable/book2"
+                android:drawableTop="@drawable/msg1"
+                android:maxHeight="48px"
+                android:maxWidth="48px"
                 android:text="@string/campus_tab_tag" />
         </RadioGroup>
 
