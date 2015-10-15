@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <!--【必选】用以设置前台是否显示通知-->
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -57,6 +58,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".ui.broadcast.NetBroadcast">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".ui.course.detail.CourseActivity"
             android:label="@string/course_detail_activity" >

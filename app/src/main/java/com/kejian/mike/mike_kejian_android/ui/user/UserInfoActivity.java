@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -31,6 +33,8 @@ import java.util.HashMap;
 import bl.UserBLService;
 import model.user.Global;
 import model.user.UserToken;
+import model.user.department;
+import model.user.school;
 import model.user.user;
 
 /**
@@ -49,6 +53,12 @@ public class UserInfoActivity extends AppCompatActivity{
     private TextView baseInfoGrade;
     private TextView baseInfoIdentify;
     private TextView baseInfoSign;
+    private TextView baseInfoNickname;
+    private TextView schoolAccountView;
+    private TextView schoolMajorView;
+    private TextView schoolDepartmentView;
+    private Menu menu;
+
     private CircleImageView photo;
 
 
@@ -60,6 +70,8 @@ public class UserInfoActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_info);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
 
     }
@@ -67,6 +79,7 @@ public class UserInfoActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_info, menu);
+        this.menu=menu;
         return true;
     }
 
@@ -77,6 +90,10 @@ public class UserInfoActivity extends AppCompatActivity{
 //        u.setName("义薄云天");
 //        u.setPassword("123456");
 //        user= UserBLService.getInstance().login(u);
+        baseInfoNickname=(TextView)findViewById(R.id.base_info_nickname);
+        schoolAccountView=(TextView)findViewById(R.id.user_school_info_number);
+        schoolMajorView=(TextView)findViewById(R.id.user_school_info_major);
+        schoolDepartmentView=(TextView)findViewById(R.id.user_school_info_department);
         userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
         baseInfoName=(TextView)findViewById(R.id.base_info_name);
         baseInfoGender=(TextView)findViewById(R.id.base_info_gender);
@@ -179,6 +196,29 @@ public class UserInfoActivity extends AppCompatActivity{
 
         else{
 
+//
+//            name=(String)(infoSet.get("name"));
+//            gender=(String)(infoSet.get("gender"));
+//            grade=(String)(infoSet.get("grade"));
+//            icon=(String)(infoSet.get("icon"));
+//            sign=(String)(infoSet.get("signal"));
+//            identify=(String)(infoSet.get("identify"));
+//            id=infoSet.get("id").toString();
+//            nick_name=(String)infoSet.get("nick_name");
+//            background_icon_path=(String)infoSet.get("background");
+//            identify=(String)infoSet.get("school_identify");
+//
+//            schoolInfo=new school();
+//            schoolInfo.setId((String)infoSet.get("school_id"));
+////        schoolInfo.setName();
+////        schoolInfo.setNumber();
+////
+//
+//            departmentInfo=new department();
+////        departmentInfo.setNumber();
+////        departmentInfo.setName();
+//            departmentInfo.setId((String)infoSet.get("department_id"));
+//            departmentInfo.setSchoolId(schoolInfo.getId());
 
 
             System.out.println("Begin download icon!");
@@ -193,11 +233,25 @@ public class UserInfoActivity extends AppCompatActivity{
             String sign=user.getSign();
             String identify=user.getIdentify();
 
+//
+
+
+
+
+//            userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
+
+
+
             baseInfoGender.setText(gender);
             baseInfoGrade.setText(grade);
             baseInfoIdentify.setText(identify);
             baseInfoSign.setText(sign);
             baseInfoName.setText(name);
+            baseInfoNickname.setText(user.getNick_name());
+            schoolDepartmentView.setText(user.getDepartmentInfo().getId());
+            schoolMajorView.setText(user.getDepartmentInfo().getId());
+            schoolAccountView.setText(user.getSchoolAccount());
+
 
         }
 
@@ -252,6 +306,31 @@ public class UserInfoActivity extends AppCompatActivity{
 
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.edit_user_info:
+                item.setVisible(false);
+
+                MenuItem menuItem=(MenuItem)findViewById(R.id.save_user_info);
+                menuItem.setVisible(true);
+                setEditAble();
+
+                return true;
+            case R.id.save_user_info:
+                item.setVisible(false);
+                saveUserInfo();
+                MenuItem menuItem2=(MenuItem)findViewById(R.id.edit_user_info);
+                menuItem2.setVisible(true);
+
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
     private class DownLoadIcon extends AsyncTask<String,Integer,String>{
 
 
@@ -290,6 +369,24 @@ public class UserInfoActivity extends AppCompatActivity{
             return null;
 
         }
+    }
+
+    public void saveUserInfo(){
+
+    }
+    public void setEditAble(){
+
+//        private TextView baseInfoName;
+        baseInfoGender.setEnabled(true);
+        baseInfoGender.setBackgroundColor(Color.GRAY);
+//        private TextView baseInfoGrade;
+//        private TextView baseInfoIdentify;
+//        private TextView baseInfoSign;
+//        private TextView baseInfoNickname;
+//        private TextView schoolAccountView;
+//        private TextView schoolMajorView;
+//        private TextView schoolDepartmentView;
+
     }
 
 

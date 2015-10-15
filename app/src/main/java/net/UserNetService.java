@@ -78,35 +78,54 @@ public class UserNetService {
 
     public static user getUser(UserToken userToken){
 
-        System.out.println("search in database " + userToken.getName());
 
+
+        /*
+        用于登录的数据结构
+         */
         HashMap<String,String> par = new HashMap();
         par.put("userId",userToken.getName());
-        par.put("password",userToken.getPassword());
+        par.put("password", userToken.getPassword());
 
-
-        System.out.println("Start http request!");
 
 
         String userData = httpRequest.sentGetRequest(baseUrl+"login/",par);
 
-        System.out.println("user data:"+userData);
+
 
 
         if(userData.equals("")){
+
+            System.out.println("get no user");
+
             return null;
+
         }else{
             try{
                 JSONObject userDataJson = new JSONObject(userData);
+                /*
+                {"id":"1","school_identify":"1","name":"as","icon_url":"as",
+                "school_id":"1","grade":"1","nick_name":"as","gender":"0",
+                "major_id":"1","department_id":"1","identify":"1",
+                "password":"1",
+                "signal":"1","school_account_psd":"1"}
+                 */
                 HashMap<String,Object> userInfo = new HashMap();
+                userInfo.put("id",userDataJson.getString("id"));
                 userInfo.put("name",userDataJson.getString("name"));
                 userInfo.put("gender",userDataJson.getString("gender"));
                 userInfo.put("grade",userDataJson.getString("grade"));
                 userInfo.put("icon",userDataJson.getString("icon_url"));
-                userInfo.put("sign",userDataJson.getString("signal"));
+                userInfo.put("signal",userDataJson.getString("signal"));
                 userInfo.put("identify",userDataJson.getString("identify"));
                 userInfo.put("id",userDataJson.getInt("id"));
                 userInfo.put("password",userDataJson.getString("password"));
+                userInfo.put("nick_name",userDataJson.getString("nick_name"));
+                userInfo.put("school_identify",userDataJson.getString("school_identify"));
+                userInfo.put("school_id",userDataJson.getString("school_id"));
+                userInfo.put("department_id",userDataJson.getString("department_id"));
+
+
                 return new user(userInfo);
             }catch (JSONException e){
                 e.printStackTrace();
@@ -177,6 +196,68 @@ public class UserNetService {
         list.put("北京",schoolListInBeijing);
 
         return list;
+
+    }
+
+    public void setUserInfo(String type,String content){
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put(type,content);
+
+        httpRequest.sentGetRequest(baseUrl+"",map);
+
+    }
+    public void getAttentionPost(String userId){
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put("userid",userId);
+
+        httpRequest.sentGetRequest(baseUrl+"",map);
+
+
+
+
+    }
+    public void getAttentionPeople(String userId){
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put("userid",userId);
+
+        httpRequest.sentGetRequest(baseUrl+"",map);
+
+
+
+    }
+    public void getAttentionCourse(String userId){
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put("userid",userId);
+
+        httpRequest.sentGetRequest(baseUrl+"",map);
+
+    }
+
+    public void deleteAttention(String type,String id){
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put(type,id);
+
+        httpRequest.sentGetRequest(baseUrl+"",map);
+
+    }
+
+    public void attention(String type,String id){
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put(type,id);
+
+        httpRequest.sentGetRequest(baseUrl+"",map);
 
     }
 

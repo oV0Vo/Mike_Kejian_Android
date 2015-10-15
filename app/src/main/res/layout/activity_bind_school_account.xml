@@ -31,6 +31,7 @@
                 android:background="@drawable/bind_city_show"
                 />
 
+
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
@@ -40,6 +41,11 @@
                 android:background="@drawable/bind_city_choose"
 
                 />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
@@ -90,28 +96,29 @@
                 android:id="@+id/school_account_view"
 
                 /></LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="教务网密码"
-            android:background="@drawable/bind_schoolaccount_psd"
-            />
-        <EditText
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="9dp"
-            android:background="@drawable/bind_schoolaccount_psd_input"
-            android:inputType="textPassword"
-            android:id="@+id/school_account_pad_view"
-            /></LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="教务网密码"
+                android:background="@drawable/bind_schoolaccount_psd"
+                />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="9dp"
+                android:background="@drawable/bind_schoolaccount_psd_input"
+                android:inputType="textPassword"
+                android:id="@+id/school_account_pad_view"
+                /></LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="fill_parent"
