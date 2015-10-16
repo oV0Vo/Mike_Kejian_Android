@@ -108,7 +108,8 @@ public class MessageNetService {
                 String replyer = replyJson.getString("user_name");
                 String post = replyJson.getString("content");
                 String replyTime = replyJson.getString("timestamp");
-                Reply reply = new Reply(id,replyer,post,replyTime,"http://i11.tietuku.com/139f6a761dadc909.jpg");
+                String icon_url = replyJson.getString("icon_url");
+                Reply reply = new Reply(id,replyer,post,replyTime,icon_url);
                 replies.add(reply);
             }
         }catch (JSONException e){
@@ -164,7 +165,8 @@ public class MessageNetService {
                 String praiser = praiseJson.getString("sender_name");
                 String post = praiseJson.getString("post_content");
                 String replyTime = praiseJson.getString("time");
-                Praise praise = new Praise(id,praiser,post,replyTime,"http://i11.tietuku.com/139f6a761dadc909.jpg");
+                String icon_url = praiseJson.getString("icon_url");
+                Praise praise = new Praise(id,praiser,post,replyTime,icon_url);
                 praises.add(praise);
             }
         }catch(JSONException e){
@@ -182,7 +184,8 @@ public class MessageNetService {
                 String praiser = mentionMeJson.getString("sender_name");
                 String post = mentionMeJson.getString("post_content");
                 String replyTime = mentionMeJson.getString("time");
-                MentionMe mentionMe = new MentionMe(id,praiser,post,replyTime,"http://i11.tietuku.com/139f6a761dadc909.jpg");
+                String icon_url = mentionMeJson.getString("icon_url");
+                MentionMe mentionMe = new MentionMe(id,praiser,post,replyTime,icon_url);
                 praises.add(mentionMe);
             }
         }catch(JSONException e){
