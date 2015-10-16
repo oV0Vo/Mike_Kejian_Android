@@ -22,6 +22,8 @@ import com.kejian.mike.mike_kejian_android.ui.message.MentionMeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.NewPraiseActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.NewReplyActivity;
 
+import net.picture.MessagePrint;
+
 import bl.MessageBLService;
 import model.message.MessageType;
 
@@ -50,6 +52,8 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
             }
         };
         broadcastManager.registerReceiver(messageReceiver, intentFilter);
+        MessageBLService.initUnreadMessageNum(getContext());
+        MessagePrint.print("-----------------------------Message fragment onActivityCreated--------------------------------------");
     }
 
     @Override
@@ -69,11 +73,13 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
                 parent.removeView(layout);
             }
         }
+        MessagePrint.print("---------------message fragment onCreateView-----------------------------");
         return layout;
     }
 
     public void onStart(){
         super.onStart();
+        MessagePrint.print("---------------message fragment onStart-----------------------------");
         initViews();
         initData();
     }
@@ -161,4 +167,10 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MessagePrint.print("------------------------------------message fragment is destroyed-----------------------------------------");
+        MessageBLService.persistentUnreadMessageNum(getContext());
+    }
 }

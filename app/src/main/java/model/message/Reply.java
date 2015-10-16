@@ -16,11 +16,13 @@ public class Reply {
     protected String post;
     protected String replyTime;
     protected String adjustTime;
-    public Reply(int id,String replyer,String post,String replyTime){
+    protected String iconUrl;
+    public Reply(int id,String replyer,String post,String replyTime, String iconUrl){
         this.id = id;
         this.replyer = replyer;
         this.post = post;
         this.replyTime = replyTime;
+        this.iconUrl = iconUrl;
         this.setAdjustTime();
         this.resetPost();
     }
@@ -53,5 +55,8 @@ public class Reply {
     }
     public String getAdjustTime(){
         return this.adjustTime;
+    }
+    public String getIconUrl(){
+        return this.iconUrl;
     }
 }

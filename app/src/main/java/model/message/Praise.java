@@ -6,8 +6,8 @@ import java.sql.Timestamp;
  * Created by I322233 on 9/15/2015.
  */
 public class Praise extends Reply{
-    public Praise(int id,String praiser, String post, String replyTime){
-        super(id,praiser,post,replyTime);
+    public Praise(int id,String praiser, String post, String replyTime,String iconUrl){
+        super(id,praiser,post,replyTime,iconUrl);
 
     }
     protected void resetPost(){
