@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.ImageView;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -18,12 +19,20 @@ public class DownloadPicture {
 
     private Context context;
     private Bitmap bitmap;
+    private ImageView imageView;
 
     public DownloadPicture(Context context){
 
         this.context=context;
 
     }
+    public DownloadPicture(Context context,ImageView imageView){
+
+        this.context=context;
+        this.imageView=imageView;
+
+    }
+
 
 
 
@@ -78,6 +87,9 @@ public class DownloadPicture {
                 e.printStackTrace();
             }
 
+            MessagePrint.print("save the pic to local ");
+
+          //  PictureToFile.bitmapToFile(bitmap,picPath);
 
 
             UIHandler handler=new UIHandler(context.getMainLooper());
@@ -90,6 +102,12 @@ public class DownloadPicture {
 
 
         }
+    }
+
+    public void updateView(Bitmap bitmap,ImageView imageView){
+
+        imageView.setImageBitmap(bitmap);
+
     }
 
     public void updateView(Bitmap bitmap){
@@ -113,6 +131,7 @@ public class DownloadPicture {
 
                 case 1:
 
+                    if(imageView!=null)updateView(bitmap,imageView);
                     updateView(bitmap);break;
 
                 default:super.handleMessage(message);
