@@ -26,10 +26,12 @@ public class DownloadPicture {
         this.context=context;
 
     }
-    public DownloadPicture(Context context,ImageView imageView){
+    public DownloadPicture(Context context,ImageView imageView,String url){
 
         this.context=context;
         this.imageView=imageView;
+
+        getBitMapFromNet(url,null);
 
     }
 
