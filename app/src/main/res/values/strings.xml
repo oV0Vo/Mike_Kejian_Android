@@ -221,5 +221,6 @@
     <string name="user_login">登录</string>
     <string name="user_forget_password">忘记密码</string>
     <string name="user_regist">注册</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
 
 </resources>
