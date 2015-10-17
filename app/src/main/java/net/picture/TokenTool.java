@@ -14,9 +14,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class TokenTool {
 
-    private static final String accessKey = "f5aacc899d5929c511ecbc4e347018c29188d630";
+    private static final String accessKey = "c263bfb529336e4b7fb28466b647fc46ec1053a2";
     private static final String secretKey = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
-    private static final long albumId = 1141904;
+    private static final long albumId = 1144037;
 
     private static String base64(byte[] target) {
 
