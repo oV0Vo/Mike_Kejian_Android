@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.CursorJoiner;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
+import net.UserNetService;
+
 import java.util.HashMap;
 
 import bl.User.Register;
@@ -29,6 +33,7 @@ import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 import model.user.Global;
 import model.user.UserToken;
+import model.user.user;
 
 /**
  * Created by kisstheraik on 15/9/20.
@@ -180,6 +185,8 @@ public class UserRegisterActivity extends AppCompatActivity{
 
         if(userBLResult.equals(UserBLResult.REGISTER_SUCCEED)){
 
+            Toast.makeText(context,"注册成功 >_<",Toast.LENGTH_SHORT);
+
             Intent intent = new Intent();
 
             Bundle bundle = new Bundle();
@@ -189,11 +196,17 @@ public class UserRegisterActivity extends AppCompatActivity{
 
             intent.putExtra(UserActivityComm.USER_TOKEN.name(), userToken);
 
+            //跳转到绑定教务网账号的界面
+
+            //把token压入全局数组
+
+            Global.addGlobalItem("userToken",userToken);
+
             intent.setClass(context, UserLoginActivity.class);
 
-            //startActivity(intent);
+            startActivity(intent);
 
-            //close();
+            close();
 
 
         }
@@ -347,5 +360,28 @@ public class UserRegisterActivity extends AppCompatActivity{
 
     public void close(){
         this.finish();
+    }
+
+    private class RegisterThread extends AsyncTask<UserToken,Integer,UserToken>{
+
+        public UserToken doInBackground(UserToken...para){
+
+            register();
+
+            return null;
+
+        }
+
+        @Override
+        public void onPostExecute(UserToken userToken){
+
+            //注册
+
+            //UserNetService.register(userToken);
+
+
+
+        }
+
     }
 }

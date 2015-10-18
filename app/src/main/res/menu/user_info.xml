@@ -14,7 +14,7 @@
         android:id="@+id/save_user_info" android:title=""
 
         android:icon="@drawable/up"
-        android:orderInCategory="100" app:showAsAction="never">
+        android:orderInCategory="100" app:showAsAction="always">
 
     </item>
 </menu>

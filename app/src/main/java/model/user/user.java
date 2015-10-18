@@ -16,6 +16,7 @@ import bl.UserBLResult;
 public class user implements Serializable{
 
     private String name;//
+
     private String icon;//头像
     private school schoolInfo;//学校的信息
 
@@ -53,6 +54,11 @@ public class user implements Serializable{
     private String sign;//个性签名
     private String background_icon_path;//背景图片
     private String id;
+
+    public String getId(){
+
+        return id;
+    }
 
     private UserAttentionList userAttentionList=new UserAttentionList();
 
@@ -167,18 +173,24 @@ public class user implements Serializable{
 
     }
 
-    public UserBLResult setSign(){
+    public UserBLResult setSign(String sign){
+
+        this.sign=sign;
 
         return null;
     }
 
-    public UserBLResult setNickName(){
+    public UserBLResult setNickName(String nick_name){
+
+        this.nick_name=nick_name;
 
         return null;
 
     }
 
-    public UserBLResult setIcon(){
+    public UserBLResult setIcon(String url){
+
+        this.icon=icon;
 
         return null;
 

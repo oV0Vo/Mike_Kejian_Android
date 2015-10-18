@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserAttentionListActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserInfoActivity;
@@ -70,6 +71,8 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+
+    private CircleImageView circleImageView;
 
     public NavigationDrawerFragment() {
     }
@@ -121,6 +124,8 @@ public class NavigationDrawerFragment extends Fragment {
 //                        getString(R.string.title_section3),
 //                }));
         mDrawerListView.setAdapter(new DrawerViewAdapter(null,this.getActivity()));
+
+     //   circleImageView=(CircleImageView)getContext()
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

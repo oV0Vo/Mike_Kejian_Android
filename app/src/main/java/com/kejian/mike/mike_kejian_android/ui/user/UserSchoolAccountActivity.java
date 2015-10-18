@@ -3,6 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.user;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,9 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
+
+import net.UserNetService;
+import net.picture.MessagePrint;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +28,10 @@ import java.util.Iterator;
 
 import bl.UserBLResult;
 import bl.UserBLService;
+import model.GlobalInfoName;
+import model.user.Global;
 import model.user.UserToken;
+import model.user.user;
 
 /**
  * Created by kisstheraik on 15/9/30.
@@ -39,6 +47,7 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
     private EditText saccountView;
     private EditText saccountPsdView;
     private Button finish;
+    private boolean ifSkip=false;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -92,9 +101,17 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
             }
         });
 
+        if(((String)Global.getObjectByName(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name())).equals(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.AFTER_REGISTER.name())){
+
+            //如果是从setting里面绑定那么就不显示跳过绑定
+            skipBind.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void skip(){
+
+        Global.addGlobalItem(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name(),GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.FROM_SETTING.name());
 
         Intent intent=new Intent();
         intent.setClass(this, MainActivity.class);
@@ -170,6 +187,12 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
             }
             else{
 
+                user u= (user)Global.getObjectByName("user");
+
+                MessagePrint.print("开始绑定教务网账号");
+
+                new BindThread().execute(u.getId(),userToken.getSchoolAccount(),userToken.getSchoolAccountPassword());
+
                 userToken.bindSchoolAccount();
                 showInfo("绑定成功","您已经成功绑定教务网帐号");
             }
@@ -212,6 +235,48 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
         }
     }
+
+    public void jump(){
+
+    }
+
+    public boolean bindSchoolAccount(String userId,String account,String psd){
+
+        if(ifSkip) return false;
+
+        return UserNetService.bindSchoolAccount(userId,account,psd);
+
+    }
+
+    private class BindThread extends AsyncTask<String,Integer,String>{
+
+        public String doInBackground(String...para){
+
+            bindSchoolAccount(para[0],para[1],para[2]);
+
+            return 1+"";
+
+        }
+
+        @Override
+        public void onPostExecute(String result){
+
+            if(result.equals("1")){
+
+                MessagePrint.print("绑定教务网账号成功");
+
+                Toast.makeText(getApplicationContext(),"绑定教务网账号成功 >_<",Toast.LENGTH_SHORT).show();
+
+                //跳转到下一个activity
+
+                jump();
+
+            }
+
+        }
+    }
+
+
 
 
 }
