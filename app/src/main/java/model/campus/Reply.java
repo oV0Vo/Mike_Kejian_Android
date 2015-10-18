@@ -13,6 +13,7 @@ public class Reply {
     private Date date;
     private int praise;
     private ArrayList<Reply> subReplyList;
+    private String userIconUrl;
 
 
     public String getUserId() {
@@ -61,5 +62,13 @@ public class Reply {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
+    }
+
+    public String getUserIconUrl() {
+        return userIconUrl;
+    }
+
+    public void setUserIconUrl(String userIconUrl) {
+        this.userIconUrl = userIconUrl;
     }
 }

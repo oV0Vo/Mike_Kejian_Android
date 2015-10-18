@@ -21,7 +21,9 @@ import model.message.UnReadMessageType;
 /**
  * Created by I322233 on 9/8/2015.
  */
-public class MessageBLService {
+public class
+
+        MessageBLService {
     public static int unreadCourseNoticeNum = 0;
     public static int unreadReplyNum = 0;
     public static int unreadPraiseNum = 0;
