@@ -21,7 +21,7 @@
 4c0c5fbd21feb2970d44b2904468fc7d23107779
 1.课程详细信息（可能不全）：http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCourseDetail/courseId/1
 
-2.根据课程名搜索:http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCoursesByInfo/key/l  --中文有问题（本地可以）
+2.根据课程名搜索:http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCoursesByInfo/key/l 
 
 3.http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCourseTableFields
 
@@ -50,29 +50,29 @@
 15.回答问题： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/answerQuestions/questionId/1/answer/wer
 
 
-16.获取某个用户的课程的课程公告数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalCourseNoticeNum/userId/1
+16.获取某个用户的课程的课程公告数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalCourseNoticeNum/
 
-17.获取回复数量 ： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalReplyNum/userId/1
+17.获取回复数量 ： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalReplyNum/
 
-18.获取赞的数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalPraiseNum/userId/1
+18.获取赞的数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalPraiseNum/
 
-19.获取提到我的数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalMentionMeNum/userId/1
+19.获取提到我的数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalMentionMeNum/
 
-20.获取一定范围里的课程公告： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/index/0/num/3
+20.获取一定范围里的课程公告： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextCourseNotices/lastId/4/num/3
 
-21.获取一定范围里的回复： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextReplies/userId/1/index/0/num/3
+21.获取一定范围里的回复： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextReplies/lastId/4/num/3
 
-22.获取一定范围里的赞： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextPraises/userId/1/index/0/num/3
+22.获取一定范围里的赞： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextPraises/lastId/4/num/3
 
-23.获取一定范围里的提到我的： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextMentionMes/userId/1/index/0/num/4
+23.获取一定范围里的提到我的： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextMentionMes/lastId/4/num/4
 
-24.获取一定时间范围里的课程公告（用于下拉刷新，下同）http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestCourseNotices/userId/1/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+24.获取一定时间范围里的课程公告（用于下拉刷新，下同）http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestCourseNotices/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
 
-25.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestReplies/userId/1/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+25.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestReplies/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
 
-26.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestPraises/userId/1/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+26.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestPraises/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
 
-27.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestMentionMes/userId/1/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+27.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestMentionMes/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
 
 28.设置课程的教师(重复设置会报错)： http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/setTeacher/userId/1/courseId/3
 
@@ -90,9 +90,9 @@
 
 35.最新签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getCurrentRollRecord/courseId/1
 
-36.获取某用户的某门课程的签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getHistorySignRecords/courseId/1/studentId/1
+36.获取某用户的某门课程的签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getHistorySignRecords/courseId/1/
 
-37.获取某用户某门课程的最新签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getCurrentSignRecord/courseId/1/studentId/1
+37.获取某用户某门课程的最新签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getCurrentSignRecord/courseId/1/
 
 #
 #
