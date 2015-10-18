@@ -108,7 +108,10 @@ public class MessageNetService {
                 String replyer = replyJson.getString("user_name");
                 String post = replyJson.getString("content");
                 String replyTime = replyJson.getString("timestamp");
-                Reply reply = new Reply(id,replyer,post,replyTime);
+                String icon_url = replyJson.getString("icon_url");
+                int postId = replyJson.getInt("post_id");
+                int replyerId = replyJson.getInt("user_id");
+                Reply reply = new Reply(id,replyer,post,replyTime,icon_url,postId,replyerId);
                 replies.add(reply);
             }
         }catch (JSONException e){
@@ -164,7 +167,10 @@ public class MessageNetService {
                 String praiser = praiseJson.getString("sender_name");
                 String post = praiseJson.getString("post_content");
                 String replyTime = praiseJson.getString("time");
-                Praise praise = new Praise(id,praiser,post,replyTime);
+                String icon_url = praiseJson.getString("icon_url");
+                int postId = praiseJson.getInt("post_id");
+                int senderId = praiseJson.getInt("sender_id");
+                Praise praise = new Praise(id,praiser,post,replyTime,icon_url,postId,senderId);
                 praises.add(praise);
             }
         }catch(JSONException e){
@@ -182,7 +188,10 @@ public class MessageNetService {
                 String praiser = mentionMeJson.getString("sender_name");
                 String post = mentionMeJson.getString("post_content");
                 String replyTime = mentionMeJson.getString("time");
-                MentionMe mentionMe = new MentionMe(id,praiser,post,replyTime);
+                String icon_url = mentionMeJson.getString("icon_url");
+                int postId = mentionMeJson.getInt("post_id");
+                int senderId = mentionMeJson.getInt("sender_id");
+                MentionMe mentionMe = new MentionMe(id,praiser,post,replyTime,icon_url,postId,senderId);
                 praises.add(mentionMe);
             }
         }catch(JSONException e){
@@ -220,6 +229,7 @@ public class MessageNetService {
 //        }
 //        try {
 //            Thread.sleep(500);
+
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }

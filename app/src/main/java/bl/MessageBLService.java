@@ -1,5 +1,9 @@
 package bl;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import net.MessageNetService;
 
 import java.sql.Date;
@@ -12,15 +16,44 @@ import model.message.MentionMe;
 import model.message.MessageType;
 import model.message.Praise;
 import model.message.Reply;
+import model.message.UnReadMessageType;
 
 /**
  * Created by I322233 on 9/8/2015.
  */
-public class MessageBLService {
-    public static int unreadCourseNoticeNum = 1;
+public class
+
+        MessageBLService {
+    public static int unreadCourseNoticeNum = 0;
     public static int unreadReplyNum = 0;
     public static int unreadPraiseNum = 0;
     public static int unreadMentionNum = 0;
+
+    public static void persistentUnreadMessageNum(Context context){
+        //实例化SharedPreferences对象（第一步）
+        SharedPreferences mySharedPreferences= context.getSharedPreferences(UnReadMessageType.unRead,
+                Activity.MODE_PRIVATE);
+        //实例化SharedPreferences.Editor对象（第二步）
+        SharedPreferences.Editor editor = mySharedPreferences.edit();
+        //用putString的方法保存数据
+        editor.putInt(UnReadMessageType.courseNotice, unreadCourseNoticeNum);
+        editor.putInt(UnReadMessageType.reply,unreadReplyNum);
+        editor.putInt(UnReadMessageType.praise,unreadPraiseNum);
+        editor.putInt(UnReadMessageType.mentionMe,unreadMentionNum);
+        //提交当前数据
+        editor.commit();
+    }
+
+    public static void initUnreadMessageNum(Context context){
+        SharedPreferences sharedPreferences= context.getSharedPreferences(UnReadMessageType.unRead,
+                Activity.MODE_PRIVATE);
+        // 使用getString方法获得value，注意第2个参数是value的默认值
+        unreadCourseNoticeNum = sharedPreferences.getInt(UnReadMessageType.courseNotice,0);
+        unreadReplyNum = sharedPreferences.getInt(UnReadMessageType.reply,0);
+        unreadPraiseNum = sharedPreferences.getInt(UnReadMessageType.praise,0);
+        unreadMentionNum = sharedPreferences.getInt(UnReadMessageType.mentionMe,0);
+
+    }
 
     public static void incrementUnReadMessageNum(MessageType type){
         switch (type){

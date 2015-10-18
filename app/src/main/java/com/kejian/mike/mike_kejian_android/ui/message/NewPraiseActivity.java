@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+
+import net.picture.DownloadPicture;
 
 import java.util.List;
 
@@ -150,7 +153,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
+            final ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = myInflater.inflate(R.layout.layout_new_praise
                         , null);
@@ -164,7 +167,18 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Praise praise = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
+            DownloadPicture d=new DownloadPicture(getContext()){
+
+                @Override
+                public void updateView(Bitmap bitmap) {
+
+                    viewHolder.avatar_view.setImageBitmap(bitmap);
+
+                }
+            };
+
+            d.getBitMapFromNet(praise.getIconUrl(), "");
+//            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());
             viewHolder.time_view.setText(praise.getAdjustTime());
