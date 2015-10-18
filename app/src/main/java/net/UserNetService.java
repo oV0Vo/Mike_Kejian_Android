@@ -4,10 +4,13 @@ import android.os.AsyncTask;
 
 import net.UserDataBase.UserDataBase;
 import net.httpRequest.HttpRequest;
+import net.picture.MessagePrint;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +26,7 @@ import model.user.user;
  * Created by kisstheraik on 15/9/23.
  */
 public class UserNetService {
+
     private static String baseUrl = "http://112.124.101.41/mike_server_v02/index.php/Home/User/";
     private static HttpRequest httpRequest = HttpRequest.getInstance();
 
@@ -36,7 +40,20 @@ public class UserNetService {
     }
 
 
-    private user register(UserToken userToken){
+    public static boolean bindSchoolAccount(String userId,String schoolAccount,String schoolAccountPsd){
+
+        HashMap<String,String> para=new HashMap<>();
+
+        para.put("userId",userId);
+        para.put("schoolAccount",schoolAccount);
+        para.put("schoolAccountPsd", schoolAccountPsd);
+
+        boolean state=Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl+"bindSchoolAccount",para));
+
+        return state;
+
+    }
+    public  static user register(UserToken userToken){
 
 
 
@@ -53,7 +70,11 @@ public class UserNetService {
         h.put("userToken", jsonObject.toString());
 
 
+
+
         String result=HttpRequest.getInstance().sentGetRequest(baseUrl+"register/",h);
+
+        System.out.println("注册成功:"+result);
 
 
         try {
@@ -115,7 +136,9 @@ public class UserNetService {
                 userInfo.put("name",userDataJson.getString("name"));
                 userInfo.put("gender",userDataJson.getString("gender"));
                 userInfo.put("grade",userDataJson.getString("grade"));
-                userInfo.put("icon",userDataJson.getString("icon_url"));
+
+                String icon=userDataJson.getString("icon_url").replaceAll("#","/");
+                userInfo.put("icon",icon);
                 userInfo.put("signal",userDataJson.getString("signal"));
                 userInfo.put("identify",userDataJson.getString("identify"));
                 userInfo.put("id",userDataJson.getInt("id"));
@@ -199,13 +222,37 @@ public class UserNetService {
 
     }
 
-    public void setUserInfo(String type,String content){
+//    /*
+//     * description:修改用户信息
+//     * return:bool
+//     * $userInfoType:PASSWORD|SIGN_TEXT|ICON|NICKNAME
+//     */
+//    public function resetUserInfo($userId,$userInfoType,$newUserInfo){
+
+    public static void setUserInfo(int userId,String type,String content){
 
         HashMap<String,String> map=new HashMap<>();
 
-        map.put(type,content);
 
-        httpRequest.sentGetRequest(baseUrl+"",map);
+        map.put("userId",userId+"");
+        map.put("userInfoType",type);
+
+
+        try {
+
+
+            MessagePrint.print("before replace:" + content);
+            content=content.replaceAll("/", "#");
+            MessagePrint.print("after replace:" + content);
+
+            content = URLEncoder.encode(URLEncoder.encode(content, "utf-8"));
+            MessagePrint.print("after encode:" + content);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        map.put("newUserInfo",content);
+
+        httpRequest.sentGetRequest(baseUrl+"resetUserInfo/",map);
 
     }
     public void getAttentionPost(String userId){

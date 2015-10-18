@@ -74,15 +74,18 @@
                android:layout_marginLeft="30dp"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
+               android:layout_weight="1"
 
                />
 
-           <TextView
+           <EditText
                android:layout_height="40dp"
-               android:layout_width="wrap_content"
+               android:layout_width="70dp"
+
 
                android:id="@+id/base_info_name"
                android:textSize="@dimen/medium_font"
+               android:layout_weight="3"
                android:gravity="center"
                />
            <TextView
@@ -91,15 +94,18 @@
                android:text="性别"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
+               android:layout_weight="1"
 
 
 
                android:layout_marginLeft="100dp"/>
-           <TextView
+           <EditText
                android:layout_height="40dp"
-               android:layout_width="wrap_content"
+               android:layout_width="70dp"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
+               android:layout_weight="3"
+               android:enabled="true"
 
                android:id="@+id/base_info_gender"/>
            </LinearLayout>
@@ -120,9 +126,10 @@
                android:gravity="center"
 
                android:text="昵称"/>
-           <TextView
+           <EditText
                android:layout_height="40dp"
-               android:layout_width="wrap_content"
+               android:layout_width="70dp"
+
                android:id="@+id/base_info_nickname"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
@@ -180,9 +187,9 @@
                 android:gravity="center"
 
                 />
-            <TextView
+            <EditText
                 android:layout_height="40dp"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
 
                 android:id="@+id/user_school_info_department"
                 android:textSize="@dimen/medium_font"
@@ -198,9 +205,9 @@
 
 
                 android:layout_marginLeft="100dp"/>
-            <TextView
+            <EditText
                 android:layout_height="40dp"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_major"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
@@ -223,9 +230,9 @@
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
                 android:text="身份"/>
-            <TextView
+            <EditText
                 android:layout_height="40dp"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_identify"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
@@ -240,9 +247,9 @@
                 android:gravity="center"
 
                 />
-            <TextView
+            <EditText
                 android:layout_height="40dp"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_grade"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
@@ -258,7 +265,8 @@
                 android:gravity="center"
 
                 />
-            <TextView
+            <EditText
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_number"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
@@ -297,7 +305,7 @@
         android:layout_height="wrap_content">
 
         <TableRow>
-            <TextView
+            <EditText
 
                 android:layout_marginLeft="30dp"
                 android:text="The gay is lazy..."
@@ -305,6 +313,7 @@
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
 
+                android:layout_width="70dp"
                 />
            
         </TableRow>
