@@ -55,6 +55,7 @@ public class user implements Serializable{
     private String background_icon_path;//背景图片
     private String id;
 
+
     public String getId(){
 
         return id;

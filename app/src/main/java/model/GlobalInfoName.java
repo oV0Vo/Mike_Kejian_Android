@@ -14,8 +14,15 @@ public interface GlobalInfoName {
 
     public String USER="user";
     public String USER_TOKEN="userToken";
-    public enum  BIND_SCHOOL_ACCOUNT_TIME{BIND_SCHOOL_ACCOUNT_TIME,AFTER_REGISTER,FROM_SETTING};
+    public enum  BIND_SCHOOL_ACCOUNT_TIME{
+
+        BIND_SCHOOL_ACCOUNT_TIME,AFTER_REGISTER,FROM_SETTING;
+    };
     public String COOKIE="cookie";
+
+
+
+
 
 
 }

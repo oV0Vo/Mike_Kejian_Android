@@ -100,8 +100,11 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
                 showInfo("跳过绑定教务网帐号", "您选择了跳过绑定教务网帐号，这样您只能浏览课程的相关信息");
             }
         });
+        MessagePrint.print(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name());
 
-        if(((String)Global.getObjectByName(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name())).equals(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.AFTER_REGISTER.name())){
+        Object tem=Global.getObjectByName(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name());
+
+        if(tem!=null&&((String)tem).equals(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.AFTER_REGISTER.name())){
 
             //如果是从setting里面绑定那么就不显示跳过绑定
             skipBind.setVisibility(View.INVISIBLE);
@@ -191,7 +194,7 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
                 MessagePrint.print("开始绑定教务网账号");
 
-                new BindThread().execute(u.getId(),userToken.getSchoolAccount(),userToken.getSchoolAccountPassword());
+                new BindThread().execute("1",userToken.getSchoolAccount(),userToken.getSchoolAccountPassword());
 
                 userToken.bindSchoolAccount();
                 showInfo("绑定成功","您已经成功绑定教务网帐号");
@@ -264,6 +267,8 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
             if(result.equals("1")){
 
                 MessagePrint.print("绑定教务网账号成功");
+
+                userToken.setIfBindSchoolAccount(true);
 
                 Toast.makeText(getApplicationContext(),"绑定教务网账号成功 >_<",Toast.LENGTH_SHORT).show();
 

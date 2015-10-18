@@ -202,7 +202,7 @@ public class UserRegisterActivity extends AppCompatActivity{
 
             Global.addGlobalItem("userToken",userToken);
 
-            intent.setClass(context, UserLoginActivity.class);
+            intent.setClass(context, UserSchoolAccountActivity.class);
 
             startActivity(intent);
 
