@@ -43,12 +43,21 @@ public class CampusNetService {
         return posts;
     }
 
-    public static ArrayList<Post> getLatestPosts(int startId, int number) {
+    public static ArrayList<Post> getLatestPosts(String startId, int number) {
         HashMap<String, String> params = new HashMap<>();
         params.put("courseId", "0");
-        params.put("startId", startId+"");
+        params.put("startId", startId);
         params.put("number", number+"");
         String result = httpRequest.sentGetRequest(baseUrl+"getNewestPost/", params);
+        return handlePostJson(result);
+    }
+
+    public static ArrayList<Post> getHottestPosts(String startId, int number) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("courseId", "0");
+        params.put("startId", startId);
+        params.put("number", number+"");
+        String result = httpRequest.sentGetRequest(baseUrl+"getHotestPost/", params);
         return handlePostJson(result);
     }
 }

@@ -4,7 +4,6 @@ import net.CampusNetService;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import model.campus.Post;
 import model.campus.Reply;
@@ -14,27 +13,26 @@ import model.helper.ResultMessage;
  * Created by showjoy on 15/9/10.
  */
 public class CampusBLService {
-    public static ArrayList<Post> latestPost;
+    public static ArrayList<Post> latestPosts;
+    public static ArrayList<Post> hottestPosts;
 
 
     public static void refreshLatestPosts() {
-        latestPost = CampusNetService.getLatestPosts(0,5);
+        latestPosts = CampusNetService.getLatestPosts("0",7);
     }
 
-    public static ArrayList<Post> getHottestPostList() {
-        ArrayList<Post> postList = new ArrayList<Post>();
-        Post post = new Post();
-        post.setUserId("miketest1");
-        post.setAuthorName("小明");
-        post.setTitle("最新测试标题");
-        post.setContent("测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容");
-        post.setPraise(10);
-        post.setViewNum(20);
-        post.setReplyList(new ArrayList<Reply>());
-        for(int i=0; i<10; i++)
-            postList.add(post);
+    public static void getNextLatestPosts() {
+        ArrayList<Post> nextPosts = CampusNetService.getLatestPosts(latestPosts.get(latestPosts.size()-1).getPostId(), 7);
+        latestPosts.addAll(nextPosts);
+    }
 
-        return postList;
+    public static void refreshHottestPosts() {
+        hottestPosts = CampusNetService.getHottestPosts("0",7);
+    }
+
+    public static void getNextHottestPosts() {
+        ArrayList<Post> nextPosts = CampusNetService.getHottestPosts(latestPosts.get(latestPosts.size()-1).getPostId(), 7);
+        hottestPosts.addAll(nextPosts);
     }
 
     public static Post getPostDetail(String postId) {
@@ -61,7 +59,6 @@ public class CampusBLService {
         return post;
 
     }
-
 
     public ResultMessage publish(Post post) {
         return null;
