@@ -1,11 +1,8 @@
 package model.message;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import nu.xom.jaxen.function.StringFunction;
 
 /**
  * Created by I322233 on 9/13/2015.
@@ -17,14 +14,23 @@ public class Reply {
     protected String replyTime;
     protected String adjustTime;
     protected String iconUrl;
-    public Reply(int id,String replyer,String post,String replyTime, String iconUrl){
+    protected int postId;
+    protected String localIconPath;
+    public Reply(int id,String replyer,String post,String replyTime, String iconUrl, int post_id){
         this.id = id;
         this.replyer = replyer;
         this.post = post;
         this.replyTime = replyTime;
         this.iconUrl = iconUrl;
+        this.postId = post_id;
         this.setAdjustTime();
         this.resetPost();
+    }
+    protected void setLocalIconPath(){
+
+    }
+    public String getLocalIconPath(){
+        return this.localIconPath;
     }
     protected void setAdjustTime(){
         Date nowTime = new Date();
@@ -58,5 +64,8 @@ public class Reply {
     }
     public String getIconUrl(){
         return this.iconUrl;
+    }
+    public int getPostId(){
+        return this.postId;
     }
 }
