@@ -54,3 +54,4 @@ by hch
 11.根据课程名搜索获得的只有[{"1":"llllll"}]
 12.http://112.124.101.41/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/number/2报错了
 13.获取学校的课程（有范围）返回空列表 http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getAllCourses/schoolId/1/lastId/4/num/2
+14.获得的帖子缺少回复字段http://112.124.101.41/mike_server_v02/index.php/Home/CoursePost/getCoursePosts/courseId/1/lastId/4/num/2
