@@ -52,8 +52,8 @@ by DengrongGuan
 -------------------------------------------------------------------------------------
 by zfy
 
-11.绑定用户的教务网的时候没有更新用户的信息（身份，年级，昵称(这个先改为名字),院系，专业，教务网密码，学号）
+11.绑定用户的教务网的时候没有更新用户的信息（身份，年级，昵称(这个先改为名字),院系，专业，教务网密码，学号）//done by gaoyang
 
-12.user表缺一个phoneNumber字段
+12.user表缺一个phoneNumber字段 //done by gaoyang 字段为phone_num
 
-13.还需要一个根据phoneNumber修改密码的接口  参数为phoneNumber 新密码  返回值为 bool
+13.还需要一个根据phoneNumber修改密码的接口  参数为phoneNumber 新密码  返回值为 bool  //done by gaoyang
