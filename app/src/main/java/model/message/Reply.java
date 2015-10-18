@@ -16,18 +16,21 @@ public class Reply {
     protected String iconUrl;
     protected int postId;
     protected String localIconPath;
-    public Reply(int id,String replyer,String post,String replyTime, String iconUrl, int post_id){
+    protected int replyerId;
+    public Reply(int id,String replyer,String post,String replyTime, String iconUrl, int post_id, int replyerId){
         this.id = id;
         this.replyer = replyer;
         this.post = post;
         this.replyTime = replyTime;
         this.iconUrl = iconUrl;
         this.postId = post_id;
+        this.replyerId = replyerId;
+        this.setLocalIconPath();
         this.setAdjustTime();
         this.resetPost();
     }
     protected void setLocalIconPath(){
-
+        this.localIconPath = this.iconUrl.replace(".","").replace(":","").replace("/","") + "#"+"user_id"+"#"+this.replyerId;
     }
     public String getLocalIconPath(){
         return this.localIconPath;
