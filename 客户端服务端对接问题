@@ -48,3 +48,9 @@ by DengrongGuan
 //by zfy  只能对主题贴点赞
 10.提到我的同问题8
 //by zfy  和8类似
+
+------------------------------------
+by hch
+11.根据课程名搜索获得的只有[{"1":"llllll"}]
+12.http://112.124.101.41/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/number/2报错了
+13.获取学校的课程（有范围）返回空列表 http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getAllCourses/schoolId/1/lastId/4/num/2
