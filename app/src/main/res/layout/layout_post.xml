@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:padding="@dimen/medium_padding"
+            android:paddingTop="@dimen/medium_padding"
             android:orientation="horizontal"
             android:gravity="right">
 
@@ -81,7 +81,7 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center"
-                android:src="@drawable/up"
+                android:src="@drawable/comment2"
                 android:maxHeight="@dimen/sub_small_icon_height"
                 android:maxWidth="@dimen/sub_small_icon_width"
                 android:adjustViewBounds="true"

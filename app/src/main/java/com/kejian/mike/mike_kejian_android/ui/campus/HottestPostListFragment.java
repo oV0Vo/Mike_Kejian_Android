@@ -3,7 +3,6 @@ package com.kejian.mike.mike_kejian_android.ui.campus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,8 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.message.CourseNoticeActivity;
-
 import java.util.ArrayList;
 
 import bl.CampusBLService;

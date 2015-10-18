@@ -5,30 +5,24 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
-import java.util.ArrayList;
 
 import bl.CampusBLService;
-import model.campus.Post;
-import model.message.Reply;
-import util.DensityUtil;
 
 /**
  * Created by showjoy on 15/9/17.
  */
-public class LatestPostListFragment extends Fragment implements View.OnClickListener,OnRefreshListener {
+public class LatestPostListFragment extends Fragment implements OnRefreshListener {
     private View view;
     private LinearLayout mainLayout;
     private RefreshListView container;
@@ -58,20 +52,21 @@ public class LatestPostListFragment extends Fragment implements View.OnClickList
     private void iniViews() {
         this.container = (RefreshListView)view.findViewById(R.id.post_container);
         this.mInflater = ctx.getLayoutInflater();
-        this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.getLatestPostList());
+        this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPost);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(ctx, PostDetailActivity.class);
+                //intent.putExtra("postId", (String) view.getTag());
+                startActivity(intent);
+            }
+        });
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent();
-        intent.setClass(ctx, PostDetailActivity.class);
-        intent.putExtra("postId", (String) v.getTag());
-        startActivity(intent);
-
-    }
 
     @Override
     public void onDownPullRefresh() {
@@ -79,6 +74,7 @@ public class LatestPostListFragment extends Fragment implements View.OnClickList
 
             @Override
             protected Void doInBackground(Void... params) {
+                CampusBLService.refreshLatestPosts();
                 return null;
             }
 
@@ -117,6 +113,7 @@ public class LatestPostListFragment extends Fragment implements View.OnClickList
         @Override
         public String doInBackground(String... params) {
             String userId = params[0];
+            CampusBLService.refreshLatestPosts();
             return "";
         }
 

@@ -14,6 +14,7 @@ public class Post {
     private String content;
     private int praise;
     private int viewNum;
+    private int replyNum;
     private ArrayList<Reply> replyList;
     private String date;
     private String userIconUrl;
@@ -99,5 +100,13 @@ public class Post {
 
     public void setUserIconUrl(String userIconUrl) {
         this.userIconUrl = userIconUrl;
+    }
+
+    public int getReplyNum() {
+        return replyNum;
+    }
+
+    public void setReplyNum(int replyNum) {
+        this.replyNum = replyNum;
     }
 }

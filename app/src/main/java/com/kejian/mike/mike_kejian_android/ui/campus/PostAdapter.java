@@ -57,7 +57,6 @@ public class PostAdapter extends ArrayAdapter<Post>{
         }
 
         Post post = getItem(position);
-        /*
         DownloadPicture d=new DownloadPicture(getContext()){
 
             @Override
@@ -68,7 +67,6 @@ public class PostAdapter extends ArrayAdapter<Post>{
 
 
         d.getBitMapFromNet(post.getUserIconUrl(), "");
-        */
         viewHolder.post_title.setText(post.getTitle());
         viewHolder.post_date.setText(post.getDate());
         viewHolder.post_content.setText(post.getContent());
