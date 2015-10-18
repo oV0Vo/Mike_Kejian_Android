@@ -1,4 +1,4 @@
-1. getCourseDetail的返回参数缺少学生数量
+1. getCourseDetail的返回参数缺少学生数量 // @已解决 加入字段students_num
 
 2. getCoursePosts目前不可用
 
