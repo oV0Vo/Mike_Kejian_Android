@@ -1,6 +1,6 @@
-1. getCourseDetail的返回参数缺少学生数量 // @已解决 加入字段students_num
+1. getCourseDetail的返回参数缺少学生数量 // @已解决 加入字段students_num by gdr
 
-2. getCoursePosts目前不可用
+2. getCoursePosts目前不可用 //已解决，但是这里是需要所有帖子还是只是主题贴？ by gdr
 
 3. 发布问题感觉不太适合用get，因为内容比较多
 
