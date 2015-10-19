@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 
 import net.picture.DownloadPicture;
 
@@ -27,7 +30,7 @@ import bl.MessageBLService;
 import model.message.MentionMe;
 import model.message.Reply;
 
-public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
+public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener,AdapterView.OnItemClickListener{
 //    private View layout_title;
 //    private ArrayList<MentionMe> mentionMes = new ArrayList<MentionMe>();
     private LinearLayout mainLayout;
@@ -73,6 +76,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
         this.adapter = new MentionMeAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.mentionMes);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(this);
 
     }
     private void refreshMentionMeNumView(){
@@ -123,6 +127,15 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
             container.hideFooterView();
         }
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Reply reply = (Reply)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",reply.getPostId()+"");
+        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {

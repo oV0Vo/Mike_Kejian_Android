@@ -292,12 +292,30 @@
 
         <activity
             android:name=".ui.main.SearchableActivity"
-            android:label="@string/title_activity_searchable" >
+            android:label="@string/title_activity_searchable"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".ui.message.SearchTestActivity"
+            android:label="@string/title_activity_search_test"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- enable the search dialog to send searches to SearchableActivity -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".ui.main.SearchableActivity" />
         </activity>
     </application>
 

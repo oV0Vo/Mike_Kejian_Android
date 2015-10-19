@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
+import com.kejian.mike.mike_kejian_android.ui.main.SearchableActivity;
 
 import java.util.List;
 
@@ -101,9 +102,12 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(ReceiverActions.increment_action);
-        intent.putExtra("messageType", MessageType.mentionMe);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+//        Intent intent = new Intent(ReceiverActions.increment_action);
+//        intent.putExtra("messageType", MessageType.mentionMe);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Intent intent = new Intent();
+        intent.setClass(this,SearchTestActivity.class);
+        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
