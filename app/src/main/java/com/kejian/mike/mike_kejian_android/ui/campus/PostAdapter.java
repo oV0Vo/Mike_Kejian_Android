@@ -23,13 +23,14 @@ import model.campus.Post;
 public class PostAdapter extends ArrayAdapter<Post>{
     private int layoutId;
 
-    private static class ViewHolder {
+    public static class PostViewHolder {
         ImageView post_user_icon;
         TextView post_title;
         TextView post_date;
         TextView post_content;
         TextView post_praise_num;
         TextView post_comment_num;
+        String postId;
     }
 
     public PostAdapter(Context context, int layoutId, List<Post> posts) {
@@ -39,39 +40,41 @@ public class PostAdapter extends ArrayAdapter<Post>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder;
+        final PostViewHolder postViewHolder;
+        Post post = getItem(position);
         if(convertView == null) {
             String inflater = Context.LAYOUT_INFLATER_SERVICE;
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(inflater);
             convertView = vi.inflate(layoutId, null);
-            viewHolder = new ViewHolder();
-            viewHolder.post_user_icon = (ImageView) convertView.findViewById(R.id.post_user_icon);
-            viewHolder.post_title = (TextView) convertView.findViewById(R.id.post_title);
-            viewHolder.post_date = (TextView) convertView.findViewById(R.id.post_date);
-            viewHolder.post_content = (TextView) convertView.findViewById(R.id.post_content);
-            viewHolder.post_praise_num = (TextView) convertView.findViewById(R.id.post_praise_num);
-            viewHolder.post_comment_num = (TextView) convertView.findViewById(R.id.post_comment_num);
-            convertView.setTag(viewHolder);
+            postViewHolder = new PostViewHolder();
+            postViewHolder.postId = post.getPostId();
+            postViewHolder.post_user_icon = (ImageView) convertView.findViewById(R.id.post_user_icon);
+            postViewHolder.post_title = (TextView) convertView.findViewById(R.id.post_title);
+            postViewHolder.post_date = (TextView) convertView.findViewById(R.id.post_date);
+            postViewHolder.post_content = (TextView) convertView.findViewById(R.id.post_content);
+            postViewHolder.post_praise_num = (TextView) convertView.findViewById(R.id.post_praise_num);
+            postViewHolder.post_comment_num = (TextView) convertView.findViewById(R.id.post_comment_num);
+            convertView.setTag(postViewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            postViewHolder = (PostViewHolder) convertView.getTag();
         }
 
-        Post post = getItem(position);
+
         DownloadPicture d=new DownloadPicture(getContext()){
 
             @Override
             public void updateView(Bitmap bitmap) {
-                viewHolder.post_user_icon.setImageBitmap(bitmap);
+                postViewHolder.post_user_icon.setImageBitmap(bitmap);
             }
         };
 
 
         d.getBitMapFromNet(post.getUserIconUrl(), "");
-        viewHolder.post_title.setText(post.getTitle());
-        viewHolder.post_date.setText(post.getDate());
-        viewHolder.post_content.setText(post.getContent());
-        viewHolder.post_praise_num.setText(Integer.toString(post.getPraise()));
-        viewHolder.post_comment_num.setText(Integer.toString(post.getViewNum()));
+        postViewHolder.post_title.setText(post.getTitle());
+        postViewHolder.post_date.setText(post.getDate());
+        postViewHolder.post_content.setText(post.getContent());
+        postViewHolder.post_praise_num.setText(Integer.toString(post.getPraise()));
+        postViewHolder.post_comment_num.setText(Integer.toString(post.getViewNum()));
 
         return convertView;
     }

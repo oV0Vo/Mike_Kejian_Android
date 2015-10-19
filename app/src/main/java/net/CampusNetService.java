@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.campus.Post;
+import model.campus.Reply;
 
 /**
  * Created by ShowJoy on 2015/10/18.
@@ -59,5 +60,53 @@ public class CampusNetService {
         params.put("number", number+"");
         String result = httpRequest.sentGetRequest(baseUrl+"getHotestPost/", params);
         return handlePostJson(result);
+    }
+
+    private static Post handleSinglePostJson(String json) {
+        Post tempPost = new Post();
+        try {
+            JSONObject postJson = new JSONObject(json);
+            tempPost.setPostId(postJson.getString("id"));
+            tempPost.setUserId(postJson.getString("user_id"));
+            tempPost.setTitle(postJson.getString("title"));
+            tempPost.setContent(postJson.getString("content"));
+            tempPost.setDate(postJson.getString("timestamp"));
+            tempPost.setViewNum(postJson.getInt("watch_count"));
+            tempPost.setPraise(postJson.getInt("praise"));
+            tempPost.setUserIconUrl(postJson.getString("icon_url"));
+            tempPost.setReplyList(handleReplies(postJson.getString("replies")));
+            tempPost.setReplyNum(tempPost.getReplyList().size());
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
+        return tempPost;
+    }
+
+    public static Post getPostInfo(String postId) {
+        HashMap<String, String>  params = new HashMap<>();
+        params.put("postId", postId);
+        String result = httpRequest.sentGetRequest(baseUrl + "getPostReplys/", params);
+        return handleSinglePostJson(result);
+    }
+
+    private static ArrayList handleReplies(String json) {
+        ArrayList<Reply> replies = new ArrayList<Reply> ();
+        try {
+            JSONArray replyJsonArray = new JSONArray(json);
+            for(int i=0; i<replyJsonArray.length(); i++) {
+                Reply tempReply = new Reply();
+                JSONObject reply = replyJsonArray.getJSONObject(i);
+                tempReply.setContent(reply.getString("content"));
+                tempReply.setUserId(reply.getString("user_id"));
+                tempReply.setDate(reply.getString("timestamp"));
+                tempReply.setAuthorName(reply.getString("name"));
+                tempReply.setViewNum(reply.getInt("watch_count"));
+                tempReply.setCommentNum(reply.getInt("reply_to"));
+                replies.add(tempReply);
+            }
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
+        return replies;
     }
 }

@@ -60,7 +60,7 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
                 intent.setClass(ctx, PostDetailActivity.class);
-                //intent.putExtra("postId", (String) view.getTag());
+                intent.putExtra("postId", ((PostAdapter.PostViewHolder) view.getTag()).postId);
                 startActivity(intent);
             }
         });

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/black2">
     <LinearLayout
         android:id="@+id/reply"
         android:layout_width="fill_parent"
@@ -13,7 +13,8 @@
         <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
             android:id="@+id/reply_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:divider="@null">
 
         </com.kejian.mike.mike_kejian_android.ui.message.RefreshListView>
 

@@ -20,6 +20,8 @@ import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 
+import java.util.ArrayList;
+
 import bl.CampusBLService;
 import model.campus.Post;
 import model.campus.Reply;
@@ -32,12 +34,13 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
 
     ActionBar actionBar;
     private Post post;
+    private ArrayList<Reply> replies;
     private String postId;
     private LinearLayout mainLayout;
     private RefreshListView container;
-    private LayoutInflater myInflater;
     private ProgressBar progressBar;
     private ReplyAdapter adapter;
+    private View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +68,13 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
     }
 
     private void iniData() {
-        postId = "1234";
+        postId = getIntent().getStringExtra("postId");
         new AsyncTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String... params) {
                 String postId = params[0];
-                post = CampusBLService.getPostDetail("test");
+                post = CampusBLService.getPostDetail(postId);
+                replies = post.getReplyList();
                 return null;
             }
 
@@ -87,14 +91,50 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
 
     private void iniView(){
         this.container = (RefreshListView)findViewById(R.id.reply_container);
+        header= getLayoutInflater().inflate(R.layout.layout_post_detail_header, null);
+        refreshHeader();
+        container.addHeaderView(header);
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
     }
 
+    private void refreshHeader() {
+        TextView detail_title = (TextView) header.findViewById(R.id.detail_title);
+        detail_title.setText(post.getTitle());
+        TextView detail_content = (TextView) header.findViewById(R.id.detail_content);
+        detail_content.setText(post.getContent());
+        TextView detail_author_name = (TextView) header.findViewById(R.id.detail_author_name);
+        detail_author_name.setText(post.getAuthorName());
+        TextView detail_date = (TextView) header.findViewById(R.id.detail_date);
+        detail_date.setText(post.getDate());
+        TextView detail_view_num = (TextView) header.findViewById(R.id.detail_view_num);
+        detail_view_num.setText(Integer.toString(post.getViewNum()));
+        TextView detail_comment_num = (TextView) header.findViewById(R.id.detail_comment_num);
+        detail_comment_num.setText(Integer.toString(post.getReplyNum()));
+        TextView detail_reply_num = (TextView) header.findViewById(R.id.detail_reply_num);
+        detail_reply_num.setText("共(" + post.getReplyNum() + ")条");
+    }
+
 
     @Override
     public void onDownPullRefresh() {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... params) {
+                String postId = params[0];
+                post = CampusBLService.getPostDetail(postId);
+                replies = post.getReplyList();
+                return null;
+            }
+
+            @Override
+            public void onPostExecute(Void result) {
+                adapter.notifyDataSetChanged();
+                container.hideHeaderView();
+                refreshHeader();
+            }
+        }.execute(postId);
 
     }
 
