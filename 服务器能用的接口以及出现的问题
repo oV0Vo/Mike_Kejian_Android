@@ -95,6 +95,8 @@
 
 37.获取某用户某门课程的最新签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getCurrentSignRecord/courseId/1/
 
+28.1 设置某门课程的所有老师和助教: http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/setTeachersAndAssistants/
+参数:  courseId : 1 teachers:"1,2,3,4" assistants: "1,2,3,4"
 #
 #
 #post 部分
