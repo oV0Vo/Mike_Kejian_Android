@@ -131,3 +131,41 @@
 50.关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/followThisPost/userId/1/postId/1
 
 51.关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/isFollowed/userId/1/postId/1
+#
+#
+#user 部分
+#@author gaoyang
+#
+#
+#
+52.获取用户:http://112.124.101.41/mike_server_v02/index.php/Home/User/getUser/id/1
+
+53.判断用户是否登陆:http://112.124.101.41/mike_server_v02/index.php/Home/User/hasLogin
+
+54.搜索用户:http://112.124.101.41/mike_server_v02/index.php/Home/User/getUserByInfo/he
+
+55.添加用户:http://112.124.101.41/mike_server_v02/index.php/Home/User/addNewUser/{
+       String name,String icon,String schoolName,String departmentName,
+       String nick_name,String identify,String gender,
+       String grade,String sign,String background_icon_path,
+       String id,String schoolAccount,String schoolAccountPsd}将以上对象转化为json
+
+56.判断用户是否存在:http://112.124.101.41/mike_server_v02/index.php/Home/User/wheatherUserExist/userInfoType/NIKE_NAME/userInfo/he
+ps:userInfoType(enum):PASSWORD|SIGN_TEXT|ICON|NICKNAME
+
+57.重置用户信息:http://112.124.101.41/mike_server_v02/index.php/Home/User/resetUserInfo/userId/1/userInfoType/ICON/url3
+
+58.注册:http://112.124.101.41/mike_server_v02/index.php/Home/User/register/userToken/{    
+    private String name;
+    private String tokenId;
+    private String userId;
+    private String password;
+    private String phoneNumber;
+    private String schoolNumber,
+    private String schoolAccount;
+    private String schoolAccountPassword;
+    private boolean ifBindSchoolAccount}  将以上对象转化为json 
+
+59.绑定教务网:http://112.124.101.41/mike_server_v02/index.php/Home/User/bind/userId/1/schoolAccount/131250043/19941026/schoolId/0
+
+60.重设密码:http://112.124.101.41/mike_server_v02/index.php/Home/User/phoneNumber/15651850900/newPassword/194123
