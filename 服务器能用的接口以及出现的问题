@@ -149,7 +149,7 @@ ps:postInfoType(enum):CONTENT|PRAISE|VIEWNUM
        String name,String icon,String schoolName,String departmentName,
        String nick_name,String identify,String gender,
        String grade,String sign,String background_icon_path,
-       String id,String schoolAccount,String schoolAccountPsd}将以上对象转化为json
+       String id,String schoolAccount,String schoolAccountPsd,String phoneNumber}将以上对象转化为json
 
 56.判断用户是否存在:http://112.124.101.41/mike_server_v02/index.php/Home/User/wheatherUserExist/userInfoType/NIKE_NAME/userInfo/he
 ps:userInfoType(enum):PASSWORD|SIGN_TEXT|ICON|NICKNAME
