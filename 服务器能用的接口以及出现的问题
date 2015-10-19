@@ -109,10 +109,11 @@
 39.删除帖子：http://112.124.101.41/mike_server_v02/index.php/Home/Post/deleteQuestion/postId/1
 
 40.更新帖子浏览量：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/VIEWNUM
+ps:postInfoType(enum):CONTENT|PRAISE|VIEWNUM
 
 41.更新帖子点赞量：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/PRAISE
 
-42.更新帖子内容：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/CONTENT/$postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,”title”:”卧槽”,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
+42.更新帖子内容：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/CONTENT/postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,”title”:”卧槽”,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
 
 43.邀请回答(其中userldList为json数组)：http://112.124.101.41/mike_server_v02/index.php/Home/Post/inviteUserToAnswer/senderId/2/questionId/1/userIdList/[1,2]
 
