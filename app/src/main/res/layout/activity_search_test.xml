@@ -4,12 +4,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.kejian.mike.mike_kejian_android.ui.main.SearchableActivity">
+    tools:context="com.kejian.mike.mike_kejian_android.ui.message.SearchTestActivity">
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView" />
-
+        android:layout_height="wrap_content" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,5 +16,6 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

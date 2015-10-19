@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 
 import net.picture.DownloadPicture;
 
@@ -26,7 +29,7 @@ import java.util.List;
 import bl.MessageBLService;
 import model.message.Praise;
 
-public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
+public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener,AdapterView.OnItemClickListener{
 //    private View layout_title;
 //    private ArrayList<Praise> praises = new ArrayList<Praise>();
 //    private int praiseNum = 0;
@@ -103,6 +106,15 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Praise praise = (Praise)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",praise.getPostId()+"");
+        startActivity(intent);
+    }
+
     private class InitDataTask extends AsyncTask<String, Integer, String> {
         @Override
         public String doInBackground(String... params) {
@@ -135,7 +147,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
         this.praiseArrayAdapter = new PraiseAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.praises);
         this.container.setAdapter(this.praiseArrayAdapter);
         this.container.setOnRefreshListener(this);
-
+        this.container.setOnItemClickListener(this);
     }
     private void refreshPraiseNumView(){
         TextView praise_num_text = (TextView)this.findViewById(R.id.praise_num);
