@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,5 +110,35 @@ public class CampusNetService {
             e.printStackTrace();
         }
         return replies;
+    }
+
+    public static String publish(String courseId, Post post) {
+        HashMap<String, String> params = new HashMap<>();
+        JSONObject postJson = new JSONObject();
+        try {
+            postJson.put("postId", post.getPostId());
+            postJson.put("userId", post.getUserId());
+            postJson.put("authorName",URLEncoder.encode( post.getAuthorName(),"utf8"));
+            postJson.put("title", URLEncoder.encode(post.getTitle(), "utf8"));
+            postJson.put("content", URLEncoder.encode(post.getContent(), "utf8"));
+            postJson.put("praise", post.getPraise());
+            postJson.put("viewNum", post.getViewNum());
+            postJson.put("date", post.getDate());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        params.put("userId", post.getUserId());
+        params.put("courseId", courseId);
+        try {
+            params.put("postInfo", URLEncoder.encode(postJson.toString(),"utf8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String result = httpRequest.sentGetRequest(baseUrl + "postNewQuestion/", params);
+
+        return result;
+
+
     }
 }

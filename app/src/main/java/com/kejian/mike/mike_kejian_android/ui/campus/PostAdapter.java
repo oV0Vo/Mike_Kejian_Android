@@ -49,9 +49,9 @@ public class PostAdapter extends ArrayAdapter<Post>{
             postViewHolder = new PostViewHolder();
             postViewHolder.postId = post.getPostId();
             postViewHolder.post_user_icon = (ImageView) convertView.findViewById(R.id.post_user_icon);
-            postViewHolder.post_title = (TextView) convertView.findViewById(R.id.post_title);
+            postViewHolder.post_title = (TextView) convertView.findViewById(R.id.publish_title);
             postViewHolder.post_date = (TextView) convertView.findViewById(R.id.post_date);
-            postViewHolder.post_content = (TextView) convertView.findViewById(R.id.post_content);
+            postViewHolder.post_content = (TextView) convertView.findViewById(R.id.publish_content);
             postViewHolder.post_praise_num = (TextView) convertView.findViewById(R.id.post_praise_num);
             postViewHolder.post_comment_num = (TextView) convertView.findViewById(R.id.post_comment_num);
             convertView.setTag(postViewHolder);

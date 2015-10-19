@@ -8,6 +8,8 @@ import java.util.Date;
 import model.campus.Post;
 import model.campus.Reply;
 import model.helper.ResultMessage;
+import model.user.Global;
+import model.user.user;
 
 /**
  * Created by showjoy on 15/9/10.
@@ -41,13 +43,18 @@ public class CampusBLService {
         return CampusNetService.getPostInfo(postId);
     }
 
-    public ResultMessage publish(Post post) {
-        return null;
-    }
+    public static String publish(String courseId, String title, String content) {
 
-    public ArrayList<Post> searchPost(String info){
-        return null;
+        Post post = new Post();
+        post.setPostId("0");
+        post.setUserId(((user) Global.getObjectByName("user")).getId());
+        post.setAuthorName(((user) Global.getObjectByName("user")).getNick_name());
+        post.setTitle(title);
+        post.setContent(content);
+        post.setDate(new Date());
+        post.setViewNum(0);
+        post.setPraise(0);
+        return CampusNetService.publish(courseId, post);
     }
-
 
 }

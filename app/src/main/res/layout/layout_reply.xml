@@ -15,7 +15,8 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_padding">
 
             <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
                 android:layout_width="@dimen/medium_icon_width"
