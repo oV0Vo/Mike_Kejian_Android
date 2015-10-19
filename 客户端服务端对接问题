@@ -59,3 +59,4 @@ by hch
 15.设置助教和教师的接口如果能在一个请求直接传入教师id数组和助教id数组会比较容易实现
 16.http://112.124.101.41/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/index/0/num/3报错
 17.获取过期的问题应该有范围
+18。发布问题没有发选择题的参数
