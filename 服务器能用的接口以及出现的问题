@@ -49,6 +49,7 @@
 
 15.回答问题： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/answerQuestions/questionId/1/answer/wer
 
+@u:发布课程公告：http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseAnnounce/newAnnouncement/courseId/1/authorId/1/time/212443423423/title/呵呵/content/哈哈
 
 16.获取某个用户的课程的课程公告数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalCourseNoticeNum/
 
