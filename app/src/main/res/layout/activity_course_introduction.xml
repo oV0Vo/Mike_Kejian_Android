@@ -168,36 +168,11 @@
             android:textColor="@color/green"
             android:text="@string/course_intro_assistant_title"/>
 
-         <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="@dimen/small_padding"
-             android:paddingLeft="@dimen/small_padding"
-             android:paddingTop="@dimen/small_padding"
-             android:paddingRight="@dimen/small_padding"
-             android:paddingBottom="@dimen/small_padding"
-             android:orientation="horizontal">
-
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:paddingLeft="@dimen/small_padding"
-                 android:text="@string/add"
-                 android:textSize="@dimen/sub_medium_font" />
-
-             <ImageView
-                 android:layout_width="@dimen/small_icon_size"
-                 android:layout_height="@dimen/small_icon_size"
-                 android:src="@drawable/add"/>
-
-         </LinearLayout>
-
-        <com.kejian.mike.mike_kejian_android.ui.util.FlowLayout
-            android:id="@+id/course_intro_assistants_container"
+        <TextView
+            android:id="@+id/assistant_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        </com.kejian.mike.mike_kejian_android.ui.util.FlowLayout>
+            android:singleLine="false"/>
     </LinearLayout>
 
     <RadioGroup

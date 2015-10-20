@@ -68,10 +68,10 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="@dimen/big_padding"
                         android:background="@drawable/green_bottom_border"
-                        android:text="@string/main_course_brief_progress_week_prefix"/>
+                        android:text="@string/main_course_teachers"/>
 
                     <TextView
-                        android:id="@+id/course_brief_progress_week"
+                        android:id="@+id/teacher_name_text"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingLeft="@dimen/medium_padding"/>

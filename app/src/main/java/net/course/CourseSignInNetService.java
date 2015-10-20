@@ -1,54 +1,138 @@
 package net.course;
 
+import android.app.backup.BackupAgent;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseSignInRecord;
+import com.kejian.mike.mike_kejian_android.ui.util.GetUserInfoMock;
+
+import net.NetConfig;
+import net.httpRequest.HttpRequest;
+import net.sf.json.JSON;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import model.user.Global;
+import util.DateUtil;
 
 /**
  * Created by violetMoon on 2015/9/29.
  */
 public class CourseSignInNetService {
 
-    public static ArrayList<CourseSignInRecord> getSignInRecords(String sid, String courseId) {
-        return signInMocks();
+    private static final String TAG = "CourseSignInNet";
+
+    private static final String BASE_URL = NetConfig.BASE_URL + "CourseRoll" + "/";
+
+    private static HttpRequest http = HttpRequest.getInstance();
+
+    public static ArrayList<CourseSignInRecord> getSignInRecords(String courseId) {
+        String url = BASE_URL + "getHistorySignRecords/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        String responseContent = http.sentGetRequest(url, paraMap);
+        try {
+            JSONArray jRecords = new JSONArray(responseContent);
+            ArrayList<CourseSignInRecord> records = new ArrayList<>();
+            for(int i=0; i<jRecords.length(); ++i) {
+                JSONObject jRecord = jRecords.getJSONObject(i);
+                CourseSignInRecord record = parseRecord(jRecord);
+                records.add(record);
+            }
+            return records;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getSignInRecords json error");
+            return null;
+        }
     }
 
-    public static CourseSignInRecord getCurrentSignInRecord(String sid, String courseId) {
-        return signInMock2();
+    public static CourseSignInRecord getCurrentSignInRecord(String courseId) {
+        String url = BASE_URL + "getCurrentSignRecord/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        String responseContent = http.sentGetRequest(url, paraMap);
+
+        if(responseContent.equals("null")) {
+            return null;
+        } else {
+            try {
+                JSONObject jRecord = new JSONObject(responseContent);
+                CourseSignInRecord record = new CourseSignInRecord();
+
+                String beginTimeStamp = jRecord.getString("begin_time");
+                Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
+                record.setBeginTime(beginTime);
+
+                int lastTime = jRecord.getInt("last_time");
+                Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
+                record.setEndTime(endTime);
+
+                boolean hasSignIn = jRecord.getBoolean("hasSignIn");
+                record.setHasSignIn(hasSignIn);
+
+                String teacherId = jRecord.getString("user_id");
+                record.setTeacherId(teacherId);
+
+                return record;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e(TAG, "getCurrentSignInRecord json error");
+                return null;
+            }
+        }
     }
 
-    public static boolean signIn(String sid, String namingId) {
-        return true;
+    private static CourseSignInRecord parseRecord(JSONObject jRecord) {
+        try {
+            CourseSignInRecord record = new CourseSignInRecord();
+
+            String beginTimeStamp = jRecord.getString("begin_time");
+            Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
+            record.setBeginTime(beginTime);
+
+            int lastTime = jRecord.getInt("last_time");
+            Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
+            record.setEndTime(endTime);
+
+            boolean hasSignIn = jRecord.getBoolean("hasSignIn");
+            record.setHasSignIn(hasSignIn);
+
+            String teacherName = jRecord.getString("teacher_name");
+            record.setTeacherName(teacherName);
+
+            String teacherId = jRecord.getString("user_id");
+            record.setTeacherId(teacherId);
+
+            return record;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "parseRecord json error");
+            return null;
+        }
     }
 
-    private static ArrayList<CourseSignInRecord> signInMocks() {
-        ArrayList<CourseSignInRecord> mocks = new ArrayList<CourseSignInRecord>();
-        mocks.add(signInMock1());
-        mocks.add(signInMock2());
-        mocks.add(signInMock1());
-        mocks.add(signInMock1());
-        mocks.add(signInMock1());
-        mocks.add(signInMock1());
-        return mocks;
+    public static boolean signIn(String namingId) {
+        String url = BASE_URL + "courseSign/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("rollId", namingId);
+        String responseContent = http.sentGetRequest(url , paraMap);
+        try {
+            JSONObject jResult = new JSONObject(responseContent);
+            int successState = jResult.getInt("result");
+            boolean success = successState != 0;
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "signIn json error");
+            return false;
+        }
     }
-
-    private static CourseSignInRecord signInMock1() {
-        CourseSignInRecord mock = new CourseSignInRecord();
-        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 60 * 48));
-        mock.setEndTime(new Date(System.currentTimeMillis() - 1000 * 60 * 32));
-        mock.setHasSignIn(true);
-        mock.setTeacherName("伏晓");
-        return mock;
-    }
-
-    private static CourseSignInRecord signInMock2() {
-        CourseSignInRecord mock = new CourseSignInRecord();
-        mock.setBeginTime(new Date(System.currentTimeMillis() - 1000 * 60 * 48));
-        mock.setEndTime(new Date(System.currentTimeMillis() - 1000 * 60 * 32));
-        mock.setHasSignIn(false);
-        mock.setTeacherName("伏晓");
-        return mock;
-    }
-
 }

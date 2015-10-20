@@ -42,8 +42,6 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private TimerThread timerThread;
 
-    private String sidMock = "131250012";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -232,7 +230,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         protected  ArrayList<CourseSignInRecord> doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseSignInNetService.getSignInRecords(sidMock, courseId);
+            return CourseSignInNetService.getSignInRecords(courseId);
         }
 
         @Override
@@ -248,7 +246,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         protected CourseSignInRecord doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseSignInNetService.getCurrentSignInRecord(courseId, sidMock);
+            return CourseSignInNetService.getCurrentSignInRecord(courseId);
         }
 
         @Override
@@ -264,7 +262,7 @@ public class CourseSignInActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseSignInNetService.signIn(courseId, sidMock);
+            return CourseSignInNetService.signIn(courseId);
         }
 
         @Override

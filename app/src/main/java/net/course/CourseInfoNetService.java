@@ -1,7 +1,11 @@
 package net.course;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
@@ -11,7 +15,16 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
 import com.kejian.mike.mike_kejian_android.dataType.course.PersonMocks;
 import com.kejian.mike.mike_kejian_android.dataType.course.PostMocks;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+
+import net.NetConfig;
+import net.httpRequest.HttpRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import model.campus.Post;
+import model.user.CourseBrief;
 import util.NetOperateResultMessage;
 
 /**
@@ -19,144 +32,183 @@ import util.NetOperateResultMessage;
  */
 public class CourseInfoNetService {
 
-    public static ArrayList<CourseBriefInfo> getMyCourseBrief(String sid, int beginPos, int num,
-                                                              int time, TimeUnit timeUnit) {
-        ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
-        for(int i=0; i<num; ++i)
-            mocks.add(getCourseBriefMock1());
-        return mocks;
+    private static final String TAG = "CourseInfoNetService";
+
+    private static final String BASE_URL = NetConfig.BASE_URL + "Course" + "/";
+
+    private static HttpRequest http = HttpRequest.getInstance();
+
+    public static ArrayList<CourseBriefInfo> getMyCourseBrief() {
+        String url = BASE_URL + "getMyCourseBriefInfos";
+        Log.i(TAG, url);
+        String response = http.sentGetRequest(url, null);
+        try {
+            JSONArray jCourseBriefs = new JSONArray(response);
+            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
+            for(int i=0; i<jCourseBriefs.length(); ++i) {
+                JSONObject jCourseBrief = jCourseBriefs.getJSONObject(i);
+                CourseBriefInfo courseBrief = parseCourseBriefInfo(jCourseBrief);
+                courseBriefs.add(courseBrief);
+            }
+            return courseBriefs;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getMyCourseBrief json error");
+            return null;
+        }
+
     }
 
-    public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, int beginPos, int num,
-                                                               int time, TimeUnit timeUnit) {
-        ArrayList<CourseBriefInfo> mocks = new ArrayList<CourseBriefInfo>();
-        for(int i=0; i<num; ++i)
-            mocks.add(getCourseBriefMock1());
-        return mocks;
+    private static CourseBriefInfo parseCourseBriefInfo(JSONObject jCourseBrief) throws JSONException{
+        try {
+            CourseBriefInfo courseBrief = new CourseBriefInfo();
+
+            String courseId = jCourseBrief.getString("course_id");
+            courseBrief.setCourseId(courseId);
+
+            String courseName = jCourseBrief.getString("course_name");
+            courseBrief.setCourseName(courseName);
+
+            Object academyName = jCourseBrief.get("department_name");
+            if(JSONObject.NULL == academyName)
+                courseBrief.setAcademyName(null);
+            else {
+                courseBrief.setAcademyName((String)academyName);
+            }
+
+            String courseType = jCourseBrief.getString("course_type");
+            courseBrief.setCourseType(courseType);
+
+            String imageUrl = jCourseBrief.getString("icon_url");
+            courseBrief.setImageUrl(imageUrl);
+
+            JSONArray jTeachers = jCourseBrief.getJSONArray("teachers");
+            ArrayList<String> teacherNames = new ArrayList<String>();
+            ArrayList<String> teacherIds = new ArrayList<String>();
+            for(int i=0; i<jTeachers.length(); ++i) {
+                JSONObject jTeacher = jTeachers.getJSONObject(i);
+
+                String tId = jTeacher.getString("id");
+                teacherIds.add(tId);
+
+                String tName = jTeacher.getString("name");
+                teacherNames.add(tName);
+            }
+
+            courseBrief.setTeacherNames(teacherNames);
+            courseBrief.setTeacherIds(teacherIds);
+
+            return courseBrief;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "parseCourseBriefInfo json error");
+            throw e;
+        }
+    }
+
+    public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, String lastCourseId
+            , int num, int time, TimeUnit timeUnit) {
+        String url = BASE_URL + "getAllCourses/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("schoolId", schoolId);
+        paraMap.put("lastId", lastCourseId);
+        String response = http.sentGetRequest(url, paraMap);
+        try {
+            JSONArray jCourseBriefs = new JSONArray(response);
+            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
+            for(int i=0; i<jCourseBriefs.length(); ++i) {
+                JSONObject jCourseBrief = jCourseBriefs.getJSONObject(i);
+                CourseBriefInfo courseBrief = parseCourseBriefInfo(jCourseBrief);
+                courseBriefs.add(courseBrief);
+            }
+            return courseBriefs;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getAllCourseBrief json error");
+            return null;
+        }
     }
 
     public static CourseDetailInfo getCourseDetail(String courseId, int time, TimeUnit timeUnit) {
-        CourseDetailInfo courseDetailMock = getCourseDetailMock1();
+        String url = BASE_URL + "getCourseDetail/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        String response = http.sentGetRequest(url, paraMap);
         try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return courseDetailMock;
-    }
+            JSONObject jCourseDetail = new JSONObject(response);
+            CourseDetailInfo courseDetail = new CourseDetailInfo();
 
-    public static ArrayList<Post> getCoursePosts(String courseId, int beginPos, int num,
-                                                 int time, TimeUnit timeUnit) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
+            String id = jCourseDetail.getString("id");
+            courseDetail.setCourseId(id);
+
+            String name = jCourseDetail.getString("name");
+            courseDetail.setCourseName(name);
+
+            String academyId = jCourseDetail.getString("department_id");
+            courseDetail.setAcademyId(null);
+
+            Object academyName = jCourseDetail.get("department_name");
+            if(JSONObject.NULL == academyName)
+                courseDetail.setAccademyName(null);
+            else {
+                courseDetail.setAccademyName((String) academyName);
+            }
+
+            JSONArray jTeachers = jCourseDetail.getJSONArray("teachers");
+            ArrayList<String> teacherNames = new ArrayList<String>();
+            ArrayList<String> teacherIds = new ArrayList<String>();
+            for(int i=0; i<jTeachers.length(); ++i) {
+                JSONObject jTeacher = jTeachers.getJSONObject(i);
+
+                String teacherId = jTeacher.getString("id");
+                teacherIds.add(teacherId);
+
+                String teacherName = jTeacher.getString("name");
+                teacherNames.add(teacherName);
+            }
+
+            JSONArray jAssistants = jCourseDetail.getJSONArray("assitants");
+            ArrayList<String> assistantNames = new ArrayList<String>();
+            ArrayList<String> assistantIds = new ArrayList<String>();
+            for(int i=0; i<jAssistants.length(); ++i) {
+                JSONObject jAsssitant = jAssistants.getJSONObject(i);
+
+                String assistantId = jAsssitant.getString("id");
+                assistantIds.add(assistantId);
+
+                String assistantName = jAsssitant.getString("name");
+                assistantNames.add(assistantName);
+            }
+
+            courseDetail.setTeacherNames(teacherNames);
+            courseDetail.setTeacherIds(teacherIds);
+
+            String outline = jCourseDetail.getString("introduction");
+            courseDetail.setOutline(outline);
+
+            String teachContent = jCourseDetail.getString("content");
+            courseDetail.setTeachContent(teachContent);
+
+            String reference = jCourseDetail.getString("referenced");
+            ArrayList<String> references = new ArrayList<String>();
+            references.add(reference);
+            courseDetail.setReferences(references);
+
+            int studentNum = jCourseDetail.getInt("students_num");
+            courseDetail.setCurrentStudents(studentNum);
+
+            return courseDetail;
+
+        } catch (JSONException e) {
             e.printStackTrace();
+            Log.e(TAG, "getCourseDetail json error");
+            return null;
         }
-        ArrayList<Post> postMocks = getCoursePostMocks();
-        return postMocks;
+
     }
 
     public static UserTypeInCourse getUserTypeInCourse(String courseId, String userId) {
         return UserTypeInCourse.STUDENT;
-    }
-
-    public static NetOperateResultMessage addAnswerToProblem(String schoolId, String courseName, String pageId,
-                                                             String answer) {
-        return null;
-    }
-
-    public static NetOperateResultMessage newAnnoucement(String courseId, String personId, String title, String content) {
-        return null;
-    }
-
-    public static ArrayList<CourseAnnoucement> getAnnouc(String courseId, int beginPos, int num,
-                                                         int time, TimeUnit timeUnit) {
-        return annoucMocks();
-    }
-
-    private static ArrayList<CourseAnnoucement> annoucMocks() {
-        ArrayList<CourseAnnoucement> mocks = new ArrayList<CourseAnnoucement>();
-        mocks.add(annoucMock());
-        CourseAnnoucement onTopMock = annoucMock();
-        onTopMock.setOnTop(true);
-        mocks.add(onTopMock);
-        mocks.add(annoucMock());
-        mocks.add(annoucMock());
-        return mocks;
-    }
-
-    private static CourseAnnoucement annoucMock() {
-        CourseAnnoucement mock = new CourseAnnoucement();
-        mock.setContent("这么课需要大一的“高等数学”与“Python程序设计为基础。假如你不会Python编程，" +
-                "你可以重点听陈老师那部分；假如你高等数学忘得差不多了，你可以重点听范老师那部分。最好状况" +
-                "是两部分都能坚持下来”");
-        mock.setCourseId("sdfsd");
-        mock.setDate(new Date(System.currentTimeMillis()));
-        mock.setPersonId(PersonMocks.id5);
-        mock.setPersonName(PersonMocks.name5);
-        mock.setTitle("今天天气真好啊~");
-        return mock;
-    }
-
-    private static final String courseMock1Id = "course1Id";
-    private static final String courseMock2Id = "course2Id";
-
-    private static CourseBriefInfo getCourseBriefMock1() {
-        CourseBriefInfo course = new CourseBriefInfo();
-        course.setCourseId(courseMock1Id);
-        course.setAcademyName("软件学院");
-        //course.setAnnoucement("隔壁老王说再也不偷情了");
-        //course.setBriefIntro("与隔壁王太太偷情时被王先生抓奸在床，王先生揍了我一顿，对我说：“说好只爱我一个人的呢？”");
-        course.setCourseName("软件需求工程");
-        course.setProgressWeek(1);
-        course.setCourseImage(null);
-        //course.setTeachContent("专业美容学校，学美容必选的化妆名校");
-        //course.setTeacherName("麦乐鸡");
-        // ArrayList<String> references = new ArrayList<String>();
-        // references.add("java虚拟机规范");
-        // references.add("java并发编程");
-        //course.setReferences(references);
-        return course;
-    }
-
-    private static CourseDetailInfo getCourseDetailMock1() {
-        CourseDetailInfo course = new CourseDetailInfo();
-        course.setCourseId(courseMock1Id);
-        ArrayList<String> references = new ArrayList<String>();
-        references.add("java虚拟机规范");
-        references.add("java并发编程");
-        course.setReferences(references);
-        CourseAnnoucement annoucement = new CourseAnnoucement();
-        annoucement.setContent("这么课需要大一的“高等数学”与“Python程序设计为基础。假如你不会Python编程，" +
-                "你可以重点听陈老师那部分；假如你高等数学忘得差不多了，你可以重点听范老师那部分。最好状况" +
-                "是两部分都能坚持下来”");
-        annoucement.setCourseId(courseMock1Id);
-        annoucement.setDate(new Date(115, 8, 12));
-        annoucement.setPersonId(PersonMocks.id6);
-        course.setAnnoucement(annoucement);
-        course.setCourseType(CourseType.专业课);
-        course.setCurrentStudents(115);
-        course.setOutline("NJU最牛逼的课程，没有之一");
-        course.setTeachContent("专业美容学校，学美容必选的化妆名校");
-        ArrayList<String> teacherIds = new ArrayList<String>();
-        ArrayList<String> teacherNames = new ArrayList<String>();
-        teacherIds.add(PersonMocks.id1);
-        teacherNames.add(PersonMocks.name1);
-        teacherIds.add(PersonMocks.id2);
-        teacherNames.add(PersonMocks.name2);
-        course.setTeacherIds(teacherIds);
-        course.setTeacherNames(teacherNames);
-
-        return course;
-    }
-
-    private static ArrayList<Post> getCoursePostMocks() {
-        ArrayList<Post> posts = new ArrayList<Post>();
-        posts.add(PostMocks.getPost1());
-        posts.add(PostMocks.getPost2());
-        posts.add(PostMocks.getPost3());
-        posts.add(PostMocks.getPost4());
-        return posts;
     }
 
 }

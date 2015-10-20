@@ -1,5 +1,7 @@
 package com.kejian.mike.mike_kejian_android.dataType.pushMessage;
 
+import java.util.Date;
+
 /**
  * Created by violetMoon on 2015/10/12.
  */
@@ -9,7 +11,7 @@ public abstract class PushMessage {
 
     private ReceiverInfo receiverInfo;
 
-    private long time;
+    private Date time;
 
     public SenderInfo getSenderInfo() {
         return senderInfo;
@@ -27,11 +29,11 @@ public abstract class PushMessage {
         this.receiverInfo = receiverInfo;
     }
 
-    public long getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

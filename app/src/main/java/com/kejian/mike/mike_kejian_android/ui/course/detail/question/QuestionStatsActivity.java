@@ -327,10 +327,8 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            int beginPos = 0;
-            int num = ANSWER_INIT_NUM;
-            ArrayList<QuestionShowAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswer
-                    (question.getQuestionId(), beginPos, num);
+            ArrayList<QuestionShowAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswers
+                    (question.getQuestionId());
             answers.addAll(initAnswers);
             return true;
         }

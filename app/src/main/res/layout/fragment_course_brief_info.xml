@@ -62,20 +62,6 @@
             android:orientation="horizontal"
             android:paddingTop="@dimen/medium_padding">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/sub_big_padding"
-                android:background="@drawable/green_bottom_border"
-                android:text="@string/main_course_brief_progress_week_prefix"/>
-
-            <TextView
-                android:id="@+id/course_detail_brief_progress_week"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/medium_padding"
-                android:paddingBottom="@dimen/big_padding"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
