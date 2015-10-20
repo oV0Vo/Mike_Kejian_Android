@@ -4,70 +4,57 @@ import net.CampusNetService;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import model.campus.Post;
 import model.campus.Reply;
 import model.helper.ResultMessage;
+import model.user.Global;
+import model.user.user;
 
 /**
  * Created by showjoy on 15/9/10.
  */
 public class CampusBLService {
-    public static ArrayList<Post> latestPost;
+    public static ArrayList<Post> latestPosts;
+    public static ArrayList<Post> hottestPosts;
 
 
     public static void refreshLatestPosts() {
-        latestPost = CampusNetService.getLatestPosts(0,5);
+        latestPosts = CampusNetService.getLatestPosts("0",7);
     }
 
-    public static ArrayList<Post> getHottestPostList() {
-        ArrayList<Post> postList = new ArrayList<Post>();
-        Post post = new Post();
-        post.setUserId("miketest1");
-        post.setAuthorName("小明");
-        post.setTitle("最新测试标题");
-        post.setContent("测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容");
-        post.setPraise(10);
-        post.setViewNum(20);
-        post.setReplyList(new ArrayList<Reply>());
-        for(int i=0; i<10; i++)
-            postList.add(post);
+    public static void getNextLatestPosts() {
+        String startId = (latestPosts.size()-1)>0?latestPosts.get(latestPosts.size()-1).getPostId():"0";
+        ArrayList<Post> nextPosts = CampusNetService.getLatestPosts(startId, 7);
+        latestPosts.addAll(nextPosts);
+    }
 
-        return postList;
+    public static void refreshHottestPosts() {
+        hottestPosts = CampusNetService.getHottestPosts("0",7);
+    }
+
+    public static void getNextHottestPosts() {
+        String startId = (hottestPosts.size()-1)>0?hottestPosts.get(hottestPosts.size()-1).getPostId():"0";
+        ArrayList<Post> nextPosts = CampusNetService.getHottestPosts(startId, 7);
+        hottestPosts.addAll(nextPosts);
     }
 
     public static Post getPostDetail(String postId) {
+        return CampusNetService.getPostInfo(postId);
+    }
+
+    public static String publish(String courseId, String title, String content) {
+
         Post post = new Post();
-        post.setUserId("miketest1");
-        post.setAuthorName("小明");
-        post.setTitle("最新测试标题");
-        post.setContent("测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容");
-        post.setPraise(10);
-        post.setViewNum(20);
-        post.setDate(new Date().toString());
-        Reply reply = new Reply();
-        reply.setUserId("00001");
-        reply.setAuthorName("小明");
-        reply.setContent("12312312加12见蒋介石的姐姐啊电视剧急啊神盾局就的撒飞");
-        reply.setDate(new Date());
-        reply.setPraise(5);
-        reply.setSubReplyList(new ArrayList<Reply>());
-        ArrayList<Reply> replyList = new ArrayList<Reply>();
-        for(int i=0; i<11; i++)
-            replyList.add(reply);
-        post.setReplyList(replyList);
-
-        return post;
-
+        post.setPostId("0");
+        post.setUserId(((user) Global.getObjectByName("user")).getId());
+        post.setAuthorName(((user) Global.getObjectByName("user")).getNick_name());
+        post.setTitle(title);
+        post.setContent(content);
+        post.setDate(new Date());
+        post.setViewNum(0);
+        post.setPraise(0);
+        return CampusNetService.publish(courseId, post);
     }
 
-
-    public ResultMessage publish(Post post) {
-        return null;
-    }
-
-    public ArrayList<Post> searchPost(String info){
-        return null;
-    }
 }

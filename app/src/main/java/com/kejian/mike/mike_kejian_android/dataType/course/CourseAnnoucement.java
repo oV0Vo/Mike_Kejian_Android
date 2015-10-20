@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by violetMoon on 2015/9/10.
  */
 public class CourseAnnoucement {
+    private String annoucId;
     private String courseId;
     private String personId;
     private String personName;
@@ -68,5 +69,13 @@ public class CourseAnnoucement {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getAnnoucId() {
+        return annoucId;
+    }
+
+    public void setAnnoucId(String annoucId) {
+        this.annoucId = annoucId;
     }
 }

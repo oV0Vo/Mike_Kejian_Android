@@ -123,18 +123,13 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            QuestionAnswer answer = getAnswer();
-            new CommitAnswerTask().execute(answer);
+            String answer = getAnswer();
+            String questionId = question.getQuestionId();
+            new CommitAnswerTask().execute(questionId, answer);
             updateViewOnPostAnswer();
         }
 
-        private QuestionAnswer getAnswer() {
-            QuestionAnswer answer = new QuestionAnswer();
-            String studentNameMock = "黄崇和";
-            answer.setStudentName(studentNameMock);
-            String idMock = "13125056";
-            answer.setStudentId(idMock);
-            answer.setQuestionId(question.getQuestionId());
+        private String getAnswer() {
             String questionAnswer = new String();
             switch(question.getQuestionType()) {
                 case 单选题:
@@ -149,9 +144,8 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                 default:
                     break;
             }
-            answer.setAnswer(questionAnswer);
 
-            return answer;
+            return questionAnswer;
         }
 
         private String getSingleChoiceAnswer() {
@@ -167,14 +161,15 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         }
 
         private String getMultiChoiceAnswer() {
-            ArrayList<String> answers = new ArrayList<String>();
+            String answer = new String();
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton choiceButton = choiceButtons.get(i);
                 if(choiceButton.isChecked())
-                    answers.add(Character.toString((char)('A' + i)));
+                    answer += (Character.toString((char)('A' + i)));
+                if(i != choiceButtons.size())
+                    answer += "_";
             }
-            JSONArray jArray = new JSONArray(answers);
-            return jArray.toString();
+            return answer;
         }
 
         private String getApplicationAnswer() {
@@ -212,12 +207,14 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         answerActionText.setBackgroundColor(getResources().getColor(R.color.green));
     }
 
-    private class CommitAnswerTask extends AsyncTask<QuestionAnswer, Void, CommitAnswerResultMessage> {
+    private class CommitAnswerTask extends AsyncTask<String, Void, CommitAnswerResultMessage> {
 
         @Override
-        protected CommitAnswerResultMessage doInBackground(QuestionAnswer... params) {
-            QuestionAnswer answer = params[0];
-            CommitAnswerResultMessage commitResult = CourseQuestionNetService.commitAnswer(answer);
+        protected CommitAnswerResultMessage doInBackground(String... params) {
+            String questionId = params[0];
+            String answer = params[1];
+            CommitAnswerResultMessage commitResult = CourseQuestionNetService.commitAnswer(
+                    questionId, answer);
             return commitResult;
         }
 

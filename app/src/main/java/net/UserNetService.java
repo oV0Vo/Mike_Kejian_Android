@@ -211,6 +211,8 @@ public class UserNetService {
         par.put("userId",userToken.getName());
         par.put("password", userToken.getPassword());
 
+        System.out.println(userToken.getName() + "  " + userToken.getPassword());
+
 
 
 

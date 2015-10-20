@@ -1,70 +1,93 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/over_medium_padding"
-    android:paddingBottom="@dimen/over_medium_padding"
-    android:orientation="vertical">
+    android:paddingBottom="@dimen/over_medium_padding">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_padding"
-        android:background="@drawable/dark_thin_bottom_border"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="@dimen/small_icon_width"
-            android:layout_height="@dimen/small_icon_height"
-            android:layout_marginTop="@dimen/small_padding"
-            android:background="@drawable/notification_green"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/annoucement_title"
-            android:textColor="@color/green"
-            android:textSize="@dimen/big_font"/>
-
-    </LinearLayout>
-
+        android:layout_centerInParent="true"/>
 
     <TextView
-        android:id="@+id/course_detail_annoucement_content"
-        android:layout_width="match_parent"
+        android:id="@+id/error_message_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/sub_big_padding"
-        android:paddingBottom="@dimen/sub_big_padding"
-        android:singleLine="false"
-        android:maxLines="3"
-        android:ellipsize="end"/>
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="@dimen/big_font"
+        android:text="@string/net_disconnet"/>
 
     <LinearLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/course_detail_annoucement_author_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/annoucement_action_name"/>
-        <TextView
-            android:id="@+id/course_detail_annoucement_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingBottom="@dimen/medium_padding"
+            android:background="@drawable/dark_thin_bottom_border"
+            android:orientation="horizontal">
+
             <ImageView
+                android:layout_width="@dimen/small_icon_width"
+                android:layout_height="@dimen/small_icon_height"
+                android:layout_marginTop="@dimen/small_padding"
+                android:background="@drawable/notification_green"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/annoucement_title"
+                android:textColor="@color/green"
+                android:textSize="@dimen/big_font"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/course_detail_annoucement_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/sub_big_padding"
+            android:paddingBottom="@dimen/sub_big_padding"
+            android:singleLine="false"
+            android:maxLines="3"
+            android:ellipsize="end"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/course_detail_annoucement_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"/>
+                android:text="@string/annoucement_action_name"/>
+            <TextView
+                android:id="@+id/course_detail_annoucement_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"/>
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

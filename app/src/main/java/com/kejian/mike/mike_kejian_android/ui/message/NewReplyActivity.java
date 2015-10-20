@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 
 import net.picture.DownloadPicture;
 
@@ -26,7 +29,7 @@ import java.util.List;
 import bl.MessageBLService;
 import model.message.Reply;
 
-public class NewReplyActivity extends AppCompatActivity implements View.OnClickListener ,OnRefreshListener{
+public class NewReplyActivity extends AppCompatActivity implements View.OnClickListener ,OnRefreshListener,AdapterView.OnItemClickListener{
 
     private LayoutInflater myInflater;
     private ArrayAdapter<Reply> adapter;
@@ -100,6 +103,15 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Reply reply = (Reply)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",reply.getPostId()+"");
+        startActivity(intent);
+    }
+
     private class InitDataTask extends AsyncTask<String, Integer, String> {
         @Override
         public String doInBackground(String... params) {
@@ -133,6 +145,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
         this.adapter = new NewReplyAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.replies);
         this.container.setAdapter(this.adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(this);
     }
     private void refreshReplyNumView(){
         TextView replyNumText = (TextView)this.findViewById(R.id.reply_num);

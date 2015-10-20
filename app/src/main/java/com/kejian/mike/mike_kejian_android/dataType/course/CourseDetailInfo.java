@@ -7,12 +7,14 @@ import java.util.ArrayList;
  */
 public class CourseDetailInfo {
     private String courseId;
-    //private String courseName;
-    private CourseType courseType;
-    //private String accademyName;
+    private String courseName;
+    private String courseType;
+    private String academyId;
+    private String accademyName;
     private ArrayList<String> teacherIds;
     private ArrayList<String> teacherNames;
-    private CourseAnnoucement annoucement;
+    private ArrayList<String> assistantIds;
+    private ArrayList<String> assistantNames;
     private int currentStudents;
     private String outline;
     private String teachContent;
@@ -26,29 +28,53 @@ public class CourseDetailInfo {
         this.courseId = courseId;
     }
 
-    /*public String getCourseName() {
+    public String getCourseName() {
         return courseName;
     }
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-    }*/
+    }
 
-    public CourseType getCourseType() {
+    public String getCourseType() {
         return courseType;
     }
 
-    public void setCourseType(CourseType courseType) {
+    public void setCourseType(String courseType) {
         this.courseType = courseType;
     }
 
-    /*public String getAccademyName() {
+    public String getAcademyId() {
+        return academyId;
+    }
+
+    public void setAcademyId(String academyId) {
+        this.academyId = academyId;
+    }
+
+    public ArrayList<String> getAssistantIds() {
+        return assistantIds;
+    }
+
+    public void setAssistantIds(ArrayList<String> assistantIds) {
+        this.assistantIds = assistantIds;
+    }
+
+    public ArrayList<String> getAssistantNames() {
+        return assistantNames;
+    }
+
+    public void setAssistantNames(ArrayList<String> assistantNames) {
+        this.assistantNames = assistantNames;
+    }
+
+    public String getAccademyName() {
         return accademyName;
     }
 
     public void setAccademyName(String accademyName) {
         this.accademyName = accademyName;
-    }*/
+    }
 
     public ArrayList<String> getTeacherIds() {
         return teacherIds;
@@ -64,14 +90,6 @@ public class CourseDetailInfo {
 
     public void setTeacherNames(ArrayList<String> teacherNames) {
         this.teacherNames = teacherNames;
-    }
-
-    public CourseAnnoucement getAnnoucement() {
-        return annoucement;
-    }
-
-    public void setAnnoucement(CourseAnnoucement annoucement) {
-        this.annoucement = annoucement;
     }
 
     public int getCurrentStudents() {

@@ -1,5 +1,7 @@
 package com.kejian.mike.mike_kejian_android.dataType.course;
 
+import java.util.ArrayList;
+
 /**
  * Created by violetMoon on 2015/9/10.
  */
@@ -7,9 +9,10 @@ public class CourseBriefInfo {
     private String courseId;
     private String courseName;
     private String academyName;
-    private CourseType courseType;
-    private int progressWeek;
-    private byte[] courseImage;
+    private String courseType;
+    private ArrayList<String> teacherIds;
+    private ArrayList<String> teacherNames;
+    private String imageUrl;
 
     public java.lang.String getCourseId() {
         return courseId;
@@ -31,31 +34,39 @@ public class CourseBriefInfo {
         return academyName;
     }
 
-    public CourseType getCourseType() {
+    public ArrayList<String> getTeacherIds() {
+        return teacherIds;
+    }
+
+    public void setTeacherIds(ArrayList<String> teacherIds) {
+        this.teacherIds = teacherIds;
+    }
+
+    public String getCourseType() {
         return courseType;
     }
 
-    public int getProgressWeek() {
-        return progressWeek;
+    public ArrayList<String> getTeacherNames() {
+        return teacherNames;
     }
 
-    public void setProgressWeek(int progressWeek) {
-        this.progressWeek = progressWeek;
+    public void setTeacherNames(ArrayList<String> teacherNames) {
+        this.teacherNames = teacherNames;
     }
 
     public void setAcademyName(String academyName) {
         this.academyName = academyName;
     }
 
-    public byte[] getCourseImage() {
-        return courseImage;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setCourseImage(byte[] courseImage) {
-        this.courseImage = courseImage;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public void setCourseType(CourseType courseType) {
+    public void setCourseType(String courseType) {
         this.courseType = courseType;
     }
 }

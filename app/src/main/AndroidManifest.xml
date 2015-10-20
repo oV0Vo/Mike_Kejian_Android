@@ -44,7 +44,11 @@
         </meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="ix0knkfgknn2cl4r1rozci0d5oqf7ol0" >
+            android:value="d7894cf3283e362debcf53f428d95d1c" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="mikeKejian" >
         </meta-data>
 
         <activity
@@ -91,8 +95,11 @@
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/course_naming_activity" >
         </activity>
-        <activity android:name=".ui.user.UserOtherState"
-            android:label="他的动态"/>
+
+        <activity android:name=".ui.course.detail.CourseSignInActivity"
+            android:label="@string/course_sign_in_activity">
+        </activity>
+
         <activity
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
@@ -297,13 +304,37 @@
 
         <activity
             android:name=".ui.main.SearchableActivity"
-            android:label="@string/title_activity_searchable" >
+            android:label="@string/title_activity_searchable"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
+        <activity
+            android:name=".ui.message.SearchTestActivity"
+            android:label="@string/title_activity_search_test"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- enable the search dialog to send searches to SearchableActivity -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".ui.main.SearchableActivity" />
+        </activity>
+        <activity
+            android:name=".ui.message.SearchViewDemo"
+            android:label="" >
+        </activity>
+        <activity android:name=".ui.main.CoursePostSearchActivity"
+            android:label="CoursePostSearchActivity"></activity>
     </application>
 
 </manifest>

@@ -2,13 +2,24 @@ package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+
+import java.util.List;
+
+import model.helper.ResultMessage;
+import model.message.CourseNotice;
 
 public class SearchableActivity extends ListActivity {
 
@@ -16,37 +27,24 @@ public class SearchableActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
-
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+
             doMySearch(query);
         }
-    }
-    private void doMySearch(String query){
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_searchable, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // 获得额外递送过来的值
+        Bundle appData = intent.getBundleExtra(SearchManager.APP_DATA);
+        if (appData != null) {
+            String testValue = appData.getString("KEY");
+            System.out.println("extra data = " + testValue);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void doMySearch(String query) {
+        // TODO 自动生成的方法存根
+        Toast.makeText(this, "do search",0).show();
     }
 }

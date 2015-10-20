@@ -17,6 +17,8 @@ import com.kejian.mike.mike_kejian_android.R;
 import bl.UserInfoServiceMock;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
+
 import model.course.CourseModel;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;
@@ -36,11 +38,8 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
 
         courseModel = CourseModel.getInstance();
         TextView courseTitle = (TextView)findViewById(R.id.annoucment_publish_course_name);
-        CourseBriefInfo courseBrief = courseModel.getCurrentCourseBrief();
-        if(courseBrief != null)
-            courseTitle.setText(courseBrief.getCourseName());
-        else
-            Log.e("AnnoucPublish", "current brief null!");
+        String courseName = courseModel.getCurrentCourseDetail().getCourseName();
+        courseTitle.setText(courseName);
 
         titleText = (EditText)findViewById(R.id.annoucement_publish_title_text);
         contentText = (EditText)findViewById(R.id.annoucement_publish_content_text);
@@ -63,17 +62,11 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
                     return;
                 }
 
-                CourseBriefInfo courseBrief = CourseModel.getInstance().getCurrentCourseBrief();
                 String personId = UserInfoServiceMock.getInstance().getPersonId();
-                if(courseBrief == null || personId == null) {
-                    Toast.makeText(AnnoucementPublishActivity.this, R.string.internal_logic_error_message
-                            , Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 CourseAnnoucement newAnnoucement = new CourseAnnoucement();
                 newAnnoucement.setPersonId(personId);
-                String courseId = courseBrief.getCourseId();
+                String courseId = courseModel.getCurrentCourseId();
                 newAnnoucement.setCourseId(courseId);
                 newAnnoucement.setTitle(title);
                 newAnnoucement.setContent(content);

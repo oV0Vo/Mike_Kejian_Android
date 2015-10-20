@@ -9,6 +9,7 @@ public class CourseSignInRecord {
 
     private Date beginTime;
     private Date endTime;
+    private String teacherId;
     private String teacherName;
     private boolean hasSignIn;
 
@@ -30,6 +31,14 @@ public class CourseSignInRecord {
 
     public java.lang.String getTeacherName() {
         return teacherName;
+    }
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
     }
 
     public void setTeacherName(java.lang.String teacherName) {

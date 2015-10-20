@@ -86,11 +86,10 @@ public class AnnoucListActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if(convertView != null) {
-                return convertView;
+            if(convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.layout_annouc_brief, null);
             }
 
-            convertView = getLayoutInflater().inflate(R.layout.layout_annouc_brief, null);
             CourseAnnoucement annouc = getItem(position);
 
             TextView titleText = (TextView)convertView.findViewById(R.id.annouc_title_text);

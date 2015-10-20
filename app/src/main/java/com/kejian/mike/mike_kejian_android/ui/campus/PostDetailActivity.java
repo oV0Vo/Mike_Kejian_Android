@@ -3,6 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.campus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +11,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
+import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
+
+import java.util.ArrayList;
 
 import bl.CampusBLService;
 import model.campus.Post;
@@ -24,24 +30,29 @@ import model.user.Invitee;
 /**
  * Created by showjoy on 15/9/20.
  */
-public class PostDetailActivity extends AppCompatActivity {
+public class PostDetailActivity extends AppCompatActivity implements OnRefreshListener{
 
     ActionBar actionBar;
-    private TextView author;
-    private Context context;
     private Post post;
+    private ArrayList<Reply> replies;
     private String postId;
+    private LinearLayout mainLayout;
+    private RefreshListView container;
+    private ProgressBar progressBar;
+    private ReplyAdapter adapter;
+    private View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
-        context=this;
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        this.mainLayout = (LinearLayout)findViewById(R.id.reply);
+        this.mainLayout.setVisibility(View.GONE);
+        this.progressBar = (ProgressBar)findViewById(R.id.post_detail_progress_bar);
         iniData();
-        iniView();
     }
 
     @Override
@@ -58,54 +69,77 @@ public class PostDetailActivity extends AppCompatActivity {
 
     private void iniData() {
         postId = getIntent().getStringExtra("postId");
-        post = CampusBLService.getPostDetail("test");
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... params) {
+                String postId = params[0];
+                post = CampusBLService.getPostDetail(postId);
+                replies = post.getReplyList();
+                return null;
+            }
+
+            @Override
+            public void onPostExecute(Void result) {
+                progressBar.setVisibility(View.GONE);
+                iniView();
+                mainLayout.setVisibility(View.VISIBLE);
+            }
+        }.execute(postId);
+
+
     }
 
     private void iniView(){
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        LinearLayout reply_view = (LinearLayout) findViewById(R.id.reply_container);
-        author=(TextView)findViewById(R.id.author_name_view);
-        author.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(context, UserBaseInfoOtherView.class);
-                startActivity(intent);
-            }
-        });
-        TextView title = (TextView)findViewById(R.id.title_view);
-        title.setText(post.getTitle());
-        TextView content = (TextView)findViewById(R.id.content_view);
-        content.setText(post.getContent());
-        TextView author = (TextView)findViewById(R.id.author_name_view);
-        author.setText(post.getAuthorName());
-        TextView date = (TextView)findViewById(R.id.date_view);
-        date.setText(post.getDate().toString());
-        TextView viewNum = (TextView)findViewById(R.id.view_num_view);
-        viewNum.setText(Integer.toString(post.getPraise()));
-        TextView commentNum = (TextView)findViewById(R.id.comment_num_view);
-        commentNum.setText(Integer.toString(post.getReplyList().size()));
-        TextView replyNumView = (TextView)findViewById(R.id.reply_num_view);
-        replyNumView.setText("共(" + post.getReplyList().size() + ")条");
+        this.container = (RefreshListView)findViewById(R.id.reply_container);
+        header= getLayoutInflater().inflate(R.layout.layout_post_detail_header, null);
+        refreshHeader();
+        container.addHeaderView(header);
+        this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
+        this.container.setAdapter(adapter);
+        this.container.setOnRefreshListener(this);
+    }
 
-        for(Reply loopReply: post.getReplyList()) {
-            View replyView = layoutInflater.inflate(R.layout.layout_single_reply, null);
-            TextView replyContent = (TextView) replyView.findViewById(R.id.single_reply_content_view);
-            replyContent.setText(loopReply.getContent());
-            TextView replyAuthor = (TextView) replyView.findViewById(R.id.author_name_view);
-            replyAuthor.setText(loopReply.getAuthorName());
-            TextView replyDate = (TextView) replyView.findViewById(R.id.date_view);
-            replyDate.setText(loopReply.getDate().toString());
-            TextView replyViewNum = (TextView) replyView.findViewById(R.id.view_num_view);
-            replyViewNum.setText(Integer.toString(loopReply.getPraise()));
-            TextView replyCommentNum = (TextView) replyView.findViewById(R.id.comment_num_view);
-            replyCommentNum.setText(Integer.toString(loopReply.getSubReplyList().size()));
-            reply_view.addView(replyView);
-        }
-
-
-
+    private void refreshHeader() {
+        TextView detail_title = (TextView) header.findViewById(R.id.detail_title);
+        detail_title.setText(post.getTitle());
+        TextView detail_content = (TextView) header.findViewById(R.id.detail_content);
+        detail_content.setText(post.getContent());
+        TextView detail_author_name = (TextView) header.findViewById(R.id.detail_author_name);
+        detail_author_name.setText(post.getAuthorName());
+        TextView detail_date = (TextView) header.findViewById(R.id.detail_date);
+        detail_date.setText(post.getDate());
+        TextView detail_view_num = (TextView) header.findViewById(R.id.detail_view_num);
+        detail_view_num.setText(Integer.toString(post.getViewNum()));
+        TextView detail_comment_num = (TextView) header.findViewById(R.id.detail_comment_num);
+        detail_comment_num.setText(Integer.toString(post.getReplyNum()));
+        TextView detail_reply_num = (TextView) header.findViewById(R.id.detail_reply_num);
+        detail_reply_num.setText("共(" + post.getReplyNum() + ")条");
     }
 
 
+    @Override
+    public void onDownPullRefresh() {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... params) {
+                String postId = params[0];
+                post = CampusBLService.getPostDetail(postId);
+                replies = post.getReplyList();
+                return null;
+            }
+
+            @Override
+            public void onPostExecute(Void result) {
+                adapter.notifyDataSetChanged();
+                container.hideHeaderView();
+                refreshHeader();
+            }
+        }.execute(postId);
+
+    }
+
+    @Override
+    public void onLoadingMore() {
+
+    }
 }

@@ -33,7 +33,7 @@
            android:textSize="@dimen/big_font"
            android:textColor="@color/black"
            android:singleLine="true"
-           android:id="@+id/post_title"/>
+           android:id="@+id/publish_title"/>
 
        <TextView
            android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:textSize="@dimen/small_font"
             android:paddingTop="@dimen/big_padding"
-            android:id="@+id/post_content"/>
+            android:id="@+id/publish_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"

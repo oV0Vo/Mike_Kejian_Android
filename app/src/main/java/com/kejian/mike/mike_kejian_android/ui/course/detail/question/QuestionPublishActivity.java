@@ -22,6 +22,9 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import model.course.CourseModel;
+import model.user.Global;
+import model.user.user;
+
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
@@ -243,7 +246,8 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            int timeLimit = new Integer(timeLimitStr);
+
+            long timeLimit = Long.parseLong(timeLimitStr) * 60 * 1000;
 
             int questionTypeId = questionTypeChoices.getCheckedRadioButtonId();
             switch(questionTypeId) {
@@ -276,6 +280,10 @@ public class QuestionPublishActivity extends AppCompatActivity {
                     break;
             }
 
+            CourseModel courseModel = CourseModel.getInstance();
+            String courseId = courseModel.getCurrentCourseId();
+            question.setCourseId(courseId);
+
             if(dealSuccess) {
                 CurrentQuestion currentQuestion = new CurrentQuestion(question, timeLimit);
                 new SubmitQuestionTask().execute(currentQuestion);
@@ -290,7 +298,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
         private boolean isValidTimeLimit(String timeLimitStr) {
             try {
-                int timeLimit = Integer.parseInt(timeLimitStr);
+                long timeLimit = Long.parseLong(timeLimitStr) * 60 * 1000;//timeLimitStr以分钟为单位
             } catch (NumberFormatException e) {
                 return false;
             }

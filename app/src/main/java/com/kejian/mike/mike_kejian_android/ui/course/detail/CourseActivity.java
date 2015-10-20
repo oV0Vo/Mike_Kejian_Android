@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.annoucement.AnnoucListActivity;
@@ -26,15 +27,17 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingA
 import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
-import bl.UserInfoServiceMock;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
+import com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo;
+
 import model.course.CourseModel;
 
 public class CourseActivity extends AppCompatActivity implements
-        AnnoucementFragment.OnAnnoucementClickListener,
+        LatestAnnoucFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
-        CommentsAreaFragment.OnPostSelectedListener {
+        CommentsAreaFragment.OnPostSelectedListener,MenuItem.OnMenuItemClickListener {
 
     private CourseModel courseModel;
 
@@ -44,15 +47,14 @@ public class CourseActivity extends AppCompatActivity implements
     private LinearLayout mainLayout;
 
     private CourseBriefInfoFragment courseBriefFg;
-    private AnnoucementFragment annoucemntFg;
+    private LatestAnnoucFragment annoucemntFg;
     private QuestionAndPostsLayoutFragment postsAndQuestionFg;
 
     private MenuItem downInfoItem;
     private MenuItem addItem;
+    private MenuItem searchItem;
     private View addSubMenuView;
     private PopupWindow addItemPopupWindow;
-
-    private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
 
     private int taskCountDown;
 
@@ -67,9 +69,7 @@ public class CourseActivity extends AppCompatActivity implements
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
         errorMessageText = (TextView)findViewById(R.id.error_message_text);
 
-        CourseBriefInfo currentCourseBrief = courseModel.getCurrentCourseBrief();
-        String title = currentCourseBrief.getCourseName();
-        this.setTitle(title);
+        this.setTitle(R.string.course_title);
 
         taskCountDown++;
         new InitCourseDetailTask().execute();
@@ -93,10 +93,10 @@ public class CourseActivity extends AppCompatActivity implements
 
     private void initCourseAnnoucementFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        annoucemntFg = (AnnoucementFragment)
+        annoucemntFg = (LatestAnnoucFragment)
                 fm.findFragmentById(R.id.course_detail_annoucement_container);
         if(annoucemntFg == null) {
-            annoucemntFg = new AnnoucementFragment();
+            annoucemntFg = new LatestAnnoucFragment();
             fm.beginTransaction().replace(R.id.course_detail_annoucement_container, annoucemntFg)
                     .commit();
         }
@@ -129,7 +129,8 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void initSearchMenuItem(Menu menu) {
-
+        searchItem = menu.findItem(R.id.course_search_menu_item);
+        searchItem.setOnMenuItemClickListener(this);
     }
 
     private void initAddMenuItem() {
@@ -363,6 +364,14 @@ public class CourseActivity extends AppCompatActivity implements
             progressBar.setVisibility(View.GONE);
             mainLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Intent intent = new Intent();
+        intent.setClass(this,SearchViewDemo.class);
+        startActivity(intent);
+        return true;
     }
 
     private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
