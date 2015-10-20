@@ -45,7 +45,11 @@
         </meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="ix0knkfgknn2cl4r1rozci0d5oqf7ol0" >
+            android:value="d7894cf3283e362debcf53f428d95d1c" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="mikeKejian" >
         </meta-data>
 
         <activity
@@ -84,6 +88,11 @@
         <activity android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/course_naming_activity">
         </activity>
+
+        <activity android:name=".ui.course.detail.CourseSignInActivity"
+            android:label="@string/course_sign_in_activity">
+        </activity>
+
         <activity
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >

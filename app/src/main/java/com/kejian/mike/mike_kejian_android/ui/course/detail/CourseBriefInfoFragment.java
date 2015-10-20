@@ -46,13 +46,13 @@ public class CourseBriefInfoFragment extends Fragment {
 
         ImageView imageView = (ImageView)v.findViewById(R.id.course_detail_brief_image);
         imageView.setImageResource(R.drawable.default_book);
+
         TextView academyView = (TextView)v.findViewById(R.id.course_detail_brief_academy);
         academyView.setText(courseBrief.getAcademyName());
+
         TextView teacherView = (TextView)v.findViewById(R.id.course_detail_brief_teacher_text);
         String teacherNames = getMergeTeacherName();
         teacherView.setText(teacherNames);
-        TextView processWeekView = (TextView)v.findViewById(R.id.course_detail_brief_progress_week);
-        processWeekView.setText("第" + courseBrief.getProgressWeek() + "周");
 
         v.setOnClickListener(new onViewClickListener());
 

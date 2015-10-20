@@ -11,7 +11,7 @@ public class CurrentQuestion {
 
     }
 
-    public CurrentQuestion(BasicQuestion question, int leftMills) {
+    public CurrentQuestion(BasicQuestion question, long leftMills) {
         this.question = question;
         this.leftMills = leftMills;
     }

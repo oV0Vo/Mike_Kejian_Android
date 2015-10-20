@@ -26,6 +26,7 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
 import com.kejian.mike.mike_kejian_android.ui.util.MyUmengMessageHandler;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 import java.util.ArrayList;
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initBLService() {
-        new CourseModelCreateTask().execute();
+        CourseModel.createInstance();
     }
 
     private void initPushAgent() {
@@ -107,7 +108,6 @@ public class MainActivity extends AppCompatActivity
         pushAgent.enable();
         pushAgent.onAppStart();
         pushAgent.setMessageHandler(new MyUmengMessageHandler());
-        new GetDeviceTokenTask().execute();
     }
 
     private void initViewPager() {
@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity
                         courseButton.setChecked(true);
                         fgState = FgState.COURSE;
                         setCourseMenu();
+                        setTitle(R.string.course_title);
                         break;
                     case 1:
-                        Log.i("MainActivity", "message page selected");
                         messageButton.setChecked(true);
                         fgState = FgState.MESSAGE;
                         setMessageMenu();
@@ -319,29 +319,6 @@ public class MainActivity extends AppCompatActivity
         for(MenuItem item: visibleItems)
             item.setVisible(false);
         visibleItems.clear();
-    }
-
-    private class CourseModelCreateTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        public Void doInBackground(Void... params) {
-            CourseModel.createInstance();
-            return null;
-        }
-    }
-
-    /**
-     * 测试友盟推送用
-     */
-    private class GetDeviceTokenTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            String deviceToken = null;
-            while(deviceToken  == null)
-                deviceToken = pushAgent.getRegistrationId();
-            Log.i("UmengDeviceTokenTest", deviceToken);
-            return null;
-        }
     }
 }
 

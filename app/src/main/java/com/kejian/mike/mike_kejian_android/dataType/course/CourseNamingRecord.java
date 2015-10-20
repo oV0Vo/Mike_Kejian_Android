@@ -10,20 +10,12 @@ public class CourseNamingRecord {
 
     private String namingId;
     private String teacherId;
+    private String teacherName;
     private Date beginTime;
     private Date endTime;
     private int signInNum;
-    private int totalNum;
     private ArrayList<String> absentNames;
     private ArrayList<String> absentIds;
-
-    public int getTotalNum() {
-        return totalNum;
-    }
-
-    public void setTotalNum(int totalNum) {
-        this.totalNum = totalNum;
-    }
 
     public String getNamingId() {
         return namingId;
@@ -47,6 +39,14 @@ public class CourseNamingRecord {
 
     public void setBeginTime(Date beginTime) {
         this.beginTime = beginTime;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public Date getEndTime() {

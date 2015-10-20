@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
 import model.course.CourseModel;
+import util.DateUtil;
 import util.TimeFormat;
 import util.TimerThread;
 
@@ -45,11 +46,15 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private String teacherIdMock = "";
 
+    private CourseModel courseModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_naming);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        courseModel = CourseModel.getInstance();
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
@@ -158,7 +163,7 @@ public class CourseNamingActivity extends AppCompatActivity {
         View resultView = getLayoutInflater().inflate(R.layout.layout_course_naming_result, null);
         TextView statsText = (TextView)resultView.findViewById(R.id.stats_text);
         int signInNum = namingResult.getSignInNum();
-        int totalNum = namingResult.getTotalNum();
+        int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
         String statsStr = Integer.toString(signInNum) + "/" + Integer.toString(totalNum);
         statsText.setText(statsStr);
 
@@ -237,7 +242,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
             TextView statsText = (TextView)convertView.findViewById(R.id.stats_text);
             int signInNum = r.getSignInNum();
-            int totalNum = r.getTotalNum();
+            int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
             String statsStr = Integer.toString(signInNum) + "/" + Integer.toString(totalNum);
             statsText.setText(statsStr);
 
@@ -298,7 +303,8 @@ public class CourseNamingActivity extends AppCompatActivity {
         protected CourseNamingRecord doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            return CourseNamingNetService.beginNaming(courseId, teacherIdMock);
+            int timeMock = 1000;
+            return CourseNamingNetService.beginNaming(courseId, timeMock);
         }
 
         @Override
