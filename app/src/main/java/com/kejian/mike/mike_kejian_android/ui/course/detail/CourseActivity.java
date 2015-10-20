@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.annoucement.AnnoucListActivity;
@@ -64,9 +65,7 @@ public class CourseActivity extends AppCompatActivity implements
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
         errorMessageText = (TextView)findViewById(R.id.error_message_text);
 
-        CourseBriefInfo currentCourseBrief = courseModel.getCurrentCourseBrief();
-        String title = currentCourseBrief.getCourseName();
-        this.setTitle(title);
+        this.setTitle(R.string.course_title);
 
         taskCountDown++;
         new InitCourseDetailTask().execute();

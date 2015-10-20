@@ -32,7 +32,6 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     private RadioButton teachContentTab;
     private RadioButton referenceTab;
 
-    private CourseBriefInfo courseBrief;
     private CourseDetailInfo courseDetail;
 
     @Override
@@ -42,7 +41,6 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CourseModel courseModel = CourseModel.getInstance();
-        courseBrief = courseModel.getCurrentCourseBrief();
         courseDetail = courseModel.getCurrentCourseDetail();
 
         initCourseBrief();
@@ -54,10 +52,10 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private void initCourseBrief() {
         TextView courseTitleView = (TextView)findViewById(R.id.course_intro_course_name);
-        courseTitleView.setText(courseBrief.getCourseName());
+        courseTitleView.setText(courseDetail.getCourseName());
 
         TextView courseAcademyView = (TextView)findViewById(R.id.course_intro_course_academy);
-        courseAcademyView.setText(courseBrief.getAcademyName());
+        courseAcademyView.setText(courseDetail.getAccademyName());
 
         TextView courseTypeView = (TextView)findViewById(R.id.course_intro_course_type);
         String courseTypeText = courseDetail.getCourseType();

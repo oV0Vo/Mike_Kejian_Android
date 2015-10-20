@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/medium_padding"
-    android:paddingBottom="@dimen/medium_padding">
+    android:paddingBottom="@dimen/medium_padding"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/annouc_title_layout"
@@ -19,7 +20,8 @@
             android:id="@+id/annouc_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/medium_font"/>
+            android:textSize="@dimen/medium_font"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <TextView
@@ -40,7 +42,7 @@
         <TextView
             android:id="@+id/annouc_author_name_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +52,7 @@
         <TextView
             android:id="@+id/annouc_time_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </LinearLayout>

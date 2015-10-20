@@ -182,7 +182,7 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(listner != null) {
             CourseBriefInfo courseBrief = listAdapter.getItem(position);
-            courseModel.setCurrentCourseBrief(courseBrief);
+            courseModel.setCurrentCourseId(courseBrief.getCourseId());
             listner.onCourseSelected();
         }
     }

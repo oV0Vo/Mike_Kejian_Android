@@ -159,15 +159,12 @@ public class CourseModel {
         return list.size() > beginPos && beginPos >= 0;
     }
 
-    public CourseBriefInfo getCurrentCourseBrief() {
-        return currentCourse.courseBrief;
-    }
     public CourseDetailInfo getCurrentCourseDetail() {
         return currentCourse.courseDetail;
     }
 
-    public void setCurrentCourseBrief(CourseBriefInfo courseBrief) {
-        currentCourse = new CurrentCourseModel(courseBrief);
+    public void setCurrentCourseId(String courseId) {
+        currentCourse = new CurrentCourseModel(courseId);
     }
 
     @NeedAsyncAnnotation
@@ -314,7 +311,6 @@ public class CourseModel {
 
         private String courseId;
 
-        private CourseBriefInfo courseBrief;
         private CourseDetailInfo courseDetail;
 
         private ArrayList<BasicQuestion> historyQuestions;
@@ -332,13 +328,12 @@ public class CourseModel {
         private static final int CURRENT_QUESTION_UPDATE_NUM = 5;
         private static final int ANNOUC_UPDATE_NUM = 5;
 
-        public CurrentCourseModel(CourseBriefInfo courseBrief) {
+        public CurrentCourseModel(String courseId) {
             historyQuestions = new ArrayList<BasicQuestion>();
             currentQuestions = new ArrayList<CurrentQuestion>();
             annoucs = new ArrayList<CourseAnnoucement>();
             posts = new ArrayList<Post>();
-            this.courseBrief = courseBrief;
-            this.courseId = courseBrief.getCourseId();
+            this.courseId = courseId;
         }
 
         public String getCourseId() {

@@ -37,18 +37,13 @@ public class CourseBriefInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_course_brief_info, container, false);
-        CourseBriefInfo courseBrief = CourseModel.getInstance().getCurrentCourseBrief();
-
-        if(courseBrief == null) {
-            Log.e("CourseBriefInfo", "currentCourseBriefInfo null in course detail activity!");
-            return v;
-        }
+        CourseDetailInfo courseDetailInfo = CourseModel.getInstance().getCurrentCourseDetail();
 
         ImageView imageView = (ImageView)v.findViewById(R.id.course_detail_brief_image);
         imageView.setImageResource(R.drawable.default_book);
 
         TextView academyView = (TextView)v.findViewById(R.id.course_detail_brief_academy);
-        academyView.setText(courseBrief.getAcademyName());
+        academyView.setText(courseDetailInfo.getAccademyName());
 
         TextView teacherView = (TextView)v.findViewById(R.id.course_detail_brief_teacher_text);
         String teacherNames = getMergeTeacherName();
