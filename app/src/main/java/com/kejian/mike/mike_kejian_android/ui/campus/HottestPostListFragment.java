@@ -51,6 +51,8 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
 
     private void iniViews() {
         this.container = (RefreshListView)view.findViewById(R.id.post_container);
+        container.setFooterDividersEnabled(false);
+        container.setHeaderDividersEnabled(false);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.hottestPosts);
         this.container.setAdapter(adapter);
