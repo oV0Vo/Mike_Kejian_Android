@@ -18,6 +18,13 @@
             android:adjustViewBounds="true"
             android:src="@drawable/left"
             android:layout_gravity="center_vertical" />
+        <!--<SearchView-->
+            <!--android:id="@+id/srv1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:iconifiedByDefault="false"-->
+            <!--android:inputType="textFilter"-->
+            <!--android:queryHint="请输入您要查找的内容" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +49,8 @@
                 <EditText
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/searchContent"/>
+                    android:id="@+id/searchContent"
+                    android:textColor="@color/white"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

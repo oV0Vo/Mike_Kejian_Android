@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo">
+    <item android:id="@+id/search_bar"
+        android:title=""
+        app:showAsAction="ifRoom|withText"
+        app:actionViewClass="android.widget.SearchView">
+
+    </item>
+
+</menu>
