@@ -57,3 +57,5 @@ by zfy
 12.user表缺一个phoneNumber字段 //done by gaoyang 字段为phone_num
 
 13.还需要一个根据phoneNumber修改密码的接口  参数为phoneNumber 新密码  返回值为 bool  //done by gaoyang
+
+14.发布公告的接口要不要把时间给去掉，都采用服务器时间？
