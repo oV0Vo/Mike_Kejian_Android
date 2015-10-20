@@ -55,6 +55,21 @@ public class user implements Serializable{
     private String background_icon_path;//背景图片
     private String id;
 
+    private boolean ifBind;
+
+    public void setIfBind(boolean ifBind){
+
+        this.ifBind=ifBind;
+
+    }
+
+    public boolean getIfBind(){
+
+        ifBind=(schoolAccount!=null);
+
+        return ifBind;
+    }
+
 
     public String getId(){
 

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -40,6 +46,26 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/attention_container"
-        ></FrameLayout>
+        >
+
+        <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/attention_list"
+            android:divider="#321f0409"
+            android:dividerHeight="10dp"
+            ></com.kejian.mike.mike_kejian_android.ui.message.RefreshListView>
+
+
+    </FrameLayout>
 
 </LinearLayout>
+    <ProgressBar
+        android:id="@+id/get_attention_progress_bar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        style="?android:attr/progressBarStyleLarge"
+        android:visibility="invisible" />
+    </RelativeLayout>

@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -16,15 +19,27 @@ import com.kejian.mike.mike_kejian_android.ui.campus.HottestPostListFragment;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.message.CourseNoticeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.MentionMeActivity;
+import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
+import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
 
+import net.UserNetService;
+import net.picture.MessagePrint;
+
+import java.util.ArrayList;
+
 import bl.AcademyBLService;
+import model.user.CourseBrief;
+import model.user.Friend;
+import model.user.Global;
+import model.user.PostBrief;
 import model.user.UserToken;
+import model.user.user;
 
 /**
  * Created by kisstheraik on 15/9/19.
  */
-public class UserAttentionListActivity extends Activity{
+public class UserAttentionListActivity extends AppCompatActivity{
 
     private TextView people;
     private TextView course;
@@ -34,12 +49,21 @@ public class UserAttentionListActivity extends Activity{
     private LocalActivityManager activityManager;
     private UserToken userToken;
     private Bundle bundle;
+    private RefreshListView attentionList;
+    private ProgressBar progressBar;
+    private AttentionListAdapter peopleAdapter;
+    private AttentionListAdapter courseAdapter;
+    private AttentionListAdapter postAdapter;
+    private ArrayList<Friend> friendlist=new ArrayList<>();
+    private ArrayList<CourseBrief> courseList=new ArrayList<>();
+    private ArrayList<PostBrief> postList=new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_user_attention_list);
         context=this;
         bundle=savedInstanceState;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
 
@@ -50,8 +74,16 @@ public class UserAttentionListActivity extends Activity{
         }
 
 
-        initViews();
+     initViews();
+        initData();
+        new GetData().execute("");
 
+    }
+    public void initData(){
+
+        peopleAdapter=new AttentionListAdapter(1,friendlist,this);
+        courseAdapter=new AttentionListAdapter(2,courseList,this);
+        postAdapter=new AttentionListAdapter(3,postList,this);
     }
 
     public void initViews(){
@@ -59,18 +91,25 @@ public class UserAttentionListActivity extends Activity{
         course=(TextView)findViewById(R.id.attention_list_course);
         post=(TextView)findViewById(R.id.attention_list_post);
         container=(FrameLayout)findViewById(R.id.attention_container);
+        attentionList=(RefreshListView)findViewById(R.id.attention_list);
+        progressBar=(ProgressBar)findViewById(R.id.get_attention_progress_bar);
 
 
         people.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                s(UserAttentionActivity.class);
-                ListView l = new ListView(context);
-//                l.setAdapter(new AttentionListAdapter(1,null,context));
-//
-//                container.addView(l);
-                //container.addView(new HottestPostListFragment(context));
+              //  container.removeAllViews();
+              //  s(UserAttentionActivity.class);
+             //   ListView l = new ListView(context);
+
+                attentionList.setAdapter(peopleAdapter);
+
+                attentionList.setOnRefreshListener(new Refresh(attentionType.PEOPLE.name()));
+
+
+               // container.addView(l);
+               // container.addView(new HottestPostListFragment(context));
 
 
             }
@@ -79,22 +118,29 @@ public class UserAttentionListActivity extends Activity{
         course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // container.removeAllViews();
 
-                s(UserAttentionCourse.class);
-                ListView l = new ListView(context);
-//                l.setAdapter(new AttentionListAdapter(2,null,context));
-//
-//                container.addView(l);
+               // s(UserAttentionCourse.class);
+            //    ListView l = new ListView(context);
+
+                attentionList.setAdapter(courseAdapter);
+                attentionList.setOnRefreshListener(new Refresh(attentionType.COURSE.name()));
+
+            //    container.addView(l);
+
+
             }
         });
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s(UserAttentionActivity.class);
+                //s(UserAttentionActivity.class);
+               // container.removeAllViews();
 
-                ListView l = new ListView(context);
-//                l.setAdapter(new AttentionListAdapter(3,null,context));
-//                container.addView(l);
+                //ListView l = new ListView(context);
+                attentionList.setAdapter(postAdapter);
+                attentionList.setOnRefreshListener(new Refresh(attentionType.POST.name()));
+              //  container.addView(l);
 
             }
         });
@@ -119,4 +165,106 @@ public class UserAttentionListActivity extends Activity{
         container.removeAllViews();
         container.addView(v);
     }
+
+    private void hideHeader(){
+
+        attentionList.hideHeaderView();
+    }
+
+    private void hideFoot(){
+
+        attentionList.hideFooterView();
+    }
+
+    private static enum attentionType{PEOPLE,COURSE,POST};
+    private class Refresh implements OnRefreshListener{
+
+        private  String type;
+
+        public Refresh(String type){
+
+            this.type=type;
+
+        }
+
+
+
+        @Override
+        public void onDownPullRefresh() {
+
+            switch(type){
+
+
+
+                case "PEOPLE":new GetData().execute("");break;
+                case "COURSE":break;
+                case "POST":break;
+                default:break;
+
+
+
+            }
+
+        }
+
+        @Override
+        public void onLoadingMore() {
+
+            switch(type){
+
+                case "PEOPLE":break;
+                case "COURSE":break;
+                case "POST":break;
+                default:break;
+
+            }
+
+
+        }
+    }
+
+    public ArrayList<Friend> getFrientList(){
+
+        user u=(user) Global.getObjectByName("user");
+
+        return UserNetService.getAttentionPeople(u.getId());
+
+    }
+
+    private class GetData extends AsyncTask<String,Integer,String>{
+
+
+        public String doInBackground(String...para){
+            user u=(user) Global.getObjectByName("user");
+
+            friendlist=getFrientList();
+
+            courseList=UserNetService.getAttentionCourse(u.getId());
+
+            postList=UserNetService.getAttentionPost(u.getId());
+
+
+            return null;
+        }
+
+        @Override
+        public void onPostExecute(String result){
+
+            peopleAdapter.setContentList(friendlist);
+            courseAdapter.setContentList(courseList);
+            postAdapter.setContentList(postList);
+
+
+
+            postAdapter.notifyDataSetChanged();
+            courseAdapter.notifyDataSetChanged();
+            peopleAdapter.notifyDataSetChanged();
+            hideHeader();
+
+
+
+        }
+    }
+
+
 }

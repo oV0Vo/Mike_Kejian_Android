@@ -91,6 +91,8 @@
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/course_naming_activity" >
         </activity>
+        <activity android:name=".ui.user.UserOtherState"
+            android:label="他的动态"/>
         <activity
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
@@ -155,6 +157,9 @@
         <activity
             android:name=".ui.user.UserPasswordCode"
             android:label="发送验证码" />
+        <activity
+            android:name=".ui.user.UserSettingActivity"
+            android:label="设置" />
         <activity
             android:name=".ui.user.UserSchoolAccountActivity"
             android:label="绑定教务网帐号" />

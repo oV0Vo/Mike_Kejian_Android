@@ -5,6 +5,6 @@ package com.kejian.mike.mike_kejian_android.ui.user;
  */
 public enum UserActivityComm {
 
-    USER_TOKEN,USER_REGISTER,USER_ATTENTION_LIST,USER_INFO
+    USER_TOKEN,USER_REGISTER,USER_ATTENTION_LIST,USER_INFO,USER_BIND,USER_UNBIND,IF_BIND
 
 }

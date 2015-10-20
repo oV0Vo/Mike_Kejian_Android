@@ -32,7 +32,7 @@ import model.message.Reply;
 import model.user.UserToken;
 
 
-public class UserAttentionActivity extends Activity implements View.OnClickListener,OnRefreshListener {
+public class UserAttentionActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener {
 
     private LinearLayout mainLayout;
     private RefreshListView container;
@@ -49,6 +49,7 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_attention_people);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.context=this;
         this.mainLayout = (LinearLayout)findViewById(R.id.attention_people_layout);
@@ -180,9 +181,9 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
                         , null);
                 viewHolder = new ViewHolder();
                 viewHolder.avatar_view = (ImageView)convertView.findViewById(R.id.photoView);
-                viewHolder.mentioner_view = (TextView)convertView.findViewById(R.id.publisherView);
-                viewHolder.post_view = (TextView)convertView.findViewById(R.id.postDetailView);
-                viewHolder.time_view = (TextView)convertView.findViewById(R.id.timeView);
+                viewHolder.mentioner_view = (TextView)convertView.findViewById(R.id.nameView);
+                viewHolder.post_view = (TextView)convertView.findViewById(R.id.signView);
+                //viewHolder.time_view = (TextView)convertView.findViewById(R.id.timeView);
                 convertView.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder)convertView.getTag();

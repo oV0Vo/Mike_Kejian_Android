@@ -181,7 +181,7 @@ public class UserRegisterActivity extends AppCompatActivity{
         System.out.println("准备登录");
 
 
-        UserBLResult userBLResult=UserBLService.getInstance().register(userToken);
+        UserBLResult userBLResult=UserNetService.register(userToken);
 
         if(userBLResult.equals(UserBLResult.REGISTER_SUCCEED)){
 
