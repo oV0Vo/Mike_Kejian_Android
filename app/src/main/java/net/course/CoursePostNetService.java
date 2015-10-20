@@ -30,7 +30,7 @@ public class CoursePostNetService {
     private static HttpRequest http = HttpRequest.getInstance();
 
     public static ArrayList<Post> getPosts(String courseId, String lastPostId, int num) {
-        String url = BASE_URL + "getCoursePosts";
+        String url = BASE_URL + "getCoursePosts/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         paraMap.put("lastId", lastPostId);

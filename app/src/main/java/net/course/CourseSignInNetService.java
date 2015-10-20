@@ -34,7 +34,7 @@ public class CourseSignInNetService {
     private static HttpRequest http = HttpRequest.getInstance();
 
     public static ArrayList<CourseSignInRecord> getSignInRecords(String courseId) {
-        String url = BASE_URL + "getHistorySignRecords";
+        String url = BASE_URL + "getHistorySignRecords/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
@@ -55,7 +55,7 @@ public class CourseSignInNetService {
     }
 
     public static CourseSignInRecord getCurrentSignInRecord(String courseId) {
-        String url = BASE_URL + "getCurrentSignRecord";
+        String url = BASE_URL + "getCurrentSignRecord/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
@@ -120,7 +120,7 @@ public class CourseSignInNetService {
     }
 
     public static boolean signIn(String namingId) {
-        String url = BASE_URL + "courseSign";
+        String url = BASE_URL + "courseSign/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("rollId", namingId);
         String responseContent = http.sentGetRequest(url , paraMap);
