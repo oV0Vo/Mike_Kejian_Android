@@ -29,12 +29,15 @@ import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPubli
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
+import com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo;
+
 import model.course.CourseModel;
 
 public class CourseActivity extends AppCompatActivity implements
         LatestAnnoucFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
-        CommentsAreaFragment.OnPostSelectedListener {
+        CommentsAreaFragment.OnPostSelectedListener,MenuItem.OnMenuItemClickListener {
 
     private CourseModel courseModel;
 
@@ -49,6 +52,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     private MenuItem downInfoItem;
     private MenuItem addItem;
+    private MenuItem searchItem;
     private View addSubMenuView;
     private PopupWindow addItemPopupWindow;
 
@@ -125,7 +129,8 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void initSearchMenuItem(Menu menu) {
-
+        searchItem = menu.findItem(R.id.course_search_menu_item);
+        searchItem.setOnMenuItemClickListener(this);
     }
 
     private void initAddMenuItem() {
@@ -359,6 +364,14 @@ public class CourseActivity extends AppCompatActivity implements
             progressBar.setVisibility(View.GONE);
             mainLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Intent intent = new Intent();
+        intent.setClass(this,SearchViewDemo.class);
+        startActivity(intent);
+        return true;
     }
 
     private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {

@@ -20,7 +20,7 @@ public class SearchNetService {
             int ran1 = (int)(Math.random()*19);
             int ran2 = (int)(Math.random()*19);
             int ran3 = (int)(Math.random()*19);
-            post.setTitle("数学"+words[ran1]+words[ran2]+words[ran3]);
+            post.setTitle("a"+words[ran1]+words[ran2]+words[ran3]);
             posts.add(post);
         }
         for(int i = 0;i<5;i++){
@@ -35,13 +35,15 @@ public class SearchNetService {
             CourseBrief courseBrief = new CourseBrief();
             int ran1 = (int)(Math.random()*19);
             int ran2 = (int)(Math.random()*19);
-            courseBrief.setCourseName("数学" + words[ran1] + words[ran2]);
+            courseBrief.setCourseName("a" + words[ran1] + words[ran2]);
+            courseBriefs.add(courseBrief);
         }
         for(int i =0;i<5;i++){
             CourseBrief courseBrief = new CourseBrief();
             int ran1 = (int)(Math.random()*19);
             int ran2 = (int)(Math.random()*19);
             courseBrief.setCourseName(words[ran1]+words[ran2]+"学");
+            courseBriefs.add(courseBrief);
         }
 
     }

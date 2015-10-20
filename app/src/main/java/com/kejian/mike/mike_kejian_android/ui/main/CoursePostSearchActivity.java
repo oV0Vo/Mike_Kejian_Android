@@ -111,7 +111,7 @@ public class CoursePostSearchActivity extends AppCompatActivity implements TextW
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -152,6 +152,9 @@ public class CoursePostSearchActivity extends AppCompatActivity implements TextW
                 this.currentTask.execute(s.toString());
             }
 
+        }else{
+            courseAdapter.notifyDataSetChanged();
+            postAdapter.notifyDataSetChanged();
         }
 
     }

@@ -230,5 +230,6 @@
     <string name="user_regist">注册</string>
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="title_activity_search_test">SearchTestActivity</string>
+    <string name="title_activity_search_view_demo">SearchViewDemo</string>
 
 </resources>
