@@ -3,12 +3,14 @@ package com.kejian.mike.mike_kejian_android.ui.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.umeng.message.UTrack;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.kejian.mike.mike_kejian_android.dataType.pushMessage.AnnoucPublishPushMessage;
@@ -42,10 +44,12 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
     private static final String ARG_CONTENT = "content";
 
     @Override
-    public void dealWithCustomMessage(Context context, UMessage msg) {
+    public void dealWithNotificationMessage(Context context, UMessage msg) {
+        UTrack.getInstance(context).trackMsgClick(msg);
+
         SenderInfo senderInfo = null;
         ReceiverInfo receiverInfo = null;
-        long time = -1l;
+        Date time = null;
         InfoType infoType = null;
         String messageContent = null;
 
@@ -123,9 +127,9 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
 
     }
 
-    private Long parseTime(String valueStr) {
+    private Date parseTime(String valueStr) {
         try {
-            Long value = Long.parseLong(valueStr);
+            Date value = new Date(valueStr);
             return value;
         } catch (NumberFormatException e) {
             return null;

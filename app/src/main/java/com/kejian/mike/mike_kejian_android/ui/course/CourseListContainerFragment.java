@@ -9,7 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -42,12 +44,8 @@ public class CourseListContainerFragment extends Fragment {
 
     private CourseListFragment courseListFg;
 
-    private boolean isShowMyCourse;
-    private boolean isSelectAcademy;
-    private CharSequence selectText;
-
     public CourseListContainerFragment() {
-        // Required empty public constructor
+
     }
 
     private void createListFragment() {
@@ -69,13 +67,6 @@ public class CourseListContainerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //@maybe bug
-        if(isShowMyCourse) {
-            getActivity().setTitle(R.string.my_course_title);
-        } else {
-            getActivity().setTitle(R.string.all_course_title);
-        }
-
         View v = inflater.inflate(R.layout.fragment_course_list_container, container, false);
         allCourseButton = (RadioButton)v.findViewById(R.id.main_course_all_course_button);
         myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
@@ -83,7 +74,6 @@ public class CourseListContainerFragment extends Fragment {
         myCourseButton.setChecked(true);
         initAllCourseSelectLayout(v);
         myCourseButton.setChecked(true);
-        isShowMyCourse = true;
         return v;
     }
 
@@ -108,8 +98,6 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence academyName = item.getTitle();
                     academySelectText.setText(academyName);
-                    isSelectAcademy = true;
-                    selectText = academyName.toString();
                     showAcademyCourseList(academyName);
                     academySelectMenu.dismiss();
                     return true;
@@ -126,7 +114,6 @@ public class CourseListContainerFragment extends Fragment {
 
         MenuInflater menuInflater = academySelectMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_empty, menu);
-
     }
 
     private void showAcademyCourseList(CharSequence academyNameList) {
@@ -134,7 +121,7 @@ public class CourseListContainerFragment extends Fragment {
     }
 
     private void showCourseTypeList(CharSequence courseType) {
-        courseListFg.showCourseTypeList(CourseType.valueOf(courseType.toString()));
+        courseListFg.showCourseTypeList(courseType);
     }
 
     private void initCourseTypeSelectView(View contentView) {
@@ -152,8 +139,6 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence courseTypeName = item.getTitle();
                     courseTypeSelectText.setText(courseTypeName);
-                    isSelectAcademy = false;
-                    selectText = courseTypeName;
                     showCourseTypeList(courseTypeName);
                     courseTypeSelectMenu.dismiss();
                     return true;
@@ -175,34 +160,23 @@ public class CourseListContainerFragment extends Fragment {
     private void initCourseButtonListener() {
         myCourseButton.setChecked(true);
 
-        allCourseButton.setOnClickListener(new View.OnClickListener(){
+        allCourseButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
-            public void onClick(View v) {
-                if(isShowMyCourse) {
-                    isShowMyCourse = false;
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
                     getActivity().setTitle(R.string.all_course_title);
-
-                    if(selectText == null) {
-                        courseListFg.showAllCourse();
-                        return;
-                    }
-                    if(isSelectAcademy) {
-                        courseListFg.showAcademyCourseList(selectText);
-                    } else {
-                        courseListFg.showCourseTypeList(CourseType.valueOf(selectText.toString()));
-                    }
+                    courseListFg.showAllCourse();
                 }
             }
         });
 
-        myCourseButton.setOnClickListener(new View.OnClickListener(){
+        myCourseButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
-            public void onClick(View v) {
-                if(!isShowMyCourse) {
-                    isShowMyCourse = true;
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
                     allCourseSelectLayout.setVisibility(View.GONE);
                     getActivity().setTitle(R.string.my_course_title);
                     courseListFg.showMyCourse();

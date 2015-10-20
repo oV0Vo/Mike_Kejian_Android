@@ -93,7 +93,6 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            Log.i("QuestionPostLayout", "viewPager getItem " + Integer.toString(position));
             switch(position){
                 case 0:
                     return new CommentsAreaFragment();

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +24,23 @@ import java.util.List;
 
 import bl.course.CourseBriefFilter;
 import model.course.CourseModel;
+import util.StringUtil;
+
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
+import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
+import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
 
 public class CourseListFragment extends Fragment implements AbsListView.OnItemClickListener{
 
-    private AbsListView listView;
+    private static final String TAG = "CourseListFragment";
+
+    private OnRefreshListener noActionRL;
+
+    private OnRefreshListener allCourseRL;
+
+    private RefreshListView listView;
 
     private ArrayList<CourseBriefInfo> listData;
 
@@ -39,66 +50,130 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
     private CourseModel courseModel;
 
-    private static final int MY_COURSE_FETCH_NUM = 50;
-    private static final int ALL_COURSE_FETCH_NUM = 50;
+    private boolean initMyCourseDataFinish;
+
+    private boolean initAllCourseDataFinish;
+
+    private boolean initMyCourseDataFail;
+
+    private boolean initAllCourseDataFail;
+
+    private ProgressBar progressBar;
+
+    private TextView errorMessageText;
+
+    private boolean isShowMyCourse;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {Log.e("CourseListFg", "onCreate");
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
 
+        initListAdapter();
+        initListRefreshListener();
+    }
+
+    private void initListAdapter() {
+        isShowMyCourse = true;
         listData = new ArrayList(courseModel.getMyCourseBriefs());
-        if(listData.size() == 0)
-            new UpdateMyCourseBriefTask().execute();
+        if(listData.size() == 0) {
+            new InitMyCourseBriefTask().execute();
+        } else {
+            initMyCourseDataFinish = true;
+        }
         listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 listData);
-        new UpdateAllCourseBriefTask().execute();
+    }
+
+    private void initListRefreshListener() {
+        noActionRL = new NoActionRefreshListener();
+        allCourseRL = new AllCourseRefreshListener();
     }
 
     public void showMyCourse() {
         if (listView == null)
             return;
+        isShowMyCourse = true;
+        listView.setOnRefreshListener(noActionRL);
         listData.clear();
-        listData.addAll(courseModel.getMyCourseBriefs());
-        listAdapter.notifyDataSetChanged();
+        if(initMyCourseDataFinish) {
+            progressBar.setVisibility(View.GONE);
+            errorMessageText.setVisibility(View.GONE);
+            listData.addAll(courseModel.getMyCourseBriefs());
+            listAdapter.notifyDataSetChanged();
+        } else if(initMyCourseDataFail) {
+            progressBar.setVisibility(View.GONE);
+            errorMessageText.setVisibility(View.VISIBLE);
+        } else { //on progress
+            progressBar.setVisibility(View.VISIBLE);
+            errorMessageText.setVisibility(View.GONE);
+        }
     }
 
     public void showAllCourse() {
         if (listView == null)
             return;
+        isShowMyCourse = false;
         listData.clear();
-        listData.addAll(courseModel.getAllCourseBriefs());
-        listAdapter.notifyDataSetChanged();
+
+        if(initAllCourseDataFinish) {
+            progressBar.setVisibility(View.GONE);
+            errorMessageText.setVisibility(View.GONE);
+            listData.addAll(courseModel.getAllCourseBriefs());
+            listAdapter.notifyDataSetChanged();
+            listView.setOnRefreshListener(allCourseRL);
+        } else if(initAllCourseDataFail) {
+            progressBar.setVisibility(View.GONE);
+            errorMessageText.setVisibility(View.VISIBLE);
+            listView.setOnRefreshListener(noActionRL);
+        } else { //on progress
+            progressBar.setVisibility(View.VISIBLE);
+            errorMessageText.setVisibility(View.GONE);
+            listView.setOnRefreshListener(noActionRL);
+        }
     }
 
-    //@需要一个progressBar
     public void showAcademyCourseList(CharSequence academyName) {
-        ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-        ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
-                academyName);
-        listData.clear();
-        listData.addAll(filterResults);
-        listAdapter.notifyDataSetChanged();
+        if(initAllCourseDataFinish) {
+            ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
+            ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
+                    academyName);
+            listData.clear();
+            listData.addAll(filterResults);
+            listAdapter.notifyDataSetChanged();
+            listView.setOnRefreshListener(noActionRL);
+        }
     }
 
-    public void showCourseTypeList(CourseType courseType) {
-        ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-        ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
-                courseType);
-        listData.clear();
-        listData.addAll(filterResults);
-        listAdapter.notifyDataSetChanged();
+    public void showCourseTypeList(CharSequence courseType) {
+        if(initAllCourseDataFinish) {
+            ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
+            ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
+                    courseType);
+            listData.clear();
+            listData.addAll(filterResults);
+            listAdapter.notifyDataSetChanged();
+            listView.setOnRefreshListener(noActionRL);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {Log.e("CourseListFg", "onCreateView");
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-        listView = (AbsListView) view.findViewById(R.id.main_course_list);
-        ((AdapterView<ListAdapter>) listView).setAdapter(listAdapter);
+        progressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
+        if(initMyCourseDataFinish)
+            progressBar.setVisibility(View.GONE);
+        else
+            progressBar.setVisibility(View.VISIBLE);
+
+        errorMessageText = (TextView)view.findViewById(R.id.error_message_text);
+
+        listView = (RefreshListView) view.findViewById(R.id.main_course_list);
+        listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(this);
-        //setEmptyText();
+        listView.setOnRefreshListener(noActionRL);
 
         return view;
     }
@@ -140,28 +215,34 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView != null) {
-                return convertView;
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(
+                        R.layout.layout_main_course_brief, null);
             }
 
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_main_course_brief
-                    , null);
             CourseBriefInfo courseBriefInfo = getItem(position);
 
             ImageView imageView = (ImageView)convertView.findViewById(R.id.course_brief_image);
             imageView.setImageResource(R.drawable.default_book);
+
             TextView nameView = (TextView)convertView.findViewById(R.id.course_brief_name);
             nameView.setText(courseBriefInfo.getCourseName());
+
             TextView academyView = (TextView)convertView.findViewById(R.id.course_brief_academy);
             academyView.setText(courseBriefInfo.getAcademyName());
-            TextView processWeekView = (TextView)convertView.findViewById(R.id.course_brief_progress_week);
-            processWeekView.setText("第" + courseBriefInfo.getProgressWeek() + "周");
+
+            TextView teacherNameText = (TextView)convertView.findViewById(R.id.
+                    teacher_name_text);
+            ArrayList<String> teacherNames = courseBriefInfo.getTeacherNames();
+            String teacherNameStr = StringUtil.toString(teacherNames, " ");
+            teacherNameText.setText(teacherNameStr);
 
             return convertView;
         }
+
     }
 
-    private class UpdateMyCourseBriefTask extends AsyncTask<Void, Integer,Boolean> {
+    private class InitMyCourseBriefTask extends AsyncTask<Void, Integer,Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -175,18 +256,20 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
+            //设置更新状态
             if(updateSuccess) {
-                //@ mock here
-                listData.clear();
-                listData.addAll(courseModel.getMyCourseBriefs());
-                listAdapter.notifyDataSetChanged();
+                initMyCourseDataFinish = true;
             } else {
-                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                initMyCourseDataFail = true;
+            }
+            //更新界面
+            if(isShowMyCourse) {
+                showMyCourse();
             }
         }
     }
 
-    private class UpdateAllCourseBriefTask extends AsyncTask<Void, Integer,Boolean> {
+    private class InitAllCourseBriefTask extends AsyncTask<Void, Void,Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -200,10 +283,70 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
+            //设置更新状态
+            if(updateSuccess) { 
+                initAllCourseDataFinish = true;
+            } else {
+                initAllCourseDataFail = true;
+            }
+            //更新界面
+            if(!isShowMyCourse) {
+                showAllCourse();
+            }
         }
     }
+
+    private class UpdateAllCourseBriefTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            CourseModel courseModel = CourseModel.getInstance();
+            ArrayList<CourseBriefInfo> updateInfos = courseModel.updateAllCourseBriefs();
+            if(updateInfos != null)
+                return true;
+            else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateSuccess) {
+            listView.hideFooterView();
+            if(updateSuccess) {
+                listAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private class AllCourseRefreshListener implements OnRefreshListener {
+
+        @Override
+        public void onDownPullRefresh() {
+            new UpdateAllCourseBriefTask().execute();
+        }
+
+        @Override
+        public void onLoadingMore() {
+            listView.hideHeaderView();
+        }
+    }
+
+    private class NoActionRefreshListener implements OnRefreshListener {
+
+        @Override
+        public void onDownPullRefresh() {
+            listView.hideFooterView();
+        }
+
+        @Override
+        public void onLoadingMore() {
+            listView.hideHeaderView();
+        }
+    }
+
     public interface OnCourseSelectedListener {
-        public void onCourseSelected();
+        void onCourseSelected();
     }
 
 }

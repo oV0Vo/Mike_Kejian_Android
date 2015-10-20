@@ -26,7 +26,6 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingA
 import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
-import bl.UserInfoServiceMock;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
@@ -35,7 +34,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo;
 import model.course.CourseModel;
 
 public class CourseActivity extends AppCompatActivity implements
-        AnnoucementFragment.OnAnnoucementClickListener,
+        LatestAnnoucFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
         CommentsAreaFragment.OnPostSelectedListener,MenuItem.OnMenuItemClickListener {
 
@@ -47,7 +46,7 @@ public class CourseActivity extends AppCompatActivity implements
     private LinearLayout mainLayout;
 
     private CourseBriefInfoFragment courseBriefFg;
-    private AnnoucementFragment annoucemntFg;
+    private LatestAnnoucFragment annoucemntFg;
     private QuestionAndPostsLayoutFragment postsAndQuestionFg;
 
     private MenuItem downInfoItem;
@@ -55,8 +54,6 @@ public class CourseActivity extends AppCompatActivity implements
     private MenuItem searchItem;
     private View addSubMenuView;
     private PopupWindow addItemPopupWindow;
-
-    private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
 
     private int taskCountDown;
 
@@ -97,10 +94,10 @@ public class CourseActivity extends AppCompatActivity implements
 
     private void initCourseAnnoucementFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        annoucemntFg = (AnnoucementFragment)
+        annoucemntFg = (LatestAnnoucFragment)
                 fm.findFragmentById(R.id.course_detail_annoucement_container);
         if(annoucemntFg == null) {
-            annoucemntFg = new AnnoucementFragment();
+            annoucemntFg = new LatestAnnoucFragment();
             fm.beginTransaction().replace(R.id.course_detail_annoucement_container, annoucemntFg)
                     .commit();
         }
