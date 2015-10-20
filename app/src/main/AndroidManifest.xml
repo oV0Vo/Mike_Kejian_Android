@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kejian.mike.mike_kejian_android">
+    package="com.kejian.mike.mike_kejian_android" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    
-    <!--友盟推送需要的permission-->
+
+    <!-- 友盟推送需要的permission -->
     <!-- 必选 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -20,25 +20,24 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!--【必选】用以设置前台是否显示通知-->
+    <!-- 【必选】用以设置前台是否显示通知 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-    
-    <!--可选-->
+
+    <!-- 可选 -->
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />;
-    
-    
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+;
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5614fe4d67e58e36e50024e3" >
@@ -54,39 +53,47 @@
 
         <activity
             android:name=".ui.user.UserLoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".ui.broadcast.NetBroadcast" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ui.course.detail.CourseActivity"
             android:label="@string/course_detail_activity" >
         </activity>
         <activity
             android:name=".ui.course.detail.introduction.CourseIntroductionActivity"
-            android:label="@string/course_intro_activity">
+            android:label="@string/course_intro_activity" >
         </activity>
-        <activity android:name=".ui.course.management.CourseCreateActivity"
-            android:label="@string/course_create_activity">
+        <activity
+            android:name=".ui.course.management.CourseCreateActivity"
+            android:label="@string/course_create_activity" >
         </activity>
-        <activity android:name=".ui.course.management.AnnoucementPublishActivity"
-            android:label="@string/annouc_publish_activity">
+        <activity
+            android:name=".ui.course.management.AnnoucementPublishActivity"
+            android:label="@string/annouc_publish_activity" >
         </activity>
-
-        <activity android:name=".ui.course.annoucement.AnnoucListActivity"
-            android:label="@string/annouc_list_activity">
+        <activity
+            android:name=".ui.course.annoucement.AnnoucListActivity"
+            android:label="@string/annouc_list_activity" >
         </activity>
-
         <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
-
-        <activity android:name=".ui.course.detail.naming.CourseNamingActivity"
-            android:label="@string/course_naming_activity">
+        <activity
+            android:name=".ui.course.detail.naming.CourseNamingActivity"
+            android:label="@string/course_naming_activity" >
         </activity>
 
         <activity android:name=".ui.course.detail.CourseSignInActivity"
@@ -97,10 +104,9 @@
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
         </activity>
-
         <activity
             android:name=".ui.course.detail.question.QuestionStatsActivity"
-            android:label="@string/title_activity_question_stats">
+            android:label="@string/title_activity_question_stats" >
         </activity>
         <activity
             android:name=".ui.message.NewReplyActivity"
@@ -122,46 +128,53 @@
             android:name=".ui.user.UserInfoActivity"
             android:label="@string/user_info" >
         </activity>
-        <!--<activity-->
-            <!--android:name=".ui.user.UserLoginActivity"-->
-            <!--android:label="user_login" >-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name=".ui.user.UserLoginActivity" -->
+        <!-- android:label="user_login" > -->
+        <!-- </activity> -->
         <activity
             android:name=".ui.user.UserBaseInfoOtherView"
             android:label="用户信息" >
         </activity>
-        <activity android:name=".ui.user.UserAttentionListActivity"
-            android:label="关注列表"></activity>
-        <activity android:name=".ui.user.UserForgetPasswordActivity"
-            android:label="忘记密码"></activity>
-        <activity android:name=".ui.user.UserRegisterActivity"
-            android:label="注册"></activity>
-
-        <activity android:name=".ui.campus.PostDetailActivity"
-            android:label="帖子内容">
+        <activity
+            android:name=".ui.user.UserAttentionListActivity"
+            android:label="关注列表" />
+        <activity
+            android:name=".ui.user.UserForgetPasswordActivity"
+            android:label="忘记密码" />
+        <activity
+            android:name=".ui.user.UserRegisterActivity"
+            android:label="注册" />
+        <activity
+            android:name=".ui.campus.PostDetailActivity"
+            android:label="帖子内容" >
         </activity>
-
-        <activity android:name=".ui.campus.PostPublishActivity"
-            android:label="发帖">
+        <activity
+            android:name=".ui.campus.PostPublishActivity"
+            android:label="发帖" >
         </activity>
-        <activity android:name=".ui.main.MainActivity"
-            android:label="@string/app_name">
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name" >
         </activity>
-        <activity android:name=".ui.user.UserAttentionActivity"
-            android:label="关注的人">
+        <activity
+            android:name=".ui.user.UserAttentionActivity"
+            android:label="关注的人" >
         </activity>
-        <activity android:name=".ui.user.UserPasswordCode"
-            android:label="发送验证码"></activity>
-        <activity android:name=".ui.user.UserSchoolAccountActivity"
-            android:label="绑定教务网帐号"></activity>
-        <activity android:name=".ui.user.UserAttentionCourse"
-            android:label="关注的课程"></activity>
-
+        <activity
+            android:name=".ui.user.UserPasswordCode"
+            android:label="发送验证码" />
+        <activity
+            android:name=".ui.user.UserSchoolAccountActivity"
+            android:label="绑定教务网帐号" />
+        <activity
+            android:name=".ui.user.UserAttentionCourse"
+            android:label="关注的课程" />
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <!-- 监听通知点击或者忽略处理的广播 -->
         <receiver
@@ -181,6 +194,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -201,6 +215,7 @@
             android:process=":push" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
+
                 <category android:name="umeng" />
             </intent-filter>
         </receiver>
@@ -223,8 +238,8 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <service
             android:name="com.umeng.message.UmengService"
-            android:label="PushService"
             android:exported="true"
+            android:label="PushService"
             android:process=":push" >
             <intent-filter>
                 <action android:name="com.kejian.mike.mike_kejian_android.intent.action.START" />
@@ -234,19 +249,21 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.PING_V4" />
+
                 <category android:name="umeng" />
             </intent-filter>
         </service>
 
         <!-- Umeng的消息接收服务 -->
-        <service android:name="com.umeng.message.UmengIntentService"
+        <service
+            android:name="com.umeng.message.UmengIntentService"
             android:process=":push" />
 
         <!-- Umeng的消息路由服务 -->
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:process=":push"
-            android:exported="true" >
+            android:exported="true"
+            android:process=":push" >
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -256,19 +273,20 @@
         </service>
 
         <!-- v2.4.1添加的Service，Umeng的消息接收后的处理服务 -->
-        <service android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-            android:exported="false">
+        <service
+            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.unregistercallback.action"/>
+                <action android:name="com.umeng.message.unregistercallback.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.message.handler.action"/>
+                <action android:name="com.umeng.message.message.handler.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.autoupdate.handler.action"/>
+                <action android:name="com.umeng.message.autoupdate.handler.action" />
             </intent-filter>
         </service>
 
@@ -277,10 +295,37 @@
 
         <!-- V2.5.0添加的Service，用于本地通知 -->
         <!-- 如果不使用本地通知，可以注释掉本地通知服务的配置 -->
-        <service android:name="com.umeng.message.local.UmengLocalNotificationService"
+        <service
+            android:name="com.umeng.message.local.UmengLocalNotificationService"
             android:exported="false" />
 
-    </application>
+        <activity
+            android:name=".ui.main.SearchableActivity"
+            android:label="@string/title_activity_searchable"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".ui.message.SearchTestActivity"
+            android:label="@string/title_activity_search_test"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- enable the search dialog to send searches to SearchableActivity -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".ui.main.SearchableActivity" />
+        </activity>
+    </application>
 
 </manifest>

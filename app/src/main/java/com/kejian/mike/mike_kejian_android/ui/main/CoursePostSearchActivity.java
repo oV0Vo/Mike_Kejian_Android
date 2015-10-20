@@ -30,7 +30,7 @@ import bl.SearchBLService;
 import model.message.CourseNotice;
 import model.message.SearchResult;
 
-public class SearchActivity extends AppCompatActivity implements TextWatcher,View.OnClickListener{
+public class CoursePostSearchActivity extends AppCompatActivity implements TextWatcher,View.OnClickListener{
     private LinearLayout search_title;
     private ImageView back;
     private EditText searchContent;

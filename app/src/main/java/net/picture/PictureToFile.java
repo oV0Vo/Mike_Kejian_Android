@@ -13,13 +13,15 @@ import java.io.OutputStream;
 public class PictureToFile {
 
     public static File bitmapToFile(Bitmap bitmap,String path){
+
+        if(bitmap==null)return new File("");
         System.out.println("bit to file:"+bitmap);
 
         Bitmap.CompressFormat format= Bitmap.CompressFormat.JPEG;
         int quality = 100;
         OutputStream stream = null;
         try {
-            stream = new FileOutputStream("/sdcard/" +"qw2");
+            stream = new FileOutputStream("/sdcard/" +path);
         } catch (FileNotFoundException e) {
 // TODO Auto-generated catch block
             e.printStackTrace();
@@ -28,10 +30,10 @@ public class PictureToFile {
        bitmap.compress(format, quality, stream);
 
 
-        System.out.println("file path:"+"/sdcard/" +"qw2");
+        System.out.println("file path:"+"/sdcard/" +path);
 
 
-        return new File("/sdcard/" +"qw2");
+        return new File("/sdcard/" +path);
 
 
 

@@ -1,0 +1,71 @@
+1. getCourseDetail的返回参数缺少学生数量 // @已解决 加入字段students_num by gdr
+
+2. getCoursePosts目前不可用 //已解决，但是这里是需要所有帖子还是只是主题贴？ by gdr
+
+
+3. 发布问题感觉不太适合用get，因为内容比较多 //客户端用post方法就行
+
+4. 签到结束的判断不合理，签到是否结束应该根据服务器的时间来判断，根据目前给的接口看来
+做法是获取最新签到数据，然后再客户端自己计算时间来判断是否结束的。获取用户某课程最新签到
+也是这个问题  
+// ？是根据服务器的时间，有待商议
+// 如果点名已经结束了，那37.获取某用户某门课程的最新签到数据和35.最新签到数据按理说应该返回空，客户端也是
+这样判定的，点名是否结束根据服务端时间确定。如果不是根据服务端的时间进行判定，那客户端的时间和服务端的时间相差
+几分钟怎么办？
+//已解决
+
+5. 获取签到数据的格式不太合理，没有给点名的教师的名字，如果客户端还要根据返回的id再去
+获取名字会变得很麻烦 
+// ？ 给出具体的service的名字，getCurrentSignRecord和getHistorySignRecords 是有教师名字的,teacher_name
+// 已解决
+
+5. 获取某用户的某门课程的签到数据应该是不用传入studentId的（既然都用了session来记录登录的
+用户的id），返回的数据里user_id和user_name目前是没有用的 //user_name 改成了teacher_name
+
+6. 根据服务端接口，客户端的一些逻辑改变：
+	1. 获取我的课程由获取部分改为获取全部
+	2. 获取课程帖子由获取部分改为获取全部
+	3. 获取课堂历史问题由获取部分改为获取全部
+	4. 获取问题回答由获取部分改为获取全部
+// ? 这是什么意思？
+// 因为之前除了获取当前课堂问题外的其他所有获取列表型数据的都是采用部分获取，下拉刷新的方法的
+	
+7. 原来的课程相关网络参数定义里面缺少两个接口：
+	1. UserTypeInCourse getUserTypeInCourse(String courseId);
+	public enum UserTypeInCourse {
+    		TEACHER, STUDENT, ASSISTANT, VISITOR
+	}
+
+	2. boolean showInterestTo(String courseId)
+
+	3. boolean isInterestedIn(String courseId);
+//这个好像谁已经写了,让写服务器的人都看一下这个文档
+-------------------------------------------------------------------------------------
+by DengrongGuan
+8.显示新的回复列表时，是只显示对该用户发的主题帖的回复还是全部显示即包括发的主题帖和评论，如果是后者，点击单一帖子跳转到的activity是什么样子的？
+//by zfy  全部显示，跳转到的activity展示了主题贴及其回复的详细信息，另外，如果是回复的话，回复最开始的那一条应该是新的回复那一条（具体的样子参考点击校内单一帖子之后跳转的情况）
+9.可以对评论点赞吗？还是只能赞主题帖？
+//by zfy  只能对主题贴点赞
+10.提到我的同问题8
+//by zfy  和8类似
+
+-------------------------------------------------------------------------------------
+by zfy
+
+11.绑定用户的教务网的时候没有更新用户的信息（身份，年级，昵称(这个先改为名字),院系，专业，教务网密码，学号）//done by gaoyang
+
+12.user表缺一个phoneNumber字段 //done by gaoyang 字段为phone_num
+
+13.还需要一个根据phoneNumber修改密码的接口  参数为phoneNumber 新密码  返回值为 bool  //done by gaoyang
+
+14.发布公告的接口要不要把时间给去掉，都采用服务器时间？然后那个authorId也去掉
+
+15.http://112.124.101.41/mike_server_v02/index.php/Home/CourseAnnounce/getAnnoucementsByCourseId?courseId=1
+获取回来的公告里面没有发布者的名字，如果要一个个找的话客户端的逻辑会变得挺复杂的
+
+16.发布公告其实返回个成功与否就好了
+
+17.回答问题时多个选项用_隔开，像这样http://112.124.101.41:80/mike_server_v02/index.php/Home/
+CourseQuestion/answerQuestions/questionId/1/answer/A_C_D
+
+18.获取问题的时候数据格式没有考虑到选择题的情况

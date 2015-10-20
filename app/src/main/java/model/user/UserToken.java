@@ -22,6 +22,12 @@ public class UserToken implements Serializable{
     private String schoolAccountPassword;
     private boolean ifBindSchoolAccount;
 
+    public void setIfBindSchoolAccount(boolean state){
+
+        this.ifBindSchoolAccount=state;
+
+    }
+
     public boolean ifBindSchoolAccount(){
 
         return ifBindSchoolAccount;

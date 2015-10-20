@@ -1,27 +1,34 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
+import com.kejian.mike.mike_kejian_android.ui.main.SearchableActivity;
 
 import java.util.List;
 
 import bl.MessageBLService;
 import model.message.CourseNotice;
+import model.message.MessageType;
 
-public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener, OnRefreshListener{
+public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener, OnRefreshListener, AdapterView.OnItemClickListener{
 
 //    private View layout_title;
     private RefreshListView container;
@@ -61,6 +68,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshTotalCourseNoticeNum();
             }
         }.execute(new Void[]{});
 
@@ -68,23 +76,38 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalCourseNotice > MessageBLService.courseNotices.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addCourseNotices("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addCourseNotices("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
 
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent intent = new Intent(ReceiverActions.increment_action);
+//        intent.putExtra("messageType", MessageType.mentionMe);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Intent intent = new Intent();
+        intent.setClass(this,SearchTestActivity.class);
+        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -116,8 +139,7 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 //        tv.setText("课程公告");
         this.container = (RefreshListView)findViewById(R.id.course_notice_container);
         this.myInflater = getLayoutInflater();
-        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
-        course_notice_num.setText("共 "+MessageBLService.totalCourseNotice+" 条");
+        this.refreshTotalCourseNoticeNum();
 //        for(int i = 0;i<this.courseNotices.size();i++){
 //            this.container.addView(this.genCourseNoticeLayout(this.courseNotices.get(i)));
 //            this.container.addView(this.genLineSplitView());
@@ -125,8 +147,13 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
         this.adapter = new CourseNoticeAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.courseNotices);
         this.container.setAdapter(this.adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(this);
 
 
+    }
+    private void refreshTotalCourseNoticeNum(){
+        TextView course_notice_num = (TextView)this.findViewById(R.id.course_notice_num);
+        course_notice_num.setText("共 "+MessageBLService.totalCourseNotice+" 条");
     }
     static class ViewHolder{
         TextView course_name_view;
@@ -294,6 +321,18 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         MessageBLService.unreadCourseNoticeNum = 0;
         CourseNoticeActivity.this.finish();
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            MessageBLService.unreadCourseNoticeNum = 0;
+            CourseNoticeActivity.this.finish();
+        }
+
+        return false;
 
     }
 }

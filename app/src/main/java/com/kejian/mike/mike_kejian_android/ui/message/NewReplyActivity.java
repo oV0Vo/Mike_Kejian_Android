@@ -1,14 +1,18 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,13 +20,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+
+import net.picture.DownloadPicture;
 
 import java.util.List;
 
 import bl.MessageBLService;
 import model.message.Reply;
 
-public class NewReplyActivity extends AppCompatActivity implements View.OnClickListener ,OnRefreshListener{
+public class NewReplyActivity extends AppCompatActivity implements View.OnClickListener ,OnRefreshListener,AdapterView.OnItemClickListener{
 
     private LayoutInflater myInflater;
     private ArrayAdapter<Reply> adapter;
@@ -65,29 +72,44 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshReplyNumView();
             }
         }.execute(new Void[]{});
     }
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalReply > MessageBLService.replies.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addReplies("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addReplies("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
 
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Reply reply = (Reply)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",reply.getPostId()+"");
+        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -114,8 +136,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
 //        tv.setText("新的回复");
         this.container = (RefreshListView)findViewById(R.id.reply_container);
         this.myInflater = getLayoutInflater();
-        TextView replyNumText = (TextView)this.findViewById(R.id.reply_num);
-        replyNumText.setText("共 "+MessageBLService.totalReply+ " 条");
+        this.refreshReplyNumView();
 //        for(int i = 0;i<this.replyNum;i++){
 //            this.container.addView(this.genReplyLayout(this.replies.get(i)));
 //            this.container.addView(this.genLineSplitView());
@@ -124,6 +145,11 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
         this.adapter = new NewReplyAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.replies);
         this.container.setAdapter(this.adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(this);
+    }
+    private void refreshReplyNumView(){
+        TextView replyNumText = (TextView)this.findViewById(R.id.reply_num);
+        replyNumText.setText("共 "+MessageBLService.totalReply+ " 条");
     }
     static class ViewHolder{
         ImageView avatar_view;
@@ -138,7 +164,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
+            final ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = myInflater.inflate(R.layout.layout_new_reply
                         , null);
@@ -152,10 +178,21 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Reply reply = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
+            DownloadPicture d=new DownloadPicture(getContext()){
+
+                @Override
+                public void updateView(Bitmap bitmap) {
+
+                    viewHolder.avatar_view.setImageBitmap(bitmap);
+
+                }
+            };
+
+            d.getBitMapFromNet(reply.getIconUrl(), "");
+//            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.replyer_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
-            viewHolder.time_view.setText(reply.getReplyTime());
+            viewHolder.time_view.setText(reply.getAdjustTime());
             return convertView;
         }
     }
@@ -286,6 +323,18 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         MessageBLService.unreadReplyNum = 0;
         NewReplyActivity.this.finish();
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            MessageBLService.unreadReplyNum = 0;
+            NewReplyActivity.this.finish();
+        }
+
+        return false;
 
     }
 }

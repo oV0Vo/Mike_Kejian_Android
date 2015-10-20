@@ -191,7 +191,7 @@ public class UserAttentionActivity extends Activity implements View.OnClickListe
             viewHolder.avatar_view.setImageResource(R.drawable.photo);
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
-            viewHolder.time_view.setText(reply.getReplyTime());
+            viewHolder.time_view.setText(reply.getAdjustTime());
             viewHolder.avatar_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -38,6 +38,7 @@
             android:textColor="#16a085"
             android:layout_marginLeft="30dp"
             android:editable="true"
+            android:textSize="@dimen/medium_font"
             />
         <View
             android:layout_width="match_parent"
@@ -47,9 +48,7 @@
             android:layout_marginRight="30dp"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
     </LinearLayout>
    <TableLayout
        android:layout_width="fill_parent"
@@ -62,42 +61,87 @@
 
 
           >
+           <LinearLayout
+               android:layout_height="fill_parent"
+               android:layout_width="fill_parent"
+               android:orientation="horizontal"
+               >
            <TextView
                android:text="姓名"
+               android:layout_height="40dp"
+               android:layout_width="wrap_content"
 
                android:layout_marginLeft="30dp"
+               android:textSize="@dimen/medium_font"
+               android:gravity="center"
+               android:layout_weight="1"
 
                />
 
-           <TextView
+           <EditText
+               android:layout_height="40dp"
+               android:layout_width="70dp"
 
-               android:id="@+id/base_info_name"/>
+
+               android:id="@+id/base_info_name"
+               android:textSize="@dimen/medium_font"
+               android:layout_weight="3"
+               android:gravity="center"
+               />
            <TextView
+               android:layout_height="40dp"
+               android:layout_width="wrap_content"
                android:text="性别"
+               android:textSize="@dimen/medium_font"
+               android:gravity="center"
+               android:layout_weight="1"
 
 
 
                android:layout_marginLeft="100dp"/>
-           <TextView
+           <EditText
+               android:layout_height="40dp"
+               android:layout_width="70dp"
+               android:textSize="@dimen/medium_font"
+               android:gravity="center"
+               android:layout_weight="3"
+               android:enabled="true"
 
                android:id="@+id/base_info_gender"/>
+           </LinearLayout>
        </TableRow>
        <TableRow>
+           <LinearLayout
+
+               android:layout_height="fill_parent"
+               android:layout_width="fill_parent"
+               android:orientation="horizontal"
+               >
            <TextView
+               android:layout_height="40dp"
+               android:layout_width="wrap_content"
                android:layout_marginTop="20dp"
                android:layout_marginLeft="30dp"
+               android:textSize="@dimen/medium_font"
+               android:gravity="center"
 
                android:text="昵称"/>
-           <TextView
+           <EditText
+               android:layout_height="40dp"
+               android:layout_width="70dp"
+
                android:id="@+id/base_info_nickname"
+               android:textSize="@dimen/medium_font"
+               android:gravity="center"
                />
+           </LinearLayout>
        </TableRow>
    </TableLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+
         >
 
         <TextView
@@ -106,6 +150,8 @@
             android:text="教务信息"
             android:textColor="#16a085"
             android:layout_marginLeft="30dp"
+            android:textSize="@dimen/medium_font"
+            android:gravity="center"
             />
         <View
             android:layout_width="match_parent"
@@ -114,9 +160,6 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
     <TableLayout
         android:layout_width="fill_parent"
@@ -128,62 +171,113 @@
 
 
             >
+            <LinearLayout
+
+
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal">
             <TextView
                 android:text="院系"
+                android:layout_height="40dp"
+                android:layout_width="wrap_content"
 
                 android:layout_marginLeft="30dp"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
 
                 />
-            <TextView
+            <EditText
+                android:layout_height="40dp"
+                android:layout_width="70dp"
 
                 android:id="@+id/user_school_info_department"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
                 />
             <TextView
+                android:layout_height="40dp"
+                android:layout_width="wrap_content"
                 android:text="专业"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
 
 
 
                 android:layout_marginLeft="100dp"/>
-            <TextView
+            <EditText
+                android:layout_height="40dp"
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_major"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
                 />
+            </LinearLayout>
         </TableRow>
         <TableRow>
+            <LinearLayout
+
+
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal">
             <TextView
+                android:layout_height="40dp"
+                android:layout_width="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"
 
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
                 android:text="身份"/>
-            <TextView
+            <EditText
+                android:layout_height="40dp"
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_identify"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
                 />
             <TextView
+                android:layout_height="40dp"
+                android:layout_width="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="100dp"
                 android:text="年级"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
 
                 />
-            <TextView
+            <EditText
+                android:layout_height="40dp"
+                android:layout_width="70dp"
                 android:id="@+id/user_school_info_grade"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
                 />
+            </LinearLayout>
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"
                 android:text="教务网账号"
-
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
 
                 />
-            <TextView
-                android:id="@+id/user_school_info_number"/>
+            <EditText
+                android:layout_width="70dp"
+                android:id="@+id/user_school_info_number"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
+                />
         </TableRow>
     </TableLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+
         >
 
         <TextView
@@ -192,6 +286,8 @@
             android:text="个性签名"
             android:textColor="#16a085"
             android:layout_marginLeft="30dp"
+            android:textSize="@dimen/medium_font"
+            android:gravity="center"
             />
 
         <View
@@ -200,27 +296,28 @@
             android:background="#d2d2d2"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:textSize="@dimen/medium_font"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            />
     </LinearLayout>
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TableRow>
-            <TextView
+            <EditText
 
                 android:layout_marginLeft="30dp"
                 android:text="The gay is lazy..."
                 android:id="@+id/base_info_sign"
+                android:textSize="@dimen/medium_font"
+                android:gravity="center"
 
+                android:layout_width="70dp"
                 />
            
         </TableRow>
     </TableLayout>
+
 
 </LinearLayout>

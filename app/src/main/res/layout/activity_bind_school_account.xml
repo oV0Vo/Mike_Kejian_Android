@@ -28,7 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="所在城市"
+                android:background="@drawable/bind_city_show"
                 />
+
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -36,8 +38,14 @@
                 android:entries="@array/brands"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/city_list_view"
+                android:background="@drawable/bind_city_choose"
 
-                ></Spinner>
+                />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
@@ -45,12 +53,13 @@
             android:orientation="horizontal"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
+
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="学校"
+                android:background="@drawable/bind_school_show"
                 />
             <Spinner
                 android:layout_width="wrap_content"
@@ -58,50 +67,58 @@
                 android:entries="@array/brands"
                 android:layout_marginLeft="44dp"
                 android:id="@+id/school_list_view"
+                android:background="@drawable/bind_school_choose"
 
-                ></Spinner></LinearLayout>
+                />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="10dp"
+
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="教务网帐号"
+                android:background="@drawable/bind_schoolaccount_show"
                 />
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="9dp"
-                android:background="@drawable/rec_edit"
+                android:background="@drawable/bind_schoolaccount_input"
                 android:inputType="textPassword"
                 android:id="@+id/school_account_view"
+
                 /></LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="10dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="教务网密码"
-            />
-        <EditText
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="9dp"
-            android:background="@drawable/rec_edit"
-            android:inputType="textPassword"
-            android:id="@+id/school_account_pad_view"
-            /></LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="教务网密码"
+                android:background="@drawable/bind_schoolaccount_psd"
+                />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="9dp"
+                android:background="@drawable/bind_schoolaccount_psd_input"
+                android:inputType="textPassword"
+                android:id="@+id/school_account_pad_view"
+                /></LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="fill_parent"
@@ -111,6 +128,7 @@
         android:layout_marginRight="80dp"
         android:layout_marginLeft="80dp"
         android:id="@+id/complete_bind"
+        android:textColor="@color/white"
         android:text="完成"
         />
     <TextView

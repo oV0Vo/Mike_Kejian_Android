@@ -8,6 +8,8 @@
 
     <string name="post">帖子</string>
 
+    <string name="search_hint">search_hint</string>
+
     <string name="course_add_title">创建课程</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -226,5 +228,7 @@
     <string name="user_login">登录</string>
     <string name="user_forget_password">忘记密码</string>
     <string name="user_regist">注册</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="title_activity_search_test">SearchTestActivity</string>
 
 </resources>

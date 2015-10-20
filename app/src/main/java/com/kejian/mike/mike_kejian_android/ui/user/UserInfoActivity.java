@@ -4,19 +4,26 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 
+import net.UserNetService;
+import net.picture.DownloadPicture;
 import net.picture.PictureToFile;
 import net.picture.PictureUploadUtil;
 
@@ -26,10 +33,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 import bl.UserBLService;
 import model.user.Global;
 import model.user.UserToken;
+import model.user.department;
+import model.user.school;
 import model.user.user;
 
 /**
@@ -43,11 +53,17 @@ public class UserInfoActivity extends AppCompatActivity{
     private LinearLayout userInfoLayout;
     private TableLayout userBaseInfoView;
     private TableLayout userSchoolInfoView;
-    private TextView baseInfoName;
-    private TextView baseInfoGender;
-    private TextView baseInfoGrade;
-    private TextView baseInfoIdentify;
-    private TextView baseInfoSign;
+    private EditText baseInfoName;
+    private EditText baseInfoGender;
+    private EditText baseInfoGrade;
+    private EditText baseInfoIdentify;
+    private EditText baseInfoSign;
+    private EditText baseInfoNickname;
+    private EditText schoolAccountView;
+    private EditText schoolMajorView;
+    private EditText schoolDepartmentView;
+    private Menu menu;
+
     private CircleImageView photo;
 
 
@@ -59,6 +75,8 @@ public class UserInfoActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_info);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
 
     }
@@ -66,6 +84,9 @@ public class UserInfoActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_info, menu);
+        this.menu=menu;
+        MenuItem menuItem=(MenuItem)menu.findItem(R.id.save_user_info);
+        menuItem.setVisible(false);
         return true;
     }
 
@@ -76,13 +97,29 @@ public class UserInfoActivity extends AppCompatActivity{
 //        u.setName("义薄云天");
 //        u.setPassword("123456");
 //        user= UserBLService.getInstance().login(u);
+        baseInfoNickname=(EditText)findViewById(R.id.base_info_nickname);
+        schoolAccountView=(EditText)findViewById(R.id.user_school_info_number);
+        schoolMajorView=(EditText)findViewById(R.id.user_school_info_major);
+        schoolDepartmentView=(EditText)findViewById(R.id.user_school_info_department);
         userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
-        baseInfoName=(TextView)findViewById(R.id.base_info_name);
-        baseInfoGender=(TextView)findViewById(R.id.base_info_gender);
-        baseInfoGrade=(TextView)findViewById(R.id.user_school_info_grade);
-        baseInfoIdentify=(TextView)findViewById(R.id.user_school_info_identify);
-        baseInfoSign=(TextView)findViewById(R.id.base_info_sign);
+        baseInfoName=(EditText)findViewById(R.id.base_info_name);
+        baseInfoGender=(EditText)findViewById(R.id.base_info_gender);
+        baseInfoGrade=(EditText)findViewById(R.id.user_school_info_grade);
+        baseInfoIdentify=(EditText)findViewById(R.id.user_school_info_identify);
+        baseInfoSign=(EditText)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
+
+        DownloadPicture d=new DownloadPicture(this){
+
+            @Override
+            public void updateView(Bitmap bitmap){
+
+                photo.setImageBitmap(bitmap);
+
+            }
+        };
+
+        d.getBitMapFromNet(user.getIcon(),user.getIdentify());
 
         System.out.println("user in userinfo view:"+user);
 
@@ -111,8 +148,8 @@ public class UserInfoActivity extends AppCompatActivity{
                 intent.putExtra("crop", "true");
                 intent.putExtra("aspectX", 1);
                 intent.putExtra("aspectY", 1);
-                intent.putExtra("outputX", 80);
-                intent.putExtra("outputY", 80);
+//                intent.putExtra("outputX", 80);
+//                intent.putExtra("outputY", 80);
                 intent.putExtra("return-data", true);
 
                 startActivityForResult(intent, 0);
@@ -130,7 +167,9 @@ public class UserInfoActivity extends AppCompatActivity{
         Bitmap cameraBitmap = (Bitmap) data.getExtras().get("data");
         super.onActivityResult(requestCode, resultCode, data);
 
-        new uploadpicture().execute(cameraBitmap);
+
+
+        Global.addGlobalItem("bitmap",cameraBitmap);
 
 
 
@@ -178,11 +217,34 @@ public class UserInfoActivity extends AppCompatActivity{
 
         else{
 
+//
+//            name=(String)(infoSet.get("name"));
+//            gender=(String)(infoSet.get("gender"));
+//            grade=(String)(infoSet.get("grade"));
+//            icon=(String)(infoSet.get("icon"));
+//            sign=(String)(infoSet.get("signal"));
+//            identify=(String)(infoSet.get("identify"));
+//            id=infoSet.get("id").toString();
+//            nick_name=(String)infoSet.get("nick_name");
+//            background_icon_path=(String)infoSet.get("background");
+//            identify=(String)infoSet.get("school_identify");
+//
+//            schoolInfo=new school();
+//            schoolInfo.setId((String)infoSet.get("school_id"));
+////        schoolInfo.setName();
+////        schoolInfo.setNumber();
+////
+//
+//            departmentInfo=new department();
+////        departmentInfo.setNumber();
+////        departmentInfo.setName();
+//            departmentInfo.setId((String)infoSet.get("department_id"));
+//            departmentInfo.setSchoolId(schoolInfo.getId());
 
 
             System.out.println("Begin download icon!");
 
-            new DownLoadIcon().execute("http://d.hiphotos.baidu.com/zhidao/pic/item/730e0cf3d7ca7bcbb9177b55b8096b63f624a858.jpg");
+           // new DownLoadIcon().execute("http://d.hiphotos.baidu.com/zhidao/pic/item/730e0cf3d7ca7bcbb9177b55b8096b63f624a858.jpg");
 
 
 
@@ -192,11 +254,25 @@ public class UserInfoActivity extends AppCompatActivity{
             String sign=user.getSign();
             String identify=user.getIdentify();
 
+//
+
+
+
+
+//            userBaseInfoView=(TableLayout)findViewById(R.id.user_base_info_view);
+
+
+
             baseInfoGender.setText(gender);
             baseInfoGrade.setText(grade);
             baseInfoIdentify.setText(identify);
             baseInfoSign.setText(sign);
             baseInfoName.setText(name);
+            baseInfoNickname.setText(user.getNick_name());
+            schoolDepartmentView.setText(user.getDepartmentInfo().getId());
+            schoolMajorView.setText(user.getDepartmentInfo().getId());
+            schoolAccountView.setText(user.getSchoolAccount());
+
 
         }
 
@@ -210,6 +286,30 @@ public class UserInfoActivity extends AppCompatActivity{
 
     }
 
+    private class resetUserInfo extends AsyncTask<HashMap,Integer,String>{
+
+        protected void onPreExecute(){
+
+        }
+
+        protected String doInBackground(HashMap...Para){
+
+
+            HashMap info=Para[0];
+
+           /*
+
+            这里调用修改用户信息的接口
+            */
+
+
+            return "";
+
+        }
+
+
+    }
+
     private class uploadpicture extends AsyncTask<Bitmap ,Integer,String>{
 
 
@@ -219,13 +319,44 @@ public class UserInfoActivity extends AppCompatActivity{
 
         protected String doInBackground(Bitmap...Para){
 
-            System.out.println("net photo paht:"+PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],Para[0].toString())).getLinkurl());
+           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],Para[0].toString())).getLinkurl();
 
+            UserNetService.setUserInfo(1,"ICON",path);
+
+            user.setIcon(path);
             return "";
 
         }
 
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.edit_user_info:
+                item.setVisible(false);
+
+                MenuItem menuItem=(MenuItem)menu.findItem(R.id.save_user_info);
+                menuItem.setVisible(true);
+
+
+                setEditAble();
+
+                return true;
+            case R.id.save_user_info:
+                item.setVisible(false);
+                saveUserInfo();
+
+                MenuItem menuItem2=(MenuItem)menu.findItem(R.id.edit_user_info);
+                menuItem2.setVisible(true);
+
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private class DownLoadIcon extends AsyncTask<String,Integer,String>{
 
@@ -265,6 +396,56 @@ public class UserInfoActivity extends AppCompatActivity{
             return null;
 
         }
+    }
+
+    public void saveUserInfo(){
+
+        /*
+        the info that can be save
+
+        SIGN_TEXT|ICON|NICKNAME
+         */
+
+      final  String nickName=(String)baseInfoNickname.getText().toString().trim();
+
+        final String signal=(String)baseInfoSign.getText().toString().trim();
+
+        new Thread(){
+
+            public void run(){
+
+                UserNetService.setUserInfo(Integer.parseInt(user.getId()),"NICK_NAME",nickName);
+                UserNetService.setUserInfo(Integer.parseInt(user.getId()), "SIGN_TEXT", signal);
+
+                Bitmap bitmap=(Bitmap)Global.getObjectByName("bitmap");
+                if(bitmap!=null)new uploadpicture().execute(bitmap);
+
+            }
+        }.start();
+
+        Toast.makeText(this,"保存成功 >_<",Toast.LENGTH_SHORT).show();
+
+        user.setNickName(nickName);
+        user.setSign(signal);
+
+    }
+    public void setUnable(){
+
+    }
+    public void setEditAble(){
+
+//        private TextView baseInfoName;
+        baseInfoGender.setEnabled(true);
+        baseInfoGender.setBackgroundColor(Color.GRAY);
+
+//        private TextView baseInfoGrade;
+//        private TextView baseInfoIdentify;
+//        private TextView baseInfoSign;
+//        private TextView baseInfoNickname;
+//        private TextView schoolAccountView;
+//        private TextView schoolMajorView;
+//        private TextView schoolDepartmentView;
+
     }
 
 

@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
 
+    <!--zero-->
+    <dimen name="zero">0dp</dimen>
+
     <!--line-->
     <dimen name="line_thin">1dp</dimen>
     <dimen name="line_sub_medium">2dp</dimen>

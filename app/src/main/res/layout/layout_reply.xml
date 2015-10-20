@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/medium_padding"
+    android:background="@color/black2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_padding">
+
+            <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+                android:layout_width="@dimen/medium_icon_width"
+                android:layout_height="@dimen/medium_icon_height"
+                android:layout_centerInParent="true"
+                android:src="@drawable/xiaoxin"
+                app:border_width="@dimen/zero"
+                app:border_color="@color/white"
+                android:id="@+id/reply_user_icon"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bad_sad"
-                android:maxHeight="40dp"
-                android:maxWidth="40dp"
-                android:adjustViewBounds="true"
-                android:padding="5pt"
-                android:layout_gravity="top"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/medium_padding">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/single_reply_content_view"
-                android:paddingTop="5pt">
-
+                android:id="@+id/reply_content">
             </TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom">
+                android:layout_gravity="bottom"
+                android:paddingTop="@dimen/medium_padding">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,20 +57,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/sub_small_font"
                         android:gravity="center"
-                        android:paddingTop="2pt"
-                        android:paddingBottom="2pt"
-                        android:id="@+id/author_name_view">
+                        android:id="@+id/reply_author_name">
                     </TextView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/sub_small_font"
                         android:gravity="center"
-                        android:paddingLeft="2pt"
-                        android:id="@+id/date_view">
+                        android:paddingLeft="@dimen/small_padding"
+                        android:id="@+id/reply_date">
                     </TextView>
 
                 </LinearLayout>
@@ -93,12 +93,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/sub_small_font"
                         android:text="10"
-                        android:paddingLeft="2pt"
-                        android:paddingRight="5pt"
+                        android:paddingLeft="@dimen/medium_padding"
                         android:gravity="center"
-                        android:id="@+id/view_num_view">
+                        android:id="@+id/reply_view_num">
                     </TextView>
 
                     <ImageView
@@ -107,6 +106,7 @@
                         android:src="@drawable/comment1"
                         android:maxHeight="15dp"
                         android:maxWidth="15dp"
+                        android:layout_marginLeft="@dimen/big_padding"
                         android:adjustViewBounds="true"
                         android:foregroundGravity="center">
                     </ImageView>
@@ -114,12 +114,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/sub_small_font"
                         android:text="10"
-                        android:paddingLeft="2pt"
-                        android:paddingRight="5pt"
+                        android:paddingLeft="@dimen/medium_padding"
                         android:gravity="center"
-                        android:id="@+id/comment_num_view">
+                        android:id="@+id/reply_comment_num">
                     </TextView>
 
                 </LinearLayout>
@@ -127,13 +126,15 @@
             </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/grey">
+
     </LinearLayout>
+
 
 </LinearLayout>

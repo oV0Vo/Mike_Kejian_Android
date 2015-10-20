@@ -1,0 +1,214 @@
+#
+#
+#这是文档注释
+#
+#@q(表示问题)@a(表示回答)@u(表示更新)
+#
+#
+#
+#
+
+
+#
+#
+#course部分
+#@author gdr
+#
+#
+#
+
+为了方便测试，目前的index和userId都是由用户作为参数传到服务器的，用户权限也没有加
+4c0c5fbd21feb2970d44b2904468fc7d23107779
+1.课程详细信息（可能不全）：http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCourseDetail/courseId/1
+
+2.根据课程名搜索:http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCoursesByInfo/key/l 
+
+3.http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCourseTableFields
+
+4.获取一定范围的course: http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/number/2
+
+5.删除课程（目前还没有加权限控制）： http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/deleteCourse/id/4
+
+6.获取某个用户的课程： http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getMyCourseBriefInfos/
+
+7.获取学校的课程（有范围）： http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getAllCourses/schoolId/1/lastId/4/num/2
+
+8.获取某个课程对应的帖子（有范围） ：http://112.124.101.41:80/mike_server_v02/index.php/Home/CoursePost/getCoursePosts/courseId/1/lastId/4/num/2
+
+9.发布问题 : http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/signQuestion/content/abc/courseId/1/surviveTime/50000
+
+10.删除问题 ： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/deleteQuestion/questionId/1
+
+11.查询属于某个用户发布的问题： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/getQuestionBelongTo/
+
+12.获取当前没有过期的问题： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/getCurrentQuestions/courseId/1
+
+13.获取某个问题的回答情况： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/getQuestionAnswers/questionId/1
+
+14.获取过期的问题： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/getHistoryQuestions/courseId/1
+
+15.回答问题： http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/answerQuestions/questionId/1/answer/wer
+
+@u:发布课程公告：http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseAnnounce/newAnnouncement/courseId/1/authorId/1/time/212443423423/title/呵呵/content/哈哈
+
+16.获取某个用户的课程的课程公告数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalCourseNoticeNum/
+
+17.获取回复数量 ： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalReplyNum/
+
+18.获取赞的数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalPraiseNum/
+
+19.获取提到我的数量： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getTotalMentionMeNum/
+
+20.获取一定范围里的课程公告： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextCourseNotices/lastId/4/num/3
+
+21.获取一定范围里的回复： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextReplies/lastId/4/num/3
+
+22.获取一定范围里的赞： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextPraises/lastId/4/num/3
+
+23.获取一定范围里的提到我的： http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getNextMentionMes/lastId/4/num/4
+
+24.获取一定时间范围里的课程公告（用于下拉刷新，下同）http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestCourseNotices/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+
+25.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestReplies/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+
+26.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestPraises/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+
+27.http://112.124.101.41:80/mike_server_v02/index.php/Home/Message/getLatestMentionMes/fromTime/2015-10-01%2000:00:00/toTime/2015-10-10%2023:00:00
+
+28.设置课程的教师(重复设置会报错)： http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/setTeacher/userId/1/courseId/3
+
+29.删除某门课程的教师 : http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/unsignTeacher/userId/1/courseId/3
+
+30.删除某门课的助教 : http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/deleteAssistant/userId/1/courseId/3
+
+31.添加助教 ： http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/addAssistant/userId/1/courseId/3
+
+32.开始点名： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/beginCallRoll/courseId/1/lastTime/100000
+
+33.签到 ： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/courseSign/rollId/5
+
+34.历史签到数据 : http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getHistoryRollRecord/courseId/1
+
+35.最新签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getCurrentRollRecord/courseId/1
+
+36.获取某用户的某门课程的签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getHistorySignRecords/courseId/1/
+
+37.获取某用户某门课程的最新签到数据： http://112.124.101.41/mike_server_v02/index.php/Home/CourseRoll/getCurrentSignRecord/courseId/1/
+
+28.1 设置某门课程的所有老师和助教: http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/setTeachersAndAssistants/
+参数:  courseId : 1 teachers:"1,2,3,4" assistants: "1,2,3,4"
+#
+#
+#post 部分
+#@author gaoyang
+#
+#
+#
+
+
+
+38.发布帖子（其中postinfo为json数组）：http://112.124.101.41/mike_server_v02/index.php/Home/Post/userId/1/courseId/0/postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,”title”:”卧槽”,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
+
+39.删除帖子：http://112.124.101.41/mike_server_v02/index.php/Home/Post/deleteQuestion/postId/1
+
+40.更新帖子浏览量：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/VIEWNUM
+ps:postInfoType(enum):CONTENT|PRAISE|VIEWNUM
+
+41.更新帖子点赞量：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/PRAISE
+
+42.更新帖子内容：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/CONTENT/postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,”title”:”卧槽”,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
+
+43.邀请回答(其中userldList为json数组)：http://112.124.101.41/mike_server_v02/index.php/Home/Post/inviteUserToAnswer/senderId/2/questionId/1/userIdList/[1,2]
+
+44.获取部分帖子：http://112.124.101.41/mike_server_v02/index.php/Home/Post/getSomePost/courseId/1/startId/0/number/2
+
+45.获取热门帖子：http://112.124.101.41/mike_server_v02/index.php/Home/Post/getHotestPost/courseId/0/startId/0/number/2
+
+46.获取最新帖子：http://112.124.101.41/mike_server_v02/index.php/Home/Post/getHotestPost/courseId/0/startId/0/number/2
+
+47.获取帖子回复:http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1
+
+48.获取帖子信息：http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPost/postId/1
+
+49.搜索帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/searchPost/info/hehe
+
+50.关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/followThisPost/userId/1/postId/1
+
+51.关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/isFollowed/userId/1/postId/1
+#
+#
+#user 部分
+#@author gaoyang
+#
+#
+#
+52.获取用户:http://112.124.101.41/mike_server_v02/index.php/Home/User/getUser/id/1
+
+53.判断用户是否登陆:http://112.124.101.41/mike_server_v02/index.php/Home/User/hasLogin
+
+54.搜索用户:http://112.124.101.41/mike_server_v02/index.php/Home/User/getUserByInfo/he
+
+55.添加用户:http://112.124.101.41/mike_server_v02/index.php/Home/User/addNewUser/{
+       String name,String icon,String schoolName,String departmentName,
+       String nick_name,String identify,String gender,
+       String grade,String sign,String background_icon_path,
+       String id,String schoolAccount,String schoolAccountPsd,String phoneNumber}将以上对象转化为json
+
+56.判断用户是否存在:http://112.124.101.41/mike_server_v02/index.php/Home/User/wheatherUserExist/userInfoType/NIKE_NAME/userInfo/he
+ps:userInfoType(enum):PASSWORD|SIGN_TEXT|ICON|NICKNAME
+
+57.重置用户信息:http://112.124.101.41/mike_server_v02/index.php/Home/User/resetUserInfo/userId/1/userInfoType/ICON/url3
+
+58.注册:http://112.124.101.41/mike_server_v02/index.php/Home/User/register/userToken/{    
+    private String name;
+    private String tokenId;
+    private String userId;
+    private String password;
+    private String phoneNumber;
+    private String schoolNumber,
+    private String schoolAccount;
+    private String schoolAccountPassword;
+    private boolean ifBindSchoolAccount}  将以上对象转化为json 
+
+59.绑定教务网:http://112.124.101.41/mike_server_v02/index.php/Home/User/bind/userId/1/schoolAccount/131250043/19941026/schoolId/0
+
+60.重设密码:http://112.124.101.41/mike_server_v02/index.php/Home/User/phoneNumber/15651850900/newPassword/194123
+
+61.获取关注的人
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionPeople/userId/1
+
+
+62.获取关注课程
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionCourse/userId/1
+
+63.获得关注帖子的详细内容
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionPost/userId/1
+
+64.给某个用户添加关注帖子
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/POST/userId/1/itemId/2
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/POST/userId/1/itemId/3
+
+
+65.给某个用户添加关注课程
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/COURSE/userId/1/itemId/146
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/COURSE/userId/1/itemId/144
+
+
+66.给某个用户添加关注人
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/PEOPLE/userId/1/itemId/3
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/PEOPLE/userId/1/itemId/4
+
+67.给某个用户取消关注一个课程
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/type/COURSE/userId/200000000/itemId/146
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/type/COURSE/userId/1/itemId/145
+
+
+
+68.给某个用户取消关注一个人
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/type/PEOPLE/userId/1/itemId/3
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/type/PEOPLE/userId/1/itemId/3
+
+
+69.给某个用户取消关注一个帖子
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/type/POST/userId/1/itemId/3
+http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/type/POST/userId/10000/itemId/3

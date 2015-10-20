@@ -10,9 +10,12 @@ public class Reply {
     private String userId;
     private String authorName;
     private String content;
-    private Date date;
+    private String date;
     private int praise;
     private ArrayList<Reply> subReplyList;
+    private String userIconUrl;
+    private int viewNum;
+    private int commentNum;
 
 
     public String getUserId() {
@@ -31,12 +34,14 @@ public class Reply {
         this.content = content;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
+    public void setDate(String date) { this.date = date; }
+
     public void setDate(Date date) {
-        this.date = date;
+        this.date = date.toString();
     }
 
     public int getPraise() {
@@ -61,5 +66,29 @@ public class Reply {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
+    }
+
+    public String getUserIconUrl() {
+        return userIconUrl;
+    }
+
+    public void setUserIconUrl(String userIconUrl) {
+        this.userIconUrl = userIconUrl;
+    }
+
+    public int getViewNum() {
+        return viewNum;
+    }
+
+    public void setViewNum(int viewNum) {
+        this.viewNum = viewNum;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 }

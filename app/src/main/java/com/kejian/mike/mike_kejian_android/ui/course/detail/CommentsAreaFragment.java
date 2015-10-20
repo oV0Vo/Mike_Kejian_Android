@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.campus.Post;
@@ -147,7 +148,8 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
             authorView.setText(post.getAuthorName());
 
             TextView timeView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_time);
-            timeView.setText(TimeFormat.toMinute(post.getDate()));
+            //timeView.setText(TimeFormat.toMinute(post.getDate()));
+            timeView.setText(TimeFormat.toMinute(new Date()));
 
             TextView viewNumView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_view_num);
             String viewNumText = new Integer(post.getViewNum()).toString();

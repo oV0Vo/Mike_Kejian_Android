@@ -14,8 +14,10 @@ public class Post {
     private String content;
     private int praise;
     private int viewNum;
+    private int replyNum;
     private ArrayList<Reply> replyList;
-    private Date date;
+    private String date;
+    private String userIconUrl;
 
     public String getUserId() {
         return userId;
@@ -73,11 +75,14 @@ public class Post {
         this.replyList = replyList;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
-
     public void setDate(Date date) {
+        this.date = date.toString();
+    }
+
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -87,5 +92,21 @@ public class Post {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public String getUserIconUrl() {
+        return userIconUrl;
+    }
+
+    public void setUserIconUrl(String userIconUrl) {
+        this.userIconUrl = userIconUrl;
+    }
+
+    public int getReplyNum() {
+        return replyNum;
+    }
+
+    public void setReplyNum(int replyNum) {
+        this.replyNum = replyNum;
     }
 }

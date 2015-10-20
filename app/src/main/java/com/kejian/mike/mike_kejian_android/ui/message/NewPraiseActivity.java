@@ -1,14 +1,18 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,13 +20,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+
+import net.picture.DownloadPicture;
 
 import java.util.List;
 
 import bl.MessageBLService;
 import model.message.Praise;
 
-public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
+public class NewPraiseActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener,AdapterView.OnItemClickListener{
 //    private View layout_title;
 //    private ArrayList<Praise> praises = new ArrayList<Praise>();
 //    private int praiseNum = 0;
@@ -68,29 +75,44 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
             protected void onPostExecute(Void result) {
                 praiseArrayAdapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshPraiseNumView();
             }
         }.execute(new Void[]{});
     }
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalPraise > MessageBLService.praises.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addPraises("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addPraises("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                praiseArrayAdapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    praiseArrayAdapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
 
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Praise praise = (Praise)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",praise.getPostId()+"");
+        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -117,8 +139,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
 //        tv.setText("收到的赞");
         this.container = (RefreshListView)findViewById(R.id.praise_container);
         this.myInflater = getLayoutInflater();
-        TextView praise_num_text = (TextView)this.findViewById(R.id.praise_num);
-        praise_num_text.setText("共 "+MessageBLService.totalPraise+ " 条");
+        this.refreshPraiseNumView();
 //        for(int i = 0;i<this.praiseNum;i++){
 //            this.container.addView(genPraiseLayout(this.praises.get(i)));
 //            this.container.addView(genLineSplitView());
@@ -126,7 +147,11 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
         this.praiseArrayAdapter = new PraiseAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.praises);
         this.container.setAdapter(this.praiseArrayAdapter);
         this.container.setOnRefreshListener(this);
-
+        this.container.setOnItemClickListener(this);
+    }
+    private void refreshPraiseNumView(){
+        TextView praise_num_text = (TextView)this.findViewById(R.id.praise_num);
+        praise_num_text.setText("共 "+MessageBLService.totalPraise+ " 条");
     }
     static class ViewHolder{
         ImageView avatar_view;
@@ -140,7 +165,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
+            final ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = myInflater.inflate(R.layout.layout_new_praise
                         , null);
@@ -154,10 +179,21 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Praise praise = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
+            DownloadPicture d=new DownloadPicture(getContext()){
+
+                @Override
+                public void updateView(Bitmap bitmap) {
+
+                    viewHolder.avatar_view.setImageBitmap(bitmap);
+
+                }
+            };
+
+            d.getBitMapFromNet(praise.getIconUrl(), "");
+//            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());
-            viewHolder.time_view.setText(praise.getReplyTime());
+            viewHolder.time_view.setText(praise.getAdjustTime());
             return convertView;
         }
     }
@@ -286,6 +322,18 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         MessageBLService.unreadPraiseNum = 0;
         NewPraiseActivity.this.finish();
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            MessageBLService.unreadPraiseNum = 0;
+            NewPraiseActivity.this.finish();
+        }
+
+        return false;
 
     }
 }

@@ -1,14 +1,18 @@
 package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+
+import net.picture.DownloadPicture;
 
 import java.util.List;
 
@@ -23,7 +30,7 @@ import bl.MessageBLService;
 import model.message.MentionMe;
 import model.message.Reply;
 
-public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener{
+public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener,AdapterView.OnItemClickListener{
 //    private View layout_title;
 //    private ArrayList<MentionMe> mentionMes = new ArrayList<MentionMe>();
     private LinearLayout mainLayout;
@@ -61,8 +68,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 //        tv.setText("提到我的");
         this.container = (RefreshListView)findViewById(R.id.mention_container);
         this.myInflater = getLayoutInflater();
-        TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
-        mention_num_view.setText("共 " + MessageBLService.totalMentionMe + " 条");
+        this.refreshMentionMeNumView();
 //        for(int i = 0;i<this.mention_num;i++){
 //            this.container.addView(this.genMentionLayout(this.mentionMes.get(i)));
 //            this.container.addView(this.genLineSplitView());
@@ -70,7 +76,12 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
         this.adapter = new MentionMeAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.mentionMes);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(this);
 
+    }
+    private void refreshMentionMeNumView(){
+        TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
+        mention_num_view.setText("共 " + MessageBLService.totalMentionMe + " 条");
     }
 
     @Override
@@ -87,6 +98,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
                 container.hideHeaderView();
+                refreshMentionMeNumView();
             }
         }.execute(new Void[]{});
 
@@ -94,22 +106,36 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onLoadingMore() {
-        new AsyncTask<Void, Void, Void>() {
+        if(MessageBLService.totalMentionMe > MessageBLService.mentionMes.size()){
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.addMentionMes("12343");
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addMentionMes("12343");
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
 
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                    // 控制脚布局隐藏
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        }else{
+            container.hideFooterView();
+        }
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Reply reply = (Reply)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",reply.getPostId()+"");
+        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -141,7 +167,7 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
+            final ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = myInflater.inflate(R.layout.layout_mention_me
                         , null);
@@ -155,10 +181,22 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Reply reply = getItem(position);
-            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
+//            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
+//            DownloadPicture d=new DownloadPicture(getContext(),viewHolder.avatar_view,"http://i11.tietuku.com/139f6a761dadc909.jpg");
+            DownloadPicture d=new DownloadPicture(getContext()){
+
+                @Override
+                public void updateView(Bitmap bitmap) {
+
+                    viewHolder.avatar_view.setImageBitmap(bitmap);
+
+                }
+            };
+
+            d.getBitMapFromNet(reply.getIconUrl(), "");
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
-            viewHolder.time_view.setText(reply.getReplyTime());
+            viewHolder.time_view.setText(reply.getAdjustTime());
             return convertView;
         }
     }
@@ -304,6 +342,18 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         MessageBLService.unreadMentionNum = 0;
         MentionMeActivity.this.finish();
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            MessageBLService.unreadMentionNum = 0;
+            MentionMeActivity.this.finish();
+        }
+
+        return false;
 
     }
 }
