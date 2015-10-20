@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.course.CourseModel;
 import model.user.CourseBrief;
 import model.user.Friend;
 import model.user.PostBrief;
@@ -126,12 +127,20 @@ public class AttentionListAdapter extends BaseAdapter {
             if(type==2){
                  v=layoutInflater.inflate(R.layout.layout_user_attention_item_course,viewGroup,false);
 
-                CourseBrief courseBrief=(CourseBrief)contentList.get(position);
+                final CourseBrief courseBrief=(CourseBrief)contentList.get(position);
 
                 CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.coursephotoView);
                 TextView name=(TextView)v.findViewById(R.id.coursenameView);
 
                 name.setText(courseBrief.getName());
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        CourseModel.getInstance().setCurrentCourseId(courseBrief.getId());
+                    }
+                });
+
 
                 DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,courseBrief.getIcon(),"");
 

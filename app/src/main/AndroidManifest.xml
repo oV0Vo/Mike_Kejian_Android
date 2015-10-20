@@ -314,6 +314,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".ui.user.UserOtherState"
+            android:label="他的动态"/>
         <activity
             android:name=".ui.message.SearchTestActivity"
             android:label="@string/title_activity_search_test"
