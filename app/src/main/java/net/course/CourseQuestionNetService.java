@@ -64,7 +64,7 @@ public class CourseQuestionNetService {
     }
 
     public static boolean addNewQuestion(CurrentQuestion question) {
-        String url = BASE_URL + "signQuestion";
+        String url = BASE_URL + "signQuestion/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", question.getQuestion().getCourseId());
         String response = httpRequest.sentPostRequest(url, paraMap);
@@ -82,7 +82,7 @@ public class CourseQuestionNetService {
     }
  
     public static ArrayList<QuestionShowAnswer> getQuestionAnswers(String questionId) {
-        String url = BASE_URL + "getQuestionAnswers";
+        String url = BASE_URL + "getQuestionAnswers/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("questionId", questionId);
         String response = httpRequest.sentGetRequest(url, paraMap);
@@ -131,7 +131,7 @@ public class CourseQuestionNetService {
     }
 
     public static CommitAnswerResultMessage commitAnswer(String questionId, String answer) {
-        String url = BASE_URL + "answerQuestions";
+        String url = BASE_URL + "answerQuestions/";
         HashMap<String, String> paraMap = new HashMap<String ,String >();
         paraMap.put("questionId", questionId);
         paraMap.put("answer", answer);

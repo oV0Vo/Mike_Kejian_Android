@@ -29,7 +29,7 @@ public class CourseNamingNetService {
     private static HttpRequest http = HttpRequest.getInstance();
 
     public static ArrayList<CourseNamingRecord> getNamingRecords(String courseId) {
-        String url = BASE_URL + "getHistoryRollRecord";
+        String url = BASE_URL + "getHistoryRollRecord/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
@@ -98,7 +98,7 @@ public class CourseNamingNetService {
     }
 
     public static CourseNamingRecord getCurrentNamingRecord(String courseId) {
-        String url = BASE_URL + "getCurrentRollRecord";
+        String url = BASE_URL + "getCurrentRollRecord/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
@@ -120,7 +120,7 @@ public class CourseNamingNetService {
     }
 
     public static CourseNamingRecord beginNaming(String courseId, int lastSeconds) {
-        String url = BASE_URL + "beginCallRoll";
+        String url = BASE_URL + "beginCallRoll/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         paraMap.put("lastTime", Integer.toString(lastSeconds));

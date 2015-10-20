@@ -108,7 +108,7 @@ public class CourseInfoNetService {
 
     public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, String lastCourseId
             , int num, int time, TimeUnit timeUnit) {
-        String url = BASE_URL + "getAllCourses";
+        String url = BASE_URL + "getAllCourses/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("schoolId", schoolId);
         paraMap.put("lastId", lastCourseId);
@@ -130,7 +130,7 @@ public class CourseInfoNetService {
     }
 
     public static CourseDetailInfo getCourseDetail(String courseId, int time, TimeUnit timeUnit) {
-        String url = BASE_URL + "getCourseDetail";
+        String url = BASE_URL + "getCourseDetail/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String response = http.sentGetRequest(url, paraMap);

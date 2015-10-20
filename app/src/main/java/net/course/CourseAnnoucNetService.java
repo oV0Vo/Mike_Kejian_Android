@@ -38,7 +38,7 @@ public class CourseAnnoucNetService {
     }
 
     public static ArrayList<CourseAnnoucement> getAnnoucs(String courseId) {
-        String url = BASE_URL + "getAnnoucementsByCourseId";
+        String url = BASE_URL + "getAnnoucementsByCourseId/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String response = httpRequest.sentGetRequest(url, paraMap);
@@ -115,7 +115,7 @@ public class CourseAnnoucNetService {
     }
 
     public static boolean newAnnouc(String courseId, String authorId, String title, String content) {
-        String url = BASE_URL + "newAnnouncement";
+        String url = BASE_URL + "newAnnouncement/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         paraMap.put("authorId", authorId);

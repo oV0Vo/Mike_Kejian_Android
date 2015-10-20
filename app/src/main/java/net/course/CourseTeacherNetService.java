@@ -22,7 +22,7 @@ public class CourseTeacherNetService {
     private static HttpRequest http = HttpRequest.getInstance();
 
     public static final boolean addAssistant(String courseId, String assistantId) {
-        String url = BASE_URL + "addAssistant";
+        String url = BASE_URL + "addAssistant/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("userId", assistantId);
         paraMap.put("courseId", courseId);
@@ -41,7 +41,7 @@ public class CourseTeacherNetService {
     }
 
     public static final boolean deleteAssistant(String courseId, String assistantId) {
-        String url = BASE_URL + "deleteAssistant";
+        String url = BASE_URL + "deleteAssistant/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("userId", assistantId);
         paraMap.put("courseId", courseId);
