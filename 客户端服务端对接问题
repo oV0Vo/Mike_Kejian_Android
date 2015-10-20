@@ -67,3 +67,5 @@ by zfy
 
 17.回答问题时多个选项用_隔开，像这样http://112.124.101.41:80/mike_server_v02/index.php/Home/
 CourseQuestion/answerQuestions/questionId/1/answer/A_C_D
+
+18.获取问题的时候数据格式没有考虑到选择题的情况
