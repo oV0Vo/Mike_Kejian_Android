@@ -100,10 +100,10 @@ public class UserNetService {
     public static user getUser(UserToken userToken){
 
 
-
         /*
         用于登录的数据结构
          */
+
         HashMap<String,String> par = new HashMap();
         par.put("userId",userToken.getName());
         par.put("password", userToken.getPassword());
@@ -133,6 +133,7 @@ public class UserNetService {
                 "password":"1",
                 "signal":"1","school_account_psd":"1"}
                  */
+
                 HashMap<String,Object> userInfo = new HashMap();
                 userInfo.put("id",userDataJson.getString("id"));
                 userInfo.put("name",userDataJson.getString("name"));
@@ -170,6 +171,7 @@ public class UserNetService {
 //            return null;
 //
 //        }
+
 
     }
 
