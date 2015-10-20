@@ -59,3 +59,8 @@ by zfy
 13.还需要一个根据phoneNumber修改密码的接口  参数为phoneNumber 新密码  返回值为 bool  //done by gaoyang
 
 14.发布公告的接口要不要把时间给去掉，都采用服务器时间？
+
+15.http://112.124.101.41/mike_server_v02/index.php/Home/CourseAnnounce/getAnnoucementsByCourseId?courseId=1
+获取回来的公告里面没有发布者的名字，如果要一个个找的话客户端的逻辑会变得挺复杂的
+
+16.发布公告其实返回个成功与否就好了
