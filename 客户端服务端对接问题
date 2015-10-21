@@ -73,12 +73,22 @@ CourseQuestion/answerQuestions/questionId/1/answer/A_C_D
 //待商议，可能数据库要改
 +------------------------------------
 by hch
-19.根据课程名搜索获得的只有[{"1":"llllll"}] //已解决by gdr 改用http://112.124.101.41/mike_server_v02/index.php/Home/Course/getBriefCoursesByInfo?key=数
-20.http://112.124.101.41/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/number/2报错了
+19.根据课程名搜索获得的只有[{"1":"llllll"}] 
+//已解决by gdr 改用http://112.124.101.41/mike_server_v02/index.php/Home/Course/getBriefCoursesByInfo?key=数
+
+20.http://112.124.101.41/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/number/2报错了 
+//已解决by gdr 改用http://112.124.101.41/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/num/2
+
 21.获取学校的课程（有范围）返回空列表 http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getAllCourses/schoolId/1/lastId/4/num/2
 而且应该有参数能传入筛选条件
+//数据库里没有对应数据,改用http://112.124.101.41/mike_server_v02/index.php/Home/Course/getAllCourses/schoolId/0/lastId/300/num/10
+//筛选条件是哪些？需要怎么展示，可能需要加入新的service，因为这个是专门用于显示全校课程的
+
 22.获得的帖子缺少回复数字段http://112.124.101.41/mike_server_v02/index.php/Home/CoursePost/getCoursePosts/courseId/1/lastId/4/num/2
+//已解决by gdr 
+//加入reply_count 字段
 23.设置助教和教师的接口如果能在一个请求直接传入教师id数组和助教id数组会比较容易实现
+
 24.http://112.124.101.41/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/index/0/num/3报错
 25.获取过期的问题应该有范围
 26.还缺少获取所有院和系名称的接口
