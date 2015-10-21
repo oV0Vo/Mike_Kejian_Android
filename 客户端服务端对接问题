@@ -58,20 +58,22 @@ by zfy
 
 13.还需要一个根据phoneNumber修改密码的接口  参数为phoneNumber 新密码  返回值为 bool  //done by gaoyang
 
-14.发布公告的接口要不要把时间给去掉，都采用服务器时间？然后那个authorId也去掉
+14.发布公告的接口要不要把时间给去掉，都采用服务器时间？然后那个authorId也去掉 //已解决 by gdr
 
 15.http://112.124.101.41/mike_server_v02/index.php/Home/CourseAnnounce/getAnnoucementsByCourseId?courseId=1
 获取回来的公告里面没有发布者的名字，如果要一个个找的话客户端的逻辑会变得挺复杂的
+//加入字段 user_name by gdr
 
-16.发布公告其实返回个成功与否就好了
+16.发布公告其实返回个成功与否就好了//已解决 by gdr
 
 17.回答问题时多个选项用_隔开，像这样http://112.124.101.41:80/mike_server_v02/index.php/Home/
 CourseQuestion/answerQuestions/questionId/1/answer/A_C_D
-
+//待商议，可能数据库要改
 18.获取问题的时候数据格式没有考虑到选择题的情况
+//待商议，可能数据库要改
 +------------------------------------
 by hch
-19.根据课程名搜索获得的只有[{"1":"llllll"}]
+19.根据课程名搜索获得的只有[{"1":"llllll"}] //已解决by gdr 改用http://112.124.101.41/mike_server_v02/index.php/Home/Course/getBriefCoursesByInfo?key=数
 20.http://112.124.101.41/mike_server_v02/index.php/Home/Course/getCourseInfoRange/lastId/4/number/2报错了
 21.获取学校的课程（有范围）返回空列表 http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/getAllCourses/schoolId/1/lastId/4/num/2
 而且应该有参数能传入筛选条件
