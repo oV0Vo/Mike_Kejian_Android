@@ -88,7 +88,12 @@ by hch
 //已解决by gdr 
 //加入reply_count 字段
 23.设置助教和教师的接口如果能在一个请求直接传入教师id数组和助教id数组会比较容易实现
+//已解决by gdr 
+//设置某门课程的所有老师和助教: http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/setTeachersAndAssistants/
+post参数:  courseId : 1 teachers:"1,2,3,4" assistants: "1,2,3,4"
 
 24.http://112.124.101.41/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/index/0/num/3报错
+//已解决 by gdr
+//http://112.124.101.41/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/lastId/40/num/3
 25.获取过期的问题应该有范围
 26.还缺少获取所有院和系名称的接口
