@@ -65,8 +65,8 @@
                 android:gravity="right">
 
                 <ImageButton
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:background="@drawable/up"
                     android:maxHeight="@dimen/sub_small_icon_height"
@@ -87,8 +87,8 @@
 
 
                 <ImageButton
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:background="@drawable/comment2"
                     android:maxHeight="@dimen/sub_small_icon_height"
