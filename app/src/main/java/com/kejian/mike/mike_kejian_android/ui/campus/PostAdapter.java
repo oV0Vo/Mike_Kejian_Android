@@ -77,6 +77,7 @@ public class PostAdapter extends ArrayAdapter<Post>{
             @Override
             public void onClick(View v) {
                 ((ImageButton)v).setBackgroundResource(R.drawable.up_green);
+                ((ImageButton)v).setEnabled(false);
             }
         });
         postViewHolder.post_title.setText(post.getTitle());
