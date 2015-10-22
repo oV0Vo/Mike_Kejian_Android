@@ -91,11 +91,22 @@ by hch
 //已解决by gdr 
 //设置某门课程的所有老师和助教: http://112.124.101.41/mike_server_v02/index.php/Home/CourseTeacher/setTeachersAndAssistants/
 post参数:  courseId : 1 teachers:"1,2,3,4" assistants: "1,2,3,4"
+// post参数是使用url encode(如get参数一样用&分离)还是json encode？
 
 24.http://112.124.101.41/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/index/0/num/3报错
 //已解决 by gdr
+//还是报错
 //http://112.124.101.41/mike_server_v02/index.php/Home/Message/getNextCourseNotices/userId/1/lastId/40/num/3
 25.获取过期的问题应该有范围
 //具体哪个接口? gdr
+//http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/getHistoryQuestions/courseId/1
 26.还缺少获取所有院和系名称的接口
 //? 具体说明接口要求，是根据id获取名称吗？
+//就是获取一下一个学校中所有院系的名称数组，需要用作筛选全校课程的筛选条件
+27.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getHotestPost/courseId/0/startId/0/number/2
+http://112.124.101.41/mike_server_v02/index.php/Home/Post/getNewestPost/courseId/0/startId/0/number/2
+两个接口的还是没有reply_count
+28.http://112.124.101.41/mike_server_v02/index.php/Home/User/getUserByInfo/he 报错
+29.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1 没有范围参数
+30.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1 直接返回回复，回复不要放在replies的field里了
+31.http://112.124.101.41/mike_server_v02/index.php/Home/Post/inviteUserToAnswer/senderId/2/questionId/1/userIdList/[1,2] 报错
