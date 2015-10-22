@@ -57,4 +57,14 @@ public class CampusBLService {
         return CampusNetService.publish(courseId, post);
     }
 
+    public static boolean isFollowed(String postId) {
+        String userId = ((user) Global.getObjectByName("user")).getId();
+        return CampusNetService.isFollowed(userId, postId);
+    }
+
+    public static void followThisPost(String postId) {
+        String userId = ((user) Global.getObjectByName(("user"))).getId();
+        CampusNetService.followThisPost(userId, postId);
+    }
+
 }

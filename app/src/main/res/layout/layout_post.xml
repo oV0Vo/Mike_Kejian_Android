@@ -1,105 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:padding="@dimen/medium_padding"
+    android:descendantFocusability="blocksDescendants"
     android:background="@drawable/setting_item_selector">
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
-            android:layout_width="@dimen/medium_icon_width"
-            android:layout_height="@dimen/medium_icon_height"
-            android:layout_centerInParent="true"
-            android:src="@drawable/xiaoxin"
-            app:border_width="@dimen/zero"
-            app:border_color="@color/white"
-            android:id="@+id/post_user_icon"/>
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/medium_padding">
+        android:orientation="horizontal"
+        android:padding="@dimen/medium_padding">
 
-       <TextView
-           android:layout_height="wrap_content"
-           android:layout_width="match_parent"
-           android:textSize="@dimen/big_font"
-           android:textColor="@color/black"
-           android:singleLine="true"
-           android:id="@+id/publish_title"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="@dimen/sub_small_font"
-           android:paddingTop="@dimen/small_padding"
-           android:singleLine="true"
-           android:id="@+id/post_date" />
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textSize="@dimen/small_font"
-            android:paddingTop="@dimen/big_padding"
-            android:id="@+id/publish_content"/>
+            <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+                android:layout_width="@dimen/medium_icon_width"
+                android:layout_height="@dimen/medium_icon_height"
+                android:layout_centerInParent="true"
+                android:src="@drawable/xiaoxin"
+                app:border_width="@dimen/zero"
+                app:border_color="@color/white"
+                android:id="@+id/post_user_icon"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:paddingTop="@dimen/medium_padding"
-            android:orientation="horizontal"
-            android:gravity="right">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:src="@drawable/up"
-                android:maxHeight="@dimen/sub_small_icon_height"
-                android:maxWidth="@dimen/sub_small_icon_width"
-                android:adjustViewBounds="true" />
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/medium_padding">
 
             <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/small_font"
-                android:text="0"
-                android:layout_marginLeft="@dimen/small_padding"
-                android:id="@+id/post_praise_num"/>
-
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:src="@drawable/comment2"
-                android:maxHeight="@dimen/sub_small_icon_height"
-                android:maxWidth="@dimen/sub_small_icon_width"
-                android:adjustViewBounds="true"
-                android:layout_marginLeft="@dimen/big_padding" />
+                android:layout_width="match_parent"
+                android:textSize="@dimen/big_font"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:id="@+id/publish_title"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:textSize="@dimen/sub_small_font"
+                android:paddingTop="@dimen/small_padding"
+                android:singleLine="true"
+                android:id="@+id/post_date" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:textSize="@dimen/small_font"
-                android:text="0"
-                android:layout_marginLeft="@dimen/small_padding"
-                android:id="@+id/post_comment_num"/>
+                android:paddingTop="@dimen/big_padding"
+                android:id="@+id/publish_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingTop="@dimen/medium_padding"
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/up"
+                    android:maxHeight="@dimen/sub_small_icon_height"
+                    android:maxWidth="@dimen/sub_small_icon_width"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/post_praise_button"
+                    android:focusable="false"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/small_font"
+                    android:text="0"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:id="@+id/post_praise_num"/>
+
+
+                <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/comment2"
+                    android:maxHeight="@dimen/sub_small_icon_height"
+                    android:maxWidth="@dimen/sub_small_icon_width"
+                    android:adjustViewBounds="true"
+                    android:layout_marginLeft="@dimen/big_padding"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/small_font"
+                    android:text="0"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:id="@+id/post_comment_num"/>
+
+
+            </LinearLayout>
+
 
 
         </LinearLayout>
 
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey">
 
     </LinearLayout>
 

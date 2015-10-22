@@ -10,11 +10,45 @@
         <!--android:iconifiedByDefault="false"-->
         <!--android:inputType="textFilter"-->
         <!--android:queryHint="请输入您要查找的内容"/>-->
+    <TextView
+        android:id="@+id/course_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/navigation_tab_course"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textSize="@dimen/big_font"
+        android:visibility="gone"
+        />
 
     <ListView
-        android:id="@+id/resultContainer"
-        android:layout_width="wrap_content"
+        android:id="@+id/course_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#969696"/>
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        >
+
+    </ListView>
+    <TextView
+        android:id="@+id/post_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/post"
+        android:textSize="@dimen/big_font"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:visibility="gone"
+        />
+    <ListView
+        android:id="@+id/post_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+    </ListView>
 
 </LinearLayout>

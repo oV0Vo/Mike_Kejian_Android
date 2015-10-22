@@ -139,6 +139,29 @@ public class CampusNetService {
 
         return result;
 
+    }
 
+    public static boolean isPraised(String userId, String postId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("postId", postId);
+        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "isPraised", params));
+        return result;
+    }
+
+    public static boolean isFollowed(String userId, String postId) {
+        HashMap<String,String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("postId", postId);
+        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "isFollowed/", params));
+        return result;
+    }
+
+    public static boolean followThisPost(String userId, String postId) {
+        HashMap<String,String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("postId", postId);
+        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "followThisPost/", params));
+        return result;
     }
 }

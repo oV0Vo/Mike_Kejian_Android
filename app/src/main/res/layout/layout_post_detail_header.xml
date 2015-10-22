@@ -121,7 +121,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:descendantFocusability="blocksDescendants">
 
         <TextView
             android:layout_width="wrap_content"
@@ -130,7 +131,11 @@
             android:padding="5pt"
             android:text="邀请回答"
             android:textSize="15sp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/setting_item_selector"
+            android:focusable="false"
+            android:clickable="true"
+            android:id="@+id/detail_invite_button">
         </TextView>
 
         <LinearLayout
@@ -146,7 +151,12 @@
             android:padding="5pt"
             android:text="关注帖子"
             android:textSize="15sp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/setting_item_selector"
+            android:focusable="false"
+            android:clickable="true"
+            android:id="@+id/detail_follow_button">
+
         </TextView>
     </LinearLayout>
 

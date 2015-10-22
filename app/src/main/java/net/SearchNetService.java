@@ -1,6 +1,9 @@
 package net;
 
+import net.httpRequest.HttpRequest;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.campus.Post;
 import model.message.SearchResult;
@@ -11,6 +14,9 @@ import model.user.CourseBrief;
  *
  */
 public class SearchNetService {
+    private static HttpRequest httpRequest = HttpRequest.getInstance();
+    private static String courseSearchUrl = "http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/searchCourse/";
+    private static String postSearchUrl = "http://112.124.101.41:80/mike_server_v02/index.php/Home/Post/searchPost/";
     private static ArrayList<Post> posts = new ArrayList();
     private static ArrayList<CourseBrief> courseBriefs = new ArrayList();
     static {
@@ -20,7 +26,7 @@ public class SearchNetService {
             int ran1 = (int)(Math.random()*19);
             int ran2 = (int)(Math.random()*19);
             int ran3 = (int)(Math.random()*19);
-            post.setTitle("a"+words[ran1]+words[ran2]+words[ran3]);
+            post.setTitle("ab"+words[ran1]+words[ran2]+words[ran3]);
             posts.add(post);
         }
         for(int i = 0;i<5;i++){
@@ -35,7 +41,7 @@ public class SearchNetService {
             CourseBrief courseBrief = new CourseBrief();
             int ran1 = (int)(Math.random()*19);
             int ran2 = (int)(Math.random()*19);
-            courseBrief.setCourseName("a" + words[ran1] + words[ran2]);
+            courseBrief.setCourseName("a" + words[ran1] + words[ran2]+"bc");
             courseBriefs.add(courseBrief);
         }
         for(int i =0;i<5;i++){
@@ -47,13 +53,24 @@ public class SearchNetService {
         }
 
     }
+    private static void handleCourseResults(ArrayList<SearchResult> searchResults,String key, String jsonString){
+
+    }
+    private static void handlePostResults(ArrayList<SearchResult> searchResults,String key, String jsonString){
+
+    }
     public static ArrayList<SearchResult> search(String key){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         ArrayList<SearchResult> searchResults = new ArrayList();
+        HashMap<String,String> params = new HashMap<>();
+        params.put("key",key);
+//        String courseResult = httpRequest.sentGetRequest(courseSearchUrl,params);
+//        String postResult = httpRequest.sentGetRequest(postSearchUrl,params);
         for(int i = 0;i<courseBriefs.size();i++){
             String courseName = courseBriefs.get(i).getCourseName();
             if(courseName.contains(key)){

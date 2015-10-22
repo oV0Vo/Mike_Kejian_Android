@@ -20,6 +20,8 @@ import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 
+import net.CampusNetService;
+
 import java.util.ArrayList;
 
 import bl.CampusBLService;
@@ -30,7 +32,7 @@ import model.user.Invitee;
 /**
  * Created by showjoy on 15/9/20.
  */
-public class PostDetailActivity extends AppCompatActivity implements OnRefreshListener{
+public class PostDetailActivity extends AppCompatActivity implements OnRefreshListener {
 
     ActionBar actionBar;
     private Post post;
@@ -41,6 +43,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
     private ProgressBar progressBar;
     private ReplyAdapter adapter;
     private View header;
+    private boolean isFollowed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
             @Override
             protected Void doInBackground(String... params) {
                 String postId = params[0];
+                isFollowed = CampusBLService.isFollowed(postId);
                 post = CampusBLService.getPostDetail(postId);
                 replies = post.getReplyList();
                 return null;
@@ -114,6 +118,29 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         detail_comment_num.setText(Integer.toString(post.getReplyNum()));
         TextView detail_reply_num = (TextView) header.findViewById(R.id.detail_reply_num);
         detail_reply_num.setText("共(" + post.getReplyNum() + ")条");
+        TextView detail_follow_button = (TextView) header.findViewById(R.id.detail_follow_button);
+        if(isFollowed) {
+            detail_follow_button.setText("已关注");
+            detail_follow_button.setEnabled(false);
+            detail_follow_button.setBackgroundResource(R.color.white);
+        } else {
+            detail_follow_button.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    TextView tv = (TextView) v;
+                    tv.setText("已关注");
+                    new AsyncTask<Void, Void, Void>() {
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            CampusBLService.followThisPost(postId);
+                            return null;
+                        }
+                    }.execute();
+                }
+            });
+        }
     }
 
 

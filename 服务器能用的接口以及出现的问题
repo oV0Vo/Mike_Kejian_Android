@@ -116,7 +116,7 @@ ps:postInfoType(enum):CONTENT|PRAISE|VIEWNUM
 
 41.更新帖子点赞量：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/PRAISE
 
-42.更新帖子内容：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/postId/1/postInfoType/CONTENT/postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,”title”:”卧槽”,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
+42.更新帖子内容：http://112.124.101.41/mike_server_v02/index.php/Home/Post/updatePostInfo/userId/1/postId/1/postInfoType/CONTENT/postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,”title”:”卧槽”,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
 
 43.邀请回答(其中userldList为json数组)：http://112.124.101.41/mike_server_v02/index.php/Home/Post/inviteUserToAnswer/senderId/2/questionId/1/userIdList/[1,2]
 
@@ -134,7 +134,13 @@ ps:postInfoType(enum):CONTENT|PRAISE|VIEWNUM
 
 50.关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/followThisPost/userId/1/postId/1
 
-51.关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/isFollowed/userId/1/postId/1
+51.判断是否关注帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/isFollowed/userId/1/postId/1
+
+51@u.判断是否赞了帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/isPraised/userId/1/postId/1
+
+@u.回复帖子:http://112.124.101.41/mike_server_v02/index.php/Home/Post/userId/1/courseId/0/postInfo/{“postId”:1,”userId”:1,”authorName”:”hehe”,"replyTo":3,”title”:””,”content”:”你大爷”,”praise”:0,”viewNum”:0,”date”:”2015-1-1 10:10:10”}
+ps:类似发布新帖子，多传一个replyTo参数，代表被回复的帖子的id
+
 #
 #
 #user 部分
