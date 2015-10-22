@@ -109,3 +109,4 @@ http://112.124.101.41/mike_server_v02/index.php/Home/Post/getNewestPost/courseId
 28.http://112.124.101.41/mike_server_v02/index.php/Home/User/getUserByInfo/he 报错
 29.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1 没有范围参数
 30.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1 直接返回回复，回复不要放在replies的field里了
+31.http://112.124.101.41/mike_server_v02/index.php/Home/Post/inviteUserToAnswer/senderId/2/questionId/1/userIdList/[1,2] 报错
