@@ -108,3 +108,4 @@ http://112.124.101.41/mike_server_v02/index.php/Home/Post/getNewestPost/courseId
 两个接口的还是没有reply_count
 28.http://112.124.101.41/mike_server_v02/index.php/Home/User/getUserByInfo/he 报错
 29.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1 没有范围参数
+30.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getPostReplys/postId/1 直接返回回复，回复不要放在replies的field里了
