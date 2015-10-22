@@ -120,7 +120,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         detail_reply_num.setText("共(" + post.getReplyNum() + ")条");
         TextView detail_follow_button = (TextView) header.findViewById(R.id.detail_follow_button);
         if(isFollowed) {
-            detail_follow_button.setText("已关注");
+            detail_follow_button.setText(" 已关注");
             detail_follow_button.setEnabled(false);
             detail_follow_button.setBackgroundResource(R.color.white);
         } else {
@@ -129,7 +129,9 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
                 @Override
                 public void onClick(View v) {
                     TextView tv = (TextView) v;
-                    tv.setText("已关注");
+                    tv.setText(" 已关注");
+                    tv.setEnabled(false);
+                    tv.setBackgroundResource(R.color.white);
                     new AsyncTask<Void, Void, Void>() {
 
                         @Override

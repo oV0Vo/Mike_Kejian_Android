@@ -182,6 +182,10 @@
     <string name="course_sign_in_miss">错过了</string>
     <string name="course_sign_in_history_title">签到历史</string>
 
+    <!--campus main-->
+    <string name="campus_main_latest">最新</string>
+    <string name="campus_main_hottest">热门</string>
+
     <!--campus publish-->
     <string name="campus_publish_title">标题</string>
     <string name="campus_publish_content">内容</string>
