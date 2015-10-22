@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
+
         android:layout_width="fill_parent"
         android:layout_marginTop="10dp"
         android:text="教务网账号"

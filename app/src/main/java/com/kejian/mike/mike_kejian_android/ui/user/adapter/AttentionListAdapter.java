@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 
@@ -138,6 +139,12 @@ public class AttentionListAdapter extends BaseAdapter {
                     public void onClick(View v) {
 
                         CourseModel.getInstance().setCurrentCourseId(courseBrief.getId());
+
+                        Intent intent=new Intent();
+
+                        intent.setClass(context, CourseActivity.class);
+
+                        context.startActivity(intent);
                     }
                 });
 

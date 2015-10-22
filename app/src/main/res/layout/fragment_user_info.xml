@@ -7,7 +7,7 @@
     >
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="160dp"
+        android:layout_height="180dp"
 
 
         android:background="@drawable/bg"
@@ -36,16 +36,16 @@
             android:layout_height="wrap_content"
             android:text="基本信息"
             android:textColor="#16a085"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             android:editable="true"
-            android:textSize="@dimen/medium_font"
+            android:textSize="@dimen/big_font"
             />
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dip"
+            android:layout_height="1dp"
             android:background="#d2d2d2"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             />
 
 
@@ -71,7 +71,7 @@
                android:layout_height="40dp"
                android:layout_width="wrap_content"
 
-               android:layout_marginLeft="30dp"
+               android:layout_marginLeft="10dp"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
                android:layout_weight="1"
@@ -123,7 +123,7 @@
                android:layout_height="40dp"
                android:layout_width="wrap_content"
 
-               android:layout_marginLeft="30dp"
+               android:layout_marginLeft="10dp"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
 
@@ -152,16 +152,16 @@
             android:layout_height="wrap_content"
             android:text="教务信息"
             android:textColor="#16a085"
-            android:layout_marginLeft="30dp"
-            android:textSize="@dimen/medium_font"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/big_font"
             android:gravity="center"
             />
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dip"
+            android:layout_height="1dp"
             android:background="#d2d2d2"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             />
     </LinearLayout>
     <TableLayout
@@ -185,7 +185,7 @@
                 android:layout_height="40dp"
                 android:layout_width="wrap_content"
 
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
 
@@ -230,7 +230,7 @@
                 android:layout_height="40dp"
                 android:layout_width="wrap_content"
 
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
 
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
@@ -274,7 +274,7 @@
                 android:layout_height="40dp"
                 android:layout_width="wrap_content"
 
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
 
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
@@ -288,6 +288,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/user_school_info_number"
                 android:textSize="@dimen/medium_font"
+                android:paddingLeft="5dp"
                 android:gravity="center"
                 android:background="@null"
 
@@ -308,8 +309,8 @@
             android:layout_height="wrap_content"
             android:text="个性签名"
             android:textColor="#16a085"
-            android:layout_marginLeft="30dp"
-            android:textSize="@dimen/medium_font"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/big_font"
             android:gravity="center"
 
 
@@ -318,10 +319,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dip"
+            android:layout_height="1dp"
             android:background="#d2d2d2"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textSize="@dimen/medium_font"
             />
         <EditText
@@ -330,9 +331,7 @@
             android:id="@+id/base_info_sign"
             android:textSize="@dimen/medium_font"
             android:background="@null"
-            android:layout_marginLeft="30dp"
-
-
+            android:layout_marginLeft="10dp"
             />
 
     </LinearLayout>

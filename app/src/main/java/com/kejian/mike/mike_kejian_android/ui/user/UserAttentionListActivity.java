@@ -197,8 +197,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
 
 
                 case "PEOPLE":new GetData().execute("");break;
-                case "COURSE":break;
-                case "POST":break;
+                case "COURSE":new GetData().execute("");break;
+                case "POST":new GetData().execute("");break;
                 default:break;
 
 
@@ -212,9 +212,9 @@ public class UserAttentionListActivity extends AppCompatActivity{
 
             switch(type){
 
-                case "PEOPLE":break;
-                case "COURSE":break;
-                case "POST":break;
+                case "PEOPLE":new GetData().execute("");break;
+                case "COURSE":new GetData().execute("");break;
+                case "POST":new GetData().execute("");break;
                 default:break;
 
             }
