@@ -116,3 +116,4 @@ http://112.124.101.41/mike_server_v02/index.php/Home/Post/getNewestPost/courseId
 http://112.124.101.41/mike_server_v02/index.php/Home/Post/getHotestPost/courseId/0/startId/0/number/2
 http://112.124.101.41/mike_server_v02/index.php/Home/Post/getNewestPost/courseId/0/startId/0/number/2
 http://112.124.101.41:80/mike_server_v02/index.php/Home/CoursePost/getCoursePosts/courseId/1/lastId/4/num/2
+34.登录时112.124.101.41/mike_server_v02/index.php/Home/User/login/userId/1/password/1 没返回院系名字以及绑定的教务网账户
