@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo">
     <item android:id="@+id/search_bar"
-        android:title=""
-        app:showAsAction="ifRoom|withText"
-        app:actionViewClass="android.widget.SearchView">
+        android:title="search"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView">
 
     </item>
 

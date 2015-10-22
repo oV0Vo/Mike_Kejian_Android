@@ -71,4 +71,7 @@
 
     <dimen name="book_height">85dp</dimen>
     <dimen name="book_width">60dp</dimen>
+
+    <dimen name="message_height">65dp</dimen>
+    <dimen name="divider_height">4px</dimen>
 </resources>
