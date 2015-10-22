@@ -15,8 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/book_height"
-        android:orientation="vertical"
-        android:background="@drawable/green_bottom_thin_border">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/course_brief_name"
@@ -67,7 +66,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingLeft="@dimen/big_padding"
-                        android:background="@drawable/green_bottom_border"
                         android:text="@string/main_course_teachers"/>
 
                     <TextView

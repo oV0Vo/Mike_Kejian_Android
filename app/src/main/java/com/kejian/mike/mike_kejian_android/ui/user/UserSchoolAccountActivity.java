@@ -68,6 +68,8 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
     }
 
+
+
     protected  void initViews(){
 
         whyBind=(TextView)findViewById(R.id.why_bind);

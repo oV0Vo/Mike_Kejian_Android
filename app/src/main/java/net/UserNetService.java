@@ -6,6 +6,7 @@ import net.UserDataBase.UserDataBase;
 import net.httpRequest.HttpRequest;
 import net.picture.MessagePrint;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,8 +17,10 @@ import java.util.HashMap;
 
 import bl.UserBLResult;
 import model.user.AttentionList;
+import model.user.CourseBrief;
 import model.user.Friend;
 import model.user.Invitee;
+import model.user.PostBrief;
 import model.user.UserToken;
 import model.user.user;
 
@@ -28,6 +31,7 @@ import model.user.user;
 public class UserNetService {
 
     private static String baseUrl = "http://112.124.101.41/mike_server_v02/index.php/Home/User/";
+
     private static HttpRequest httpRequest = HttpRequest.getInstance();
 
     private UserNetService instance=new UserNetService();
@@ -40,39 +44,58 @@ public class UserNetService {
     }
 
 
+    //http://112.124.101.41/mike_server_v02/index.php/Home/User/bind/schoolAccount/131250114/schoolAccountPsd/132491/userId/1
+
     public static boolean bindSchoolAccount(String userId,String schoolAccount,String schoolAccountPsd){
 
-        HashMap<String,String> para=new HashMap<>();
+        HashMap<String,String> para = new HashMap<>();
 
         para.put("userId",userId);
         para.put("schoolAccount",schoolAccount);
         para.put("schoolAccountPsd", schoolAccountPsd);
+        String result=httpRequest.sentGetRequest(baseUrl+"bind/",para);
 
-        boolean state=Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl+"bindSchoolAccount",para));
+        System.out.println("注册结果:"+result);
+
+
+        boolean state=Boolean.parseBoolean(result);
 
         return state;
 
     }
-    public  static user register(UserToken userToken){
+    public  static UserBLResult register(UserToken userToken){
 
 
+        /*
+        'phone_num'=>$userToken['phoneNumber'],
+            'name'=>$userToken['name'],
+            'password'=>$userToken['password'],
+            'school_id'=>$userToken['schoolNumber'],
+         */
 
 
 
         HashMap<String,String> para=new HashMap<String, String>();
 
-        para.put(null, null);
+        para.put("phoneNumber", userToken.getPhoneNumber());
+        para.put("name",userToken.getName());
+        para.put("password",userToken.getPassword());
+        para.put("schoolNumber","10284");
 
-        JSONObject jsonObject=new JSONObject(para);
+        JSONObject jsonObject = new JSONObject(para);
 
         HashMap h=new HashMap();
 
-        h.put("userToken", jsonObject.toString());
+        String r=jsonObject.toString();
+
+        r=URLEncoder.encode(r);
+
+        h.put("userToken", r);
 
 
 
 
-        String result=HttpRequest.getInstance().sentGetRequest(baseUrl+"register/",h);
+        String result=HttpRequest.getInstance().sentGetRequest(baseUrl + "register/", h);
 
         System.out.println("注册成功:"+result);
 
@@ -81,7 +104,7 @@ public class UserNetService {
 
             JSONObject netResult = new JSONObject(result);
 
-            result=netResult.getString("result");
+            result=netResult.getString("state");
 
         }catch(Exception e){
 
@@ -93,8 +116,88 @@ public class UserNetService {
 
 
 
+        if(Boolean.parseBoolean(result)==true) {
 
-        return new user();
+            return UserBLResult.REGISTER_SUCCEED;
+        }
+        else{
+
+            return UserBLResult.REGISTER_FAILED;
+        }
+    }
+    public static user getUserInfo(String id){
+
+        //http://112.124.101.41/mike_server_v02/index.php/Home/User/getUser/id/1
+         /*
+        用于登录的数据结构
+         */
+        HashMap<String,String> par = new HashMap();
+        par.put("id",id);
+
+
+
+
+
+
+        String userData = httpRequest.sentGetRequest(baseUrl+"getUser/",par);
+
+
+
+
+        if(userData.equals("")){
+
+            System.out.println("get no user");
+
+            return null;
+
+        }else{
+            try{
+                JSONObject userDataJson = new JSONObject(userData);
+                /*
+                {"id":"1","school_identify":"1","name":"as","icon_url":"as",
+                "school_id":"1","grade":"1","nick_name":"as","gender":"0",
+                "major_id":"1","department_id":"1","identify":"1",
+                "password":"1",
+                "signal":"1","school_account_psd":"1"}
+                 */
+                HashMap<String,Object> userInfo = new HashMap();
+                userInfo.put("id",userDataJson.getString("id"));
+                userInfo.put("name",userDataJson.getString("name"));
+                userInfo.put("gender",userDataJson.getString("gender"));
+                userInfo.put("grade",userDataJson.getString("grade"));
+
+                String icon=userDataJson.getString("icon_url").replaceAll("#","/");
+                userInfo.put("icon",icon);
+                userInfo.put("signal",userDataJson.getString("signal"));
+                userInfo.put("identify",userDataJson.getString("identify"));
+                userInfo.put("id",userDataJson.getInt("id"));
+                userInfo.put("password",userDataJson.getString("password"));
+                userInfo.put("nick_name",userDataJson.getString("nick_name"));
+                userInfo.put("school_identify",userDataJson.getString("school_identify"));
+                userInfo.put("school_id",userDataJson.getString("school_id"));
+                userInfo.put("department_id",userDataJson.getString("department_id"));
+
+
+                return new user(userInfo);
+            }catch (JSONException e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+//        HashMap userInfo=userDataBase.getUser(userToken.getName(),userToken.getPassword());
+//
+//
+//        if(userInfo!=null){
+//
+//            return new user(userInfo);
+//
+//        }
+//        else{
+//
+//            return null;
+//
+//        }
+
     }
 
     public static user getUser(UserToken userToken){
@@ -109,6 +212,8 @@ public class UserNetService {
         par.put("password", userToken.getPassword());
 
         System.out.println(userToken.getName() + "  " + userToken.getPassword());
+
+
 
 
 
@@ -239,7 +344,7 @@ public class UserNetService {
 
 
         map.put("userId",userId+"");
-        map.put("userInfoType",type);
+        map.put("userInfoType", type);
 
 
         try {
@@ -259,36 +364,153 @@ public class UserNetService {
         httpRequest.sentGetRequest(baseUrl+"resetUserInfo/",map);
 
     }
-    public void getAttentionPost(String userId){
+    public static ArrayList<PostBrief> getAttentionPost(String userId){
 
+        ArrayList<PostBrief> postList=new ArrayList<>();
+
+
+//http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionPost/userId/1
         HashMap<String,String> map=new HashMap<>();
 
-        map.put("userid",userId);
+        map.put("userId", userId);
 
-        httpRequest.sentGetRequest(baseUrl+"",map);
+       String result= httpRequest.sentGetRequest("http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionPost/", map);
+
+        try{
+
+
+        JSONArray jsonArray=new JSONArray(result);
+
+            int length=jsonArray.length();
+
+            for(int i=0;i<length;i++){
+
+                JSONObject jsonObject=(JSONObject)jsonArray.get(i);
+
+
+
+                PostBrief postBrief=new PostBrief();
+
+                postBrief.setUserName(jsonObject.getString("userName"));
+                postBrief.setPostName(jsonObject.getString("title"));
+                //postBrief.setPublishTime(null);
+                postBrief.setId(jsonObject.getString("id"));
+                postBrief.setUserIcon(jsonObject.getString("userIcon"));
+
+                postList.add(postBrief);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return postList;
 
 
 
 
     }
-    public void getAttentionPeople(String userId){
+    public static ArrayList<Friend> getAttentionPeople(String userId){
+
+        ArrayList<Friend> friendList=new ArrayList<>();
 
         HashMap<String,String> map=new HashMap<>();
 
-        map.put("userid",userId);
+        map.put("userId", userId);
+//http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionPeople/userId/1
+        String result=httpRequest.sentGetRequest("http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/"+"getAttentionPeople/",map);
 
-        httpRequest.sentGetRequest(baseUrl+"",map);
+        System.out.println("get friend " + result);
+
+        try {
+
+            JSONArray jsonArray=new JSONArray(result);
+
+            int length=jsonArray.length();
+
+            for(int i=0;i<length;i++) {
+
+                //todo
+
+                JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+
+                String id = jsonObject.getString("userId");
+                String icon = jsonObject.getString("userIcon");
+                String name = jsonObject.getString("userName");
+
+                Friend friend=new Friend();
+
+                friend.setUserName(name);
+                friend.setIcon(icon);
+                friend.setId(id);
+                friend.setSign("关山难越，谁悲失路之人");
+
+                MessagePrint.print("name :" + friend.getUserName());
+
+                friendList.add(friend);
+
+            }
+
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+
+        }
+
+        return friendList;
 
 
 
     }
-    public void getAttentionCourse(String userId){
+    public static ArrayList<CourseBrief> getAttentionCourse(String userId){
+
+        ArrayList<CourseBrief> courseList=new ArrayList<>();
 
         HashMap<String,String> map=new HashMap<>();
 
-        map.put("userid",userId);
+        map.put("userId",userId);
+//http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionCourse/userId/1
+        String result=httpRequest.sentGetRequest("http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/getAttentionCourse/",map);
 
-        httpRequest.sentGetRequest(baseUrl+"",map);
+        try {
+
+            JSONArray jsonArray=new JSONArray(result);
+
+            int length=jsonArray.length();
+
+            for(int i=0;i<length;i++) {
+
+                //todo
+
+                JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+
+                String id = jsonObject.getString("id");
+                String icon = jsonObject.getString("courseIcon");
+                String name = jsonObject.getString("course_name");
+
+                CourseBrief courseBrief=new CourseBrief();
+
+                courseBrief.setIcon(icon);
+                courseBrief.setName(name);
+                courseBrief.setId(id);
+
+
+                MessagePrint.print("name :" + courseBrief.getName());
+
+                courseList.add(courseBrief);
+
+            }
+
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+
+        }
+
+        return courseList;
+
 
     }
 
@@ -298,17 +520,41 @@ public class UserNetService {
 
         map.put(type,id);
 
-        httpRequest.sentGetRequest(baseUrl+"",map);
+        httpRequest.sentGetRequest(baseUrl + "", map);
 
     }
 
-    public void attention(String type,String id){
+    public static boolean attention(String userId,String type,String id){
 
         HashMap<String,String> map=new HashMap<>();
 
-        map.put(type,id);
 
-        httpRequest.sentGetRequest(baseUrl+"",map);
+        map.put("itemId",id);
+        map.put("type", type);
+        map.put("userId",userId);
+
+        //http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/PEOPLE/userId/1/itemId/3
+
+        String result=httpRequest.sentGetRequest("http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/",map);
+
+     return Boolean.parseBoolean(result);
+
+    }
+
+    public static boolean unattention(String userId,String type,String id){
+
+        HashMap<String,String> map=new HashMap<>();
+
+
+        map.put("itemId",id);
+        map.put("type",type);
+        map.put("userId",userId);
+
+        //http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/addAttentionItem/type/PEOPLE/userId/1/itemId/3
+
+        String result=httpRequest.sentGetRequest("http://112.124.101.41/mike_server_v02/index.php/Home/UserAttentionList/deleteAttentionItem/",map);
+
+        return Boolean.parseBoolean(result);
 
     }
 

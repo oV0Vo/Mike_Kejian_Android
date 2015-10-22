@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:background="@drawable/b16392dc6694"
+        android:background="@drawable/bg"
         android:layout_marginBottom="10dp">
 
         <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
@@ -321,9 +321,11 @@
                 android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:text="关注"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:background="@drawable/rec_button"
                 android:layout_marginTop="5dp"
+                android:id="@+id/attention_people"
                 />
         </LinearLayout>
 

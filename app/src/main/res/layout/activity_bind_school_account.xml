@@ -24,10 +24,23 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
             >
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="  "
+                android:editable="false"
+                android:background="@drawable/register_country_input"
+                />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:text="所在城市"
+                android:id="@+id/school_city"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:background="@drawable/bind_city_show"
                 />
 
@@ -38,12 +51,12 @@
                 android:entries="@array/brands"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/city_list_view"
-                android:background="@drawable/bind_city_choose"
+
+                android:layout_toRightOf="@+id/school_city"
 
                 />
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+            </RelativeLayout>
+
 
 
         </LinearLayout>
@@ -55,21 +68,37 @@
             android:layout_marginRight="40dp"
 
             >
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="  "
+                android:editable="false"
+
+                android:background="@drawable/bind_school_choose"
+                />
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:text="学校"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:background="@drawable/bind_school_show"
+                android:id="@+id/school"
                 />
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:entries="@array/brands"
-                android:layout_marginLeft="44dp"
+                android:layout_toRightOf="@+id/school"
+
                 android:id="@+id/school_list_view"
-                android:background="@drawable/bind_school_choose"
+
 
                 />
+            </RelativeLayout>
 
 
         </LinearLayout>
@@ -83,16 +112,18 @@
             >
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:text="教务网帐号"
+                android:textColor="@color/black"
+                android:gravity="center"
                 android:background="@drawable/bind_schoolaccount_show"
                 />
             <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="9dp"
+                android:layout_height="60dp"
+
                 android:background="@drawable/bind_schoolaccount_input"
-                android:inputType="textPassword"
+
                 android:id="@+id/school_account_view"
 
                 /></LinearLayout>
@@ -105,14 +136,16 @@
             >
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:text="教务网密码"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:background="@drawable/bind_schoolaccount_psd"
                 />
             <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="9dp"
+                android:layout_height="60dp"
+
                 android:background="@drawable/bind_schoolaccount_psd_input"
                 android:inputType="textPassword"
                 android:id="@+id/school_account_pad_view"
@@ -137,7 +170,7 @@
         android:text="@string/skip_bind"
         android:id="@+id/skip_bind"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         />
 
 
