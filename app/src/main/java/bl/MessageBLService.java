@@ -99,20 +99,28 @@ public class
     private static void refreshLastId(int type){
         switch (type){
             case 0:
-                CourseNotice tmp = courseNotices.get(courseNotices.size()-1);
-                course_notice_last_id = tmp.getId();
+                if(courseNotices.size() > 0){
+                    CourseNotice tmp = courseNotices.get(courseNotices.size()-1);
+                    course_notice_last_id = tmp.getId();
+                }
                 break;
             case 1:
-                Reply reply = replies.get(replies.size()-1);
-                reply_last_id = reply.getId();
+                if(replies.size() > 0){
+                    Reply reply = replies.get(replies.size()-1);
+                    reply_last_id = reply.getId();
+                }
                 break;
             case 2:
-                Praise praise = praises.get(praises.size()-1);
-                praise_last_id = praise.getId();
+                if(praises.size() > 0){
+                    Praise praise = praises.get(praises.size()-1);
+                    praise_last_id = praise.getId();
+                }
                 break;
             case 3:
-                MentionMe mentionMe = mentionMes.get(mentionMes.size()-1);
-                mentionme_last_id = mentionMe.getId();
+                if(mentionMes.size() > 0){
+                    MentionMe mentionMe = mentionMes.get(mentionMes.size()-1);
+                    mentionme_last_id = mentionMe.getId();
+                }
                 break;
         }
     }
