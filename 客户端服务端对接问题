@@ -106,3 +106,4 @@ post参数:  courseId : 1 teachers:"1,2,3,4" assistants: "1,2,3,4"
 27.http://112.124.101.41/mike_server_v02/index.php/Home/Post/getHotestPost/courseId/0/startId/0/number/2
 http://112.124.101.41/mike_server_v02/index.php/Home/Post/getNewestPost/courseId/0/startId/0/number/2
 两个接口的还是没有reply_count
+28.http://112.124.101.41/mike_server_v02/index.php/Home/User/getUserByInfo/he 报错
