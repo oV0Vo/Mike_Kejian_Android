@@ -189,7 +189,7 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
                 }
             };
 
-            d.getBitMapFromNet(praise.getIconUrl(), "");
+            d.getBitMapFromNet(praise.getIconUrl(), praise.getLocalIconPath());
 //            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());

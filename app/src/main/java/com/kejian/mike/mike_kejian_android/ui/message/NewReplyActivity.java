@@ -188,7 +188,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
                 }
             };
 
-            d.getBitMapFromNet(reply.getIconUrl(), "");
+            d.getBitMapFromNet(reply.getIconUrl(), reply.getLocalIconPath());
 //            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.replyer_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
