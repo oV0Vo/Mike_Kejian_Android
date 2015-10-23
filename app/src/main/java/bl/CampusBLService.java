@@ -15,12 +15,14 @@ import model.user.user;
  * Created by showjoy on 15/9/10.
  */
 public class CampusBLService {
-    public static ArrayList<Post> latestPosts;
-    public static ArrayList<Post> hottestPosts;
+    public static ArrayList<Post> latestPosts = new ArrayList<>();
+    public static ArrayList<Post> hottestPosts = new ArrayList<>();
+    public static Reply publishedReply;
 
 
     public static void refreshLatestPosts() {
-        latestPosts = CampusNetService.getLatestPosts("0",7);
+        latestPosts.clear();
+        latestPosts.addAll(CampusNetService.getLatestPosts("0", 7));
     }
 
     public static void getNextLatestPosts() {
@@ -30,7 +32,8 @@ public class CampusBLService {
     }
 
     public static void refreshHottestPosts() {
-        hottestPosts = CampusNetService.getHottestPosts("0",7);
+        hottestPosts.clear();
+        hottestPosts.addAll(CampusNetService.getHottestPosts("0",7));
     }
 
     public static void getNextHottestPosts() {
@@ -57,14 +60,46 @@ public class CampusBLService {
         return CampusNetService.publish(courseId, post);
     }
 
+    public static String reply(String courseId, String replyTo, String content) {
+        Reply reply = new Reply();
+        reply.setCourseId(courseId);
+        reply.setUserIconUrl(((user)Global.getObjectByName("user")).getIcon());
+        reply.setUserId(((user) Global.getObjectByName("user")).getId());
+        reply.setAuthorName(((user) Global.getObjectByName("user")).getNick_name());
+        reply.setContent(content);
+        reply.setDate(new Date());
+        reply.setCommentNum(0);
+        reply.setPraise(0);
+        reply.setReplyTo(replyTo);
+        publishedReply = reply;
+
+       return  CampusNetService.reply(reply);
+
+    }
+
     public static boolean isFollowed(String postId) {
         String userId = ((user) Global.getObjectByName("user")).getId();
         return CampusNetService.isFollowed(userId, postId);
     }
 
+    public static boolean isPraised(String postId) {
+        String userId = ((user) Global.getObjectByName("user")).getId();
+        return CampusNetService.isPraised(userId, postId);
+    }
+
     public static void followThisPost(String postId) {
         String userId = ((user) Global.getObjectByName(("user"))).getId();
         CampusNetService.followThisPost(userId, postId);
+    }
+
+    public static void praiseThisPost(String postId) {
+        String userId = ((user) Global.getObjectByName("user")).getId();
+        CampusNetService.praiseThisPost(userId, postId);
+    }
+
+    public static void viewThisPost(String postId) {
+        String userId = ((user) Global.getObjectByName("user")).getId();
+        CampusNetService.viewThisPost(userId, postId);
     }
 
 }
