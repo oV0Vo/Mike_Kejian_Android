@@ -22,7 +22,7 @@ public class PictureUploadUtil {
 
             FileInputStream fis = new FileInputStream(picture);
 
-            URL url = new URL("http://uppsc.tietuku.com/");
+            URL url = new URL("http://up.tietuku.com/");
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setDoOutput(true);
             conn.setDoInput(true);
