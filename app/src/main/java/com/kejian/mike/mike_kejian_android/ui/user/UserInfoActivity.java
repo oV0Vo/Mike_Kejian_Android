@@ -24,6 +24,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 
 import net.UserNetService;
 import net.picture.DownloadPicture;
+import net.picture.MessagePrint;
 import net.picture.PictureToFile;
 import net.picture.PictureUploadUtil;
 
@@ -109,17 +110,10 @@ public class UserInfoActivity extends AppCompatActivity{
         baseInfoSign=(EditText)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
 
-        DownloadPicture d=new DownloadPicture(this){
 
-            @Override
-            public void updateView(Bitmap bitmap){
 
-                photo.setImageBitmap(bitmap);
 
-            }
-        };
-
-        d.getBitMapFromNet(user.getIcon(),user.getIdentify());
+        DownloadPicture d=new DownloadPicture(this,photo, user.getIcon(),user.getIcon());
 
         System.out.println("user in userinfo view:"+user);
 
@@ -163,17 +157,22 @@ public class UserInfoActivity extends AppCompatActivity{
 
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println(resultCode);
-        Bitmap cameraBitmap = (Bitmap) data.getExtras().get("data");
+
+
+        Bitmap cameraBitmap = null;
+
+       if(data!=null) {cameraBitmap=(Bitmap) data.getExtras().get("data");}
         super.onActivityResult(requestCode, resultCode, data);
 
 
 
-        Global.addGlobalItem("bitmap",cameraBitmap);
+        if(cameraBitmap!=null) {
+
+            Global.addGlobalItem("bitmap", cameraBitmap);
 
 
-
-        photo.setImageBitmap(cameraBitmap);
+            photo.setImageBitmap(cameraBitmap);
+        }
 
     }
 
@@ -340,7 +339,9 @@ public class UserInfoActivity extends AppCompatActivity{
 
         protected String doInBackground(Bitmap...Para){
 
-           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],Para[0].toString())).getLinkurl();
+            System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon()))==null);
+
+           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],user.getIcon())).getLinkurl();
 
             UserNetService.setUserInfo(Integer.parseInt(user.getId()),"ICON",path);
 

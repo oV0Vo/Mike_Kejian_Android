@@ -112,6 +112,9 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
             skipBind.setVisibility(View.INVISIBLE);
         }
 
+        user us=(user)Global.getObjectByName("user");
+        if(us!=null)skipBind.setVisibility(View.INVISIBLE);
+
     }
 
     private void skip(){
@@ -198,10 +201,13 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
 
 
-                new BindThread().execute(( (user)Global.getObjectByName("user")).getId(),userToken.getSchoolAccount(),userToken.getSchoolAccountPassword());
+                new BindThread().execute(((user) Global.getObjectByName("user")).getId(), userToken.getSchoolAccount(), userToken.getSchoolAccountPassword());
 
                 userToken.bindSchoolAccount();
-                showInfo("绑定成功","您已经成功绑定教务网帐号");
+
+                user us=(user)Global.getObjectByName("user");
+                if(us!=null)us.setSchoolAccount(schoolAccount);
+               // showInfo("绑定成功","您已经成功绑定教务网帐号");
             }
 
         }
