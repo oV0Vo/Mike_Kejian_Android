@@ -164,4 +164,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
+
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/sub_big_font"
+
+        android:text="@string/course_sign_in_empty_text"/>
 </RelativeLayout>
