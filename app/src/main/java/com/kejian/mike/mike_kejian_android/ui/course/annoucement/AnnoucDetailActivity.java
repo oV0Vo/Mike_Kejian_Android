@@ -25,7 +25,7 @@ public class AnnoucDetailActivity extends AppCompatActivity {
 
     private CourseAnnoucement annouc;
 
-    private View putOnTopView;
+    private TextView putOnTopView;
 
     private ProgressBar progressBar;
 
@@ -47,14 +47,22 @@ public class AnnoucDetailActivity extends AppCompatActivity {
         TextView contentText = (TextView)findViewById(R.id.content_text);
         contentText.setText(annouc.getContent());
 
-        putOnTopView = findViewById(R.id.put_on_top_action_text);
-        putOnTopView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new PutOnTopTask().execute(annouc.getAnnoucId());
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
+        putOnTopView = (TextView)findViewById(R.id.put_on_top_action_text);
+        if(!annouc.isOnTop()) {
+            putOnTopView.setText(R.string.put_on_top);
+            putOnTopView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new PutOnTopTask().execute(annouc.getAnnoucId());
+                    putOnTopView.setBackgroundColor(getResources().getColor(R.color.dark));
+                    putOnTopView.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            putOnTopView.setText(R.string.already_put_on_top);
+            putOnTopView.setEnabled(false);
+        }
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
 
@@ -75,9 +83,14 @@ public class AnnoucDetailActivity extends AppCompatActivity {
                 if(success) {
                     Toast.makeText(AnnoucDetailActivity.this, R.string.put_on_top_success,
                             Toast.LENGTH_LONG).show();
+                    putOnTopView.setBackgroundColor(getResources().getColor(R.color.green));
+                    putOnTopView.setText(R.string.already_put_on_top);
+                    putOnTopView.setEnabled(false);
                 } else {
                     Toast.makeText(AnnoucDetailActivity.this, R.string.net_disconnet,
                             Toast.LENGTH_LONG).show();
+                    putOnTopView.setBackgroundColor(getResources().getColor(R.color.green));
+                    putOnTopView.setEnabled(true);
                 }
             }
         }

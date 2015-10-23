@@ -227,8 +227,7 @@ public class CourseModel {
 
     @NeedAsyncAnnotation
     public boolean updateUserTypeInCurrentCourse() {
-        currentUserType = CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId,
-                sidMock);
+        currentUserType = UserTypeInCourse.ASSISTANT;//CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId);
         return true;
     }
 

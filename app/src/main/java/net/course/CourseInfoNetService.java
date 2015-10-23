@@ -16,6 +16,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
 import com.kejian.mike.mike_kejian_android.dataType.course.PersonMocks;
 import com.kejian.mike.mike_kejian_android.dataType.course.PostMocks;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserInterestInCourse;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 
 import net.NetConfig;
@@ -229,8 +230,52 @@ public class CourseInfoNetService {
 
     }
 
-    public static UserTypeInCourse getUserTypeInCourse(String courseId, String userId) {
-        return UserTypeInCourse.STUDENT;
+    public static UserTypeInCourse getUserTypeInCourse(String courseId) {
+        String url = NetConfig.BASE_URL + "CourseTeacher/getUserTypeInCourse/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        String response = http.sentGetRequest(url ,paraMap);
+        switch(response) {
+            case "\"1\"":
+                return UserTypeInCourse.STUDENT;
+            case "\"2\"":
+                return UserTypeInCourse.TEACHER;
+            case "\"3\"":
+                return UserTypeInCourse.ASSISTANT;
+            case "null":
+                return UserTypeInCourse.VISITOR;
+            default:
+                return null;
+        }
+    }
+
+    public static Integer getUserInterestInCourse(String courseId) {
+        String url = NetConfig.BASE_URL + "UserAttentionList/isInterestedInCourse/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        String response = http.sentGetRequest(url ,paraMap);
+        if(response == null)
+            return UserInterestInCourse.ERROR;
+        else if(response.equals("true"))
+            return UserInterestInCourse.INTEREST;
+        else
+            return UserInterestInCourse.NO_INTEREST;
+    }
+
+    public static boolean showInterestToCourse(String courseId) {
+        String url = NetConfig.BASE_URL + "UserAttentionList/addAttentionItem/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("itemId", courseId);
+        paraMap.put("type", "COURSE");
+        String response = http.sentGetRequest(url, paraMap);
+        if(response == null)
+            return false;
+        else if(response.equals("false"))
+            return false;
+        else if(response.equals("true"))
+            return true;
+        else
+            return false;
     }
 
 }

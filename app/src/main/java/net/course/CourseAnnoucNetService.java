@@ -97,9 +97,9 @@ public class CourseAnnoucNetService {
     }
 
     public static boolean putOnTop(String annoucId) {
-        String url = BASE_URL + "";
+        String url = BASE_URL + "putAnnouncOnTop/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
-        paraMap.put("annoucId", annoucId);
+        paraMap.put("announcId", annoucId);
         String response = httpRequest.sentGetRequest(url, paraMap);
 
         try {

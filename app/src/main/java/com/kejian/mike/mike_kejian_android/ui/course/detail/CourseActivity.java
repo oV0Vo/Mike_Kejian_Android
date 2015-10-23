@@ -116,8 +116,6 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course, menu);
-        MenuItem userMenu = menu.add("");
-
         initDownInfoMenuItem(menu);
         initSearchMenuItem(menu);
         addItem = menu.findItem(R.id.course_add_menu_item);

@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         courseTextTab.setChecked(true);
+        courseImageTab.setChecked(true);
 
         messageTextTab = (RadioButton)findViewById(R.id.message_tab_text);
         messageTextTab.setOnClickListener(new View.OnClickListener() {

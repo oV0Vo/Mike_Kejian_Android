@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.introduction;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,10 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserInterestInCourse;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+
+import net.course.CourseInfoNetService;
 
 import java.util.ArrayList;
 
@@ -34,6 +40,8 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private CourseDetailInfo courseDetail;
 
+    private TextView interestText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,15 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         initAssitantLayout();
         initTabButton();
         initViewPager();
+        initInterestText();
+    }
+
+    private void initInterestText() {
+        UserTypeInCourse userTypeInCourse = CourseModel.getInstance().getUserTypeInCurrentCourse();
+        if(userTypeInCourse == UserTypeInCourse.VISITOR) {
+            interestText = (TextView)findViewById(R.id.show_interest_text);
+            new GetUserInterestTask().execute(courseDetail.getCourseId());
+        }
     }
 
     private void initCourseBrief() {
@@ -73,8 +90,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         teacherNameView.setText(teacherName);
 
         TextView teacherBriefIntroView = (TextView)findViewById(R.id.course_intro_teacher_brief_intro);
-        String teacherBriefIntro = "南京大学教授、博士生导师";
-        teacherBriefIntroView.setText(teacherBriefIntro);
+        teacherBriefIntroView.setText("");
 
     }
 
@@ -189,6 +205,72 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return 3;
+        }
+    }
+
+    private void setAlreadyInterestView() {
+        interestText.setText(R.string.already_interest);
+        interestText.setEnabled(false);
+        interestText.setBackgroundColor(getResources().getColor(R.color.dark));
+    }
+
+    private class GetUserInterestTask extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            String courseId = params[0];
+            return CourseInfoNetService.getUserInterestInCourse(courseId);
+        }
+
+        protected  void onPostExecute(Integer interest) {
+            if(interestText == null)
+                return;
+            interestText.setVisibility(View.VISIBLE);
+            switch(interest) {
+                case UserInterestInCourse.INTEREST:
+                    interestText.setText(R.string.show_interest);
+                    interestText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(CourseIntroductionActivity.this,
+                                    R.string.show_interest_on_progress, Toast.LENGTH_LONG).show();
+                            interestText.setEnabled(false);
+                            interestText.setBackgroundColor(getResources().getColor(R.color.dark));
+                            new ShowInterestTask().execute(courseDetail.getCourseId());
+                        }
+                    });
+                    break;
+                case UserInterestInCourse.NO_INTEREST:
+                    setAlreadyInterestView();
+                    break;
+                case UserInterestInCourse.ERROR:
+                    Toast.makeText(CourseIntroductionActivity.this, R.string.net_disconnet,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
+
+    private class ShowInterestTask extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String courseId = params[0];
+            return CourseInfoNetService.showInterestToCourse(courseId);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(interestText == null)
+                return;
+            if(success)
+                setAlreadyInterestView();
+            else {
+                Toast.makeText(CourseIntroductionActivity.this, R.string.net_disconnet,
+                        Toast.LENGTH_SHORT).show();
+                interestText.setBackgroundColor(getResources().getColor(R.color.green));
+                interestText.setEnabled(true);
+            }
         }
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="show_interest">关注该课程</string>
+    <string name="show_interest_on_progress">正在关注该课程...</string>
+    <string name="already_interest">已经关注该课程</string>
+</resources>
