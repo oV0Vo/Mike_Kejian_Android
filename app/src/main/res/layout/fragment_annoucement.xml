@@ -18,14 +18,15 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textSize="@dimen/big_font"
-        android:text="@string/net_disconnet"/>
+        android:text="@string/net_disconnet"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,6 +62,7 @@
             android:ellipsize="end"/>
 
         <LinearLayout
+            android:id="@+id/annouc_time_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/medium_padding"
@@ -77,15 +79,6 @@
                 android:id="@+id/course_detail_annoucement_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"/>
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

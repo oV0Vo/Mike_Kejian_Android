@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,15 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
 
 import net.course.CourseAnnoucNetService;
 
+import java.util.ArrayList;
+
 import model.course.CourseModel;
 import util.TimeFormat;
 
 
 public class LatestAnnoucFragment extends Fragment {
+
+    private static final String TAG = "LatestAnnoucFg";
 
     private OnAnnoucementClickListener mListener;
 
@@ -47,7 +52,7 @@ public class LatestAnnoucFragment extends Fragment {
         v.setOnClickListener(new OnAnnoucClickListener());
 
         String courseId = CourseModel.getInstance().getCurrentCourseId();
-        new GetAnnoucTask().execute(courseId);
+        new GetAnnoucsTask().execute(courseId);
 
         return v;
     }
@@ -87,8 +92,10 @@ public class LatestAnnoucFragment extends Fragment {
         } else {
             contentView.setText((R.string.annoucement_no_annoucement));
             contentView.setGravity(Gravity.CENTER);
-            contentView.setTextSize(getResources().getDimension(R.dimen.big_font));
+            //contentView.setTextSize(getResources().getDimension(R.dimen.big_font));
             contentView.setTextColor(getResources().getColor(R.color.dark));
+            ViewGroup annoucTimeLayout = (ViewGroup)mainLayout.findViewById(R.id.annouc_time_layout);
+            annoucTimeLayout.setVisibility(View.GONE);
         }
     }
 
@@ -96,23 +103,25 @@ public class LatestAnnoucFragment extends Fragment {
         void onAnnoucementClick();
     }
 
-    private class GetAnnoucTask extends AsyncTask<String, Void, Boolean> {
+    private class GetAnnoucsTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String courseId = params[0];
-            annouc = new CourseAnnoucement();
-            boolean setSuccess = CourseAnnoucNetService.setLatestAnnouc(courseId, annouc);
-            return setSuccess;
+            CourseModel courseModel = CourseModel.getInstance();
+            boolean updateSuccess = courseModel.updateAnnoucs();
+            if(updateSuccess)
+                annouc = courseModel.getLatestAnnouc();
+            return updateSuccess;
         }
 
         @Override
-        protected void onPostExecute(Boolean setSuccess) {
+        protected void onPostExecute(Boolean success) {
             progressBar.setVisibility(View.GONE);
-            if(setSuccess) {
+            if(success) {
                 updateViewOnGetAnnouc();
             } else {
                 errorMessageText.setVisibility(View.VISIBLE);
+                Log.e(TAG, "update annoucs Fail");
             }
         }
     }

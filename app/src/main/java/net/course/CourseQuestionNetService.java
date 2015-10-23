@@ -3,19 +3,13 @@ package net.course;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-import com.kejian.mike.mike_kejian_android.dataType.course.PersonMocks;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CommitAnswerResultMessage;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
-import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionAnswer;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionShowAnswer;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionStats;
-import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoiceQuestion;
 
 import net.NetConfig;
 import net.httpRequest.HttpRequest;
@@ -23,8 +17,6 @@ import net.httpRequest.HttpRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import util.NetOperateResultMessage;
 
 /**
  * Created by violetMoon on 2015/10/6.
@@ -37,29 +29,55 @@ public class CourseQuestionNetService {
 
     private static HttpRequest httpRequest = HttpRequest.getInstance();
 
-    public static ArrayList<BasicQuestion> getHistroryQuestions(String courseId, int beginPos, int num,
-                                                                int time, TimeUnit timeUnit) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public static ArrayList<BasicQuestion> getHistroryQuestions(String courseId) {
+        String url = BASE_URL + "getHistoryQuestions/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        paraMap.put("lastId", Integer.toString(Integer.MAX_VALUE));
+        paraMap.put("num", Integer.toString(Integer.MAX_VALUE));
+        String response = httpRequest.sentGetRequest(url, paraMap);
 
+        try {
+            JSONArray jQuestions = new JSONArray(response);
+            ArrayList<BasicQuestion> questions = new ArrayList<BasicQuestion>();
+            for(int i=0; i<jQuestions.length(); ++i) {
+                JSONObject jQuestion = jQuestions.getJSONObject(i);
+                BasicQuestion question = parseHistoryQuestion(jQuestion);
+                questions.add(question);
+            }
+            return questions;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<CurrentQuestion> getCurrentQuestions(String courseId) {
+        String url = BASE_URL + "getCurrentQuestions/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("courseId", courseId);
+        String response = httpRequest.sentGetRequest(url, paraMap);
+
+        try {
+            JSONArray jQuestions = new JSONArray(response);
+            ArrayList<CurrentQuestion> questions = new ArrayList<CurrentQuestion>();
+            for(int i=0; i<jQuestions.length(); ++i) {
+                JSONObject jQuestion = jQuestions.getJSONObject(i);
+                CurrentQuestion question = parseCurrentQuestion(jQuestion);
+                questions.add(question);
+            }
+            return questions;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static BasicQuestion parseHistoryQuestion(JSONObject jQuestion) {
         return null;
     }
 
-    public static ArrayList<CurrentQuestion> getCurrentQuestions(String courseId, int beginPos,
-                                                                 int num, int time, TimeUnit timeUnit) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private static BasicQuestion parseQuestion() {
+    private static CurrentQuestion parseCurrentQuestion(JSONObject jQuestion) {
         return null;
     }
 

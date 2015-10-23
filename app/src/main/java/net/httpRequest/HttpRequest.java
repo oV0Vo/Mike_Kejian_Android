@@ -77,10 +77,8 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
-
-
             System.out.println("Post 请求出错!");
-
+            return null;
         }
         finally {
 
@@ -97,7 +95,8 @@ public class HttpRequest {
                 }
 
             }catch (Exception e){
-
+                e.printStackTrace();
+                return null;
             }
         }
 
@@ -148,9 +147,8 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
-
             e.printStackTrace();
-
+            return null;
         }
         finally {
 
@@ -162,7 +160,8 @@ public class HttpRequest {
                 }
 
             }catch (Exception e){
-
+                e.printStackTrace();
+                return null;
             }
         }
 

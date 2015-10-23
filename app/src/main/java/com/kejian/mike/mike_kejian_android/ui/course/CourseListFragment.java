@@ -32,7 +32,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
 
-public class CourseListFragment extends Fragment implements AbsListView.OnItemClickListener{
+public class CourseListFragment extends Fragment{
 
     private static final String TAG = "CourseListFragment";
 
@@ -74,13 +74,20 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
     }
 
     private void initListAdapter() {
-        isShowMyCourse = true;
-        listData = new ArrayList(courseModel.getMyCourseBriefs());
-        if(listData.size() == 0) {
+        if (courseModel.getMyCourseBriefs().size() == 0) {
             new InitMyCourseBriefTask().execute();
         } else {
             initMyCourseDataFinish = true;
         }
+
+        if (courseModel.getAllCourseBriefs().size() == 0) {
+            new InitAllCourseBriefTask().execute();
+        } else {
+            initAllCourseDataFinish = true;
+        }
+
+        isShowMyCourse = true;
+        listData = new ArrayList(courseModel.getMyCourseBriefs());
         listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 listData);
     }
@@ -172,19 +179,9 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         listView = (RefreshListView) view.findViewById(R.id.main_course_list);
         listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(this);
         listView.setOnRefreshListener(noActionRL);
 
         return view;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(listner != null) {
-            CourseBriefInfo courseBrief = listAdapter.getItem(position);
-            courseModel.setCurrentCourseId(courseBrief.getCourseId());
-            listner.onCourseSelected();
-        }
     }
 
     @Override
@@ -236,6 +233,11 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
             ArrayList<String> teacherNames = courseBriefInfo.getTeacherNames();
             String teacherNameStr = StringUtil.toString(teacherNames, " ");
             teacherNameText.setText(teacherNameStr);
+
+            TextView enterCourseText = (TextView)convertView.findViewById(R.id.enter_course);
+            enterCourseText.setOnClickListener(new OnCourseClickListener(courseBriefInfo.getCourseId()));
+
+            convertView.setEnabled(false);
 
             return convertView;
         }
@@ -323,12 +325,12 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         @Override
         public void onDownPullRefresh() {
-            new UpdateAllCourseBriefTask().execute();
+            listView.hideHeaderView();
         }
 
         @Override
         public void onLoadingMore() {
-            listView.hideHeaderView();
+            new UpdateAllCourseBriefTask().execute();
         }
     }
 
@@ -336,12 +338,27 @@ public class CourseListFragment extends Fragment implements AbsListView.OnItemCl
 
         @Override
         public void onDownPullRefresh() {
-            listView.hideFooterView();
+            listView.hideHeaderView();
         }
 
         @Override
         public void onLoadingMore() {
-            listView.hideHeaderView();
+            listView.hideFooterView();
+        }
+    }
+
+    private class OnCourseClickListener implements View.OnClickListener{
+
+        private String courseId;
+
+        public OnCourseClickListener(String courseId) {
+            this.courseId = courseId;
+        }
+
+        @Override
+        public void onClick(View v) {
+            courseModel.setCurrentCourseId(courseId);
+            listner.onCourseSelected();
         }
     }
 

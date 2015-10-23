@@ -1,11 +1,12 @@
 package com.kejian.mike.mike_kejian_android.dataType.course;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by violetMoon on 2015/9/10.
  */
-public class CourseAnnoucement {
+public class CourseAnnoucement implements Serializable{
     private String annoucId;
     private String courseId;
     private String personId;

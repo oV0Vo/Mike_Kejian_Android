@@ -6,7 +6,7 @@
         <item name="android:typeface">monospace</item>
         <item name="homeAsUpIndicator">@drawable/left</item>
         <item name="titleTextColor">@color/white</item>
-        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimary">@color/blue</item>
     </style>
 
     <style name="myActionBarStyle" parent="android:Widget.ActionBar">
@@ -30,7 +30,7 @@
         <item name="android:paddingBottom">@dimen/small_padding</item>
         <item name="android:textSize">@dimen/medium_font</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@drawable/green_round</item>
     </style>
 
     <style name="white_greenText_round">
@@ -51,7 +51,6 @@
         <item name="android:paddingBottom">@dimen/small_padding</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:background">@drawable/main_tab_top_border_selector</item>
         <item name="android:textSize">@dimen/sub_medium_font</item>
         <item name="android:textColor">@color/white</item>
     </style>

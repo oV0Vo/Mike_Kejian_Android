@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.util.TextExpandListener;
+import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
 import net.course.CourseQuestionNetService;
 
@@ -33,6 +34,8 @@ import util.TimerThread;
 
 
 public class CourseQuestionFragment extends Fragment {
+
+    private static final String TAG = "CourseQuestionFG";
 
     private ProgressBar progressBar;
     private ViewGroup mainLayout;
@@ -109,10 +112,8 @@ public class CourseQuestionFragment extends Fragment {
     }
 
     private void notifytTaskFinished() {
-        if(progressBar != null && taskCountDown == 0) {
-            mainLayout.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
-        }
+        mainLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     private void clearTimerThreads() {
@@ -342,10 +343,13 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            historyAdapter.notifyDataSetChanged();
-            notifytTaskFinished();
-            if(!updateSuccess) {
-                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            if(getActivity() != null) {
+                historyAdapter.notifyDataSetChanged();
+                notifytTaskFinished();
+                if (!updateSuccess) {
+                    Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "UpdateHistoryQuestionTask net_disconnet");
+                }
             }
         }
     }
@@ -361,10 +365,13 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            currentAdapter.notifyDataSetChanged();
-            notifytTaskFinished();
-            if(!updateSuccess) {
-                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            if(getActivity() != null) {
+                currentAdapter.notifyDataSetChanged();
+                notifytTaskFinished();
+                if (!updateSuccess) {
+                    Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "UpdateCurrentQuestionTask net_disconnet");
+                }
             }
         }
     }
@@ -407,6 +414,7 @@ public class CourseQuestionFragment extends Fragment {
             actionText.setText(R.string.shut_down_question_text);
             actionText.setBackgroundColor(getResources().getColor(R.color.green));
             Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+            Log.i(TAG, "updateViewOnShutDownFail net disconnet");
         }
     }
 

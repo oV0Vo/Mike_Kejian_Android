@@ -20,35 +20,99 @@
             android:layout_height="wrap_content">
         </FrameLayout>
 
-
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/main_course_button"
-                style="@style/main_tab"
-                android:drawableTop="@drawable/book21"
-                android:maxHeight="48px"
-                android:maxWidth="48px"
-                android:text="@string/course_tab_tag" />
-            <RadioButton
-                android:id="@+id/main_message_button"
-                style="@style/main_tab"
-                android:drawableTop="@drawable/forum2"
-                android:maxHeight="48px"
-                android:maxWidth="48px"
-                android:text="@string/message_tab_tag" />
-            <RadioButton
-                android:id="@+id/main_campus_button"
-                style="@style/main_tab"
-                android:drawableTop="@drawable/msg1"
-                android:maxHeight="48px"
-                android:maxWidth="48px"
-                android:text="@string/campus_tab_tag" />
-        </RadioGroup>
+            android:background="@drawable/dark_shadow_top_border"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sub_big_padding"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <RadioButton
+                        android:id="@+id/course_tab_image"
+                        android:layout_width="48px"
+                        android:layout_height="40px"
+                        android:layout_centerInParent="true"
+                        android:button="@null"
+                        android:background="@drawable/course_tab_selector"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <RadioButton
+                        android:id="@+id/message_tab_image"
+                        android:layout_width="48px"
+                        android:layout_height="40px"
+                        android:layout_centerInParent="true"
+                        android:button="@null"
+                        android:background="@drawable/message_tab_selector"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <RadioButton
+                        android:id="@+id/campus_tab_image"
+                        android:layout_width="48px"
+                        android:layout_height="40px"
+                        android:layout_centerInParent="true"
+                        android:button="@null"
+                        android:background="@drawable/campus_tab_selector"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/over_medium_padding">
+
+                <RadioButton
+                    android:id="@+id/course_tab_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:textColor="@color/blue_on_select"
+                    android:text="课程"/>
+
+                <RadioButton
+                    android:id="@+id/message_tab_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:textColor="@color/blue_on_select"
+                    android:text="消息"/>
+
+                <RadioButton
+                    android:id="@+id/campus_tab_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:textColor="@color/blue_on_select"
+                    android:text="校内"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
 
     </RelativeLayout>
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

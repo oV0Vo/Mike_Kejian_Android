@@ -80,7 +80,6 @@ public class CourseSignInActivity extends AppCompatActivity {
         if(currentNaming != null) {
             ViewGroup currentNamingLayout = (ViewGroup)findViewById(R.id.current_naming_layout);
             currentNamingLayout.setVisibility(View.VISIBLE);
-            signInStatusText = (TextView)findViewById(R.id.course_sign_in_status_text);
             signInActionText = (TextView)findViewById(R.id.course_sign_in_sign_in_text);
 
             boolean hasSignIn = currentNaming.isHasSignIn();
@@ -128,8 +127,6 @@ public class CourseSignInActivity extends AppCompatActivity {
     }
 
     private void setNotSignInView() {
-        signInStatusText.setText(R.string.course_sign_in_not_sign_in_status);
-        signInStatusText.setBackgroundColor(getResources().getColor(R.color.dark));
 
         signInActionText.setText(R.string.course_sign_in_sign_in_action);
         signInActionText.setOnClickListener(new View.OnClickListener() {
@@ -143,9 +140,6 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private void setHasSignInView() {
         progressBar.setVisibility(View.GONE);
-        signInStatusText.setText(R.string.course_sign_in_already_sign_in);
-        signInStatusText.setTextColor(getResources().getColor(R.color.white));
-        signInStatusText.setBackgroundColor(getResources().getColor(R.color.green));
 
         signInActionText.setText(R.string.course_sign_in_already_sign_in);
         signInActionText.setEnabled(false);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import util.TimeFormat;
 
 public class CommentsAreaFragment extends Fragment implements AbsListView.OnItemClickListener {
+
+    private static final String TAG = "CommentsAreaFG";
 
     private CourseModel courseModel;
 
@@ -181,6 +184,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
                 mAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                Log.i(TAG, "net_disconnet");
             }
         }
     }

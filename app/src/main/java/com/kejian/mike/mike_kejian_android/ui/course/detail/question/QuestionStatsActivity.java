@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.util.ColorBarFragment;
-import com.kejian.mike.mike_kejian_android.ui.util.TextExpandListener;
+import com.kejian.mike.mike_kejian_android.ui.widget.ColorBar;
+import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
 import net.course.CourseQuestionNetService;
 
@@ -225,15 +224,10 @@ public class QuestionStatsActivity extends AppCompatActivity {
         TextView joinNumText = (TextView)findViewById(R.id.join_num_text);
         joinNumText.setText(joinNumStr);
 
-        int colorBarWidth = (int)getResources().getDimension(R.dimen.color_bar_width);
-        int colorBarHeight = (int)getResources().getDimension(R.dimen.color_bar_height);
-        int redColor = getResources().getColor(R.color.my_red);
-        int greenColor = getResources().getColor(R.color.green);
         double joinRate = ((double)joinNum) / totalNum;
-        ColorBarFragment joinRateColorBar = ColorBarFragment.getInstance(redColor, greenColor, joinRate,
-                colorBarWidth, colorBarHeight);
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.join_rate_color_bar, joinRateColorBar).commit();
+        ColorBar joinColorRateBar = ColorBar.getDefaultStyleColorBar(this, joinRate);
+        ViewGroup joinRateColorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+        joinRateColorBarContainer.addView(joinColorRateBar);
 
         TextView joinRateText = (TextView)findViewById(R.id.join_rate_text);
         joinRateText.setText("93.2%");
@@ -245,9 +239,9 @@ public class QuestionStatsActivity extends AppCompatActivity {
         correctNumText.setText(correctNumStr);
 
         double correctRate = ((double)correctNum) / joinNum;
-        ColorBarFragment correctRateColorBar = ColorBarFragment.getInstance(redColor, greenColor, correctRate,
-                colorBarWidth, colorBarHeight);
-        fm.beginTransaction().add(R.id.correct_rate_color_bar, correctRateColorBar).commit();
+        ColorBar correctRateColorBar = ColorBar.getDefaultStyleColorBar(this, correctRate);
+        ViewGroup correctRateColorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+        correctRateColorBarContainer.addView(correctRateColorBar);
 
         TextView correctRateText = (TextView)findViewById(R.id.correct_rate_text);
         correctRateText.setText("93.2%");

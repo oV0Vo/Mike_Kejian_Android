@@ -39,28 +39,14 @@ public class CourseModel {
     private String schoolIdMock = "南京大学";
 
     private CourseModel() {
-
-    }
-
-    @NeedAsyncAnnotation
-    public static boolean createInstance() {
-        instance = new CourseModel();
-        boolean initSuccess = instance.init();
-        return initSuccess;
+        myCourseBriefs = new ArrayList<CourseBriefInfo>();
+        allCourseBriefs = new ArrayList<CourseBriefInfo>();
     }
 
     public static CourseModel getInstance() {
+        if(instance == null)
+            instance = new CourseModel();
         return instance;
-    }
-
-    /*
-    以后做课程缓存的时候从文件读取课程数据可以在这个方法里面进行，不过这个类目前之考虑单线程的修改，
-    如果是网络和文件都要修改这个类，CourseListFragment也要修改
-     */
-    public boolean init() {
-        myCourseBriefs = new ArrayList<CourseBriefInfo>();
-        allCourseBriefs = new ArrayList<CourseBriefInfo>();
-        return true;
     }
 
     public String getCurrentCourseId() {
@@ -134,7 +120,7 @@ public class CourseModel {
     @NeedAsyncAnnotation
     public ArrayList<CourseBriefInfo> updateAllCourseBriefs(int time, TimeUnit timeUnit) {
         String lastCourseId = null;
-        if(allCourseBriefs.size() == 0)
+        if(allCourseBriefs.size() != 0)
             lastCourseId = allCourseBriefs.get(allCourseBriefs.size() - 1).getCourseId();
 
         int updateNum = ALL_COURSE_BRIEF_UPDATE_NUM;
@@ -272,13 +258,17 @@ public class CourseModel {
         return null;
     }
 
+    public CourseAnnoucement getLatestAnnouc() {
+        return currentCourse.getLatestAnnouc();
+    }
+
     @NeedAsyncAnnotation
-    public ArrayList<CourseAnnoucement> updateAnnoucs() {
+    public boolean updateAnnoucs() {
         return updateAnnoucs(Integer.MAX_VALUE, TimeUnit.SECONDS);
     }
 
     @NeedAsyncAnnotation
-    public ArrayList<CourseAnnoucement> updateAnnoucs(int time, TimeUnit timeUnit) {
+    public boolean updateAnnoucs(int time, TimeUnit timeUnit) {
         return currentCourse.updateAnnouc(time, timeUnit);
     }
 
@@ -353,8 +343,7 @@ public class CourseModel {
         public ArrayList<BasicQuestion> updateHistoryQuestions(int time, TimeUnit timeUnit) {
             int beginPos = historyQuestions.size();
             int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<BasicQuestion> updateInfos = CourseQuestionNetService.getHistroryQuestions(courseId,
-                    beginPos, updateNum, time, timeUnit);
+            ArrayList<BasicQuestion> updateInfos = CourseQuestionNetService.getHistroryQuestions(courseId);
             if(updateInfos != null) {
                 historyQuestions.addAll(updateInfos);
             }
@@ -364,8 +353,7 @@ public class CourseModel {
         public ArrayList<CurrentQuestion> updateCurrentQuestions(int time, TimeUnit timeUnit) {
             int beginPos = currentQuestions.size();
             int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<CurrentQuestion> updateInfos = CourseQuestionNetService.getCurrentQuestions(courseId,
-                    beginPos, updateNum, time, timeUnit);
+            ArrayList<CurrentQuestion> updateInfos = CourseQuestionNetService.getCurrentQuestions(courseId);
             if(updateInfos != null) {
                 currentQuestions.addAll(updateInfos);
             }
@@ -386,16 +374,23 @@ public class CourseModel {
 
         }
 
-        public ArrayList<CourseAnnoucement> updateAnnouc(int time, TimeUnit timeUnit) {
+        public boolean updateAnnouc(int time, TimeUnit timeUnit) {
             int beginPos = annoucs.size();
             int updateNum = ANNOUC_UPDATE_NUM;
             ArrayList<CourseAnnoucement> updateInfos = CourseAnnoucNetService.getAnnoucs(courseId);
             if(updateInfos != null) {
                 annoucs.addAll(updateInfos);
             }
-            return updateInfos;
+            return updateInfos != null;
         }
 
+        public CourseAnnoucement getLatestAnnouc() {
+            if(annoucs.size() == 0) {
+                return null;
+            } else {
+                return annoucs.get(0);
+            }
+        }
     }
 
 }
