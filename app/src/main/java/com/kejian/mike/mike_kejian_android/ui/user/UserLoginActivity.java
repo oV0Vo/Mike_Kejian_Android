@@ -223,7 +223,7 @@ public class UserLoginActivity extends Activity {
 
             SharedPreferences sharedPreferences=getSharedPreferences("user_map",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("user_name",user.getIdentify());
+            editor.putString("user_name",user.getId());
             editor.putString("user_password",passwordView.getText().toString().trim());
             editor.commit();
 
@@ -245,7 +245,7 @@ public class UserLoginActivity extends Activity {
 
         Toast.makeText(this,"请检查你的网络设置 >_<",Toast.LENGTH_SHORT).show();
 
-        userToken=null;
+       // userToken=null;
 
     }
 
@@ -320,7 +320,7 @@ if(net) {
             System.out.println("从本地登录: 用户名:"+userToken.getName() +" 密码:"+userToken.getPassword());
 
 
-            new LoginTask().equals(1);
+            new LoginTask().execute(1);
 
 
         }

@@ -16,14 +16,16 @@
     <color name="my_red">#e74c3c</color>
     <color name="dark">#d2d2d2</color>
     <color name="dark_deep">#7d7d7d</color>
-    <color name="dark_most_trans">#3fd2d2d2</color>
+    <color name="dark_most_trans">#1fd2d2d2</color>
     <color name="dark_half_trans">#7fd2d2d2</color>
+    <color name="dark_light">#3fd2d2d2</color>
     <color name="trans">#ffffffff</color>
     <color name="orange">#FFE7B469</color>
     <color name="green2">#FF98D089</color>
-    <color name="blue">#FF229ED0</color>
+    <color name="blue">#3e94ff</color>
     <color name="pink">#FFD05C7E</color>
     <color name="yellow">#FFE7DD06</color>
     <color name="purple">#FFA70CD0</color>
     <color name="brown">#FFD0660C</color>
+    <color name="notify_text_color">#3e94ff</color>
 </resources>

@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Reply {
     private String userId;
+    private String courseId;
     private String authorName;
     private String content;
     private String date;
@@ -90,5 +91,13 @@ public class Reply {
 
     public void setCommentNum(int commentNum) {
         this.commentNum = commentNum;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 }

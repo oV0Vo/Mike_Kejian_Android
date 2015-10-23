@@ -2,6 +2,8 @@ package net.course;
 
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -109,10 +111,27 @@ public class CourseInfoNetService {
     public static ArrayList<CourseBriefInfo> getAllCourseBrief(String schoolId, String lastCourseId
             , int num, int time, TimeUnit timeUnit) {
         String url = BASE_URL + "getAllCourses/";
+
         HashMap<String, String> paraMap = new HashMap<String, String>();
-        paraMap.put("schoolId", schoolId);
+        String encodeSchoolId = null;
+        try {
+            encodeSchoolId = URLEncoder.encode(schoolId, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            //never happen
+            e.printStackTrace();
+        }
+        paraMap.put("schoolId", encodeSchoolId);
+
+        if(lastCourseId != null)
+            paraMap.put("lastId", lastCourseId);
+        else
+            lastCourseId = Integer.toString(Integer.MAX_VALUE);
         paraMap.put("lastId", lastCourseId);
+
+        paraMap.put("num", Integer.toString(num));
+
         String response = http.sentGetRequest(url, paraMap);
+
         try {
             JSONArray jCourseBriefs = new JSONArray(response);
             ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
@@ -167,6 +186,9 @@ public class CourseInfoNetService {
                 teacherNames.add(teacherName);
             }
 
+            courseDetail.setTeacherNames(teacherNames);
+            courseDetail.setTeacherIds(teacherIds);
+
             JSONArray jAssistants = jCourseDetail.getJSONArray("assitants");
             ArrayList<String> assistantNames = new ArrayList<String>();
             ArrayList<String> assistantIds = new ArrayList<String>();
@@ -180,8 +202,8 @@ public class CourseInfoNetService {
                 assistantNames.add(assistantName);
             }
 
-            courseDetail.setTeacherNames(teacherNames);
-            courseDetail.setTeacherIds(teacherIds);
+            courseDetail.setAssistantNames(assistantNames);
+            courseDetail.setAssistantIds(assistantIds);
 
             String outline = jCourseDetail.getString("introduction");
             courseDetail.setOutline(outline);

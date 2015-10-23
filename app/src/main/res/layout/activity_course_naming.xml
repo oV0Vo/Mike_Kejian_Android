@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/white"
@@ -21,98 +19,116 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/over_big_padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/dark_thin_bottom_border">
 
             <ImageView
-                android:layout_width="@dimen/over_big_icon_size"
-                android:layout_height="@dimen/over_big_icon_size"
+                android:layout_width="@dimen/sign_in_status_icon_size"
+                android:layout_height="@dimen/sign_in_status_icon_size"
+                android:layout_marginTop="@dimen/sub_big_padding"
+                android:layout_marginBottom="@dimen/sub_big_padding"
                 android:background="@drawable/check_green"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/sub_big_padding"
+                android:layout_marginBottom="@dimen/sub_big_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/small_padding"
-                    android:paddingBottom="@dimen/small_padding"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/course_naming_time_title_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/medium_padding"
-                        android:textSize="@dimen/sub_medium_font"/>
-
-                    <TextView
-                        android:id="@+id/course_naming_time_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_medium_font"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/small_padding"
-                    android:paddingBottom="@dimen/small_padding"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/bell"
-                        android:paddingTop="@dimen/small_padding"
-                        android:paddingBottom="@dimen/small_padding"
-                        android:paddingRight="@dimen/medium_padding"
-                        android:textSize="@dimen/sub_medium_font"
-                        android:text="     "/>
-
-
-                    <TextView
-                        android:id="@+id/left_time_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/small_padding"
-                        android:paddingBottom="@dimen/small_padding"
-                        android:textSize="@dimen/sub_medium_font"/>
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginTop="@dimen/small_padding"
+                        android:layout_marginBottom="@dimen/small_padding"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:id="@+id/naming_action_text"
+                            android:id="@+id/course_naming_time_title_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            style="@style/green_whiteText"
-                            android:textSize="@dimen/over_big_font"/>
+                            android:paddingRight="@dimen/medium_padding"
+                            android:textSize="@dimen/sub_medium_font"/>
+
+                        <TextView
+                            android:id="@+id/course_naming_time_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_medium_font"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_padding"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/bell"
+                            android:paddingTop="@dimen/small_padding"
+                            android:paddingBottom="@dimen/small_padding"
+                            android:paddingRight="@dimen/medium_padding"
+                            android:textSize="@dimen/sub_medium_font"
+                            android:text="     "/>
+
+
+                        <TextView
+                            android:id="@+id/left_time_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/small_padding"
+                            android:paddingBottom="@dimen/small_padding"
+                            android:textSize="@dimen/sub_medium_font"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/naming_action_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                style="@style/green_whiteText"
+                                android:textSize="@dimen/big_font"/>
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/course_naming_result_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/over_medium_padding"
+                android:paddingBottom="@dimen/over_medium_padding"/>
+
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/course_naming_result_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/over_big_padding"
+            android:layout_marginTop="@dimen/big_padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/medium_padding"
             android:paddingBottom="@dimen/medium_padding"
             android:textSize="@dimen/big_font"
             android:textColor="@color/green"
+            android:background="@drawable/dark_thin_bottom_border"
             android:text="@string/course_naming_history_title"/>
 
         <ListView
@@ -120,7 +136,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding">
+            android:paddingBottom="@dimen/medium_padding"
+            android:divider="@null"
+            android:scrollbars="none">
         </ListView>
 
     </LinearLayout>
@@ -129,8 +147,6 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        style="?android:attr/progressBarStyleLarge"/>
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

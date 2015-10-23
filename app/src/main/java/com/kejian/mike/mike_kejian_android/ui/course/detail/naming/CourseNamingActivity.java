@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.util.ColorBarFragment;
+import com.kejian.mike.mike_kejian_android.ui.widget.ColorBar;
 
 import net.course.CourseNamingNetService;
 
@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
 import model.course.CourseModel;
-import util.DateUtil;
 import util.TimeFormat;
 import util.TimerThread;
 
@@ -167,9 +166,10 @@ public class CourseNamingActivity extends AppCompatActivity {
         String statsStr = Integer.toString(signInNum) + "/" + Integer.toString(totalNum);
         statsText.setText(statsStr);
 
-        ColorBarFragment colorBarFg = getColorBarFg(((double) signInNum) / totalNum);
-        getSupportFragmentManager().beginTransaction().add(R.id.percent_image, colorBarFg).
-                commit();
+        ColorBar colorBar = ColorBar.getDefaultStyleColorBar(
+                CourseNamingActivity.this, (((double) signInNum) / totalNum));
+        ViewGroup colorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+        colorBarContainer.addView(colorBar);
 
         TextView percentText = (TextView)resultView.findViewById(R.id.percent_text);
         percentText.setText("93.2%");
@@ -246,9 +246,10 @@ public class CourseNamingActivity extends AppCompatActivity {
             String statsStr = Integer.toString(signInNum) + "/" + Integer.toString(totalNum);
             statsText.setText(statsStr);
 
-            ColorBarFragment colorBarFg = getColorBarFg(((double)signInNum) / totalNum);
-            getSupportFragmentManager().beginTransaction().add(R.id.percent_image, colorBarFg).
-                    commit();
+            ColorBar colorBar = ColorBar.getDefaultStyleColorBar(
+                    CourseNamingActivity.this, ((double) signInNum) / totalNum);
+            ViewGroup colorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+            colorBarContainer.addView(colorBar);
 
             TextView percentText = (TextView)convertView.findViewById(R.id.percent_text);
             percentText.setText("93.2%");
@@ -269,16 +270,6 @@ public class CourseNamingActivity extends AppCompatActivity {
             taskCountDown--;
             updateViewOnGetHistoryNaming(namingRecords);
         }
-    }
-
-    private ColorBarFragment getColorBarFg(double signInPercent) {
-        int red = getResources().getColor(R.color.my_red);
-        int green = getResources().getColor(R.color.green);
-        int width = (int)getResources().getDimension(R.dimen.color_bar_width);
-        int height = (int)getResources().getDimension(R.dimen.color_bar_height);
-        ColorBarFragment colorBarFragment = ColorBarFragment.getInstance(red, green,
-                signInPercent, width, height);
-        return colorBarFragment;
     }
 
     private class GetCurrentNamingTask extends AsyncTask<Void, Void, CourseNamingRecord> {

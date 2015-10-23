@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:id="@+id/name_identify"
             android:layout_toRightOf="@+id/photo"
-           android:layout_centerVertical="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_alignParentRight="true"
             >
@@ -28,6 +28,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:textColor="@color/white"
+                android:id="@+id/drawerName"
 
                 android:text="我叫韩梅梅"
                 android:textSize="23dp"
@@ -39,6 +40,7 @@
                 android:maxWidth="40dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/student"
+                android:id="@+id/drawerIdentify"
                 />
         </LinearLayout>
     </RelativeLayout>

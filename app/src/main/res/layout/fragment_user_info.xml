@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="基本信息"
-            android:textColor="#16a085"
+            android:textColor="@color/notify_text_color"
             android:layout_marginLeft="10dp"
             android:editable="true"
             android:textSize="@dimen/big_font"
@@ -122,17 +122,15 @@
            <TextView
                android:layout_height="40dp"
                android:layout_width="wrap_content"
-
                android:layout_marginLeft="10dp"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
-
                android:text="昵称"/>
            <EditText
                android:layout_height="40dp"
                android:layout_width="70dp"
                android:background="@null"
-
+               android:paddingLeft="10dp"
                android:id="@+id/base_info_nickname"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
@@ -151,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="教务信息"
-            android:textColor="#16a085"
+            android:textColor="@color/notify_text_color"
             android:layout_marginLeft="10dp"
             android:textSize="@dimen/big_font"
             android:gravity="center"
@@ -308,7 +306,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="个性签名"
-            android:textColor="#16a085"
+            android:textColor="@color/notify_text_color"
             android:layout_marginLeft="10dp"
             android:textSize="@dimen/big_font"
             android:gravity="center"
@@ -326,6 +324,7 @@
             android:textSize="@dimen/medium_font"
             />
         <EditText
+            android:layout_marginTop="10dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/base_info_sign"

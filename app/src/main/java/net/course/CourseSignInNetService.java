@@ -1,25 +1,20 @@
 package net.course;
 
-import android.app.backup.BackupAgent;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseSignInRecord;
-import com.kejian.mike.mike_kejian_android.ui.util.GetUserInfoMock;
 
 import net.NetConfig;
 import net.httpRequest.HttpRequest;
-import net.sf.json.JSON;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import model.user.Global;
 import util.DateUtil;
 
 /**

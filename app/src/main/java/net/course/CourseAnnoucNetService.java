@@ -29,7 +29,7 @@ public class CourseAnnoucNetService {
 
     private static final String TAG = "CourseAnnounce";
 
-    private static final String BASE_URL = NetConfig.BASE_URL + "Course" + "/";
+    private static final String BASE_URL = NetConfig.BASE_URL + "CourseAnnounce" + "/";
 
     private static HttpRequest httpRequest = HttpRequest.getInstance();
 

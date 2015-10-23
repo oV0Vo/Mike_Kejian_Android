@@ -1,5 +1,7 @@
 package net.httpRequest;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -35,6 +37,7 @@ public class HttpRequest {
 
     }
 
+
     public synchronized  String sentPostRequest(String url,HashMap<String,String> para){
 
         PrintWriter writer=null;
@@ -46,16 +49,17 @@ public class HttpRequest {
             URL urlObject = new URL(url);
             URLConnection connection=urlObject.openConnection();
             connection.setRequestProperty("accept","*/*");
-            connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            connection.setRequestProperty("connection","Keep-Alive");
-            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
+            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Cookie", (String) Global.getObjectByName("cookie"));
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
             connection.connect();
 
             writer=new PrintWriter(connection.getOutputStream());
-            writer.write(mapToString(para));
+            JSONObject jsonObject=new JSONObject(para);
+            writer.write(para.toString());
             writer.flush();
 
             reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -77,10 +81,8 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
-
-
             System.out.println("Post 请求出错!");
-
+            return null;
         }
         finally {
 
@@ -97,7 +99,81 @@ public class HttpRequest {
                 }
 
             }catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
 
+        return result;
+
+
+
+
+
+
+    }
+    public synchronized  String sentPostJSON(String url,JSONObject para){
+
+        PrintWriter writer=null;
+        BufferedReader reader=null;
+        String result=null;
+
+        try {
+
+            URL urlObject = new URL(url);
+            URLConnection connection=urlObject.openConnection();
+            connection.setRequestProperty("accept","*/*");
+            connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("connection","Keep-Alive");
+            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            connection.connect();
+
+            writer=new PrintWriter(connection.getOutputStream());
+            writer.write(para.toString());
+            writer.flush();
+
+            reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String temp=null;
+            String cookie = connection.getHeaderField("Set-cookie");
+
+            //把cookie添加到全局变量中
+            if(cookie!=null){
+
+                Global.addGlobalItem("cookie",cookie);
+
+            }
+
+            while((temp=reader.readLine())!=null){
+
+                result+=temp;
+
+            }
+
+        }catch (Exception e){
+            System.out.println("Post 请求出错!");
+            return null;
+        }
+        finally {
+
+            try {
+
+                if (reader != null) {
+
+                    reader.close();
+
+                }
+                if (writer != null) {
+
+                    writer.close();
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+                return null;
             }
         }
 
@@ -148,9 +224,8 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
-
             e.printStackTrace();
-
+            return null;
         }
         finally {
 
@@ -162,7 +237,8 @@ public class HttpRequest {
                 }
 
             }catch (Exception e){
-
+                e.printStackTrace();
+                return null;
             }
         }
 
@@ -173,21 +249,21 @@ public class HttpRequest {
 
     private String mapToString(HashMap<String,String> map){
 
-        if(map==null){
+        if(map==null||map.size()==0){
 
             return "";
 
         }
 
         Iterator iterator=map.keySet().iterator();
-        String paraString="";
+        String paraString="?";
 
         while(iterator.hasNext()){
 
             String key=(String)iterator.next();
             String value=(String)map.get(key);
 
-            paraString+=key+"/"+value+"/";
+            paraString+=key+"="+value+"&";
 
         }
 

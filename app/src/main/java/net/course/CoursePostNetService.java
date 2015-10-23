@@ -33,6 +33,8 @@ public class CoursePostNetService {
         String url = BASE_URL + "getCoursePosts/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
+        if(lastPostId == null)
+            lastPostId = Integer.toString(Integer.MAX_VALUE);
         paraMap.put("lastId", lastPostId);
         paraMap.put("num", Integer.toString(num));
 

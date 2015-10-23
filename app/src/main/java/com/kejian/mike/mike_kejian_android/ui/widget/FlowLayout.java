@@ -1,4 +1,4 @@
-package com.kejian.mike.mike_kejian_android.ui.util;
+package com.kejian.mike.mike_kejian_android.ui.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;

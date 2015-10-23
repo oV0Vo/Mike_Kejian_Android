@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.user;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+
+import net.UserNetService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,29 +42,26 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                user u= (user)Global.getObjectByName("user");
-                us=u;
+                user u = (user) Global.getObjectByName("user");
+                us = u;
 
-                if(!u.getIfBind()) {
+                if (u.getSchoolAccount().equals("")) {
 
                     Intent intent = new Intent();
 
                     intent.setClass(getApplicationContext(), UserSchoolAccountActivity.class);
 
                     startActivity(intent);
-                }
+                } else {
 
+                    LayoutInflater layoutInflater = getLayoutInflater();
 
-                else{
-
-                    LayoutInflater layoutInflater=getLayoutInflater();
-
-                    View view=layoutInflater.inflate(R.layout.activity_user_setting_show,null);
+                    View view = layoutInflater.inflate(R.layout.activity_user_setting_show, null);
 
                     setContentView(view);
 
-                    unbind=(Button)findViewById(R.id.unbind_school_account);
-                    infoList=(ListView)findViewById(R.id.school_account_list);
+                    unbind = (Button) findViewById(R.id.unbind_school_account);
+                    infoList = (ListView) findViewById(R.id.school_account_list);
 
                     initInfoViews();
 
@@ -78,8 +78,34 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(),"解除绑定成功 >_<",Toast.LENGTH_SHORT).show();
-                us.setIfBind(true);
+                new AsyncTask<String,Integer,Boolean>(){
+
+                    @Override
+                public Boolean doInBackground(String...Para){
+
+
+
+                     return   UserNetService.setUserInfo(Integer.parseInt(us.getId()), "SCHOOL_NUMBER", "");
+
+
+
+                    }
+                    @Override
+                public void onPostExecute(Boolean result){
+
+                        if(result){
+
+                            Toast.makeText(getApplicationContext(),"解除绑定成功 >_<",Toast.LENGTH_SHORT).show();
+                            us.setIfBind(true);
+                            us.setSchoolAccount("");
+                            us.setSchoolAccount("");
+
+                            finish();
+                        }
+                    }
+                }.execute("");
+
+
             }
         });
 

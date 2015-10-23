@@ -2,7 +2,6 @@ package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,9 +22,8 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
-import com.kejian.mike.mike_kejian_android.ui.util.MyUmengMessageHandler;
+import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengRegistrar;
 
 import java.util.ArrayList;
 
@@ -47,9 +44,12 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private MainPagerAdapter mainPagerAdapter;
 
-    private RadioButton courseButton;
-    private RadioButton messageButton;
-    private RadioButton campusButton;
+    private RadioButton courseTextTab;
+    private RadioButton courseImageTab;
+    private RadioButton messageTextTab;
+    private RadioButton messageImageTab;
+    private RadioButton campusTextTab;
+    private RadioButton campusImageTab;
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
@@ -82,10 +82,9 @@ public class MainActivity extends AppCompatActivity
         initNavigationDrawer();
         initViewPager();
         initRadioButtons();
-        initBLService();
         initPushAgent();
         fgState = FgState.COURSE;
-        courseButton.setChecked(true);
+        courseTextTab.setChecked(true);
     }
 
     private void initNavigationDrawer() {
@@ -97,10 +96,6 @@ public class MainActivity extends AppCompatActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.main_layout));
 
-    }
-
-    private void initBLService() {
-        CourseModel.createInstance();
     }
 
     private void initPushAgent() {
@@ -126,19 +121,22 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int position) {
                 switch(position) {
                     case 0:
-                        courseButton.setChecked(true);
+                        courseTextTab.setChecked(true);
+                        courseImageTab.setChecked(true);
                         fgState = FgState.COURSE;
                         setCourseMenu();
                         setTitle(R.string.course_title);
                         break;
                     case 1:
-                        messageButton.setChecked(true);
+                        messageTextTab.setChecked(true);
+                        messageImageTab.setChecked(true);
                         fgState = FgState.MESSAGE;
                         setMessageMenu();
                         setTitle(R.string.message_title);
                         break;
                     case 2:
-                        campusButton.setChecked(true);
+                        campusTextTab.setChecked(true);
+                        campusImageTab.setChecked(true);
                         fgState = FgState.CAMPUS;
                         setCampusMenu();
                         setTitle(R.string.campus_title);
@@ -157,25 +155,46 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initRadioButtons() {
-        courseButton = (RadioButton)findViewById(R.id.main_course_button);
-        courseButton.setOnClickListener(new View.OnClickListener() {
+        courseTextTab = (RadioButton)findViewById(R.id.course_tab_text);
+        courseTextTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(0);
             }
         });
-        courseButton.setChecked(true);
+        courseImageTab = (RadioButton)findViewById(R.id.course_tab_image);
+        courseImageTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(0);
+            }
+        });
+        courseTextTab.setChecked(true);
 
-        messageButton = (RadioButton)findViewById(R.id.main_message_button);
-        messageButton.setOnClickListener(new View.OnClickListener() {
+        messageTextTab = (RadioButton)findViewById(R.id.message_tab_text);
+        messageTextTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+        messageImageTab = (RadioButton)findViewById(R.id.message_tab_image);
+        messageImageTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
             }
         });
 
-        campusButton = (RadioButton)findViewById(R.id.main_campus_button);
-        campusButton.setOnClickListener(new View.OnClickListener() {
+        campusTextTab = (RadioButton)findViewById(R.id.campus_tab_text);
+        campusTextTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+        campusImageTab = (RadioButton)findViewById(R.id.campus_tab_image);
+        campusImageTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(2);

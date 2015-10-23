@@ -7,6 +7,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -31,7 +33,9 @@ public class DownloadPicture {
         this.context=context;
         this.imageView=imageView;
 
-        getBitMapFromNet(url,path);
+        Bitmap bit=getBitMapFromNet(url,path);
+
+        imageView.setImageBitmap(bit);
 
     }
 
@@ -39,6 +43,31 @@ public class DownloadPicture {
 
 
     public Bitmap getBitMapFromNet(String url,String picturePath){
+
+        picturePath=picturePath.replaceAll("\\/","#");
+        picturePath=picturePath.replaceAll("\\.","#");
+
+        File  file=new File("/sdcard/mike/user/"+picturePath);
+        Bitmap bitmap=null;
+
+        try {
+
+            FileInputStream inputStream = new FileInputStream(file);
+            bitmap=BitmapFactory.decodeStream(inputStream);
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+
+        if(bitmap!=null){
+
+            System.out.println("get bitmap from local");
+
+            return bitmap;
+
+        }
+
 
         MessagePrint.print("Start getBitMapFromNet");
 
@@ -91,7 +120,7 @@ public class DownloadPicture {
 
             MessagePrint.print("save the pic to local ");
 
-          //  PictureToFile.bitmapToFile(bitmap,picPath);
+            PictureToFile.bitmapToFile(bitmap, picPath);
 
 
             UIHandler handler=new UIHandler(context.getMainLooper());

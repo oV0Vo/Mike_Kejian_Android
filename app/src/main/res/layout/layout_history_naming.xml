@@ -3,8 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/small_padding"
-    android:paddingBottom="@dimen/small_padding">
+    android:paddingTop="@dimen/over_medium_padding"
+    android:paddingBottom="@dimen/over_medium_padding"
+    android:background="@drawable/dark_thin_bottom_border">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -24,6 +24,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 
 import net.UserNetService;
 import net.picture.DownloadPicture;
+import net.picture.MessagePrint;
 import net.picture.PictureToFile;
 import net.picture.PictureUploadUtil;
 
@@ -109,17 +110,10 @@ public class UserInfoActivity extends AppCompatActivity{
         baseInfoSign=(EditText)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
 
-        DownloadPicture d=new DownloadPicture(this){
 
-            @Override
-            public void updateView(Bitmap bitmap){
 
-                photo.setImageBitmap(bitmap);
 
-            }
-        };
-
-        d.getBitMapFromNet(user.getIcon(),user.getIdentify());
+        DownloadPicture d=new DownloadPicture(this,photo, user.getIcon(),user.getIcon());
 
         System.out.println("user in userinfo view:"+user);
 
@@ -163,17 +157,22 @@ public class UserInfoActivity extends AppCompatActivity{
 
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println(resultCode);
-        Bitmap cameraBitmap = (Bitmap) data.getExtras().get("data");
+
+
+        Bitmap cameraBitmap = null;
+
+       if(data!=null) {cameraBitmap=(Bitmap) data.getExtras().get("data");}
         super.onActivityResult(requestCode, resultCode, data);
 
 
 
-        Global.addGlobalItem("bitmap",cameraBitmap);
+        if(cameraBitmap!=null) {
+
+            Global.addGlobalItem("bitmap", cameraBitmap);
 
 
-
-        photo.setImageBitmap(cameraBitmap);
+            photo.setImageBitmap(cameraBitmap);
+        }
 
     }
 
@@ -264,14 +263,35 @@ public class UserInfoActivity extends AppCompatActivity{
 
 
             baseInfoGender.setText(gender);
+            baseInfoGender.setEnabled(false);
+
             baseInfoGrade.setText(grade);
+            baseInfoGrade.setEnabled(false);
+
+
             baseInfoIdentify.setText(identify);
+            baseInfoIdentify.setEnabled(false);
+
+
             baseInfoSign.setText(sign);
+            baseInfoSign.setEnabled(false);
+
+
             baseInfoName.setText(name);
+            baseInfoName.setEnabled(false);
+
             baseInfoNickname.setText(user.getNick_name());
+            baseInfoNickname.setEnabled(false);
+
             schoolDepartmentView.setText(user.getDepartmentInfo().getId());
+            schoolDepartmentView.setEnabled(false);
+
             schoolMajorView.setText(user.getDepartmentInfo().getId());
+            schoolMajorView.setEnabled(false);
+
+
             schoolAccountView.setText(user.getSchoolAccount());
+            schoolAccountView.setEnabled(false);
 
 
         }
@@ -319,11 +339,15 @@ public class UserInfoActivity extends AppCompatActivity{
 
         protected String doInBackground(Bitmap...Para){
 
-           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],Para[0].toString())).getLinkurl();
+            System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon()))==null);
 
-            UserNetService.setUserInfo(1,"ICON",path);
+           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],user.getIcon())).getLinkurl();
+
+            UserNetService.setUserInfo(Integer.parseInt(user.getId()),"ICON",path);
 
             user.setIcon(path);
+
+          //  UserNetService.setUserInfo(Integer.parseInt(user.getId()), "SIGN_TEXT", signal);
             return "";
 
         }
@@ -425,18 +449,66 @@ public class UserInfoActivity extends AppCompatActivity{
 
         Toast.makeText(this,"保存成功 >_<",Toast.LENGTH_SHORT).show();
 
+        setUnable();
+
         user.setNickName(nickName);
         user.setSign(signal);
 
     }
     public void setUnable(){
 
+        baseInfoGender.setEnabled(false);
+
+        baseInfoGender.setEnabled(false);
+
+        baseInfoSign.setEnabled(false);
+
+
+        baseInfoName.setEnabled(false);
+
+
+        baseInfoNickname.setEnabled(false);
+
     }
     public void setEditAble(){
 
+
+       // baseInfoGender.setEnabled(true);
+
+       // baseInfoGender.setEnabled(true);
+
+        baseInfoSign.setEnabled(true);
+
+
+       // baseInfoName.setEnabled(true);
+
+
+        baseInfoNickname.setEnabled(true);
+
+
+       // baseInfoGrade.setEnabled(false);
+
+
+
+        //baseInfoIdentify.setEnabled(false);
+
+
+
+
+
+
+        //schoolDepartmentView.setEnabled(false);
+
+
+        //schoolMajorView.setEnabled(false);
+
+
+
+      //  schoolAccountView.setEnabled(false);
+
 //        private TextView baseInfoName;
-        baseInfoGender.setEnabled(true);
-        baseInfoGender.setBackgroundColor(Color.GRAY);
+
+       // baseInfoGender.setBackgroundColor(Color.GRAY);
 
 //        private TextView baseInfoGrade;
 //        private TextView baseInfoIdentify;

@@ -161,6 +161,7 @@ public class UserRegisterActivity extends AppCompatActivity{
         userToken.setName(name);
         userToken.setPassword(password);
         System.out.println("注册名字：" + userToken.getName());
+        System.out.println("注册电话："+userToken.getPhoneNumber());
 
         checkCode("86", phoneNumberView.getText().toString().trim(), codeInputView.getText().toString().trim());
 
@@ -185,7 +186,7 @@ public class UserRegisterActivity extends AppCompatActivity{
 
         if(userBLResult.equals(UserBLResult.REGISTER_SUCCEED)){
 
-            Toast.makeText(context,"注册成功 >_<",Toast.LENGTH_SHORT);
+            Toast.makeText(context,"注册成功 >_<",Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent();
 

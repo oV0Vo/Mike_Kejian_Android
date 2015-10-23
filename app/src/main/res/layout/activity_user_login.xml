@@ -53,10 +53,10 @@
 
                 android:maxHeight="40dp"
                 android:maxWidth="40dp"
-                android:scaleType="center"
+
                 android:adjustViewBounds="true"
                 android:background="@drawable/login_user"
-                android:src="@drawable/user_gray"
+                android:src="@drawable/user"
                 android:layout_gravity="center_vertical" />
             <EditText
             android:layout_width="fill_parent"
@@ -81,9 +81,9 @@
                 android:layout_height="40dp"
                 android:maxHeight="40dp"
                 android:maxWidth="40dp"
-                android:scaleType="center"
+
                 android:adjustViewBounds="true"
-                android:src="@drawable/pwd_gray"
+                android:src="@drawable/pwd"
                 android:background="@drawable/login_user"
                 android:layout_gravity="center_vertical" />
 
@@ -130,7 +130,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#16a085"
+            android:textColor="@color/notify_text_color"
             android:text="|"
             android:clickable="false"
             />

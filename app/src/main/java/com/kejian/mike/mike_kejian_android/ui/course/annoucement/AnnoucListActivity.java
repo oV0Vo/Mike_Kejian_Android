@@ -28,7 +28,6 @@ public class AnnoucListActivity extends AppCompatActivity {
     private CourseModel courseModel;
 
     private ViewGroup mainLayout;
-    private ProgressBar progressBar;
 
     private ListView annoucListView;
     private AnnoucBriefAdapter annoucListAdapter;
@@ -41,9 +40,6 @@ public class AnnoucListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mainLayout = (ViewGroup)findViewById(R.id.main_layout);
-        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-        mainLayout.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
 
         annoucListView = (ListView)findViewById(R.id.history_annouc_list_view);
         ArrayList<CourseAnnoucement> historyAnnoucs = courseModel.getAnnoucs();
@@ -51,17 +47,10 @@ public class AnnoucListActivity extends AppCompatActivity {
                 historyAnnoucs);
         annoucListView.setAdapter(annoucListAdapter);
 
-        new GetAnnoucTask().execute();
-    }
-
-    private void updateViewOnGetNewAnnoucs(ArrayList<CourseAnnoucement> newAnnoucs) {
-        Log.e("AnnoucActivity", "updateViewOnGetNewAnnoucs");
-        progressBar.setVisibility(View.GONE);
-        mainLayout.setVisibility(View.VISIBLE);
-        annoucListAdapter.notifyDataSetChanged();
         CourseAnnoucement topAnnouc = courseModel.getOnTopAnnouc();
         if(topAnnouc != null)
             setOnTopAnnoucView(topAnnouc);
+
     }
 
     private void setOnTopAnnoucView(CourseAnnoucement topAnnouc) {
@@ -115,25 +104,6 @@ public class AnnoucListActivity extends AppCompatActivity {
             ImageView image = new ImageView(AnnoucListActivity.this);
             //image.setBackgroundResource(R.drawable.);
             return image;
-        }
-    }
-
-    private class GetAnnoucTask extends AsyncTask<Void, Void, ArrayList<CourseAnnoucement>> {
-
-        @Override
-        protected ArrayList<CourseAnnoucement> doInBackground(Void... params) {
-            CourseModel courseModel = CourseModel.getInstance();
-            return courseModel.updateAnnoucs();
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<CourseAnnoucement> newAnnoucs) {
-            if(newAnnoucs != null) {
-                updateViewOnGetNewAnnoucs(newAnnoucs);
-            } else {
-                Toast.makeText(AnnoucListActivity.this, R.string.net_disconnet, Toast.LENGTH_LONG)
-                        .show();
-            }
         }
     }
 }

@@ -38,8 +38,11 @@
         android:id="@+id/question_choice_choice_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding"
         android:inputType="textMultiLine"
         android:textSize="@dimen/sub_medium_font"
         android:hint="@string/question_publish_choice_hint"
+        android:background="@drawable/dark_thin_bottom_border"
         android:textColorHint="@color/dark"/>
 </LinearLayout>

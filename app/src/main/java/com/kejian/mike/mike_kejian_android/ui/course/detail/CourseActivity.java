@@ -39,10 +39,11 @@ public class CourseActivity extends AppCompatActivity implements
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
         CommentsAreaFragment.OnPostSelectedListener,MenuItem.OnMenuItemClickListener {
 
+    private static final String TAG = "CourseActivity";
+
     private CourseModel courseModel;
 
     private ProgressBar progressBar;
-    private TextView errorMessageText;
 
     private LinearLayout mainLayout;
 
@@ -67,7 +68,6 @@ public class CourseActivity extends AppCompatActivity implements
         courseModel = CourseModel.getInstance();
         mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
-        errorMessageText = (TextView)findViewById(R.id.error_message_text);
 
         this.setTitle(R.string.course_title);
 
@@ -116,6 +116,8 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course, menu);
+        MenuItem userMenu = menu.add("");
+
         initDownInfoMenuItem(menu);
         initSearchMenuItem(menu);
         addItem = menu.findItem(R.id.course_add_menu_item);
@@ -356,7 +358,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     private void updateViewOnTaskFail() {
         progressBar.setVisibility(View.GONE);
-        errorMessageText.setVisibility(View.VISIBLE);
+        Log.e(TAG, "updateViewOnTaskFail");
     }
 
     private void updateViewIfAllTaskFinish() {

@@ -338,7 +338,7 @@ public class UserNetService {
 //     */
 //    public function resetUserInfo($userId,$userInfoType,$newUserInfo){
 
-    public static void setUserInfo(int userId,String type,String content){
+    public static boolean setUserInfo(int userId,String type,String content){
 
         HashMap<String,String> map=new HashMap<>();
 
@@ -359,9 +359,9 @@ public class UserNetService {
         }catch (Exception e){
             e.printStackTrace();
         }
-        map.put("newUserInfo",content);
+        map.put("newUserInfo", content);
 
-        httpRequest.sentGetRequest(baseUrl+"resetUserInfo/",map);
+        return Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl+"resetUserInfo/",map));
 
     }
     public static ArrayList<PostBrief> getAttentionPost(String userId){
@@ -565,11 +565,25 @@ public class UserNetService {
         userInfo.put("phoneNumber", userToken.getName());
         userInfo.put("password",userToken.getPassword());
 
-        int id=userDataBase.addNewUser(userToken.getName(),userInfo);
+        int id=userDataBase.addNewUser(userToken.getName(), userInfo);
 
         return UserBLResult.REGISTER_SUCCEED;
 
 
+    }
+
+    public static boolean resetPassword(String phoneNumber,String newPassword){
+
+        HashMap<String,String> para=new HashMap<>();
+
+        para.put("phoneNumber",phoneNumber);
+        para.put("newPassword", newPassword);
+
+        String result=httpRequest.sentGetRequest(baseUrl+"resetPassword/",para);
+
+
+
+        return Boolean.parseBoolean(result);
     }
 
 

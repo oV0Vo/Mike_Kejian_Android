@@ -9,6 +9,7 @@ import java.util.Date;
 public class Post {
     private String postId;
     private String userId;
+    private String courseId;
     private String authorName;
     private String title;
     private String content;
@@ -108,5 +109,13 @@ public class Post {
 
     public void setReplyNum(int replyNum) {
         this.replyNum = replyNum;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 }

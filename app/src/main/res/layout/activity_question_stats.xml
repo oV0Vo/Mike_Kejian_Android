@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content">
 
                     <FrameLayout
-                        android:id="@+id/join_rate_color_bar"
+                        android:id="@+id/color_bar_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/medium_padding"/>
@@ -205,12 +205,12 @@
                 android:paddingTop="@dimen/over_medium_padding"
                 android:text="@string/question_answer_stats_distribute_title"/>
 
-            <com.kejian.mike.mike_kejian_android.ui.util.FlowLayout
+            <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
                 android:id="@+id/distribute_container"
                 android:layout_marginTop="@dimen/over_medium_padding"
                 android:paddingLeft="@dimen/sub_medium_icon_width"
                 android:paddingTop="@dimen/sub_medium_icon_width">
-            </com.kejian.mike.mike_kejian_android.ui.util.FlowLayout>
+            </com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout>
 
         </GridLayout>
 

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
@@ -66,20 +68,26 @@ public class DrawerViewAdapter extends BaseAdapter{
 
 
                 case 0:v=layoutInflater.inflate(R.layout.layout_user_photo,viewGroup,false);
+                    user u=(user)Global.getObjectByName("user");
 
                     final CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.photo);
-                    DownloadPicture d=new DownloadPicture(context){
 
-                        @Override
-                        public void updateView(Bitmap bitmap){
+                    DownloadPicture d=new DownloadPicture(context,circleImageView,u.getIcon(),u.getIcon());
 
-                            circleImageView.setImageBitmap(bitmap);
 
-                        }
+                    TextView name=(TextView)v.findViewById(R.id.drawerName);
+                    ImageView identify=(ImageView)v.findViewById(R.id.drawerIdentify);
 
-                    };
+                    if(u.getIdentify().equals("学生")){
+                        identify.setImageResource(R.drawable.student);
+                    }
+                    else{
+                        identify.setImageResource(R.drawable.teacher);
+                    }
 
-                    d.getBitMapFromNet(((user)Global.getObjectByName("user")).getIcon(),"hello");
+                    name.setText(u.getNick_name());
+
+
                     break;
                 case 1:v=layoutInflater.inflate(R.layout.layout_user_info,viewGroup,false);break;
                 case 2:v=layoutInflater.inflate(R.layout.layout_user_setting,viewGroup,false);break;

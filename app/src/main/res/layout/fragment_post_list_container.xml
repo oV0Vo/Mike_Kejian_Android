@@ -15,7 +15,47 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"/>
+            android:layout_weight="0"
+            android:visibility="gone"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="@dimen/negative_one_medium_font"
+                android:paddingRight="@dimen/negative_one_medium_font"
+                android:paddingBottom="@dimen/sub_big_padding"
+                android:paddingTop="@dimen/sub_big_padding"
+                android:button="@null"
+                android:background="@drawable/green_bottom_border_selector"
+                android:textSize="@dimen/medium_font"
+                android:textColor="@color/green_on_select"
+                android:text="@string/campus_main_latest"
+                android:id="@+id/campus_main_latest_button"/>
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="@dimen/negative_one_medium_font"
+                android:paddingRight="@dimen/negative_one_medium_font"
+                android:paddingBottom="@dimen/sub_big_padding"
+                android:paddingTop="@dimen/sub_big_padding"
+                android:button="@null"
+                android:background="@drawable/green_bottom_border_selector"
+                android:textSize="@dimen/medium_font"
+                android:textColor="@color/green_on_select"
+                android:text="@string/campus_main_hottest"
+                android:id="@+id/campus_main_hottest_button"/>
+
+
+        </RadioGroup>
 
         <FrameLayout
             android:id="@android:id/tabcontent"
@@ -27,7 +67,7 @@
             android:id="@+id/realtabcontent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1.0"/>
 
     </LinearLayout>
 </android.support.v4.app.FragmentTabHost>
