@@ -24,7 +24,9 @@
                 android:src="@drawable/xiaoxin"
                 app:border_width="@dimen/zero"
                 app:border_color="@color/white"
-                android:id="@+id/post_user_icon"/>
+                android:id="@+id/post_user_icon"
+                android:focusable="false"
+                android:clickable="true"/>
         </RelativeLayout>
 
         <LinearLayout

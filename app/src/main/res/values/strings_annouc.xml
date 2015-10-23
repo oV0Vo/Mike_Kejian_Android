@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="already_put_on_top">已置顶</string>
     <string name="put_on_top_success">公告置顶成功!</string>
 </resources>

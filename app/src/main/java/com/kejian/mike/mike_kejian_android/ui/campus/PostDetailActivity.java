@@ -10,10 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
@@ -44,6 +49,10 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
     private ReplyAdapter adapter;
     private View header;
     private boolean isFollowed;
+    private boolean isPraised;
+    private Button send_button;
+    private ImageButton praise_button;
+    private EditText reply_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,9 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         this.mainLayout = (LinearLayout)findViewById(R.id.reply);
         this.mainLayout.setVisibility(View.GONE);
         this.progressBar = (ProgressBar)findViewById(R.id.post_detail_progress_bar);
+        this.send_button = (Button)findViewById(R.id.post_detail_send_button);
+        this.praise_button = (ImageButton) findViewById(R.id.post_detail_praise_button);
+        this.reply_content = (EditText) findViewById((R.id.reply_content));
         iniData();
     }
 
@@ -75,8 +87,10 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         new AsyncTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String... params) {
+                CampusBLService.viewThisPost(postId);
                 String postId = params[0];
                 isFollowed = CampusBLService.isFollowed(postId);
+                isPraised = CampusBLService.isPraised(postId);
                 post = CampusBLService.getPostDetail(postId);
                 replies = post.getReplyList();
                 return null;
@@ -101,6 +115,44 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        iniButtons();
+
+    }
+    private void iniButtons() {
+        this.send_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String replyContent = reply_content.getText().toString();
+                reply_content.setText("");
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(reply_content.getWindowToken(), 0);
+
+
+                new AsyncTask<Void, Void, String>() {
+
+                    @Override
+                    protected String doInBackground(Void... params) {
+                        String result = CampusBLService.reply(post.getCourseId(), post.getPostId(), replyContent);
+                        return result;
+                    }
+
+                    @Override
+                    protected void onPostExecute(String result) {
+                        if(result.equals(""))
+                            Toast.makeText(PostDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(PostDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
+                            replies.add(CampusBLService.publishedReply);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }.execute();
+
+            }
+        });
+
+
+
     }
 
     private void refreshHeader() {
@@ -144,6 +196,28 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
                 }
             });
         }
+
+        if(isPraised) {
+            praise_button.setBackgroundResource(R.drawable.up_green);
+            praise_button.setEnabled(false);
+        } else {
+            praise_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageButton ib = (ImageButton) v;
+                    ib.setBackgroundResource(R.drawable.up_green);
+                    ib.setEnabled(false);
+                    new AsyncTask<Void, Void, Void>() {
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            CampusBLService.praiseThisPost(postId);
+                            return null;
+                        }
+                    }.execute();
+                }
+            });
+        }
     }
 
 
@@ -154,7 +228,8 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
             protected Void doInBackground(String... params) {
                 String postId = params[0];
                 post = CampusBLService.getPostDetail(postId);
-                replies = post.getReplyList();
+                replies.clear();
+                replies.addAll(post.getReplyList());
                 return null;
             }
 

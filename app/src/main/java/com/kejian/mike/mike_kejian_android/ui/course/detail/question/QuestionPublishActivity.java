@@ -35,7 +35,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
     private EditText timeLimitView;
     private RadioGroup questionTypeChoices;
-    private EditText questionContent;
+    private EditText contentText;
 
     private ViewGroup choiceContainer;
     private ViewGroup choiceContentContainer;
@@ -68,7 +68,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
         timeLimitView = (EditText)findViewById(R.id.question_publish_time_limit_text);
         initQuestionTypeChoices();
-        questionContent= (EditText)findViewById(R.id.question_publish_content_text);
+        contentText= (EditText)findViewById(R.id.question_publish_content_text);
         initChoiceContainer();
         initCommitButton();
     }
@@ -284,12 +284,16 @@ public class QuestionPublishActivity extends AppCompatActivity {
             String courseId = courseModel.getCurrentCourseId();
             question.setCourseId(courseId);
 
+            String content = contentText.getText().toString();
+            question.setContent(content);
+
             if(dealSuccess) {
                 CurrentQuestion currentQuestion = new CurrentQuestion(question, timeLimit);
                 new SubmitQuestionTask().execute(currentQuestion);
                 Toast.makeText(QuestionPublishActivity.this, R.string.on_process,
                         Toast.LENGTH_LONG).show();
                 commitButton.setEnabled(false);
+                commitButton.setBackgroundColor(getResources().getColor(R.color.dark));
                 return;
             } else {
                 return;
@@ -378,10 +382,17 @@ public class QuestionPublishActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Boolean message) {
-            Toast.makeText(QuestionPublishActivity.this, R.string.question_publish_success_message,
-                    Toast.LENGTH_LONG).show();
-            commitButton.setEnabled(true);
+        protected void onPostExecute(Boolean success) {
+            if(success) {
+                Toast.makeText(QuestionPublishActivity.this, R.string.question_publish_success_message,
+                        Toast.LENGTH_LONG).show();
+                QuestionPublishActivity.this.finish();
+            } else {
+                Toast.makeText(QuestionPublishActivity.this, R.string.net_disconnet,
+                        Toast.LENGTH_LONG).show();
+                commitButton.setEnabled(true);
+                commitButton.setBackgroundColor(getResources().getColor(R.color.green));
+            }
         }
     }
 }

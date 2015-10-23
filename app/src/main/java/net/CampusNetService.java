@@ -30,6 +30,7 @@ public class CampusNetService {
                 JSONObject postJson = postsJsonArray.getJSONObject(i);
                 tempPost.setPostId(postJson.getString("id"));
                 tempPost.setUserId(postJson.getString("user_id"));
+                tempPost.setCourseId(postJson.getString("course_id"));
                 tempPost.setTitle(postJson.getString("title"));
                 tempPost.setContent(postJson.getString("content"));
                 tempPost.setDate(postJson.getString("date"));
@@ -69,6 +70,8 @@ public class CampusNetService {
         try {
             JSONObject postJson = new JSONObject(json);
             tempPost.setPostId(postJson.getString("id"));
+            tempPost.setCourseId(postJson.getString("course_id"));
+            tempPost.setAuthorName(postJson.getString("authorName"));
             tempPost.setUserId(postJson.getString("user_id"));
             tempPost.setTitle(postJson.getString("title"));
             tempPost.setContent(postJson.getString("content"));
@@ -103,7 +106,7 @@ public class CampusNetService {
                 tempReply.setDate(reply.getString("timestamp"));
                 tempReply.setAuthorName(reply.getString("name"));
                 tempReply.setViewNum(reply.getInt("watch_count"));
-                tempReply.setCommentNum(reply.getInt("reply_to"));
+                tempReply.setCommentNum(reply.getInt("reply_num"));
                 replies.add(tempReply);
             }
         } catch(JSONException e) {
@@ -141,11 +144,59 @@ public class CampusNetService {
 
     }
 
+    public static String reply(Reply reply) {
+        HashMap<String, String> params = new HashMap<>();
+        JSONObject replyJson = new JSONObject();
+        try {
+            replyJson.put("postId", "0");
+            replyJson.put("authorName", reply.getAuthorName());
+            replyJson.put("title", "");
+            replyJson.put("content", reply.getContent());
+            replyJson.put("date", reply.getDate());
+            replyJson.put("reply_to", reply.getReplyTo());
+            replyJson.put("praise", reply.getPraise());
+            replyJson.put("viewNum", reply.getViewNum());
+            params.put("userId", reply.getUserId());
+            params.put("courseId", reply.getCourseId());
+            params.put("postInfo", URLEncoder.encode(replyJson.toString(), "utf8"));
+
+        } catch(JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        String result = httpRequest.sentGetRequest(baseUrl + "postNewQuestion/", params);
+        System.out.println(replyJson.toString());
+        System.out.println("result: " + result);
+
+        return result;
+    }
+
     public static boolean isPraised(String userId, String postId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("userId", userId);
         params.put("postId", postId);
-        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "isPraised", params));
+        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "isPraised/", params));
+        return result;
+    }
+
+    public static boolean praiseThisPost(String userId, String postId) {
+        HashMap<String,String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("postId", postId);
+        params.put("postInfoType", "PRAISE");
+        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "updatePostInfo/", params));
+        return result;
+    }
+
+    public static boolean viewThisPost(String userId, String postId) {
+        HashMap<String,String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("postId", postId);
+        params.put("postInfoType", "VIEWNUM");
+        boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "updatePostInfo/", params));
         return result;
     }
 

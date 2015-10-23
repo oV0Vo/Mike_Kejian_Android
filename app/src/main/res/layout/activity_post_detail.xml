@@ -30,8 +30,8 @@
 
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/medium_padding"
@@ -45,10 +45,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/medium_padding"
             android:layout_marginRight="@dimen/medium_padding"
+            android:layout_margin="@dimen/medium_padding"
             android:layout_toLeftOf="@id/post_detail_send_button"
             android:layout_toRightOf="@id/post_detail_praise_button"
             android:background="@drawable/custom_edit_text"
-            android:textSize="@dimen/medium_font"/>
+            android:textSize="@dimen/medium_font"
+            android:id="@+id/reply_content"/>
 
     </RelativeLayout>
 

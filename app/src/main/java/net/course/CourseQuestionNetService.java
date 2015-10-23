@@ -5,11 +5,15 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CommitAnswerResultMessage;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.MultiChoiceQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionShowAnswer;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionStats;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionType;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoiceQuestion;
 
 import net.NetConfig;
 import net.httpRequest.HttpRequest;
@@ -89,20 +93,63 @@ public class CourseQuestionNetService {
         String url = BASE_URL + "signQuestion/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", question.getQuestion().getCourseId());
+        paraMap.put("surviveTime", Long.toString(question.getLeftMills()));
+        paraMap.put("content", question.getQuestion().getContent());
+        switch(question.getQuestion().getQuestionType()){
+            case 单选题:
+                url = BASE_URL + "signChoiceQuestion/";
+                setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion)question.getQuestion());
+                break;
+            case 多选题:
+                url = BASE_URL + "signChoiceQuestion/";
+                setMultiChoiceQuestionPara(paraMap, (MultiChoiceQuestion)question.getQuestion());
+                break;
+            case 其他:
+                setApplicationQuestionPara(paraMap, (ApplicationQuestion)question.getQuestion());
+                break;
+            default:
+                Log.e(TAG, "switch error" + question.getQuestion().getQuestionType().toString());
+                break;
+        }
+
         String response = httpRequest.sentPostRequest(url, paraMap);
 
-        try {
-            JSONObject jResult = new JSONObject(response);
-            int resultState = jResult.getInt("result");
-            boolean success = resultState != 0;
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e(TAG, "addNewQuestion json error");
+        if(response == null)
             return false;
-        }
+        else if(response.equals("false"))
+            return false;
+        else if(response.equals("true"))
+            return true;
+        else
+            return false;
     }
- 
+
+    private static void setSingleChoiceQuestionPara(HashMap<String, String> paraMap,
+                                                    SingleChoiceQuestion question) {
+        ArrayList<String> choices = question.getChoiceContents();
+        String jChoices = new JSONArray(choices).toString();
+        paraMap.put("options", jChoices);
+        int correctChoice = question.getCorrectChoice();
+        paraMap.put("answers", Integer.toString(correctChoice));
+        paraMap.put("type", "2");
+    }
+
+    private static void setMultiChoiceQuestionPara(HashMap<String, String> paraMap,
+                                                   MultiChoiceQuestion question) {
+        ArrayList<String> choices = question.getChoiceContents();
+        String jChoices = new JSONArray(choices).toString();
+        paraMap.put("options", jChoices);
+        ArrayList<Integer> correctChoices = question.getCorrectChoices();
+        String jAnswers = new JSONArray(correctChoices).toString();
+        paraMap.put("answers", jAnswers);
+        paraMap.put("type", "3");
+    }
+
+    private static void setApplicationQuestionPara(HashMap<String, String> paraMap,
+                                                   ApplicationQuestion question) {
+        paraMap.put("type", "1");
+    }
+
     public static ArrayList<QuestionShowAnswer> getQuestionAnswers(String questionId) {
         String url = BASE_URL + "getQuestionAnswers/";
         HashMap<String, String> paraMap = new HashMap<String, String>();

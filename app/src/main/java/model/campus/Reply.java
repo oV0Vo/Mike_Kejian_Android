@@ -10,6 +10,7 @@ public class Reply {
     private String userId;
     private String courseId;
     private String authorName;
+    private String replyTo;
     private String content;
     private String date;
     private int praise;
@@ -99,5 +100,13 @@ public class Reply {
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    public String getReplyTo() {
+        return replyTo;
+    }
+
+    public void setReplyTo(String replyTo) {
+        this.replyTo = replyTo;
     }
 }
