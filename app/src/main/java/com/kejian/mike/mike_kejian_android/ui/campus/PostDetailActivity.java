@@ -119,6 +119,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         TextView detail_reply_num = (TextView) header.findViewById(R.id.detail_reply_num);
         detail_reply_num.setText("共(" + post.getReplyNum() + ")条");
         TextView detail_follow_button = (TextView) header.findViewById(R.id.detail_follow_button);
+
         if(isFollowed) {
             detail_follow_button.setText(" 已关注");
             detail_follow_button.setEnabled(false);
