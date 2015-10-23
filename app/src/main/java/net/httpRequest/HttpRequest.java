@@ -80,6 +80,7 @@ public class HttpRequest {
             }
 
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("Post 请求出错!");
             return null;
         }
