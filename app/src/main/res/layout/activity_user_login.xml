@@ -130,7 +130,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#16a085"
+            android:textColor="@color/notify_text_color"
             android:text="|"
             android:clickable="false"
             />

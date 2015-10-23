@@ -42,7 +42,6 @@ public class UserAttentionActivity extends AppCompatActivity implements View.OnC
     public Context context;
     private UserToken userToken;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

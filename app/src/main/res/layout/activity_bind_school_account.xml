@@ -20,9 +20,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="10dp"
+
+            android:layout_marginTop="20dp"
             >
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -30,7 +29,7 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:text="  "
+                android:paddingLeft="10dp"
                 android:editable="false"
                 android:background="@drawable/register_country_input"
                 />
@@ -43,8 +42,6 @@
                 android:textColor="@color/black"
                 android:background="@drawable/bind_city_show"
                 />
-
-
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
@@ -64,8 +61,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+
 
             >
             <RelativeLayout
@@ -74,7 +70,7 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:text="  "
+                android:paddingLeft="10dp"
                 android:editable="false"
 
                 android:background="@drawable/bind_school_choose"
@@ -83,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:text="学校"
+                android:paddingLeft="10dp"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:background="@drawable/bind_school_show"
@@ -106,8 +103,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+
 
             >
             <TextView
@@ -115,6 +111,7 @@
                 android:layout_height="60dp"
                 android:text="教务网帐号"
                 android:textColor="@color/black"
+                android:paddingLeft="10dp"
                 android:gravity="center"
                 android:background="@drawable/bind_schoolaccount_show"
                 />
@@ -122,22 +119,24 @@
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
 
+                android:hint="请输入账号"
                 android:background="@drawable/bind_schoolaccount_input"
 
                 android:id="@+id/school_account_view"
+                android:paddingLeft="20dp"
 
                 /></LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+
 
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:text="教务网密码"
+                android:paddingLeft="10dp"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:background="@drawable/bind_schoolaccount_psd"
@@ -145,6 +144,8 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
+                android:paddingLeft="20dp"
+                android:hint="请输入密码"
 
                 android:background="@drawable/bind_schoolaccount_psd_input"
                 android:inputType="textPassword"
