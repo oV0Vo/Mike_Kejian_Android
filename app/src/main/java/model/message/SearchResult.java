@@ -31,10 +31,31 @@ public class SearchResult {
     private String localIconPath;
 
     public void setStringBuilder(String key){
-        this.builder = new SpannableStringBuilder(this.title);
+        int start = this.title.toLowerCase().indexOf(key.toLowerCase());
         ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.RED);
-        int start = this.title.indexOf(key);
-        this.builder.setSpan(redSpan,start,start+key.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int len = this.title.length();
+        if(key.length() >= 16){
+            this.title = this.title.substring(0,15)+"...";
+            this.builder = new SpannableStringBuilder(this.title);
+            this.builder.setSpan(redSpan,0,15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }else{
+            if(len >= 16){
+                if(start+key.length() > 15){
+                    //居中显示
+                    int offset = (16-key.length())/2;
+                    this.title = ".."+this.title.substring(start-offset,start+key.length()+offset);
+                    start = 2+offset;
+                    if(start+key.length()+offset < len-1){
+                        this.title = this.title+"..";
+                    }
+                }else{
+                    this.title = this.title.substring(0,15)+"...";
+                }
+            }
+            this.builder = new SpannableStringBuilder(this.title);
+            this.builder.setSpan(redSpan,start,start+key.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        }
     }
     public SpannableStringBuilder getBuilder(){
         return this.builder;

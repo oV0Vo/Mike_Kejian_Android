@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -44,6 +45,7 @@ public class SearchViewDemo extends AppCompatActivity {
     private ArrayAdapter<SearchResult> postAdapter;
     private TextView courseText;
     private TextView postText;
+    private SearchTask searchTask = null;
 //    private String[] names;
 //    private ArrayList<String> alist;
     @Override
@@ -205,30 +207,53 @@ public class SearchViewDemo extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
 // TODO Auto-generated method stub
 // Toast.makeText(MainActivity.this, "1111", Toast.LENGTH_LONG).show();
+                System.out.println("---------------search--------------------");
                 SearchBLService.courses.clear();
                 SearchBLService.posts.clear();
-                if(newText.length()!=0){
-//                    lv1.setFilterText(newText);
-                    SearchBLService.search(newText);
-                }else{
-//                    lv1.clearTextFilter();
-                }
-                if(SearchBLService.courses.size() > 0){
-                    courseText.setVisibility(View.VISIBLE);
-                }else{
-                    courseText.setVisibility(View.GONE);
-                }
-                if(SearchBLService.posts.size()>0){
-                    postText.setVisibility(View.VISIBLE);
-                }else{
-                    postText.setVisibility(View.GONE);
-                }
+                courseText.setVisibility(View.GONE);
+                postText.setVisibility(View.GONE);
                 courseAdapter.notifyDataSetChanged();
                 postAdapter.notifyDataSetChanged();
+                if(newText.length()!=0){
+//                    lv1.setFilterText(newText);
+//                    SearchBLService.search(newText);
+                    if(searchTask != null){
+                        searchTask.cancel(true);
+                    }
+                    searchTask = new SearchTask();
+                    searchTask.execute(newText);
+                }
                 return false;
             }
         });
         return true;
+    }
+    private class SearchTask extends AsyncTask<String, Integer, String> {
+        @Override
+        public String doInBackground(String... params) {
+            String key = params[0];
+            SearchBLService.search(key);
+            return "";
+        }
+
+        @Override
+        public void onPostExecute(String result) {
+            if(isCancelled()){
+                return;
+            }
+            if(SearchBLService.courses.size() > 0){
+                courseText.setVisibility(View.VISIBLE);
+            }else{
+                courseText.setVisibility(View.GONE);
+            }
+            if(SearchBLService.posts.size()>0){
+                postText.setVisibility(View.VISIBLE);
+            }else{
+                postText.setVisibility(View.GONE);
+            }
+            courseAdapter.notifyDataSetChanged();
+            postAdapter.notifyDataSetChanged();
+        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
