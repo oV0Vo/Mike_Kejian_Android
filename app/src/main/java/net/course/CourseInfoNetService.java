@@ -186,6 +186,9 @@ public class CourseInfoNetService {
                 teacherNames.add(teacherName);
             }
 
+            courseDetail.setTeacherNames(teacherNames);
+            courseDetail.setTeacherIds(teacherIds);
+
             JSONArray jAssistants = jCourseDetail.getJSONArray("assitants");
             ArrayList<String> assistantNames = new ArrayList<String>();
             ArrayList<String> assistantIds = new ArrayList<String>();
@@ -199,8 +202,8 @@ public class CourseInfoNetService {
                 assistantNames.add(assistantName);
             }
 
-            courseDetail.setTeacherNames(teacherNames);
-            courseDetail.setTeacherIds(teacherIds);
+            courseDetail.setAssistantNames(assistantNames);
+            courseDetail.setAssistantIds(assistantIds);
 
             String outline = jCourseDetail.getString("introduction");
             courseDetail.setOutline(outline);

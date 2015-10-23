@@ -30,6 +30,8 @@ public class CourseQuestionNetService {
     private static HttpRequest httpRequest = HttpRequest.getInstance();
 
     public static ArrayList<BasicQuestion> getHistroryQuestions(String courseId) {
+        return new ArrayList<BasicQuestion>();
+    /*
         String url = BASE_URL + "getHistoryQuestions/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
@@ -49,10 +51,12 @@ public class CourseQuestionNetService {
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
-        }
+        }*/
     }
 
     public static ArrayList<CurrentQuestion> getCurrentQuestions(String courseId) {
+        return new ArrayList<CurrentQuestion>();
+        /*
         String url = BASE_URL + "getCurrentQuestions/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
@@ -70,7 +74,7 @@ public class CourseQuestionNetService {
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
-        }
+        }*/
     }
 
     private static BasicQuestion parseHistoryQuestion(JSONObject jQuestion) {
