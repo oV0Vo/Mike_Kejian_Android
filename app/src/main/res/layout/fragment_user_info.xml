@@ -127,6 +127,8 @@
                android:textSize="@dimen/medium_font"
                android:gravity="center"
 
+               android:paddingLeft="10dp"
+
                android:text="昵称"/>
            <EditText
                android:layout_height="40dp"
@@ -326,6 +328,7 @@
             android:textSize="@dimen/medium_font"
             />
         <EditText
+            android:layout_marginTop="10dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/base_info_sign"

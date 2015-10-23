@@ -173,21 +173,21 @@ public class HttpRequest {
 
     private String mapToString(HashMap<String,String> map){
 
-        if(map==null){
+        if(map==null||map.size()==0){
 
             return "";
 
         }
 
         Iterator iterator=map.keySet().iterator();
-        String paraString="";
+        String paraString="?";
 
         while(iterator.hasNext()){
 
             String key=(String)iterator.next();
             String value=(String)map.get(key);
 
-            paraString+=key+"/"+value+"/";
+            paraString+=key+"="+value+"&";
 
         }
 

@@ -9,7 +9,7 @@
         android:layout_marginBottom="10dp">
 
         <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
-            android:id="@+id/user_photo_view"
+            android:id="@+id/other_user_photo_view"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
@@ -51,10 +51,13 @@
         <TableRow>
             <TextView
 
-                android:layout_marginLeft="20dp"
+            android:id="@+id/otherName"
 
-                android:text="姓名: Halo"/>
+            android:layout_marginLeft="20dp"
+
+            android:text="姓名: Halo"/>
             <TextView
+                android:id="@+id/otherGender"
 
 
                 android:layout_marginLeft="100dp"
@@ -64,10 +67,13 @@
 
             android:layout_marginTop="5dp">
             <TextView
+                android:id="@+id/otherNickName"
 
                 android:layout_marginLeft="20dp"
                 android:text="昵称: 夏至未至"/>
             <TextView
+
+                android:id="@+id/otherBirthday"
 
                 android:layout_marginLeft="100dp"
                 android:text="生日"/>
@@ -77,15 +83,21 @@
             >
             <TextView
 
+                android:id="@+id/otherDepartment"
+
                 android:layout_marginLeft="20dp"
                 android:text="院系: 文学院"/>
             <TextView
+
+                android:id="@+id/otherMajor"
 
                 android:layout_marginLeft="100dp"
                 android:text="专业: 宋词"/>
         </TableRow>
         <TableRow>
             <TextView
+
+                android:id="@+id/otherGrade"
 
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"

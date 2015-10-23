@@ -42,7 +42,7 @@ public class UserSettingActivity extends AppCompatActivity {
                 user u= (user)Global.getObjectByName("user");
                 us=u;
 
-                if(!u.getIfBind()) {
+                if(u.getSchoolAccount().equals("")) {
 
                     Intent intent = new Intent();
 
