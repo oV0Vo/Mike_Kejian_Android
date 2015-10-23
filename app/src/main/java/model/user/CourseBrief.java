@@ -14,6 +14,25 @@ public class CourseBrief {
     private String user;
     private String name;
     private Date time;
+    private String icon;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    private String id;
 
     public String getContent() {
         return content;

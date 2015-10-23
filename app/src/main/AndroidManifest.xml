@@ -165,6 +165,9 @@
             android:name=".ui.user.UserPasswordCode"
             android:label="发送验证码" />
         <activity
+            android:name=".ui.user.UserSettingActivity"
+            android:label="设置" />
+        <activity
             android:name=".ui.user.UserSchoolAccountActivity"
             android:label="绑定教务网帐号" />
         <activity
@@ -311,6 +314,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".ui.user.UserOtherState"
+            android:label="他的动态"/>
         <activity
             android:name=".ui.message.SearchTestActivity"
             android:label="@string/title_activity_search_test"

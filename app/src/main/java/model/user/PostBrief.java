@@ -12,6 +12,27 @@ public class PostBrief {
     private String content;
     private Date publishTime;
 
+    public String getUserIcon() {
+        return userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
+    }
+
+    private String userIcon;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
+
+
     public String getUserName() {
         return userName;
     }

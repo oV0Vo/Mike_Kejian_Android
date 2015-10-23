@@ -3,8 +3,11 @@ package com.kejian.mike.mike_kejian_android.ui.message;
 import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -119,18 +122,63 @@ public class SearchViewDemo extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search_view_demo, menu);
+        final float density = getResources().getDisplayMetrics().density;
         MenuItem searchItem = menu.findItem(R.id.search_bar);
-        searchItem.collapseActionView();
+//        searchItem.collapseActionView();
         SearchView searchview=(SearchView) searchItem.getActionView();
+        searchview.setIconified(false);
         searchview.setIconifiedByDefault(false);
-        searchview.setQueryHint("输入查询内容");
-        int id = searchview.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        TextView textView = (TextView) searchview.findViewById(id);
-        textView.setTextColor(Color.WHITE);
+        final int closeImgId = getResources().getIdentifier("search_close_btn", "id", getPackageName());
+        ImageView closeImg = (ImageView)searchview.findViewById(closeImgId);
+        if (closeImg != null) {
+            LinearLayout.LayoutParams paramsImg = (LinearLayout.LayoutParams) closeImg.getLayoutParams();
+            paramsImg.topMargin = (int) (-2 * density);
+            closeImg.setImageResource(R.drawable.close);
+            closeImg.setLayoutParams(paramsImg);
+        }
+
+        final int editViewId = getResources().getIdentifier("search_src_text", "id", getPackageName());
+        TextView mEdit = (SearchView.SearchAutoComplete) searchview.findViewById(editViewId);
+        if (mEdit != null) {
+            mEdit.setHintTextColor(Color.WHITE);
+            mEdit.setTextColor(Color.WHITE);
+//            mEdit.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+//            mEdit.getPaint().setAntiAlias(true);
+//            mEdit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+//            mEdit.setHint(String.format(getResources().getString(R.string.search_hint_tip), MemoryData.departmentList.get(mPosition).getMembers().size()));
+        }
+//        final int rootViewId = getResources().getIdentifier("search_bar", "id", getPackageName());
+//        LinearLayout rootView = (LinearLayout) searchview.findViewById(rootViewId);
+//        rootView.setBackgroundResource(R.drawable.edit_bg);
+//        searchview.setClickable(true);
+//        searchview.setBackgroundColor(Color.GREEN);
+//        searchview.setBottom(Color.GREEN);
+//        searchview.setBackgroundResource(R.drawable.base_line);
+        final int searchPlateId = getResources().getIdentifier("search_plate", "id", getPackageName());
+        LinearLayout editLayout = (LinearLayout) searchview.findViewById(searchPlateId);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) editLayout.getLayoutParams();
+
+        final int searchEditFrameId = getResources().getIdentifier("search_edit_frame", "id", getPackageName());
+        LinearLayout tipLayout = (LinearLayout) searchview.findViewById(searchEditFrameId);
+        LinearLayout.LayoutParams tipParams = (LinearLayout.LayoutParams) tipLayout.getLayoutParams();
+        tipParams.leftMargin = 0;
+        tipParams.rightMargin = 0;
+        tipLayout.setLayoutParams(tipParams);
+        final int searchImageViewId = getResources().getIdentifier("search_mag_icon", "id", getPackageName());
+        ImageView icTip = (ImageView) searchview.findViewById(searchImageViewId);
+        icTip.setImageResource(R.drawable.search);
+        params.topMargin = (int) (4 * density);
+        editLayout.setLayoutParams(params);
+        searchview.setSubmitButtonEnabled(false);
+
+//        searchview.setQueryHint("输入查询内容");
+//        int id = searchview.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+//        TextView textView = (TextView) searchview.findViewById(id);
+//        textView.setTextColor(Color.WHITE);
 //        SearchView searchView = (SearchView) searchItem.getActionView();
-////        searchView.setInputType();
+//        searchview.setInputType();
 //        searchView.setIconifiedByDefault(false);
-//        searchView.setQueryHint("请输入查询内容");
+        searchview.setQueryHint("请输入查询内容");
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

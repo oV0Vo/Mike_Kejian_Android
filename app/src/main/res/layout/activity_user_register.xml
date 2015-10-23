@@ -6,8 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="40dp"
-    android:layout_marginLeft="40dp"
-    android:layout_marginRight="40dp"
+
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -175,14 +174,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/code_send"
-            android:layout_alignParentRight="true"
+
             android:text="获取验证码"
             android:textColor="@color/white"
             android:background="@drawable/rec_button"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
             android:layout_alignParentEnd="true"
+
 
 
             />
@@ -195,8 +195,8 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         >
 
         <Button

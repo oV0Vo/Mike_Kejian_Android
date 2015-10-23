@@ -12,6 +12,35 @@ public class Friend {
     private String content;
     private Date publishTime;
 
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    private String sign;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    private String id;
+    private String icon;
+
     public String getUserName() {
         return userName;
     }
