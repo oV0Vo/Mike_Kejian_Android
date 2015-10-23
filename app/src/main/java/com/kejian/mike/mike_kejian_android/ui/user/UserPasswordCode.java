@@ -3,7 +3,9 @@ package com.kejian.mike.mike_kejian_android.ui.user;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -61,6 +63,7 @@ public class UserPasswordCode extends AppCompatActivity {
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         state=true;
                         System.out.println("验证成功！");
+                        resetPassword();
 
                         Looper.prepare();
 
@@ -92,6 +95,8 @@ public class UserPasswordCode extends AppCompatActivity {
 
                     }
                 }else{
+
+                  //  new UserUIError("验证码错误","请重新获取验证码",context);
                     ((Throwable)data).printStackTrace();
                 }
             }
@@ -125,9 +130,11 @@ public class UserPasswordCode extends AppCompatActivity {
         Bundle bundle=new Bundle();
         userToken.setIsGetCode(true);
         bundle.putSerializable(UserActivityComm.USER_TOKEN.name(),userToken);
+        userToken.setPhoneNumber(phoneNumberView.getText().toString().trim());
         intent.putExtras(bundle);
-        intent.setClass(context,UserForgetPasswordActivity.class);
+        intent.setClass(context, UserForgetPasswordActivity.class);
         startActivity(intent);
+        this.finish();
 
     }
 
@@ -139,26 +146,31 @@ public class UserPasswordCode extends AppCompatActivity {
 
     private class CompleteOperationListener implements View.OnClickListener{
 
-        public void onClick(View view){
+        public void onClick(final View view){
 
 
 
-            String inputCode=(String)codeView.getText().toString().trim();
+            String inputCode=null;
 
-            SMSSDK.submitVerificationCode("86",(String)phoneNumberView.getText().toString().trim(),inputCode);
+            if(codeView.getText()!=null){ inputCode=(String)codeView.getText().toString().trim();}
 
-            if(true){
-
-                resetPassword();
-                code=null;
-
-            }
-            else{
-
-
-                System.out.println(code+":"+inputCode);
-                new UserUIError("验证码错误","请重新获取验证码",context);
-            }
+            if(phoneNumberView.getText()!=null)SMSSDK.submitVerificationCode("86",(String)phoneNumberView.getText().toString().trim(),inputCode);
+//
+//            if(state){
+//
+//
+//                resetPassword();
+//
+//
+//                code=null;
+//
+//            }
+//            else{
+//
+//
+//                System.out.println(code+":"+inputCode);
+//
+//            }
 
 
 
@@ -168,6 +180,31 @@ public class UserPasswordCode extends AppCompatActivity {
     private class GenerateCodeListener implements View.OnClickListener{
 
         public void onClick(View view){
+
+            new CountDownTimer(60000,1000){
+
+                @Override
+                public void onFinish(){
+
+                    sendCode.setText("发送验证码");
+                    sendCode.setClickable(true);
+
+
+                }
+
+                @Override
+                public void onTick(long m){
+
+                    sendCode.setClickable(false);
+                    sendCode.setBackgroundColor(Color.GRAY);
+
+                    sendCode.setText(( m / 1000) + "秒后重新发送");
+
+
+                }
+
+            }.start();
+
 
             String phoneNumber=(String)phoneNumberView.getText().toString().trim();
             if(phoneNumber==null||phoneNumber.equals("")){

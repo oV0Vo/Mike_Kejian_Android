@@ -565,11 +565,25 @@ public class UserNetService {
         userInfo.put("phoneNumber", userToken.getName());
         userInfo.put("password",userToken.getPassword());
 
-        int id=userDataBase.addNewUser(userToken.getName(),userInfo);
+        int id=userDataBase.addNewUser(userToken.getName(), userInfo);
 
         return UserBLResult.REGISTER_SUCCEED;
 
 
+    }
+
+    public static boolean resetPassword(String phoneNumber,String newPassword){
+
+        HashMap<String,String> para=new HashMap<>();
+
+        para.put("phoneNumber",phoneNumber);
+        para.put("newPassword", newPassword);
+
+        String result=httpRequest.sentGetRequest(baseUrl+"resetPassword/",para);
+
+
+
+        return Boolean.parseBoolean(result);
     }
 
 

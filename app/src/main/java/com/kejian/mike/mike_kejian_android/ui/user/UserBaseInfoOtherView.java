@@ -9,11 +9,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
 
 import net.UserNetService;
+import net.picture.DownloadPicture;
 
 import model.user.Global;
 import model.user.user;
@@ -29,8 +32,17 @@ public class UserBaseInfoOtherView extends Activity{
     private Context context;
     private Button button;
     private user friend;//这个是这个界面要展示的人的信息
+    private TextView name;
+    private TextView gender;
+    private TextView nickName;
+    private TextView birthday;
+    private TextView department;
+    private TextView major;
+    private TextView grade;
+    private CircleImageView circleImageView;
 
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_info_otherview);
         friend=(user)getIntent().getSerializableExtra("friend");
@@ -46,6 +58,32 @@ public class UserBaseInfoOtherView extends Activity{
     }
 
     public void initViews(){
+
+//        private TextView name;
+//        private TextView gender;
+//        private TextView nickName;
+//        private TextView birthday;
+//        private TextView department;
+//        private TextView major;
+//        private TextView grade;
+
+        name=(TextView)findViewById(R.id.otherName);
+        gender=(TextView)findViewById(R.id.otherGender);
+        nickName=(TextView)findViewById(R.id.otherNickName);
+        birthday=(TextView)findViewById(R.id.otherBirthday);
+        department=(TextView)findViewById(R.id.otherDepartment);
+        major=(TextView)findViewById(R.id.otherMajor);
+        grade=(TextView)findViewById(R.id.otherMajor);
+        circleImageView=(CircleImageView)findViewById(R.id.other_user_photo_view);
+
+        DownloadPicture downloadPicture=new DownloadPicture(this,circleImageView,friend.getIcon(),"");
+
+        name.setText("姓名 :"+friend.getName());
+        gender.setText("性别 :"+friend.getGender());
+        nickName.setText("昵称 :"+friend.getNick_name());
+        department.setText("院系 :"+friend.getDepartmentInfo().getName());
+        major.setText("专业 :"+friend.getDepartmentInfo().getName());
+        grade.setText("年级 :"+friend.getGrade());
 
 
         course=(LinearLayout)findViewById(R.id.his_attention_course);
@@ -117,6 +155,7 @@ public class UserBaseInfoOtherView extends Activity{
         public Boolean doInBackground(String...Para){
 
             boolean result=UserNetService.attention(Para[0],Para[1],Para[2]);
+
             return result;
         }
         @Override

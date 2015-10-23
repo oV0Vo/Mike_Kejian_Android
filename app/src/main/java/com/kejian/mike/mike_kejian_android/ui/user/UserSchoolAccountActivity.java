@@ -196,7 +196,9 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
                 MessagePrint.print("开始绑定教务网账号");
 
-                new BindThread().execute("1",userToken.getSchoolAccount(),userToken.getSchoolAccountPassword());
+
+
+                new BindThread().execute(( (user)Global.getObjectByName("user")).getId(),userToken.getSchoolAccount(),userToken.getSchoolAccountPassword());
 
                 userToken.bindSchoolAccount();
                 showInfo("绑定成功","您已经成功绑定教务网帐号");
