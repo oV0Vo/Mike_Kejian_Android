@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
  */
 public class SearchResult {
     SpannableStringBuilder builder;
+    private int id;
     private boolean isCourse = true;
     public void setIsCourse(boolean isCourse){
         this.isCourse = isCourse;
@@ -26,6 +27,8 @@ public class SearchResult {
     }
 
     private String title;
+    private String iconUrl;
+    private String localIconPath;
 
     public void setStringBuilder(String key){
         this.builder = new SpannableStringBuilder(this.title);
@@ -35,6 +38,35 @@ public class SearchResult {
     }
     public SpannableStringBuilder getBuilder(){
         return this.builder;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    private int iconId;
+    public void setIconId(int iconId){
+        this.iconId = iconId;
+    }
+
+    public void setIconUrl(String iconUrl){
+        this.iconUrl = iconUrl;
+    }
+    public String getIconUrl(){
+        return this.iconUrl;
+    }
+    public String getLocalIconPath(){
+        return this.localIconPath;
+    }
+    public void setLocalIconPath(){
+        String mark = "course_id";
+        String tmp_id = this.id+"";
+        if(!this.isCourse()){
+           mark = "user_id";
+            tmp_id = this.iconId+"";
+        }
+        this.localIconPath = this.iconUrl.replace(".","").replace(":","").replace("/","") + "#"+mark+"#"+tmp_id;
     }
 
 }

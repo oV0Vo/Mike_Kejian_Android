@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+
+import net.picture.DownloadPicture;
 
 import org.w3c.dom.Text;
 
@@ -100,7 +103,7 @@ public class SearchViewDemo extends AppCompatActivity {
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
+            final ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = myInflater.inflate(R.layout.layout_search_result
                         , null);
@@ -112,7 +115,18 @@ public class SearchViewDemo extends AppCompatActivity {
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             SearchResult searchResult = getItem(position);
-            viewHolder.imageView.setImageResource(R.drawable.daoxu);
+            DownloadPicture d=new DownloadPicture(getContext()){
+
+                @Override
+                public void updateView(Bitmap bitmap) {
+
+                    viewHolder.imageView.setImageBitmap(bitmap);
+
+                }
+            };
+
+            d.getBitMapFromNet(searchResult.getIconUrl(), searchResult.getLocalIconPath());
+//            viewHolder.imageView.setImageResource(R.drawable.daoxu);
             viewHolder.title.setText(searchResult.getBuilder());
             return convertView;
         }
