@@ -1,6 +1,7 @@
 package net;
 
 import net.httpRequest.HttpRequest;
+import net.picture.MessagePrint;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -160,7 +161,12 @@ public class MessageNetService {
     private static ArrayList<Praise> handlePraisesJson(String json){
         ArrayList<Praise> praises = new ArrayList();
         try{
+
+            MessagePrint.print("receive message:"+json);
+
             JSONArray praisesJsonArray = new JSONArray(json);
+
+
             for(int i =0;i<praisesJsonArray.length();i++){
                 JSONObject praiseJson = praisesJsonArray.getJSONObject(i);
                 int id = praiseJson.getInt("id");

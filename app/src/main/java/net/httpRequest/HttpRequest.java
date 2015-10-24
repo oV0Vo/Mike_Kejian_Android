@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -58,8 +59,8 @@ public class HttpRequest {
 
             writer=new PrintWriter(connection.getOutputStream());
             JSONObject jsonObject=new JSONObject(para);
-            System.out.println("json :"+jsonObject.toString());
-            writer.write(para.toString());
+            //System.out.println("json :"+jsonObject.toString());
+            writer.write(jsonObject.toString());
 
             writer.flush();
 
@@ -80,6 +81,8 @@ public class HttpRequest {
                 result+=temp;
 
             }
+
+            System.out.println("result :" + result);
 
         }catch (Exception e){
             e.printStackTrace();
