@@ -14,6 +14,10 @@ public class SearchBLService {
     public static ArrayList<SearchResult> posts = new ArrayList();
     public static void search(String key){
         ArrayList<SearchResult> searchResults = SearchNetService.search(key);
+        addResults(searchResults);
+
+    }
+    private synchronized static void addResults(ArrayList<SearchResult> searchResults){
         for(int i = 0;i<searchResults.size();i++){
             SearchResult searchResult = searchResults.get(i);
             if(searchResult.isCourse()){
@@ -22,6 +26,11 @@ public class SearchBLService {
                 posts.add(searchResult);
             }
         }
-
+    }
+    public synchronized static void clearCourses(){
+        courses.clear();
+    }
+    public synchronized static void clearPosts(){
+        posts.clear();
     }
 }

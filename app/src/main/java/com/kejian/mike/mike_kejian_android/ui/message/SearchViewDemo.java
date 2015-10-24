@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.R;
 
 import net.picture.DownloadPicture;
+import net.picture.MessagePrint;
 
 import org.w3c.dom.Text;
 
@@ -45,7 +46,10 @@ public class SearchViewDemo extends AppCompatActivity {
     private ArrayAdapter<SearchResult> postAdapter;
     private TextView courseText;
     private TextView postText;
-    private SearchTask searchTask = null;
+//    private SearchTask searchTask = null;
+    private SearchTaskManager searchTaskManager = null;
+//    private SearchManagerTask searchManagerTask = null;
+//    private boolean textChange = false;
 //    private String[] names;
 //    private ArrayList<String> alist;
     @Override
@@ -69,6 +73,8 @@ public class SearchViewDemo extends AppCompatActivity {
 
         courseContainer.setAdapter(courseAdapter);
         postContainer.setAdapter(postAdapter);
+
+        this.searchTaskManager = new SearchTaskManager();
 //        lv1.setTextFilterEnabled(true);
 
 //        srv1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -207,30 +213,55 @@ public class SearchViewDemo extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
 // TODO Auto-generated method stub
 // Toast.makeText(MainActivity.this, "1111", Toast.LENGTH_LONG).show();
-                System.out.println("---------------search--------------------");
-                SearchBLService.courses.clear();
-                SearchBLService.posts.clear();
+                SearchBLService.clearCourses();
+                SearchBLService.clearPosts();
                 courseText.setVisibility(View.GONE);
                 postText.setVisibility(View.GONE);
                 courseAdapter.notifyDataSetChanged();
                 postAdapter.notifyDataSetChanged();
-                if(newText.length()!=0){
-//                    lv1.setFilterText(newText);
-//                    SearchBLService.search(newText);
-                    if(searchTask != null){
-                        searchTask.cancel(true);
-                    }
-                    searchTask = new SearchTask();
+                if(newText.length() > 0){
+                    SearchTask searchTask = new SearchTask();
+                    searchTaskManager.clearSearchTasks();
+                    searchTaskManager.addSearchTask(searchTask);
                     searchTask.execute(newText);
                 }
+
                 return false;
             }
         });
         return true;
     }
+    private class SearchTaskManager{
+        private ArrayList<SearchTask> searchTasks = new ArrayList<>();
+        public synchronized void clearSearchTasks(){
+            MessagePrint.print("------------------------------------clear-----------------------------------------");
+            for (SearchTask searchTask: searchTasks
+                 ) {
+                searchTask.isCancelled = true;
+
+            }
+            searchTasks.clear();
+        }
+        public synchronized void addSearchTask(SearchTask searchTask){
+            MessagePrint.print("------------------------------------add-----------------------------------------");
+            searchTasks.add(searchTask);
+        }
+
+    }
     private class SearchTask extends AsyncTask<String, Integer, String> {
+        public boolean isCancelled = false;
         @Override
         public String doInBackground(String... params) {
+            MessagePrint.print("------------------------------------do in background-----------------------------------------");
+            //延迟执行
+            try{
+                Thread.sleep(600);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(isCancelled){
+                return "";
+            }
             String key = params[0];
             SearchBLService.search(key);
             return "";
@@ -238,7 +269,8 @@ public class SearchViewDemo extends AppCompatActivity {
 
         @Override
         public void onPostExecute(String result) {
-            if(isCancelled()){
+            MessagePrint.print("------------------------------------on Post Execute-----------------------------------------");
+            if(isCancelled){
                 return;
             }
             if(SearchBLService.courses.size() > 0){
