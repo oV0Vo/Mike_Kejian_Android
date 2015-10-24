@@ -340,6 +340,7 @@
 
         <activity android:name=".ui.campus.ReplyDetailActivity"
             android:label=""></activity>
+
     </application>
 
 </manifest>

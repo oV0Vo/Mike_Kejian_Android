@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ import model.user.user;
 /**
  * Created by ShowJoy on 2015/10/17.
  */
-public class PostAdapter extends ArrayAdapter<Post>{
+public class   PostAdapter extends ArrayAdapter<Post>{
     private int layoutId;
 
     public static class PostViewHolder {
@@ -48,7 +49,7 @@ public class PostAdapter extends ArrayAdapter<Post>{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final PostViewHolder postViewHolder;
         Post post = getItem(position);
         if(convertView == null) {
@@ -84,13 +85,12 @@ public class PostAdapter extends ArrayAdapter<Post>{
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncTask<String,Integer,user>(){
+                new AsyncTask<String, Integer, user>() {
 
                     @Override
-                    public user doInBackground(String...Para){
+                    public user doInBackground(String... Para) {
 
-                        user u= UserNetService.getUserInfo(Para[0]);
-
+                        user u = UserNetService.getUserInfo(Para[0]);
 
 
                         return u;
@@ -98,17 +98,17 @@ public class PostAdapter extends ArrayAdapter<Post>{
                     }
 
                     @Override
-                    public void onPostExecute(user u){
+                    public void onPostExecute(user u) {
 
-                        Intent intent=new Intent();
+                        Intent intent = new Intent();
 
-                        Bundle bundle=new Bundle();
+                        Bundle bundle = new Bundle();
 
-                        bundle.putSerializable("friend",u);
+                        bundle.putSerializable("friend", u);
 
                         intent.putExtras(bundle);
 
-                        intent.setClass(getContext(),UserBaseInfoOtherView.class);
+                        intent.setClass(getContext(), UserBaseInfoOtherView.class);
                         getContext().startActivity(intent);
 
                     }
@@ -129,6 +129,16 @@ public class PostAdapter extends ArrayAdapter<Post>{
         postViewHolder.post_content.setText(post.getContent());
         postViewHolder.post_praise_num.setText(Integer.toString(post.getPraise()));
         postViewHolder.post_comment_num.setText(Integer.toString(post.getViewNum()));
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), PostDetailActivity.class);
+                intent.putExtra("postId", postViewHolder.postId);
+                getContext().startActivity(intent);
+            }
+        });
+
 
         return convertView;
     }
