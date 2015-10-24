@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="already_put_on_top">已置顶</string>
-    <string name="put_on_top_success">公告置顶成功!</string>
+    <string name="title_annouc_detail_activity">公告详情</string>
+    <string name="annouc_already_put_on_top">已置顶</string>
+    <string name="annouc_put_on_top_success">公告置顶成功!</string>
+    <string name="annouc_all_annouc_title">所有公告</string>
 </resources>

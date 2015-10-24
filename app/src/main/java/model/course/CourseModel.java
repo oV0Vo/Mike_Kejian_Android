@@ -35,6 +35,8 @@ public class CourseModel {
     private CurrentCourseModel currentCourse;
     private UserTypeInCourse currentUserType;
 
+    private CourseAnnoucement focusAnnouc;
+
     private String sidMock = "131250012";
     private String schoolIdMock = "南京大学";
 
@@ -289,6 +291,14 @@ public class CourseModel {
         names.add("核心课");
         names.add("平台课");
         return names;
+    }
+
+    public void setCurrentFocusAnnouc(CourseAnnoucement annouc) {
+        focusAnnouc = annouc;
+    }
+
+    public CourseAnnoucement getCurrentFocusAnnouc() {
+        return focusAnnouc;
     }
 
     private class CurrentCourseModel {

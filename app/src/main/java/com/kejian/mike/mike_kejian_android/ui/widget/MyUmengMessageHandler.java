@@ -36,7 +36,7 @@ import model.message.MessageType;
  */
 public class MyUmengMessageHandler extends UmengMessageHandler{
 
-    private static final String TAG = "MyUmengMH";
+    private static final String TAG = "UmengMsgHandler";
 
     private static final String ARG_SENDER_INFO_KEY = "sender_info";
 
@@ -50,6 +50,7 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
 
     @Override
     public void dealWithNotificationMessage(Context context, UMessage msg) {
+        Log.i(TAG, "message arrive" + msg.text);
         UTrack.getInstance(context).trackMsgClick(msg);
 
         SenderInfo senderInfo = null;
@@ -57,9 +58,9 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         Date time = null;
         InfoType infoType = null;
         String messageContent = null;
-
         Map<String, String> args = msg.extra;
         if(args == null) {
+            Log.i(TAG, "arg null!");
             return;
         }
 
@@ -104,6 +105,9 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
     }
 
     private void sendBroacast(Context context, InfoType infoType) {
+
+        Log.i(TAG, infoType.toString() + " message has been broacast");
+
         Intent intent = new Intent(ReceiverActions.increment_action);
         //AT, ANNOUCE_TE, ANNOUCE_AD, ATTENTION, COMMENT, FOLLOW, LIKE, IDOL_POST, REPLY, INVITE
         final String ARG_MESSAGE_TYPE = "messageType";

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity
     private RadioButton messageImageTab;
     private RadioButton campusTextTab;
     private RadioButton campusImageTab;
+
+    private RadioButton currentImageTab;
 
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
@@ -129,10 +132,13 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onPageSelected(int position) {
+                if(currentImageTab != null)
+                    currentImageTab.setChecked(false);
                 switch(position) {
                     case 0:
                         courseTextTab.setChecked(true);
                         courseImageTab.setChecked(true);
+                        currentImageTab = courseImageTab;
                         fgState = FgState.COURSE;
                         setCourseMenu();
                         setTitle(R.string.course_title);
@@ -140,6 +146,7 @@ public class MainActivity extends AppCompatActivity
                     case 1:
                         messageTextTab.setChecked(true);
                         messageImageTab.setChecked(true);
+                        currentImageTab = messageImageTab;
                         fgState = FgState.MESSAGE;
                         setMessageMenu();
                         setTitle(R.string.message_title);
@@ -147,6 +154,7 @@ public class MainActivity extends AppCompatActivity
                     case 2:
                         campusTextTab.setChecked(true);
                         campusImageTab.setChecked(true);
+                        currentImageTab = campusImageTab;
                         fgState = FgState.CAMPUS;
                         setCampusMenu();
                         setTitle(R.string.campus_title);
@@ -181,6 +189,7 @@ public class MainActivity extends AppCompatActivity
         });
         courseTextTab.setChecked(true);
         courseImageTab.setChecked(true);
+        currentImageTab = courseImageTab;
 
         messageTextTab = (RadioButton)findViewById(R.id.message_tab_text);
         messageTextTab.setOnClickListener(new View.OnClickListener() {
@@ -302,20 +311,11 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    if(courseFg == null) {
-                        courseFg = new CourseListContainerFragment();
-                    }
-                    return courseFg;
+                    return new CourseListContainerFragment();
                 case 1:
-                    if(msgFg == null) {
-                        msgFg = new Fragment_Msg();
-                    }
-                    return msgFg;
+                    return new Fragment_Msg();
                 case 2:
-                    if(campusFg == null) {
-                        campusFg = new PostListContainerFragment();
-                    }
-                    return campusFg;
+                    return new PostListContainerFragment();
                 default:
                     return null;
             }

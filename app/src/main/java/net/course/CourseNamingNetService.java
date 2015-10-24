@@ -137,6 +137,7 @@ public class CourseNamingNetService {
     }
 
     private static CourseNamingRecord parseCurrentNamingRecord(JSONObject jRecord) {
+
         try {
             CourseNamingRecord record = new CourseNamingRecord();
 

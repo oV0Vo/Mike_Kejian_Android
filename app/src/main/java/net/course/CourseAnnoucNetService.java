@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -117,9 +119,17 @@ public class CourseAnnoucNetService {
     public static boolean newAnnouc(String courseId, String title, String content) {
         String url = BASE_URL + "newAnnouncement/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
+        String encodedTitle = null;
+        String encodedContent = null;
+        try {
+            encodedTitle = URLEncoder.encode(title, "UTF-8");
+            encodedContent = URLEncoder.encode(content, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         paraMap.put("courseId", courseId);
-        paraMap.put("title", title);
-        paraMap.put("content", content);
+        paraMap.put("title", encodedTitle);
+        paraMap.put("content", encodedContent);
         String response = httpRequest.sentGetRequest(url, paraMap);
 
         if(response == null)
