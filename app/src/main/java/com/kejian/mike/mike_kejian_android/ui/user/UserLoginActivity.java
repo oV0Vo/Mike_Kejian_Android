@@ -57,6 +57,8 @@ public class UserLoginActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
 
+        MessagePrint.print("login : start to create login activity");
+
         super.onCreate(savedInstanceState);
 
 
@@ -90,17 +92,17 @@ public class UserLoginActivity extends Activity {
 
 
 
-
-
     }
 
     protected void onPause(Bundle savedInstanceState){
+
+        MessagePrint.print("login : loginactivity onpause");
 
 
 
         if(userToken!=null){
 
-            System.out.println("直接登录");
+
 
             new LoginTask().execute(1);
 
@@ -113,19 +115,21 @@ public class UserLoginActivity extends Activity {
     protected  void onResume(){
         super.onResume();
 
-        progressBar.setVisibility(View.INVISIBLE);
+//        MessagePrint.print("login : loginactivity onresume");
+//
+//        progressBar.setVisibility(View.INVISIBLE);
 
 
        // userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
 
-        if(userToken!=null) {
-
-            new LoginTask().execute(1);
-
-        }
-        else{
-
-        }
+//        if(userToken!=null) {
+//
+//            new LoginTask().execute(1);
+//
+//        }
+//        else{
+//
+//        }
 
 
 
@@ -172,13 +176,19 @@ public class UserLoginActivity extends Activity {
     public UserOperationResult login(){
 
 
+        MessagePrint.print("login : login");
+
+
 
 
 
 
         if(userToken==null) {
 
-            System.out.println("null");
+
+            MessagePrint.print("login : login token is null");
+
+
 
 
 
@@ -191,10 +201,9 @@ public class UserLoginActivity extends Activity {
 
         }
 
-        System.out.println("token: name:" + userToken.getName() + " password:" + userToken.getPassword());
 
 
-
+        MessagePrint.print("login : name="+userToken.getName()+" password="+ userToken.getPassword());
 
         user=UserBLService.getInstance().login(userToken);
 
@@ -214,13 +223,12 @@ public class UserLoginActivity extends Activity {
             Intent intent = new Intent();
 
             intent.setClass(this, MainActivity.class);
-            System.out.println();
+
 
             Bundle bundle=new Bundle();
 
             bundle.putSerializable(UserActivityComm.USER_INFO.name(), user);
 
-            System.out.println("user name:" + user.getName());
 
 
             intent.putExtras(bundle);
@@ -233,11 +241,19 @@ public class UserLoginActivity extends Activity {
 
             SharedPreferences sharedPreferences=getSharedPreferences("user_map",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-           if(!user.getId().equals("")){ editor.putString("user_name",user.getId());
+           if(!user.getId().equals("")){
 
-               MessagePrint.print("store user:"+user.getId());
+
+               editor.putString("user_name", user.getId());
+
+               MessagePrint.print("login store user:" + user.getId());
+
+               if(!passwordView.getText().toString().equals("")){
+
             editor.putString("user_password",passwordView.getText().toString().trim());}
-            editor.commit();
+
+           }
+            editor.apply();
 
 
             startActivity(intent);
@@ -324,7 +340,7 @@ public class UserLoginActivity extends Activity {
     public void loginFromLocal(){
 
 
-        System.out.println("try to login from local");
+        System.out.println("login : try to login from local");
         Pair<String,String> localHistory= readLocalUser();
 
         if((!localHistory.first.equals(""))&&(!localHistory.second.equals(""))){
@@ -335,7 +351,7 @@ public class UserLoginActivity extends Activity {
 
 //            userToken.setName("1");
 //            userToken.setPassword("1");
-            System.out.println("从本地登录: 用户名:"+userToken.getName() +" 密码:"+userToken.getPassword());
+            System.out.println("login : 从本地登录: 用户名:"+userToken.getName() +" 密码:"+userToken.getPassword());
 
 
             new LoginTask().execute(1);
@@ -385,8 +401,7 @@ public class UserLoginActivity extends Activity {
 
         if (networkInfo != null && networkInfo.length > 0) {
             for (int i = 0; i < networkInfo.length; i++) {
-                System.out.println(i + "===状态===" + networkInfo[i].getState());
-                System.out.println(i + "===类型===" + networkInfo[i].getTypeName());
+
                 // 判断当前网络状态是否为连接状态
                 if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
                     return true;
@@ -418,13 +433,12 @@ public class UserLoginActivity extends Activity {
 
         protected user doInBackground(Integer... params){
 
-            System.out.println("start login");
+            System.out.println("login : start login thread");
 
 
 
             login();
 
-            System.out.println("网络请求完成");
 
             return null;
 
@@ -441,6 +455,12 @@ public class UserLoginActivity extends Activity {
 
         String password=sharedPreferences.getString("user_password", "");
         String userName=sharedPreferences.getString("user_name","");
+
+        MessagePrint.print("login : user password from local"+password);
+        MessagePrint.print("login : user name from local"+userName);
+
+
+
 
         return new Pair<String,String>(userName,password);
 
