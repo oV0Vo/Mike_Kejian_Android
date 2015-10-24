@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.message;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 
 import net.picture.DownloadPicture;
 import net.picture.MessagePrint;
@@ -37,7 +40,7 @@ import bl.MessageBLService;
 import bl.SearchBLService;
 import model.message.SearchResult;
 
-public class SearchViewDemo extends AppCompatActivity {
+public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private LayoutInflater myInflater;
 //    private SearchView srv1;
     private ListView courseContainer;
@@ -101,6 +104,18 @@ public class SearchViewDemo extends AppCompatActivity {
 //            }
 //        });
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SearchResult searchResult = (SearchResult)parent.getItemAtPosition(position);
+        if(!searchResult.isCourse()){
+            Intent intent = new Intent();
+            intent.setClass(this, PostDetailActivity.class);
+            intent.putExtra("postId",searchResult.getId()+"");
+            startActivity(intent);
+        }
+    }
+
     static class ViewHolder{
         ImageView imageView;
         TextView title;
