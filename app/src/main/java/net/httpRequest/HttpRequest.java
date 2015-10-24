@@ -58,7 +58,9 @@ public class HttpRequest {
 
             writer=new PrintWriter(connection.getOutputStream());
             JSONObject jsonObject=new JSONObject(para);
+            System.out.println("json :"+jsonObject.toString());
             writer.write(para.toString());
+
             writer.flush();
 
             reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -274,9 +276,10 @@ public class HttpRequest {
 
         HttpRequest httpRequest=HttpRequest.getInstance();
         HashMap hashMap=new HashMap();
-        hashMap.put("id","2");
+        hashMap.put("id","t");
+        hashMap.put("i","r");
 
-        System.out.println(httpRequest.sentGetRequest("http://112.124.101.41:80/mike_server_v02/index.php/Home/User/getUser/",hashMap));
+        System.out.println(httpRequest.sentPostRequest("http://112.124.101.41:80/mike_server_v02/index.php/Home/CourseQuestion/signChoiceQuestion/",hashMap));
     }
 
 }

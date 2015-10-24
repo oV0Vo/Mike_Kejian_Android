@@ -337,6 +337,9 @@
         </activity>
         <activity android:name=".ui.main.CoursePostSearchActivity"
             android:label="CoursePostSearchActivity"></activity>
+
+        <activity android:name=".ui.campus.ReplyDetailActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>

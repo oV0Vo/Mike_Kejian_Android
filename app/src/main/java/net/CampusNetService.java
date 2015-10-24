@@ -101,6 +101,7 @@ public class CampusNetService {
             for(int i=0; i<replyJsonArray.length(); i++) {
                 Reply tempReply = new Reply();
                 JSONObject reply = replyJsonArray.getJSONObject(i);
+                tempReply.setPostId(reply.getString("id"));
                 tempReply.setContent(reply.getString("content"));
                 tempReply.setUserId(reply.getString("user_id"));
                 tempReply.setDate(reply.getString("timestamp"));

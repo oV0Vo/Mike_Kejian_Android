@@ -38,7 +38,7 @@ import model.user.Invitee;
 /**
  * Created by showjoy on 15/9/20.
  */
-public class PostDetailActivity extends AppCompatActivity implements OnRefreshListener {
+public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshListener {
 
     ActionBar actionBar;
     private Post post;
@@ -93,6 +93,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
                 isFollowed = CampusBLService.isFollowed(postId);
                 isPraised = CampusBLService.isPraised(postId);
                 post = CampusBLService.getPostDetail(postId);
+                post.setTitle(getIntent().getStringExtra("title"));
                 replies = post.getReplyList();
                 return null;
             }
@@ -109,6 +110,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
     }
 
     private void iniView(){
+        ReplyDetailActivity.this.setTitle(getIntent().getStringExtra("activity_title"));
         this.container = (RefreshListView)findViewById(R.id.reply_container);
         header= getLayoutInflater().inflate(R.layout.layout_post_detail_header, null);
         refreshHeader();
@@ -116,18 +118,18 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
-        iniButtons();
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
-                intent.setClass(PostDetailActivity.this, ReplyDetailActivity.class);
+                intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
                 intent.putExtra("title", "回复: " + post.getTitle());
                 intent.putExtra("activity_title", position + "楼");
-                intent.putExtra("postId", ((ReplyAdapter.ReplyViewHolder) view.getTag()).postId);
+                intent.putExtra("postId", ((ReplyAdapter.ReplyViewHolder)view.getTag()).postId);
                 startActivity(intent);
             }
         });
+        iniButtons();
 
     }
     private void iniButtons() {
@@ -136,7 +138,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
             public void onClick(View v) {
                 final String replyContent = reply_content.getText().toString();
                 reply_content.setText("");
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(reply_content.getWindowToken(), 0);
 
 
@@ -150,10 +152,10 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
 
                     @Override
                     protected void onPostExecute(String result) {
-                        if (result.equals(""))
-                            Toast.makeText(PostDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
+                        if(result.equals(""))
+                            Toast.makeText(ReplyDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
                         else {
-                            Toast.makeText(PostDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ReplyDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
                             replies.add(CampusBLService.publishedReply);
                             adapter.notifyDataSetChanged();
                         }
