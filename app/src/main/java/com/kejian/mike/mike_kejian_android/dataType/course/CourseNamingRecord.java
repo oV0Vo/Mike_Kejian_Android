@@ -13,6 +13,7 @@ public class CourseNamingRecord {
     private String teacherName;
     private Date beginTime;
     private Date endTime;
+    private long leftMillis;
     private int signInNum;
     private ArrayList<String> absentNames;
     private ArrayList<String> absentIds;
@@ -27,6 +28,14 @@ public class CourseNamingRecord {
 
     public String getTeacherId() {
         return teacherId;
+    }
+
+    public long getLeftMillis() {
+        return leftMillis;
+    }
+
+    public void setLeftMillis(long leftMillis) {
+        this.leftMillis = leftMillis;
     }
 
     public void setTeacherId(String teacherId) {

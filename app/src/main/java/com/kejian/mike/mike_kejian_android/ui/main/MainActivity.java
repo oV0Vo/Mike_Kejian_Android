@@ -23,13 +23,16 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
+import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.PushAgent;
 
 import java.util.ArrayList;
 
 import bl.UserInfoServiceMock;
 import model.course.CourseModel;
+import model.user.Global;
 import model.user.UserType;
+import model.user.user;
 import util.NeedRefinedAnnotation;
 
 public class MainActivity extends AppCompatActivity
@@ -103,6 +106,13 @@ public class MainActivity extends AppCompatActivity
         pushAgent.enable();
         pushAgent.onAppStart();
         pushAgent.setMessageHandler(new MyUmengMessageHandler());
+        user user = (user)Global.getObjectByName("user");
+        String userId = user.getId();
+        try {
+            pushAgent.addAlias(userId, "mike_kejian_alias_type");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initViewPager() {

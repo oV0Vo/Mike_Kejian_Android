@@ -45,6 +45,12 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private TimerThread timerThread;
 
+    private TextView emptyText;
+
+    private int notEmptyCount;
+
+    private String currentNamingId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +59,8 @@ public class CourseSignInActivity extends AppCompatActivity {
 
         mainLayout = (ViewGroup)findViewById(R.id.main_layout);
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-        mainLayout.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
+        emptyText = (TextView)findViewById(R.id.empty_text);
+        notEmptyCount = 2;
 
         taskCountDown++;
         new GetHistorySignInTask().execute();
@@ -64,6 +70,17 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private void updateViewOnGetHistoryRecord(ArrayList<CourseSignInRecord> records) {
         if(mainLayout == null) {
+            return;
+        }
+
+        if(records == null) {
+            Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_SHORT).show();
+            notEmptyCount--;
+            return;
+        }
+
+        if(records.size() == 0) {
+            notEmptyCount--;
             return;
         }
 
@@ -81,9 +98,11 @@ public class CourseSignInActivity extends AppCompatActivity {
         }
 
         if(currentNaming != null) {
-            ViewGroup currentNamingLayout = (ViewGroup)findViewById(R.id.current_naming_layout);
-            currentNamingLayout.setVisibility(View.VISIBLE);
+            Log.i(TAG, "has current naming");
+
+            currentNamingId = currentNaming.getNamingId();
             signInActionText = (TextView)findViewById(R.id.course_sign_in_sign_in_text);
+            signInStatusText = (TextView)findViewById(R.id.status_text);
 
             boolean hasSignIn = currentNaming.isHasSignIn();
             if(hasSignIn) {
@@ -98,61 +117,85 @@ public class CourseSignInActivity extends AppCompatActivity {
             String timeStr = TimeFormat.convertDateInterval(beginTime, endTime);
             namingTimeText.setText(timeStr);
 
-            TextView teacherNameText = (TextView)currentNamingLayout.findViewById(R.id.
+            TextView teacherNameText = (TextView)findViewById(R.id.
                     course_sign_in_teacher_text);
             String signInTeacher = currentNaming.getTeacherName();
             teacherNameText.setText(signInTeacher);
 
             final TextView leftTimeClock = (TextView)findViewById(R.id.left_time_text);
-            long leftTime = endTime.getTime() - beginTime.getTime();
+            long leftTime = currentNaming.getLeftMillis();
             CountDownTimer timer = new CountDownTimer(leftTime, 1000L) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if(leftTimeClock != null)
-                        leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
+                    if(leftTimeClock == null)
+                        return;
+                    leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
+                    if(millisUntilFinished < 10 * 1000)
+                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
                 }
 
                 @Override
                 public void onFinish() {
-                    if(leftTimeClock != null)
-                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
+                    if(leftTimeClock == null)
+                        return;
+                    leftTimeClock.setText(TimeFormat.toSeconds(0));
+                    leftTimeClock.setTextColor(getResources().getColor(R.color.black));
+                    setNotLeftTimeText();
                 }
             };
             timerThread = new TimerThread(timer);
             timerThread.start();
 
+            ViewGroup currentNamingLayout = (ViewGroup)findViewById(R.id.current_naming_layout);
+            currentNamingLayout.setVisibility(View.VISIBLE);
+
         } else {
+            Log.i(TAG, "has no current naming");
+            notEmptyCount--;
             TextView noCurrentNamingText = (TextView)findViewById(R.id.no_current_naming_text);
             noCurrentNamingText.setVisibility(View.VISIBLE);
-            Log.i(TAG, "no current naming");
         }
 
         UpdateIfAllTaskFinish();
     }
 
-    private void setNotSignInView() {
+    private void setNotLeftTimeText() {
+        signInActionText.setEnabled(false);
+        signInActionText.setBackgroundColor(getResources().getColor(R.color.dark));
+    }
 
+    private void setNotSignInView() {
         signInActionText.setText(R.string.course_sign_in_sign_in_action);
         signInActionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                new SignInTask().execute();
+                new SignInTask().execute(currentNamingId);
+                signInActionText.setEnabled(false);
+                signInActionText.setBackgroundColor(getResources().getColor(R.color.dark));
             }
         });
+
+        signInStatusText.setBackground(getResources().getDrawable(R.drawable.dark_round));
+
     }
 
     private void setHasSignInView() {
-        progressBar.setVisibility(View.GONE);
-
         signInActionText.setText(R.string.course_sign_in_already_sign_in);
         signInActionText.setEnabled(false);
+        signInActionText.setBackgroundColor(getResources().getColor(R.color.green));
+
+        signInStatusText.setBackground(getResources().getDrawable(R.drawable.green_round));
     }
 
     private void UpdateIfAllTaskFinish() {
         if(taskCountDown == 0 && mainLayout != null) {
             progressBar.setVisibility(View.GONE);
-            mainLayout.setVisibility(View.VISIBLE);
+            if(notEmptyCount != 0) {
+                mainLayout.setVisibility(View.VISIBLE);
+            } else {
+                emptyText.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -161,7 +204,11 @@ public class CourseSignInActivity extends AppCompatActivity {
     }
 
     private void updateViewOnSignInFailure() {
+        Log.i(TAG, "updateViewOnSignInFailure");
         Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        signInActionText.setBackgroundColor(getResources().getColor(R.color.green));
+        signInActionText.setEnabled(true);
     }
 
     @Override
@@ -254,13 +301,12 @@ public class CourseSignInActivity extends AppCompatActivity {
         }
     }
 
-    private class SignInTask extends AsyncTask<Void, Void, Boolean> {
+    private class SignInTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            CourseModel courseModel = CourseModel.getInstance();
-            String courseId = courseModel.getCurrentCourseId();
-            return CourseSignInNetService.signIn(courseId);
+        protected Boolean doInBackground(String... params) {
+            String namingId = params[0];
+            return CourseSignInNetService.signIn(namingId);
         }
 
         @Override
@@ -271,7 +317,6 @@ public class CourseSignInActivity extends AppCompatActivity {
                 updateViewOnSignInFailure();
             }
         }
-
     }
 
 }

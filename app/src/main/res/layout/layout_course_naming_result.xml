@@ -7,91 +7,112 @@
     android:paddingTop="@dimen/big_padding"
     android:paddingBottom="@dimen/big_padding">
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:rowCount="2"
+        android:columnCount="2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/over_big_padding"
-            android:textSize="@dimen/medium_font"
-            android:text="@string/course_naming_sign_in_num_title"/>
 
-        <TextView
-            android:id="@+id/stats_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_medium_font"
-            android:drawableRight="@drawable/user_small"/>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_padding">
-
-        <FrameLayout
-            android:id="@+id/color_bar_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/percent_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="@dimen/sub_medium_font"/>
-    </RelativeLayout>
+    <TextView
+        android:paddingRight="@dimen/sub_big_padding"
+        android:layout_marginBottom="@dimen/sub_big_padding"
+        android:textSize="@dimen/medium_font"
+        android:text="@string/course_naming_sign_in_num_title"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:orientation="horizontal">
+        android:layout_marginBottom="@dimen/sub_big_padding"
+        android:paddingLeft="@dimen/sub_big_padding"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="@dimen/over_big_padding">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|center"
-                android:textSize="@dimen/medium_font"
-                android:text="@string/course_naming_absent_list_title"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/absent_list_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="false"
-            android:maxLines="3"
-            android:ellipsize="end"/>
+            android:paddingBottom="@dimen/small_padding"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/stats_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"/>
+
+            <ImageView
+                android:layout_width="@dimen/sub_small_icon_width"
+                android:layout_height="@dimen/sub_small_icon_height"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/user"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/color_bar_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/medium_padding"/>
+
+            <TextView
+                android:id="@+id/percent_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/medium_padding"
+                android:textColor="@color/green"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <TextView
-            android:id="@+id/zhankai_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:paddingRight="@dimen/small_padding"
-            android:textSize="@dimen/sub_medium_font"
-            android:textColor="@color/green"
-            android:text="@string/zhankai"/>
-        <ImageView
-            android:id="@+id/zhankai_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/down"/>
-    </LinearLayout>
+            android:paddingRight="@dimen/sub_big_padding"
+            android:layout_marginTop="@dimen/sub_big_padding"
+            android:textSize="@dimen/medium_font"
+            android:text="course_naming_absent_list_title"/>
+
+        <LinearLayout
+            android:paddingLeft="@dimen/sub_big_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/absent_list_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="false"
+                android:maxLines="3"
+                android:ellipsize="end"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/zhankai_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/zhankai_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:textSize="@dimen/small_font"
+                        android:textColor="@color/green"
+                        android:text="@string/zhankai"/>
+
+                    <ImageView
+                        android:id="@+id/zhankai_image"
+                        android:layout_width="@dimen/small_icon_size"
+                        android:layout_height="@dimen/small_icon_size"
+                        android:src="@drawable/down"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+    </GridLayout>
 
 </LinearLayout>

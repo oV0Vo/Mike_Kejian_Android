@@ -19,6 +19,8 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 
+import net.course.CourseAnnoucNetService;
+
 import model.course.CourseModel;
 import util.NetOperateResultMessage;
 import util.UnImplementedAnnotation;
@@ -62,16 +64,10 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
                     return;
                 }
 
-                String personId = UserInfoServiceMock.getInstance().getPersonId();
-
-                CourseAnnoucement newAnnoucement = new CourseAnnoucement();
-                newAnnoucement.setPersonId(personId);
                 String courseId = courseModel.getCurrentCourseId();
-                newAnnoucement.setCourseId(courseId);
-                newAnnoucement.setTitle(title);
-                newAnnoucement.setContent(content);
-
-                new CommitAnnoucementTask().execute(newAnnoucement);
+                new CommitAnnoucementTask().execute(courseId, title, content);
+                commitButton.setEnabled(false);
+                commitButton.setBackgroundColor(getResources().getColor(R.color.dark));
                 progressBar.setVisibility(View.VISIBLE);
             }
         });
@@ -80,44 +76,35 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_annoucement_publish, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private class CommitAnnoucementTask extends AsyncTask<CourseAnnoucement, Void , NetOperateResultMessage> {
+    private class CommitAnnoucementTask extends AsyncTask<String, Void , Boolean> {
 
         @Override
-        protected NetOperateResultMessage doInBackground(CourseAnnoucement... params) {
-            CourseAnnoucement newAnnoucement = params[0];
-            NetOperateResultMessage resultMessage = CourseModel.getInstance().newAnnoucement(newAnnoucement);
-            return resultMessage;
+        protected Boolean doInBackground(String... params) {
+            String courseId = params[0];
+            String title = params[1];
+            String content = params[2];
+            boolean success = CourseAnnoucNetService.newAnnouc(courseId,
+                    title, content);
+            return success;
         }
 
         @UnImplementedAnnotation
         @Override
-        protected void onPostExecute(NetOperateResultMessage reusltMessage) {
+        protected void onPostExecute(Boolean success) {
+            if(progressBar == null)
+                return;
+
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(AnnoucementPublishActivity.this, R.string.annoucement_publish_success_message
-                    , Toast.LENGTH_LONG).show();
-            AnnoucementPublishActivity.this.finish();
+            if(success) {
+                Toast.makeText(AnnoucementPublishActivity.this, R.string.annoucement_publish_success_message
+                        , Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(AnnoucementPublishActivity.this, R.string.net_disconnet
+                        , Toast.LENGTH_SHORT).show();
+                commitButton.setEnabled(true);
+                commitButton.setBackgroundColor(getResources().getColor(R.color.green));
+            }
         }
     }
 }

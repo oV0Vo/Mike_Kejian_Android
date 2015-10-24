@@ -1,13 +1,19 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.naming;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,11 +29,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
+import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
+
 import model.course.CourseModel;
 import util.TimeFormat;
 import util.TimerThread;
 
 public class CourseNamingActivity extends AppCompatActivity {
+
+    private static final String TAG = "CourseNamingActivity";
 
     private ViewGroup mainLayout;
     private ProgressBar progressBar;
@@ -39,11 +49,11 @@ public class CourseNamingActivity extends AppCompatActivity {
     private TextView leftTimeClock;
     private TextView namingActionText;
 
+    private Dialog timeSetDialog;
+
     private TimerThread timerThread;
 
     private int taskCountDown;
-
-    private String teacherIdMock = "";
 
     private CourseModel courseModel;
 
@@ -80,6 +90,9 @@ public class CourseNamingActivity extends AppCompatActivity {
     }
 
     private void updateViewOnGetCurrentNaming(CourseNamingRecord currentNaming) {
+        if(progressBar == null)
+            return;
+
         namingTimeTitleText = (TextView)findViewById(R.id.course_naming_time_title_text);
         namingTimeText = (TextView)findViewById(R.id.course_naming_time_text);
         leftTimeClock = (TextView)findViewById(R.id.left_time_text);
@@ -102,7 +115,8 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         namingTimeTitleText.setText(R.string.course_naming_type_qiandao);
         namingActionText.setText(R.string.course_naming_on_naming);
-        long leftTime = endTime.getTime() - beginTime.getTime();
+        namingActionText.setEnabled(false);
+        long leftTime = currentNaming.getLeftMillis();
         startLeftTimeClock(leftTime);
     }
 
@@ -110,14 +124,19 @@ public class CourseNamingActivity extends AppCompatActivity {
         CountDownTimer timer = new CountDownTimer(leftTime, 1000L) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if(leftTimeClock != null)
-                    leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
+                if(leftTimeClock == null)
+                    return;
+                leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
+                if(millisUntilFinished < 10 * 1000)
+                    leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
             }
 
             @Override
             public void onFinish() {
-                if(leftTimeClock != null)
-                    leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
+                if(leftTimeClock == null)
+                    return;
+                leftTimeClock.setText(TimeFormat.toSeconds(0));
+                leftTimeClock.setTextColor(getResources().getColor(R.color.black));
                 setViewOnNamingFinish();
             }
         };
@@ -127,36 +146,108 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private void setViewOnNamingNotStart() {
         namingActionText.setText(R.string.course_naming_naming_action);
-        //namingActionText.setBackgroundColor();
+        timeSetDialog = getTimeSetDialog();
         namingActionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                timeSetDialog.show();
             }
         });
         namingTimeText.setText(R.string.course_naming_not_start);
         leftTimeClock.setText(R.string.course_naming_not_start_clock_text);
     }
 
-    private void setViewOnNamingFinish() {
-        namingActionText.setText(R.string.course_naming_finish);
+    private void onTimeSet(int minute) {
+        long millis = minute * 60 * 1000;
+        new BeginNamingTask().execute(millis);
         namingActionText.setEnabled(false);
+        namingActionText.setBackgroundColor(getResources().getColor(R.color.dark));
+        Toast.makeText(CourseNamingActivity.this, R.string.on_send_naming_request,
+                Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    private Dialog getTimeSetDialog() {
+        final Dialog dialog = new Dialog(this);
+        View v = getLayoutInflater().inflate(R.layout.layout_time_dialog, null);
+        final EditText continueTimeText = (EditText)v.findViewById(R.id.continue_time_text);
+        continueTimeText.setText("5");
+        continueTimeText.requestFocus();
+        View confirmView = v.findViewById(R.id.confirm_text);
+        confirmView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Editable text = continueTimeText.getText();
+                if (isCorrectMinuteFormat(text.toString())) {
+                    dialog.dismiss();
+                    onTimeSet(Integer.parseInt(text.toString()));
+                } else {
+                    text.clear();
+                    Toast.makeText(CourseNamingActivity.this, R.string.check_time_message,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        View cancelView = v.findViewById(R.id.cancel_text);
+        cancelView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(v);
+
+        return dialog;
+    }
+
+    private boolean isCorrectMinuteFormat(String minuteStr) {
+        try {
+            Integer minute = Integer.parseInt(minuteStr);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private void setViewOnNamingFinish() {
+        if(namingActionText == null)
+            return;
+
+        namingActionText.setText(R.string.course_naming_finish);
+        namingActionText.setBackgroundColor(getResources().getColor(R.color.dark));
+        namingActionText.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+        Toast.makeText(this, R.string.on_getting_naming_result, Toast.LENGTH_SHORT).show();
+        new GetNamingResultTask().execute();
+    }
+
     private void setViewOnBeginNamingSuccess(CourseNamingRecord namingRecord) {
+        if(progressBar == null)
+            return;
         progressBar.setVisibility(View.GONE);
         namingActionText.setText(R.string.course_naming_on_naming);
         namingActionText.setEnabled(false);
+        namingActionText.setBackgroundColor(getResources().getColor(R.color.green));
         setViewOnNaming(namingRecord);
     }
 
     private void setViewOnBeginNamingFailure() {
+        if(progressBar == null)
+            return;
+
         progressBar.setVisibility(View.GONE);
         Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
+        namingActionText.setBackgroundColor(getResources().getColor(R.color.green));
+        namingActionText.setEnabled(true);
+
     }
 
     private void setViewOnGetNamingResult(CourseNamingRecord namingResult) {
+        if(progressBar == null)
+            return;
+
         progressBar.setVisibility(View.GONE);
 
         View resultView = getLayoutInflater().inflate(R.layout.layout_course_naming_result, null);
@@ -171,20 +262,28 @@ public class CourseNamingActivity extends AppCompatActivity {
         ViewGroup colorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
         colorBarContainer.addView(colorBar);
 
+        double percent = signInNum / (double)totalNum;
         TextView percentText = (TextView)resultView.findViewById(R.id.percent_text);
-        percentText.setText("93.2%");
+        percentText.setText("0.9332");
 
         TextView absentListText = (TextView)resultView.findViewById(R.id.absent_list_text);
         String absentListStr = convertToString(namingResult.getAbsentNames(),
                 namingResult.getAbsentIds());
         absentListText.setText(absentListStr);
+        resultView.setVisibility(View.VISIBLE);
 
-        initZhankaiButton();
+        initTextExpandLayout(resultView, absentListText);
     }
 
-    private void initZhankaiButton() {
-
+    private void initTextExpandLayout(View convertView, TextView contentText) {
+        ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);
+        TextView zhankaiText = (TextView)convertView.findViewById(R.id.zhankai_text);
+        ImageView zhankaiImage = (ImageView)convertView.findViewById(R.id.zhankai_image);
+        TextExpandListener textExpandListener = new TextExpandListener(contentText, zhankaiText,
+                zhankaiImage, 3);
+        zhankaiLayout.setOnClickListener(textExpandListener);
     }
+
 
     private String convertToString(ArrayList<String> absentNames, ArrayList<String> ids) {
         StringBuilder strBuilder = new StringBuilder();
@@ -248,7 +347,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
             ColorBar colorBar = ColorBar.getDefaultStyleColorBar(
                     CourseNamingActivity.this, ((double) signInNum) / totalNum);
-            ViewGroup colorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+            ViewGroup colorBarContainer = (ViewGroup)convertView.findViewById(R.id.color_bar_container);
             colorBarContainer.addView(colorBar);
 
             TextView percentText = (TextView)convertView.findViewById(R.id.percent_text);
@@ -288,14 +387,14 @@ public class CourseNamingActivity extends AppCompatActivity {
         }
     }
 
-    private class BeginNamingTask extends AsyncTask<Void, Void, CourseNamingRecord> {
+    private class BeginNamingTask extends AsyncTask<Long, Void, CourseNamingRecord> {
 
         @Override
-        protected CourseNamingRecord doInBackground(Void... params) {
+        protected CourseNamingRecord doInBackground(Long... params) {
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
-            int timeMock = 1000;
-            return CourseNamingNetService.beginNaming(courseId, timeMock);
+            long time = params[0];
+            return CourseNamingNetService.beginNaming(courseId, time);
         }
 
         @Override
