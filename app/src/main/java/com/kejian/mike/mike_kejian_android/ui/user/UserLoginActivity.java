@@ -29,6 +29,7 @@ import com.kejian.mike.mike_kejian_android.ui.broadcast.NetBroadcast;
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
 
 import net.UserNetService;
+import net.picture.MessagePrint;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
@@ -63,10 +64,14 @@ public class UserLoginActivity extends Activity {
 
 
 
+
         setContentView(com.kejian.mike.mike_kejian_android.R.layout.activity_user_login);
+
         context=this;
-        initViews();
+
+
         userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+
         if(userToken!=null){
 
 
@@ -74,7 +79,10 @@ public class UserLoginActivity extends Activity {
 
         netBroadcast=new NetBroadcast();
 
-        Global.addGlobalItem("network_listing",netBroadcast);
+        Global.addGlobalItem("network_listing", netBroadcast);
+
+        initViews();
+
 
 
 
@@ -108,7 +116,7 @@ public class UserLoginActivity extends Activity {
         progressBar.setVisibility(View.INVISIBLE);
 
 
-        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+       // userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
 
         if(userToken!=null) {
 
@@ -170,6 +178,8 @@ public class UserLoginActivity extends Activity {
 
         if(userToken==null) {
 
+            System.out.println("null");
+
 
 
             userToken = new UserToken();
@@ -223,20 +233,17 @@ public class UserLoginActivity extends Activity {
 
             SharedPreferences sharedPreferences=getSharedPreferences("user_map",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("user_name",user.getId());
-            editor.putString("user_password",passwordView.getText().toString().trim());
+           if(!user.getId().equals("")){ editor.putString("user_name",user.getId());
+
+               MessagePrint.print("store user:"+user.getId());
+            editor.putString("user_password",passwordView.getText().toString().trim());}
             editor.commit();
 
 
             startActivity(intent);
             close();
-
-
-
             return UserOperationResult.LOGIN_SUCCEED;
         }
-
-
     }
 
     public void netErrorReport(){
@@ -248,8 +255,6 @@ public class UserLoginActivity extends Activity {
        // userToken=null;
 
     }
-
-
 
 
     public void errorInLogInfo(String title,String errorDetail){
@@ -292,28 +297,41 @@ public class UserLoginActivity extends Activity {
             public void onClick(View v) {
 
                 progressBar.setVisibility(View.VISIBLE);
-                boolean net=checkNetwork();
+                boolean net = checkNetwork();
 
-                LoginTask loginTask=new LoginTask();
+                LoginTask loginTask = new LoginTask();
 
-if(net) {
+                if (net) {
 
-    loginTask.execute(1);
-    timeOutOperation(loginTask);
+                    loginTask.execute(1);
+                    timeOutOperation(loginTask);
 
-}
+                }
 
 
             }
         });
 
+
+        loginFromLocal();
+
+
+
+
+
+    }
+
+    public void loginFromLocal(){
+
+
+        System.out.println("try to login from local");
         Pair<String,String> localHistory= readLocalUser();
 
         if((!localHistory.first.equals(""))&&(!localHistory.second.equals(""))){
 
-            userToken=new UserToken();
-            userToken.setName(localHistory.first);
-            userToken.setPassword(localHistory.second);
+            this.userToken=new UserToken();
+            this.userToken.setName(localHistory.first);
+            this.userToken.setPassword(localHistory.second);
 
 //            userToken.setName("1");
 //            userToken.setPassword("1");
@@ -324,8 +342,6 @@ if(net) {
 
 
         }
-
-
 
     }
 
