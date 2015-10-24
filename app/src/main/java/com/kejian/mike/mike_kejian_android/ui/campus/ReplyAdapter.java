@@ -1,7 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.campus;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import net.picture.DownloadPicture;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ReplyViewHolder replyViewHolder;
         if(convertView == null) {
             String inflater = Context.LAYOUT_INFLATER_SERVICE;
@@ -58,23 +57,28 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
             replyViewHolder = (ReplyViewHolder) convertView.getTag();
         }
 
-        Reply reply = getItem(position);
-        DownloadPicture d=new DownloadPicture(getContext()){
-
-            @Override
-            public void updateView(Bitmap bitmap) {
-                replyViewHolder.reply_user_icon.setImageBitmap(bitmap);
-            }
-        };
+        final Reply reply = getItem(position);
+        //DownloadPicture d=new DownloadPicture(getContext(),replyViewHolder.reply_user_icon, reply.getUserIconUrl(), reply.getUserIconUrl());
 
 
-        d.getBitMapFromNet(reply.getUserIconUrl(), "");
+        //d.getBitMapFromNet(reply.getUserIconUrl(), "");
         replyViewHolder.postId = reply.getPostId();
         replyViewHolder.reply_author_name.setText(reply.getAuthorName());
         replyViewHolder.reply_date.setText(reply.getDate());
         replyViewHolder.reply_content.setText(reply.getContent());
         replyViewHolder.reply_view_num.setText(Integer.toString(reply.getViewNum()));
         replyViewHolder.reply_comment_num.setText(Integer.toString(reply.getCommentNum()));
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), ReplyDetailActivity.class);
+                intent.putExtra("title", reply.getTitle());
+                intent.putExtra("activity_title", (position+2) + "楼");
+                intent.putExtra("postId", replyViewHolder.postId);
+                getContext().startActivity(intent);
+            }
+        });
 
         return convertView;
     }

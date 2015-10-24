@@ -12,6 +12,7 @@ public class Reply {
     private String postId;
     private String authorName;
     private String replyTo;
+    private String title;
     private String content;
     private String date;
     private int praise;
@@ -117,5 +118,13 @@ public class Reply {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

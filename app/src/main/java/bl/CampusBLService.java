@@ -43,7 +43,10 @@ public class CampusBLService {
     }
 
     public static Post getPostDetail(String postId) {
-        return CampusNetService.getPostInfo(postId);
+        Post post = CampusNetService.getPostInfo(postId);
+        for(Reply loopReply: post.getReplyList())
+            loopReply.setTitle("回复:" + post.getTitle());
+        return post;
     }
 
     public static String publish(String courseId, String title, String content) {
