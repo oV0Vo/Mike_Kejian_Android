@@ -15,7 +15,6 @@ import net.picture.DownloadPicture;
 
 import java.util.List;
 
-import model.campus.Post;
 import model.campus.Reply;
 
 /**
@@ -24,13 +23,14 @@ import model.campus.Reply;
 public class ReplyAdapter extends ArrayAdapter<Reply>{
     private int layoutId;
 
-    private static class ViewHolder {
+    public static class ReplyViewHolder {
         ImageView reply_user_icon;
         TextView reply_content;
         TextView reply_author_name;
         TextView reply_date;
         TextView reply_view_num;
         TextView reply_comment_num;
+        String postId;
     }
 
     public ReplyAdapter(Context context, int layoutId, List<Reply> replys) {
@@ -41,21 +41,21 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder;
+        final ReplyViewHolder replyViewHolder;
         if(convertView == null) {
             String inflater = Context.LAYOUT_INFLATER_SERVICE;
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(inflater);
             convertView = vi.inflate(layoutId, null);
-            viewHolder = new ViewHolder();
-            viewHolder.reply_user_icon = (ImageView) convertView.findViewById(R.id.reply_user_icon);
-            viewHolder.reply_author_name = (TextView) convertView.findViewById(R.id.reply_author_name);
-            viewHolder.reply_date = (TextView) convertView.findViewById(R.id.reply_date);
-            viewHolder.reply_content = (TextView) convertView.findViewById(R.id.reply_content);
-            viewHolder.reply_view_num = (TextView) convertView.findViewById(R.id.reply_view_num);
-            viewHolder.reply_comment_num = (TextView) convertView.findViewById(R.id.reply_comment_num);
-            convertView.setTag(viewHolder);
+            replyViewHolder = new ReplyViewHolder();
+            replyViewHolder.reply_user_icon = (ImageView) convertView.findViewById(R.id.reply_user_icon);
+            replyViewHolder.reply_author_name = (TextView) convertView.findViewById(R.id.reply_author_name);
+            replyViewHolder.reply_date = (TextView) convertView.findViewById(R.id.reply_date);
+            replyViewHolder.reply_content = (TextView) convertView.findViewById(R.id.reply_content);
+            replyViewHolder.reply_view_num = (TextView) convertView.findViewById(R.id.reply_view_num);
+            replyViewHolder.reply_comment_num = (TextView) convertView.findViewById(R.id.reply_comment_num);
+            convertView.setTag(replyViewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            replyViewHolder = (ReplyViewHolder) convertView.getTag();
         }
 
         Reply reply = getItem(position);
@@ -63,17 +63,18 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
 
             @Override
             public void updateView(Bitmap bitmap) {
-                viewHolder.reply_user_icon.setImageBitmap(bitmap);
+                replyViewHolder.reply_user_icon.setImageBitmap(bitmap);
             }
         };
 
 
         d.getBitMapFromNet(reply.getUserIconUrl(), "");
-        viewHolder.reply_author_name.setText(reply.getAuthorName());
-        viewHolder.reply_date.setText(reply.getDate());
-        viewHolder.reply_content.setText(reply.getContent());
-        viewHolder.reply_view_num.setText(Integer.toString(reply.getViewNum()));
-        viewHolder.reply_comment_num.setText(Integer.toString(reply.getCommentNum()));
+        replyViewHolder.postId = reply.getPostId();
+        replyViewHolder.reply_author_name.setText(reply.getAuthorName());
+        replyViewHolder.reply_date.setText(reply.getDate());
+        replyViewHolder.reply_content.setText(reply.getContent());
+        replyViewHolder.reply_view_num.setText(Integer.toString(reply.getViewNum()));
+        replyViewHolder.reply_comment_num.setText(Integer.toString(reply.getCommentNum()));
 
         return convertView;
     }
