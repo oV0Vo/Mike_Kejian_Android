@@ -49,6 +49,35 @@ public class UserBaseInfoOtherView extends Activity{
         context=this;
         initViews();
 
+        new AsyncTask<String,Integer,user>(){
+
+            @Override
+        public user doInBackground(String...Para){
+
+                user u=UserNetService.getUserInfo(Para[0]);
+
+
+
+                return u;
+
+            }
+
+           @Override
+        public void onPostExecute(user u){
+
+               Intent intent=new Intent();
+
+               Bundle bundle=new Bundle();
+
+               bundle.putSerializable("friend",u);
+
+               intent.putExtras(bundle);
+
+               intent.setClass(getApplicationContext(),UserBaseInfoOtherView.class);
+
+           }
+        }.execute("user_id");
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,6 +85,8 @@ public class UserBaseInfoOtherView extends Activity{
         getMenuInflater().inflate(R.menu.menu_mention_me, menu);
         return true;
     }
+
+
 
     public void initViews(){
 

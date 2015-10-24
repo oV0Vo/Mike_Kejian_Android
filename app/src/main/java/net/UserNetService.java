@@ -88,6 +88,8 @@ public class UserNetService {
 
         String r=jsonObject.toString();
 
+        System.out.println("register "+r);
+
         r=URLEncoder.encode(r);
 
         h.put("userToken", r);
