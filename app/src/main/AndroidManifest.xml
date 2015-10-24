@@ -95,11 +95,10 @@
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/course_naming_activity" >
         </activity>
-
-        <activity android:name=".ui.course.detail.CourseSignInActivity"
-            android:label="@string/course_sign_in_activity">
+        <activity
+            android:name=".ui.course.detail.CourseSignInActivity"
+            android:label="@string/course_sign_in_activity" >
         </activity>
-
         <activity
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
@@ -314,8 +313,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ui.user.UserOtherState"
-            android:label="他的动态"/>
+        <activity
+            android:name=".ui.user.UserOtherState"
+            android:label="他的动态" />
         <activity
             android:name=".ui.message.SearchTestActivity"
             android:label="@string/title_activity_search_test"
@@ -335,11 +335,16 @@
             android:name=".ui.message.SearchViewDemo"
             android:label="" >
         </activity>
-        <activity android:name=".ui.main.CoursePostSearchActivity"
-            android:label="CoursePostSearchActivity"></activity>
-
-        <activity android:name=".ui.campus.ReplyDetailActivity"
-            android:label=""></activity>
+        <activity
+            android:name=".ui.main.CoursePostSearchActivity"
+            android:label="CoursePostSearchActivity" />
+        <activity
+            android:name=".ui.campus.ReplyDetailActivity"
+            android:label="" />
+        <activity
+            android:name=".ui.main.SearchPeopleActivity"
+            android:label="@string/title_activity_search_people" >
+        </activity>
     </application>
 
 </manifest>
