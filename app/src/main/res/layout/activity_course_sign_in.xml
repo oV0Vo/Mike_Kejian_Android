@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/big_padding"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/no_current_naming_text"
@@ -171,6 +172,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textSize="@dimen/sub_big_font"
-
-        android:text="@string/course_sign_in_empty_text"/>
+        android:text="@string/course_sign_in_empty_text"
+        android:visibility="gone"/>
 </RelativeLayout>

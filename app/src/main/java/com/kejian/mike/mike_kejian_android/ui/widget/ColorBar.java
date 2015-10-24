@@ -19,8 +19,14 @@ public class ColorBar extends LinearLayout {
         super(context, null);
         LayoutInflater.from(context).inflate(R.layout.layout_color_bar, this);
         TextView colorView = (TextView)findViewById(R.id.color_bar_color_text);
-        GradientDrawable colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{beginColor, centerColor, endColor});
+        GradientDrawable colorDrawable = null;
+        if(colorBarPercent != 0.0) {
+            colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{beginColor, centerColor, endColor});
+        } else {
+            colorDrawable = new GradientDrawable();
+            colorDrawable.setColor(restColor);
+        }
         int colorTextWidth = (int)(width * colorBarPercent);
         colorDrawable.setSize(colorTextWidth, height);
         colorDrawable.setCornerRadii(new float[]{13.0f, 13.0f, 0.0f, 0.0f, 0.0f, 0.0f, 13.0f, 13.0f});

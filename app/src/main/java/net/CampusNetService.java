@@ -122,9 +122,9 @@ public class CampusNetService {
         try {
             postJson.put("postId", post.getPostId());
             postJson.put("userId", post.getUserId());
-            postJson.put("authorName",URLEncoder.encode( post.getAuthorName(),"utf8"));
-            postJson.put("title", URLEncoder.encode(post.getTitle(), "utf8"));
-            postJson.put("content", URLEncoder.encode(post.getContent(), "utf8"));
+            postJson.put("authorName",post.getAuthorName());
+            postJson.put("title", post.getTitle());
+            postJson.put("content", post.getContent());
             postJson.put("praise", post.getPraise());
             postJson.put("viewNum", post.getViewNum());
             postJson.put("date", post.getDate());

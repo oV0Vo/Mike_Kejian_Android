@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
+import model.user.Global;
+import model.user.user;
 import util.DateUtil;
 import util.TimeFormat;
 
@@ -97,43 +99,36 @@ public class CourseAnnoucNetService {
     }
 
     public static boolean putOnTop(String annoucId) {
-        String url = BASE_URL + "putAnnouncOnTop/";
+        String url = BASE_URL + "putAnnoucOnTop/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
-        paraMap.put("announcId", annoucId);
+        paraMap.put("annoucId", annoucId);
         String response = httpRequest.sentGetRequest(url, paraMap);
 
-        try {
-            JSONObject jResult = new JSONObject(response);
-            int resultState = jResult.getInt("result");
-            boolean success = resultState != 0;
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e(TAG, "newAnnouc json error");
+        if(response == null)
             return false;
-        }
+        else if(response.equals("false"))
+            return false;
+        else if(response.equals("true"))
+            return true;
+        else
+            return false;
     }
 
-    public static boolean newAnnouc(String courseId, String authorId, String title, String content) {
+    public static boolean newAnnouc(String courseId, String title, String content) {
         String url = BASE_URL + "newAnnouncement/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
-        paraMap.put("authorId", authorId);
-        Random random = new Random();
-        paraMap.put("time", Long.toString(212443423423l + random.nextInt(10000)));
         paraMap.put("title", title);
         paraMap.put("content", content);
         String response = httpRequest.sentGetRequest(url, paraMap);
 
-        try {
-            JSONObject jResult = new JSONObject(response);
-            int resultState = jResult.getInt("result");
-            boolean success = resultState != 0;
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e(TAG, "newAnnouc json error");
+        if(response == null)
             return false;
-        }
+        else if(response.equals("false"))
+            return false;
+        else if(response.equals("true"))
+            return true;
+        else
+            return false;
     }
 }

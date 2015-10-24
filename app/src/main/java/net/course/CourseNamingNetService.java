@@ -74,7 +74,7 @@ public class CourseNamingNetService {
             Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
             record.setBeginTime(beginTime);
 
-            int lastTime = jRecord.getInt("last_time");
+            long lastTime = jRecord.getLong("last_time");
             Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
             record.setEndTime(endTime);
 
@@ -119,11 +119,11 @@ public class CourseNamingNetService {
         }
     }
 
-    public static CourseNamingRecord beginNaming(String courseId, int lastSeconds) {
+    public static CourseNamingRecord beginNaming(String courseId, long lastMills) {
         String url = BASE_URL + "beginCallRoll/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
-        paraMap.put("lastTime", Integer.toString(lastSeconds));
+        paraMap.put("lastTime", Long.toString(lastMills));
         String responseContent = http.sentGetRequest(url, paraMap);
         try {
             JSONObject jRecord = new JSONObject(responseContent);
@@ -150,9 +150,12 @@ public class CourseNamingNetService {
             String id = jRecord.getString("id");
             record.setNamingId(id);
 
-            int lastTime = jRecord.getInt("last_time");
+            long lastTime = jRecord.getLong("last_time");
             Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
             record.setEndTime(endTime);
+
+            long leftMillis = jRecord.getLong("leftTime");
+            record.setLeftMillis(leftMillis);
 
             record.setTeacherName("");
             record.setSignInNum(0);

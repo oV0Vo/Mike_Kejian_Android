@@ -89,6 +89,7 @@ public class LatestAnnoucFragment extends Fragment {
             TextView dateView = (TextView) mainLayout.findViewById(R.id.
                     course_detail_annoucement_date);
             dateView.setText(TimeFormat.toMinute(annouc.getDate()));
+            Log.i(TAG, annouc.getDate().toString());
         } else {
             contentView.setText((R.string.annoucement_no_annoucement));
             contentView.setGravity(Gravity.CENTER);

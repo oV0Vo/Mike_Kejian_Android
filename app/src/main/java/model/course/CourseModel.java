@@ -227,7 +227,7 @@ public class CourseModel {
 
     @NeedAsyncAnnotation
     public boolean updateUserTypeInCurrentCourse() {
-        currentUserType = UserTypeInCourse.ASSISTANT;//CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId);
+        currentUserType = UserTypeInCourse.TEACHER;//CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId);
         return true;
     }
 
@@ -238,11 +238,6 @@ public class CourseModel {
     @NeedAsyncAnnotation
     public boolean updateCourseDetail(int time, TimeUnit timeUnit) {
         return currentCourse.updateCourseDetail(time, timeUnit);
-    }
-
-    @NeedAsyncAnnotation
-    public NetOperateResultMessage newAnnoucement(CourseAnnoucement annoucement) {
-        return null;
     }
 
     public ArrayList<CourseAnnoucement> getAnnoucs() {

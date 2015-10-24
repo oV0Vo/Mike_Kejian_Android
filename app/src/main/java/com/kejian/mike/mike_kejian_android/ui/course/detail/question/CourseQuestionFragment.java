@@ -439,14 +439,19 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if(leftTimeText != null)
-                leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
+            if(leftTimeText == null)
+                return;
+            leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
+            if(millisUntilFinished < 10 * 1000)
+                leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.my_red));
         }
 
         @Override
         public void onFinish() {
-            if(leftTimeText != null)
-                leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.my_red));
+            if(leftTimeText == null)
+                return;
+            leftTimeText.setText(TimeFormat.toSeconds(0));
+            leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.black));
             switch(userType) {
                 case TEACHER:
                     actionText.setText(R.string.show_question_stats);
