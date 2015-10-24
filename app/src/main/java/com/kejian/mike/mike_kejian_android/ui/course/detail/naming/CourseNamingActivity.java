@@ -248,6 +248,9 @@ public class CourseNamingActivity extends AppCompatActivity {
         if(progressBar == null)
             return;
 
+        if(namingResult == null)
+            return;
+
         progressBar.setVisibility(View.GONE);
 
         View resultView = getLayoutInflater().inflate(R.layout.layout_course_naming_result, null);

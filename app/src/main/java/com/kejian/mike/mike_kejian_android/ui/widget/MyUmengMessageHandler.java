@@ -1,8 +1,11 @@
 package com.kejian.mike.mike_kejian_android.ui.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
 import com.umeng.message.UTrack;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
@@ -25,6 +28,8 @@ import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReplyInvitePushM
 import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReplyPraisePushMessage;
 import com.kejian.mike.mike_kejian_android.dataType.pushMessage.SenderInfo;
 import com.kejian.mike.mike_kejian_android.dataType.pushMessage.UserNoticePushMessage;
+
+import model.message.MessageType;
 
 /**
  * Created by violetMoon on 2015/10/11.
@@ -94,6 +99,34 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         pushMessage.setReceiverInfo(receiverInfo);
         pushMessage.setSenderInfo(senderInfo);
         pushMessage.setTime(time);
+
+        sendBroacast(context, infoType);
+    }
+
+    private void sendBroacast(Context context, InfoType infoType) {
+        Intent intent = new Intent(ReceiverActions.increment_action);
+        //AT, ANNOUCE_TE, ANNOUCE_AD, ATTENTION, COMMENT, FOLLOW, LIKE, IDOL_POST, REPLY, INVITE
+        final String ARG_MESSAGE_TYPE = "messageType";
+        switch(infoType) {
+            case AT:
+                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.mentionMe);
+                break;
+            case ANNOUCE_TE:
+                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.courseNotice);
+                break;
+            case LIKE:
+                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.praise);
+                break;
+            case IDOL_POST:
+                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.reply);
+                break;
+            default:
+                Log.i(TAG, infoType.toString() + " message has not broacast");
+                break;
+
+        }
+        intent.putExtra("messageType", MessageType.mentionMe);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     private SenderInfo parseSenderInfo(String value) {

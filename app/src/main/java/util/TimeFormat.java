@@ -72,7 +72,7 @@ public class TimeFormat {
         append(strBuilder, bh);
         strBuilder.append(":");
 
-        int bminute = endDate.getMinutes();
+        int bminute = begin.getMinutes();
         append(strBuilder, bminute);
         strBuilder.append("-");
 
