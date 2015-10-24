@@ -1,22 +1,18 @@
-package com.kejian.mike.mike_kejian_android.ui.message;
+package com.kejian.mike.mike_kejian_android.ui.main;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,98 +20,38 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 
 import net.picture.DownloadPicture;
 import net.picture.MessagePrint;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
-import bl.MessageBLService;
 import bl.SearchBLService;
 import model.message.SearchResult;
 
-public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SearchPeopleActivity extends AppCompatActivity {
     private LayoutInflater myInflater;
-//    private SearchView srv1;
-    private ListView courseContainer;
-    private ListView postContainer;
-    private ArrayAdapter<SearchResult> courseAdapter;
-    private ArrayAdapter<SearchResult> postAdapter;
-    private TextView courseText;
-    private TextView postText;
-//    private SearchTask searchTask = null;
+    private ListView container;
+    private ArrayAdapter<SearchResult> peopleAdapter;
     private SearchTaskManager searchTaskManager = null;
-//    private SearchManagerTask searchManagerTask = null;
-//    private boolean textChange = false;
-//    private String[] names;
-//    private ArrayList<String> alist;
+    private int searchType = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_view_demo);
-
+        setContentView(R.layout.activity_search_people);
+        Intent intent = getIntent();
+        this.searchType = intent.getIntExtra("searchType",0);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        srv1=(SearchView)findViewById(R.id.searchView);
-//        names=new String[]{"ad","dffa","uyiu","rqer","qwgt","afrgb","rtyr"};
-        courseText = (TextView)findViewById(R.id.course_tag);
-        postText = (TextView)findViewById(R.id.post_tag);
-
-        courseContainer=(ListView)findViewById(R.id.course_container);
-        postContainer = (ListView)findViewById(R.id.post_container);
+        this.container = (ListView)findViewById(R.id.container);
         this.myInflater = getLayoutInflater();
-        courseAdapter=new SearchResultAdapter(this, android.R.layout.simple_list_item_1, SearchBLService.courses);
-        postAdapter = new SearchResultAdapter(this,android.R.layout.simple_list_item_1,SearchBLService.posts);
-
-        courseContainer.setAdapter(courseAdapter);
-        postContainer.setAdapter(postAdapter);
-
+        this.peopleAdapter = new SearchResultAdapter(this,android.R.layout.simple_list_item_1,SearchBLService.people);
+        this.container.setAdapter(this.peopleAdapter);
         this.searchTaskManager = new SearchTaskManager();
-//        lv1.setTextFilterEnabled(true);
-
-//        srv1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//// TODO Auto-generated method stub
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//// TODO Auto-generated method stub
-//// Toast.makeText(MainActivity.this, "1111", Toast.LENGTH_LONG).show();
-//                SearchBLService.courses.clear();
-//                if(newText.length()!=0){
-////                    lv1.setFilterText(newText);
-//                    SearchBLService.search(newText);
-//                }else{
-////                    lv1.clearTextFilter();
-//                }
-//                adapter.notifyDataSetChanged();
-//                return false;
-//            }
-//        });
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        SearchResult searchResult = (SearchResult)parent.getItemAtPosition(position);
-        if(!searchResult.isCourse()){
-            Intent intent = new Intent();
-            intent.setClass(this, PostDetailActivity.class);
-            intent.putExtra("postId",searchResult.getId()+"");
-            startActivity(intent);
-        }
-    }
-
     static class ViewHolder{
         ImageView imageView;
         TextView title;
@@ -155,9 +91,10 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search_view_demo, menu);
         final float density = getResources().getDisplayMetrics().density;
         MenuItem searchItem = menu.findItem(R.id.search_bar);
@@ -228,12 +165,8 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             public boolean onQueryTextChange(String newText) {
 // TODO Auto-generated method stub
 // Toast.makeText(MainActivity.this, "1111", Toast.LENGTH_LONG).show();
-                SearchBLService.clearCourses();
-                SearchBLService.clearPosts();
-                courseText.setVisibility(View.GONE);
-                postText.setVisibility(View.GONE);
-                courseAdapter.notifyDataSetChanged();
-                postAdapter.notifyDataSetChanged();
+                SearchBLService.clearPeople();
+                peopleAdapter.notifyDataSetChanged();
                 if(newText.length() > 0){
                     SearchTask searchTask = new SearchTask();
                     searchTaskManager.clearSearchTasks();
@@ -246,12 +179,13 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
         });
         return true;
     }
+
     private class SearchTaskManager{
         private ArrayList<SearchTask> searchTasks = new ArrayList<>();
         public synchronized void clearSearchTasks(){
             MessagePrint.print("------------------------------------clear-----------------------------------------");
             for (SearchTask searchTask: searchTasks
-                 ) {
+                    ) {
                 searchTask.isCancelled = true;
 
             }
@@ -270,7 +204,7 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             MessagePrint.print("------------------------------------do in background-----------------------------------------");
             //延迟执行
             try{
-                Thread.sleep(600);
+                Thread.sleep(800);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -278,7 +212,7 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
                 return "";
             }
             String key = params[0];
-            SearchBLService.search(key);
+            SearchBLService.searchPeople(key,searchType);
             return "";
         }
 
@@ -288,20 +222,10 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             if(isCancelled){
                 return;
             }
-            if(SearchBLService.courses.size() > 0){
-                courseText.setVisibility(View.VISIBLE);
-            }else{
-                courseText.setVisibility(View.GONE);
-            }
-            if(SearchBLService.posts.size()>0){
-                postText.setVisibility(View.VISIBLE);
-            }else{
-                postText.setVisibility(View.GONE);
-            }
-            courseAdapter.notifyDataSetChanged();
-            postAdapter.notifyDataSetChanged();
+            peopleAdapter.notifyDataSetChanged();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

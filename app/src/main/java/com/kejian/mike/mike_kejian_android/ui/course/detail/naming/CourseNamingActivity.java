@@ -32,6 +32,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseNamingRecord;
 import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
 import model.course.CourseModel;
+import util.NumberUtil;
 import util.TimeFormat;
 import util.TimerThread;
 
@@ -267,7 +268,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         double percent = signInNum / (double)totalNum;
         TextView percentText = (TextView)resultView.findViewById(R.id.percent_text);
-        percentText.setText("0.9332");
+        percentText.setText(Double.toString(NumberUtil.round(percent, 3) * 100));
 
         TextView absentListText = (TextView)resultView.findViewById(R.id.absent_list_text);
         String absentListStr = convertToString(namingResult.getAbsentNames(),

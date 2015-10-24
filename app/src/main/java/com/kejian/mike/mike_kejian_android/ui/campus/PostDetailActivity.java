@@ -117,17 +117,6 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
         iniButtons();
-        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(PostDetailActivity.this, ReplyDetailActivity.class);
-                intent.putExtra("title", "回复: " + post.getTitle());
-                intent.putExtra("activity_title", position + "楼");
-                intent.putExtra("postId", ((ReplyAdapter.ReplyViewHolder) view.getTag()).postId);
-                startActivity(intent);
-            }
-        });
 
     }
     private void iniButtons() {

@@ -110,7 +110,6 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
     }
 
     private void iniView(){
-        ReplyDetailActivity.this.setTitle(getIntent().getStringExtra("activity_title"));
         this.container = (RefreshListView)findViewById(R.id.reply_container);
         header= getLayoutInflater().inflate(R.layout.layout_post_detail_header, null);
         refreshHeader();
@@ -118,17 +117,7 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
-        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
-                intent.putExtra("title", "回复: " + post.getTitle());
-                intent.putExtra("activity_title", position + "楼");
-                intent.putExtra("postId", ((ReplyAdapter.ReplyViewHolder)view.getTag()).postId);
-                startActivity(intent);
-            }
-        });
+        this.setTitle(getIntent().getStringExtra("activity_title"));
         iniButtons();
 
     }
@@ -138,7 +127,7 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
             public void onClick(View v) {
                 final String replyContent = reply_content.getText().toString();
                 reply_content.setText("");
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(reply_content.getWindowToken(), 0);
 
 
@@ -152,7 +141,7 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
 
                     @Override
                     protected void onPostExecute(String result) {
-                        if(result.equals(""))
+                        if (result.equals(""))
                             Toast.makeText(ReplyDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
                         else {
                             Toast.makeText(ReplyDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
