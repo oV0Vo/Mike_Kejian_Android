@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/dark_most_trans"/>
+            <solid android:color="@color/white"/>
             <stroke android:color="@color/dark_most_trans" android:width="@dimen/line_thin"/>
         </shape>
     </item>

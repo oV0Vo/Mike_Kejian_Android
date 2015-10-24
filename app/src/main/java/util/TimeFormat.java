@@ -1,5 +1,7 @@
 package util;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +9,9 @@ import java.util.Date;
  * Created by violetMoon on 2015/9/27.
  */
 public class TimeFormat {
+
+    private static final String TAG = "TimeFormat";
+
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
 
     public static String toMinute(Date date) {
@@ -52,7 +57,7 @@ public class TimeFormat {
     public static String convertDateInterval(Date begin, Date endDate) {
         StringBuilder strBuilder = new StringBuilder();
 
-        int by = begin.getYear() + 1900;
+        int by = begin.getYear();
         strBuilder.append(Integer.toString(by) + "/");
 
         int bm = begin.getMonth();
@@ -67,11 +72,11 @@ public class TimeFormat {
         append(strBuilder, bh);
         strBuilder.append(":");
 
-        int bs = endDate.getSeconds();
-        append(strBuilder, bs);
+        int bminute = begin.getMinutes();
+        append(strBuilder, bminute);
         strBuilder.append("-");
 
-        int ey = endDate.getYear() + 1900;
+        int ey = endDate.getYear();
         if(by != ey)
             strBuilder.append(Integer.toString(ey) + "/");
 
@@ -91,8 +96,8 @@ public class TimeFormat {
         append(strBuilder, eh);
         strBuilder.append(":");
 
-        int es = endDate.getSeconds();
-        append(strBuilder, es);
+        int eminute = endDate.getMinutes();
+        append(strBuilder, eminute);
 
         return strBuilder.toString();
     }

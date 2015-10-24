@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/over_medium_padding"
     android:paddingBottom="@dimen/over_medium_padding"
-    android:background="@drawable/dark_thin_bottom_border">
+    android:background="@drawable/dark_light_thin_bottom_border">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,14 +62,15 @@
             android:layout_alignParentRight="true">
 
             <FrameLayout
-                android:id="@+id/percent_image"
+                android:id="@+id/color_bar_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/over_medium_padding">
             </FrameLayout>
 
             <TextView
                 android:id="@+id/percent_text"
-                android:layout_width="@dimen/quarter_screen"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>

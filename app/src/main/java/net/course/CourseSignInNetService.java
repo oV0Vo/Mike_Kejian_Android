@@ -62,13 +62,19 @@ public class CourseSignInNetService {
                 JSONObject jRecord = new JSONObject(responseContent);
                 CourseSignInRecord record = new CourseSignInRecord();
 
+                String id = jRecord.getString("id");
+                record.setNamingId(id);
+
                 String beginTimeStamp = jRecord.getString("begin_time");
                 Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
                 record.setBeginTime(beginTime);
 
-                int lastTime = jRecord.getInt("last_time");
+                long lastTime = jRecord.getLong("last_time");
                 Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
                 record.setEndTime(endTime);
+
+                long leftMillis = jRecord.getLong("leftTime");
+                record.setLeftMillis(leftMillis);
 
                 boolean hasSignIn = jRecord.getBoolean("hasSignIn");
                 record.setHasSignIn(hasSignIn);
@@ -93,7 +99,7 @@ public class CourseSignInNetService {
             Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
             record.setBeginTime(beginTime);
 
-            int lastTime = jRecord.getInt("last_time");
+            long lastTime = jRecord.getLong("last_time");
             Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
             record.setEndTime(endTime);
 

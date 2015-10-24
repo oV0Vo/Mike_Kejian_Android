@@ -19,6 +19,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserInterestInCourse;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
+import com.umeng.message.PushAgent;
 
 import net.course.CourseInfoNetService;
 
@@ -42,6 +43,8 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private TextView interestText;
 
+    private PushAgent pushAgent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,12 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         initTabButton();
         initViewPager();
         initInterestText();
+        initPushAgent();
+    }
+
+    private void initPushAgent() {
+        pushAgent = PushAgent.getInstance(this);
+        pushAgent.onAppStart();
     }
 
     private void initInterestText() {
@@ -212,6 +221,15 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         interestText.setText(R.string.already_interest);
         interestText.setEnabled(false);
         interestText.setBackgroundColor(getResources().getColor(R.color.dark));
+        openCoursePushService();
+    }
+
+    private void openCoursePushService() {
+        try {
+            pushAgent.getTagManager().add(courseDetail.getCourseId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private class GetUserInterestTask extends AsyncTask<String, Void, Integer> {

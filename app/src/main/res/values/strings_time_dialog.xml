@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_dialog_begin_time">起始时间</string>
+    <string name="time_dialog_continue_time">持续时间:</string>
     <string name="time_dialog_end_time">结束时间</string>
     <string name="time_dialog_title">设置点名时间</string>
+    <string name="check_time_message">请检查时间格式</string>
 </resources>

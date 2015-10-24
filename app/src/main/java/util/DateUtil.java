@@ -1,5 +1,7 @@
 package util;
 
+import android.util.Log;
+
 import java.util.Date;
 
 /**
@@ -29,7 +31,7 @@ public class DateUtil {
         return date;
     }
 
-    public static Date caculatePhpTime(Date date, int timeIncre) {
+    public static Date caculatePhpTime(Date date, long timeIncre) {
         Date newDate = new Date(date.getTime() + timeIncre);
         return newDate;
     }
