@@ -103,7 +103,7 @@ public class UserRegisterActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         
-                        register();
+                        new RegisterThread().execute(new UserToken());
 
                     }
                 }

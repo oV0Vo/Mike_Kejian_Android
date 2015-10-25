@@ -213,7 +213,11 @@ public class UserNetService {
          */
 
         HashMap<String,String> par = new HashMap();
-        par.put("userId",userToken.getName());
+
+
+        par.put("phoneNumber",userToken.getPhoneNumber());
+
+
         par.put("password", userToken.getPassword());
 
         System.out.println(userToken.getName() + "  " + userToken.getPassword());

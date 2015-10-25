@@ -231,7 +231,11 @@ public class HttpRequest {
             System.out.println("http result:"+result);
 
         }catch (Exception e){
+
+            System.out.println("连接失败");
             e.printStackTrace();
+
+
             return null;
         }
         finally {
