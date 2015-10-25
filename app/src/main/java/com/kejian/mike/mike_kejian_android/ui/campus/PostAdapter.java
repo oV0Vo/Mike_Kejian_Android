@@ -64,7 +64,6 @@ public class   PostAdapter extends ArrayAdapter<Post>{
             postViewHolder.post_content = (TextView) convertView.findViewById(R.id.publish_content);
             postViewHolder.post_praise_num = (TextView) convertView.findViewById(R.id.post_praise_num);
             postViewHolder.post_comment_num = (TextView) convertView.findViewById(R.id.post_comment_num);
-            postViewHolder.post_praise_button = (ImageButton) convertView.findViewById(R.id.post_praise_button);
             postViewHolder.userId = post.getUserId();
             convertView.setTag(postViewHolder);
         } else {
@@ -72,15 +71,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         }
 
 
-        DownloadPicture d=new DownloadPicture(getContext()){
-
-            @Override
-            public void updateView(Bitmap bitmap) {
-                postViewHolder.post_user_icon.setImageBitmap(bitmap);
-            }
-        };
-
-        d.getBitMapFromNet(post.getUserIconUrl(), "");
+        new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
 
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,13 +108,6 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         });
 
 
-        postViewHolder.post_praise_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ImageButton)v).setBackgroundResource(R.drawable.up_green);
-                ((ImageButton)v).setEnabled(false);
-            }
-        });
         postViewHolder.post_title.setText(post.getTitle());
         postViewHolder.post_date.setText(post.getDate());
         postViewHolder.post_content.setText(post.getContent());
