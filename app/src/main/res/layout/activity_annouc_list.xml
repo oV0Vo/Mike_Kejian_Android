@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/small_padding"
                 android:textSize="@dimen/medium_font"
-                android:textColor="@color/my_red"
+                android:textColor="@color/red"
                 android:text="@string/annouc_on_top">
             </TextView>
 
@@ -80,7 +80,7 @@
             android:paddingBottom="@dimen/medium_padding"
             android:textSize="@dimen/big_font"
             android:textStyle="bold"
-            android:background="@drawable/dark_light_thin_bottom_border"
+            android:background="@drawable/dark_very_light_thin_bottom_border"
             android:text="@string/annouc_all_annouc_title"/>
 
         <ListView

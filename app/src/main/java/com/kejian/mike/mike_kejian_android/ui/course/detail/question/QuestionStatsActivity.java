@@ -64,6 +64,9 @@ public class QuestionStatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_stats);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         initAttrs();
 
         answers = new ArrayList();
@@ -225,9 +228,9 @@ public class QuestionStatsActivity extends AppCompatActivity {
         TextView joinNumText = (TextView)findViewById(R.id.join_num_text);
         joinNumText.setText(joinNumStr);
 
-        double joinRate = ((double)joinNum) / totalNum;
+        double joinRate = (totalNum != 0)? ((double)joinNum) / totalNum: 0.0;
         ColorBar joinColorRateBar = ColorBar.getDefaultStyleColorBar(this, joinRate);
-        ViewGroup joinRateColorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+        ViewGroup joinRateColorBarContainer = (ViewGroup)findViewById(R.id.join_rate_color_bar);
         joinRateColorBarContainer.addView(joinColorRateBar);
 
         TextView joinRateText = (TextView)findViewById(R.id.join_rate_text);
@@ -239,9 +242,9 @@ public class QuestionStatsActivity extends AppCompatActivity {
         TextView correctNumText = (TextView)findViewById(R.id.correct_num_text);
         correctNumText.setText(correctNumStr);
 
-        double correctRate = ((double)correctNum) / joinNum;
+        double correctRate = (joinNum != 0)? ((double)correctNum) / joinNum: 0.0;
         ColorBar correctRateColorBar = ColorBar.getDefaultStyleColorBar(this, correctRate);
-        ViewGroup correctRateColorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+        ViewGroup correctRateColorBarContainer = (ViewGroup)findViewById(R.id.correct_rate_color_bar);
         correctRateColorBarContainer.addView(correctRateColorBar);
 
         TextView correctRateText = (TextView)findViewById(R.id.correct_rate_text);
@@ -292,7 +295,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
     private void setTextColorAccordingToRate(TextView rateText, double rate) {
         if (rate < 0.6)
-            rateText.setTextColor(getResources().getColor(R.color.my_red));
+            rateText.setTextColor(getResources().getColor(R.color.red));
         else
             rateText.setTextColor(getResources().getColor(R.color.green));
     }

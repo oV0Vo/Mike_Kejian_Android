@@ -43,7 +43,7 @@ public class ColorBar extends LinearLayout {
 
     public static ColorBar getDefaultStyleColorBar(Context context, double colorPercent) {
 
-        int red = context.getResources().getColor(R.color.my_red);
+        int red = context.getResources().getColor(R.color.red);
         int dark_deep = context.getResources().getColor(R.color.dark_deep);
         int green = context.getResources().getColor(R.color.green);
         int dark = context.getResources().getColor(R.color.dark_half_trans);

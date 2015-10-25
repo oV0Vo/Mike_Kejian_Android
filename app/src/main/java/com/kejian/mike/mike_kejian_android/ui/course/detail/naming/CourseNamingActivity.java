@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -129,7 +128,7 @@ public class CourseNamingActivity extends AppCompatActivity {
                     return;
                 leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
                 if(millisUntilFinished < 10 * 1000)
-                    leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
+                    leftTimeClock.setTextColor(getResources().getColor(R.color.red));
             }
 
             @Override

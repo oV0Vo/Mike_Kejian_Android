@@ -27,23 +27,20 @@ import util.TimeFormat;
 
 public class AnnoucListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    private CourseModel courseModel;
-
-    private ViewGroup mainLayout;
-
     private ListView annoucListView;
     private AnnoucBriefAdapter annoucListAdapter;
 
     private CourseAnnoucement onTopAnnouc;
 
+    private CourseModel courseModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        courseModel = CourseModel.getInstance();
         setContentView(R.layout.activity_annouc_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mainLayout = (ViewGroup)findViewById(R.id.main_layout);
+        courseModel = CourseModel.getInstance();
 
         annoucListView = (ListView)findViewById(R.id.history_annouc_list_view);
         ArrayList<CourseAnnoucement> historyAnnoucs = courseModel.getAnnoucs();
@@ -55,7 +52,6 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
         CourseAnnoucement topAnnouc = courseModel.getOnTopAnnouc();
         if(topAnnouc != null)
             setOnTopAnnoucView(topAnnouc);
-        CourseModel d;
     }
 
     private void setOnTopAnnoucView(CourseAnnoucement topAnnouc) {
@@ -77,7 +73,6 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CourseAnnoucement annouc = (CourseAnnoucement)parent.getItemAtPosition(position);
-        CourseModel courseModel = CourseModel.getInstance();
         courseModel.setCurrentFocusAnnouc(annouc);
         Intent i = new Intent(this, AnnoucDetailActivity.class);
         startActivity(i);
@@ -86,9 +81,8 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onResume() {
         super.onResume();
-        CourseModel courseModel = CourseModel.getInstance();
         CourseAnnoucement courseAnnouc = courseModel.getCurrentFocusAnnouc();
-        if(courseAnnouc != onTopAnnouc) {
+        if(courseAnnouc != null && courseAnnouc!= onTopAnnouc) {
             courseAnnouc.setOnTop(false);
             setOnTopAnnoucView(courseAnnouc);
         }
@@ -130,7 +124,7 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
 
         private ImageView getIsNewAnnoucImage() {
             ImageView image = new ImageView(AnnoucListActivity.this);
-            image.setBackgroundResource(R.drawable.new_img);
+            image.setBackgroundResource(R.drawable.new_image);
             return image;
         }
     }

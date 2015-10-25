@@ -7,7 +7,7 @@
     android:layout_marginBottom="@dimen/medium_padding"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:background="@drawable/dark_light_thin_bottom_border">
+    android:background="@drawable/dark_very_light_thin_bottom_border">
 
     <LinearLayout
         android:id="@+id/annouc_title_layout"

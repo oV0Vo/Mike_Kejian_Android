@@ -38,8 +38,8 @@ import util.NeedRefinedAnnotation;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-            MainFragment.OnFragmentInteractionListener,
-            CourseListFragment.OnCourseSelectedListener
+        MainFragment.OnFragmentInteractionListener,
+        CourseListFragment.OnCourseSelectedListener
 {
     private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
 

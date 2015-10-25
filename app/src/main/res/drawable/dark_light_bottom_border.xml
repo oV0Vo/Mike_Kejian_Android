@@ -3,11 +3,11 @@
     <item>
         <shape>
             <solid android:color="@color/white"/>
-            <stroke android:color="@color/dark_light" android:width="@dimen/line_thin"/>
+            <stroke android:color="@color/dark_light" android:width="@dimen/line_sub_medium"/>
         </shape>
     </item>
 
-    <item android:bottom="@dimen/line_thin">
+    <item android:bottom="@dimen/line_sub_medium">
         <shape>
             <solid android:color="@color/white"/>
         </shape>

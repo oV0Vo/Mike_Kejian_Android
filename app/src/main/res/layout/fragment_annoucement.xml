@@ -2,8 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/over_medium_padding"
-    android:paddingBottom="@dimen/over_medium_padding">
+    android:paddingTop="@dimen/sub_big_padding"
+    android:paddingBottom="@dimen/sub_big_padding"
+    android:background="@drawable/dark_light_bottom_border">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -31,14 +32,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/medium_padding"
-            android:background="@drawable/dark_thin_bottom_border"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingBottom="@dimen/small_padding"
+            android:background="@drawable/dark_very_light_thin_bottom_border"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/small_icon_width"
                 android:layout_height="@dimen/small_icon_height"
                 android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginLeft="@dimen/small_padding"
                 android:background="@drawable/notification_green"/>
 
             <TextView
@@ -51,34 +56,44 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/course_detail_annoucement_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/sub_big_padding"
-            android:paddingBottom="@dimen/sub_big_padding"
-            android:singleLine="false"
-            android:maxLines="3"
-            android:ellipsize="end"/>
-
         <LinearLayout
-            android:id="@+id/annouc_time_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/medium_padding"
-            android:orientation="horizontal">
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/course_detail_annoucement_author_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/course_detail_annoucement_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/annoucement_action_name"/>
-            <TextView
-                android:id="@+id/course_detail_annoucement_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:paddingTop="@dimen/sub_big_padding"
+                android:paddingBottom="@dimen/sub_big_padding"
+                android:singleLine="false"
+                android:maxLines="3"
+                android:ellipsize="end"/>
+
+            <LinearLayout
+                android:id="@+id/annouc_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/course_detail_annoucement_author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/annoucement_action_name"/>
+                <TextView
+                    android:id="@+id/course_detail_annoucement_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
