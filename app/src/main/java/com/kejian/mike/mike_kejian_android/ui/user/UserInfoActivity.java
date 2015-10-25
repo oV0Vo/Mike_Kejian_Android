@@ -295,10 +295,10 @@ public class UserInfoActivity extends AppCompatActivity{
             baseInfoNickname.setText(user.getNick_name());
             baseInfoNickname.setEnabled(false);
 
-            schoolDepartmentView.setText(user.getDepartmentInfo().getId());
+            schoolDepartmentView.setText(user.getDepartmentInfo().getName());
             schoolDepartmentView.setEnabled(false);
 
-            schoolMajorView.setText(user.getDepartmentInfo().getId());
+            schoolMajorView.setText(user.getMajorName());
             schoolMajorView.setEnabled(false);
 
 

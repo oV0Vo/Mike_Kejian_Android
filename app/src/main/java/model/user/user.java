@@ -17,6 +17,16 @@ public class user implements Serializable{
 
     private String name;//
 
+    public String getMajorName() {
+        return majorName;
+    }
+
+    public void setMajorName(String majorName) {
+        this.majorName = majorName;
+    }
+
+    private String majorName;
+
     private String icon;//头像
     private school schoolInfo;//学校的信息
 
@@ -127,13 +137,14 @@ public class user implements Serializable{
 
         schoolInfo=new school();
         schoolInfo.setId((String)infoSet.get("school_id"));
-//        schoolInfo.setName();
+        schoolInfo.setName((String)infoSet.get("school_name"));
 //        schoolInfo.setNumber();
 //
+        majorName=(String)infoSet.get("major_name");
 
         departmentInfo=new department();
 //        departmentInfo.setNumber();
-//        departmentInfo.setName();
+        departmentInfo.setName((String)infoSet.get("department_name"));
         departmentInfo.setId((String) infoSet.get("department_id"));
         departmentInfo.setSchoolId(schoolInfo.getId());
 
