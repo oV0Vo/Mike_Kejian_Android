@@ -50,12 +50,14 @@
                 android:background="@color/grey">
             </LinearLayout>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/campus_publish_invite"
+                android:text="@string/campus_publish_invite"
                 android:padding="@dimen/sub_big_padding"
-                android:background="@null"/>
+                android:background="@null"
+                android:visibility="gone"
+                android:id="@+id/publish_invite_view"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +88,9 @@
             android:padding="@dimen/sub_big_padding"
             android:text="@string/campus_publish_invite_answer"
             android:textSize="15sp"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/setting_item_selector"
+            android:id="@+id/publish_invite">
         </TextView>
 
         <LinearLayout

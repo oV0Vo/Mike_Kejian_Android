@@ -23,7 +23,7 @@
         android:text="退出登录"
         android:gravity="center"
         android:textColor="@color/white"
-        android:background="@color/my_red"
+        android:background="@color/red"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:id="@+id/logout"
