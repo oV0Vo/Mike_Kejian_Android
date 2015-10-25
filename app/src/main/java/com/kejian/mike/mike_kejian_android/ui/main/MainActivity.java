@@ -1,12 +1,16 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -23,6 +28,7 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
+import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.PushAgent;
@@ -39,8 +45,7 @@ import util.NeedRefinedAnnotation;
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         MainFragment.OnFragmentInteractionListener,
-        CourseListFragment.OnCourseSelectedListener
-{
+        CourseListFragment.OnCourseSelectedListener {
     private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -57,9 +62,13 @@ public class MainActivity extends AppCompatActivity
 
     private RadioButton currentImageTab;
 
+    private ImageView messageNewsImage;
+
     private CourseListContainerFragment courseFg;
     private Fragment_Msg msgFg;
     private PostListContainerFragment campusFg;
+
+
 
     private enum FgState {
         COURSE, MESSAGE, CAMPUS
@@ -89,8 +98,22 @@ public class MainActivity extends AppCompatActivity
         initViewPager();
         initRadioButtons();
         initPushAgent();
+        initMessageNotice();
         fgState = FgState.COURSE;
         courseTextTab.setChecked(true);
+    }
+
+    //@还不是很清楚广播，所以先这样写
+    private void initMessageNotice() {
+        messageNewsImage = (ImageView)findViewById(R.id.message_news_icon);
+        BroadcastReceiver messageBR = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                messageNewsImage.setVisibility(View.VISIBLE);
+            }
+        };
+        IntentFilter messageIF = new IntentFilter(UmengMessageAction.NEW_MESSAGE_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageBR, messageIF);
     }
 
     private void initNavigationDrawer() {
@@ -146,6 +169,7 @@ public class MainActivity extends AppCompatActivity
                     case 1:
                         messageTextTab.setChecked(true);
                         messageImageTab.setChecked(true);
+                        messageNewsImage.setVisibility(View.GONE);
                         currentImageTab = messageImageTab;
                         fgState = FgState.MESSAGE;
                         setMessageMenu();
@@ -196,6 +220,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
+                messageNewsImage.setVisibility(View.GONE);
             }
         });
         messageImageTab = (RadioButton)findViewById(R.id.message_tab_image);
@@ -203,6 +228,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
+                messageNewsImage.setVisibility(View.GONE);
             }
         });
 

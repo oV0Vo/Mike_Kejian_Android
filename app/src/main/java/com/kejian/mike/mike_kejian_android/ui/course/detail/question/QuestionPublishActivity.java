@@ -1,9 +1,11 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 
+import android.inputmethodservice.Keyboard;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -132,7 +134,8 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 boolean otherChoiceBefore = (typeMask & otherMask) != 0;
 
                 switch (checkedId) {
-                    case R.id.question_publish_type_single_choice:Log.e("QuestionPublish", "change to singleChoice");
+                    case R.id.question_publish_type_single_choice:
+                        Log.e("QuestionPublish", "change to singleChoice");
                         if (multiChoiceBefore) {
                             clearCorrectChoices();
                         } else if (otherChoiceBefore) {
@@ -141,7 +144,8 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         typeMask = singleChoiceMask;
                         break;
 
-                    case R.id.question_publish_type_multi_choice:Log.e("QuestionPublish", "change to ,multiChoice");
+                    case R.id.question_publish_type_multi_choice:
+                        Log.e("QuestionPublish", "change to ,multiChoice");
                         if (singleChoiceBefore) {
                             clearCorrectChoices();
                         } else if (otherChoiceBefore) {
@@ -149,7 +153,8 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         }
                         typeMask = multiChoiceMask;
                         break;
-                    case R.id.question_publish_type_other:Log.e("QuestionPublish", "change to otherChoice");
+                    case R.id.question_publish_type_other:
+                        Log.e("QuestionPublish", "change to otherChoice");
                         if (singleChoiceBefore) {
                             choiceContentContainer.setVisibility(View.INVISIBLE);
                         } else if (multiChoiceBefore) {
@@ -171,6 +176,22 @@ public class QuestionPublishActivity extends AppCompatActivity {
         clearChoiceViews();
         for(int choiceIndex=0; choiceIndex<choiceNum; ++choiceIndex)
             createNewChoiceView(choiceIndex);
+        setChoiceKeyInputListener();
+    }
+
+    private void setChoiceKeyInputListener() {
+        for(int i=0; i<choiceContentViews.size() - 1; ++i) {
+            EditText choiceInputText = choiceContentViews.get(i);
+            final EditText nextInputText = choiceContentViews.get(i + 1);
+            choiceInputText.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if(keyCode == 66)
+                        nextInputText.requestFocus();
+                    return true;
+                }
+            });
+        }
     }
 
     private void createNewChoiceView(int choiceIndex) {
