@@ -76,9 +76,8 @@ public class CourseActivity extends AppCompatActivity implements
         taskCountDown++;
         new InitUserTypeTask().execute();
 
-        initPostAndQuestionLayoutFragment();
-        initCourseBriefFragment();
-        initCourseAnnoucementFragment();
+        taskCountDown++;
+        new InitCourseDetailTask().execute();
     }
 
     private void initCourseBriefFragment() {
@@ -347,6 +346,11 @@ public class CourseActivity extends AppCompatActivity implements
     private void updateViewOnInitCourseDetailFinish() {
         if(mainLayout == null)
             return;
+
+        initCourseBriefFragment();
+        initPostAndQuestionLayoutFragment();
+        initCourseAnnoucementFragment();
+
         updateViewIfAllTaskFinish();
     }
 
@@ -401,6 +405,25 @@ public class CourseActivity extends AppCompatActivity implements
             } else {
                 updateViewOnTaskFail();
             }
+        }
+    }
+
+    private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean updateSuccess = courseModel.updateCourseDetail();
+            if(updateSuccess)
+                taskCountDown--;
+            return updateSuccess;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateSuccess) {
+            if(updateSuccess)
+                updateViewOnInitCourseDetailFinish();
+            else
+                updateViewOnTaskFail();
         }
     }
 
