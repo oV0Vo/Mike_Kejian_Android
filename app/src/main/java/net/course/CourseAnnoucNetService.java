@@ -42,8 +42,6 @@ public class CourseAnnoucNetService {
     }
 
     public static ArrayList<CourseAnnoucement> getAnnoucs(String courseId) {
-        return new ArrayList<CourseAnnoucement>();
-    /*
         String url = BASE_URL + "getAnnoucementsByCourseId/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
@@ -61,7 +59,7 @@ public class CourseAnnoucNetService {
             e.printStackTrace();
             Log.e(TAG, "getAnnoucs json error");
             return null;
-        }*/
+        }
     }
 
     private static CourseAnnoucement parseAnnouc(JSONObject jAnnouc) {
