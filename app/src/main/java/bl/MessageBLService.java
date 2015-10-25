@@ -131,7 +131,7 @@ public class
         if(courseNotices == null){
             courseNotices = new ArrayList<CourseNotice>();
             courseNoticeLatestRefreshTime = System.currentTimeMillis();
-            ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId,course_notice_last_id,5);
+            ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId,course_notice_last_id,10);
             for(int i = 0;i<newCourseNotices.size();i++){
                 courseNotices.add(newCourseNotices.get(i));
             }
@@ -142,7 +142,7 @@ public class
     }
 
     public static void addCourseNotices(String userId){
-            ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId, course_notice_last_id, 5);
+            ArrayList<CourseNotice> newCourseNotices = MessageNetService.getNextCourseNotices(userId, course_notice_last_id, 10);
             for(int i = 0;i < newCourseNotices.size();i++){
                 courseNotices.add(newCourseNotices.get(i));
             }
@@ -168,7 +168,7 @@ public class
         if(replies == null){
             replies = new ArrayList<Reply>();
             replyLatestRefreshTime = System.currentTimeMillis();
-            ArrayList<Reply> newReplies = MessageNetService.getNextReplies(userId,reply_last_id,5);
+            ArrayList<Reply> newReplies = MessageNetService.getNextReplies(userId,reply_last_id,10);
             for(int i = 0;i<newReplies.size();i++){
                 replies.add(newReplies.get(i));
             }
@@ -179,7 +179,7 @@ public class
 
     }
     public static void addReplies(String userId){
-        ArrayList<Reply> newReplies = MessageNetService.getNextReplies(userId,reply_last_id,5);
+        ArrayList<Reply> newReplies = MessageNetService.getNextReplies(userId,reply_last_id,10);
         for(int i = 0;i < newReplies.size();i++){
             replies.add(newReplies.get(i));
         }
@@ -202,7 +202,7 @@ public class
         if(praises == null){
             praises = new ArrayList();
             praiseLatestRefreshTime = System.currentTimeMillis();
-            ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_last_id, 5);
+            ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_last_id, 10);
             for(int i = 0;i<newPraises.size();i++){
                 praises.add(newPraises.get(i));
             }
@@ -212,7 +212,7 @@ public class
         }
     }
     public static void addPraises(String userId){
-        ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_last_id, 5);
+        ArrayList<Praise> newPraises = MessageNetService.getNextPraises(userId, praise_last_id, 10);
         for(int i = 0;i < newPraises.size();i++){
             praises.add(newPraises.get(i));
         }
@@ -236,7 +236,7 @@ public class
         if(mentionMes == null){
             mentionMes = new ArrayList();
             mentionLatestRefreshTime = System.currentTimeMillis();
-            ArrayList<MentionMe> newMentions= MessageNetService.getNextMentionMes(userId, mentionme_last_id, 5);
+            ArrayList<MentionMe> newMentions= MessageNetService.getNextMentionMes(userId, mentionme_last_id, 10);
             for(int i = 0;i<newMentions.size();i++){
                 mentionMes.add(newMentions.get(i));
             }
@@ -247,7 +247,7 @@ public class
 
     }
     public static void addMentionMes(String userId){
-        ArrayList<MentionMe> newMentionmes = MessageNetService.getNextMentionMes(userId,mentionme_last_id, 5);
+        ArrayList<MentionMe> newMentionmes = MessageNetService.getNextMentionMes(userId,mentionme_last_id, 10);
         for(int i = 0;i < newMentionmes.size();i++){
             mentionMes.add(newMentionmes.get(i));
         }

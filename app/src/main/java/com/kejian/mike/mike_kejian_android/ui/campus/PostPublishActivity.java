@@ -61,7 +61,7 @@ public class PostPublishActivity extends AppCompatActivity{
                     public void onPostExecute(String result) {
                         if(!(result.equals("false") || result==null)) {
                             Toast.makeText(PostPublishActivity.this, "帖子已创建", Toast.LENGTH_SHORT).show();
-                            System.out.println(CampusBLService.inviteToAnswer(result, userList));
+                            CampusBLService.inviteToAnswer(result, userList);
                         }
                         else
                             Toast.makeText(PostPublishActivity.this, "帖子创建失败", Toast.LENGTH_SHORT).show();
