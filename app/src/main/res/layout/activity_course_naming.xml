@@ -126,7 +126,7 @@
             android:paddingBottom="@dimen/medium_padding"
             android:textSize="@dimen/big_font"
             android:textColor="@color/green"
-            android:background="@drawable/dark_light_thin_bottom_border"
+            android:background="@drawable/dark_very_light_thin_bottom_border"
             android:text="@string/course_naming_history_title"/>
 
         <ListView

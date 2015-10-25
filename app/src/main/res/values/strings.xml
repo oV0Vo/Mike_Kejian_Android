@@ -219,13 +219,8 @@
     <string name="net_disconnet">网络出了点小故障..</string>
 
     <string-array name="brands">
-        <item>江苏</item>
-        <item>浙江</item>
-        <item>上海</item>
-        <item>四川</item>
-        <item>广州</item>
-        <item>济州岛</item>
-        <item>北海道</item>
+        <item>中国</item>
+
     </string-array>
     <string name="why_bind_school_account"> <u>为什么要绑定教务网帐号</u></string>
     <string name="skip_bind"> <u>跳过此步骤，暂不绑定</u></string>

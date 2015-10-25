@@ -1,7 +1,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
 <LinearLayout
     android:id="@+id/main_layout"
@@ -51,6 +52,8 @@
             android:id="@+id/zhankai_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/big_padding"
             android:orientation="horizontal">
         </RelativeLayout>
@@ -61,8 +64,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/big_padding"
-            android:paddingBottom="@dimen/big_padding"
+            android:paddingTop="@dimen/sub_big_padding"
+            android:paddingBottom="@dimen/sub_big_padding"
             android:orientation="horizontal"
             android:background="@drawable/dark_thin_top_bottom_border">
 
@@ -100,7 +103,6 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:rowCount="3"
             android:columnCount="2">
 
@@ -139,7 +141,7 @@
                     android:layout_height="wrap_content">
 
                     <FrameLayout
-                        android:id="@+id/color_bar_container"
+                        android:id="@+id/join_rate_color_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/medium_padding"/>
@@ -158,6 +160,7 @@
                 android:text="@string/question_answer_stats_correct_rate_title"/>
 
             <LinearLayout
+                android:layout_marginLeft="@dimen/medium_padding"
                 android:layout_marginTop="@dimen/over_medium_padding"
                 android:layout_marginBottom="@dimen/over_medium_padding"
                 android:orientation="vertical">
@@ -222,8 +225,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/big_padding"
-        android:paddingBottom="@dimen/big_padding"
+        android:paddingTop="@dimen/sub_big_padding"
+        android:paddingBottom="@dimen/sub_big_padding"
         android:orientation="horizontal"
         android:background="@drawable/dark_thin_bottom_border">
 

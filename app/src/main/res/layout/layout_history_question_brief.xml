@@ -3,11 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/sub_medium_padding"
+    android:paddingBottom="@dimen/sub_medium_padding"
+    android:background="@drawable/dark_very_light_thin_bottom_border">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding"
         android:orientation="horizontal">
 
         <TextView
@@ -15,56 +22,77 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/history_question_brief_join_text"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textColor="@color/my_red" />
-            
-            <ImageView
-                android:id="@+id/history_question_brief_join_image"
-                android:layout_width="@dimen/small_icon_size"
-                android:layout_height="@dimen/small_icon_size"
-                android:layout_gravity="right"/>
-            
-        </LinearLayout>
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/history_question_brief_join_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/medium_padding"
+                    android:layout_gravity="right"
+                    android:textColor="@color/red" />
+
+                <ImageView
+                    android:id="@+id/history_question_brief_join_image"
+                    android:layout_width="@dimen/small_icon_size"
+                    android:layout_height="@dimen/small_icon_size"
+                    android:layout_gravity="right"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/history_question_brief_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:maxLines="2"
         android:singleLine="false"
+        android:lineSpacingExtra="@dimen/small_padding"
         android:ellipsize="end" />
 
-    <LinearLayout
-        android:id="@+id/zhankai_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:id="@+id/zhankai_text"
+        <LinearLayout
+            android:id="@+id/zhankai_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="@dimen/small_font"
-            android:textColor="@color/green"
-            android:text="@string/zhankai"/>
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/zhankai_image"
-            android:layout_width="@dimen/small_icon_size"
-            android:layout_height="@dimen/small_icon_size"
-            android:src="@drawable/down"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/zhankai_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textSize="@dimen/small_font"
+                android:textColor="@color/green"
+                android:text="@string/zhankai"/>
+
+            <ImageView
+                android:id="@+id/zhankai_image"
+                android:layout_width="@dimen/small_icon_size"
+                android:layout_height="@dimen/small_icon_size"
+                android:src="@drawable/down"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </LinearLayout>

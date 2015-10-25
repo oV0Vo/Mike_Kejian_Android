@@ -443,7 +443,7 @@ public class CourseQuestionFragment extends Fragment {
                 return;
             leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
             if(millisUntilFinished < 10 * 1000)
-                leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.my_red));
+                leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.red));
         }
 
         @Override

@@ -494,6 +494,10 @@ public class UserLoginActivity extends Activity {
                 case 2:
                     errorInLogInfo("登录错误", "请检查你的用户名或密码");
                     break;
+                case 3:
+                    errorInLogInfo("身份过期", "请重新登录");
+                    break;
+
                 default:break;
             }
 

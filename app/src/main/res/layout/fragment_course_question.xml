@@ -3,41 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<LinearLayout
-    android:id="@+id/course_question_main_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <ListView
-        android:id="@+id/current_question_list_view"
+    <LinearLayout
+        android:id="@+id/course_question_main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
-        android:divider="@null"
-        android:scrollbars="none"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
-        android:text="@string/history_question_list_title"
-        android:textSize="@dimen/sub_big_font"
-        android:textColor="@color/green"/>
+        <ListView
+            android:id="@+id/current_question_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sub_big_padding"
+            android:divider="@null"
+            android:scrollbars="none"/>
 
-    <ListView
-        android:id="@+id/history_question_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
-        android:divider="@null"
-        android:scrollbars="none">
-    </ListView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingBottom="@dimen/small_padding"
+            android:background="@drawable/dark_very_light_thin_bottom_border"
+            android:text="@string/history_question_list_title"
+            android:textSize="@dimen/big_font"
+            android:textColor="@color/green"/>
 
-</LinearLayout>
+        <ListView
+            android:id="@+id/history_question_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_padding"
+            android:paddingBottom="@dimen/medium_padding"
+            android:divider="@null"
+            android:scrollbars="none">
+        </ListView>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/course_question_progress_bar"

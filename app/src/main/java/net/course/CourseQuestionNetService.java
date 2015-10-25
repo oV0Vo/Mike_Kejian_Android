@@ -295,13 +295,38 @@ public class CourseQuestionNetService {
     }
 
     public static QuestionStats getQuestionStats(String questionId) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String url = BASE_URL + "getQuestionState";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("questionId", questionId);
+        String response = httpRequest.sentGetRequest(url, paraMap);
 
-        return null;
+        try {
+            JSONObject jStats = new JSONObject(response);
+            QuestionStats stats = new QuestionStats();
+
+            String id = jStats.getString("id");
+            stats.setQuestionId(id);
+
+            int correctAnswerNum = Integer.parseInt(jStats.getString("correctAnswerNum"));
+            stats.setCorrectAnswerNum(correctAnswerNum);
+
+            int totalAnswerNum = Integer.parseInt(jStats.getString("totalAnswerNum"));
+            stats.setTotalAnswerNum(totalAnswerNum);
+
+            JSONArray jChoiceDistribute = jStats.getJSONArray("choiceDistribute");
+            ArrayList<Integer> choiceDistribute = new ArrayList<Integer>();
+            for(int i=0; i<jChoiceDistribute.length(); ++i) {
+                choiceDistribute.add(jChoiceDistribute.getInt(i));
+            }
+            stats.setChoiceDistribute(choiceDistribute);
+
+            return stats;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getQuestionStats json error");
+            return null;
+        }
     }
 
     public static CommitAnswerResultMessage commitAnswer(String questionId, String answer) {
@@ -324,6 +349,17 @@ public class CourseQuestionNetService {
     }
 
     public static boolean shutDownQuestion(String questionId) {
-        return true;
+        String url = BASE_URL + "closeQuestion";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("questionId", questionId);
+        String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return false;
+        else if(response.equals("true"))
+            return true;
+        else if(response.equals("false"))
+            return false;
+        else
+            return false;
     }
 }

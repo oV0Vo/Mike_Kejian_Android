@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -116,6 +117,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
              //   ListView l = new ListView(context);
 
                 people.setTextColor(Color.WHITE);
+                course.setTextColor(Color.BLACK);
+                post.setTextColor(Color.BLACK);
 
                 attentionList.setAdapter(peopleAdapter);
 
@@ -138,6 +141,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
             //    ListView l = new ListView(context);
 
                 course.setTextColor(Color.WHITE);
+                people.setTextColor(Color.BLACK);
+                post.setTextColor(Color.BLACK);
 
                 attentionList.setAdapter(courseAdapter);
                 attentionList.setOnRefreshListener(new Refresh(attentionType.COURSE.name()));
@@ -153,7 +158,9 @@ public class UserAttentionListActivity extends AppCompatActivity{
                 //s(UserAttentionActivity.class);
                // container.removeAllViews();
 
-                people.setTextColor(Color.WHITE);
+                post.setTextColor(Color.WHITE);
+                course.setTextColor(Color.BLACK);
+                people.setTextColor(Color.BLACK);
                 //ListView l = new ListView(context);
                 attentionList.setAdapter(postAdapter);
                 attentionList.setOnRefreshListener(new Refresh(attentionType.POST.name()));
@@ -281,6 +288,15 @@ public class UserAttentionListActivity extends AppCompatActivity{
 
 
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home){
+            this.finish();
+        }
+
+        return true;
     }
 
 
