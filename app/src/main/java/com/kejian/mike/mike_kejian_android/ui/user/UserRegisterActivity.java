@@ -146,7 +146,7 @@ public class UserRegisterActivity extends AppCompatActivity{
 
 
 
-    public void register(){
+    public boolean register(){
 
         String phoneNumber=phoneNumberView.getText().toString().trim();
         String password=passwordView.getText().toString().trim();
@@ -202,7 +202,7 @@ public class UserRegisterActivity extends AppCompatActivity{
 
             //把token压入全局数组
 
-            Global.addGlobalItem("userToken",userToken);
+            Global.addGlobalItem("userToken", userToken);
 
             intent.setClass(context, UserSchoolAccountActivity.class);
 
@@ -210,12 +210,14 @@ public class UserRegisterActivity extends AppCompatActivity{
 
             close();
 
+            return true;
+
 
         }
 
         else{
 
-            new UserUIError("注册失败",userBLResult.name(),this);
+           return false;
 
         }
 
@@ -377,22 +379,23 @@ public class UserRegisterActivity extends AppCompatActivity{
         this.finish();
     }
 
-    private class RegisterThread extends AsyncTask<UserToken,Integer,UserToken>{
+    private class RegisterThread extends AsyncTask<UserToken,Integer,Boolean>{
 
-        public UserToken doInBackground(UserToken...para){
+        public Boolean doInBackground(UserToken...para){
 
-            register();
+            return register();
 
-            return null;
+
 
         }
 
         @Override
-        public void onPostExecute(UserToken userToken){
+        public void onPostExecute(Boolean result){
 
-            //注册
+            if(!result){
 
-            //UserNetService.register(userToken);
+                Toast.makeText(context,"手机已经被注册，或者没有网络连接",Toast.LENGTH_SHORT);
+            }
 
 
 
