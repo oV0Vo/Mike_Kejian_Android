@@ -133,11 +133,9 @@ public class CampusNetService {
         }
         params.put("userId", post.getUserId());
         params.put("courseId", courseId);
-        try {
-            params.put("postInfo", URLEncoder.encode(postJson.toString(),"utf8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
+            params.put("postInfo",postJson.toString());
+
 
         String result = httpRequest.sentGetRequest(baseUrl + "postNewQuestion/", params);
 

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -122,6 +124,8 @@ public class AttentionListAdapter extends BaseAdapter {
 
                         new jump().execute(friend.getId());
                     }
+
+
                 });
 
             }
@@ -213,6 +217,7 @@ public class AttentionListAdapter extends BaseAdapter {
             return null;
         }
     }
+
 
 
 }

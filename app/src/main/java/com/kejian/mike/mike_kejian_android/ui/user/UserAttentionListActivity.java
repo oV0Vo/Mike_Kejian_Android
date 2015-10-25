@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -94,6 +96,16 @@ public class UserAttentionListActivity extends AppCompatActivity{
         attentionList=(RefreshListView)findViewById(R.id.attention_list);
         progressBar=(ProgressBar)findViewById(R.id.get_attention_progress_bar);
 
+        attentionList.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+            @Override
+            public boolean onGenericMotion(View v, MotionEvent event) {
+
+               // if(event==MotionEvent.obtain(MotionEvent.EDGE_LEFT))
+
+                return true;
+            }
+        });
+
 
         people.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +114,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
               //  container.removeAllViews();
               //  s(UserAttentionActivity.class);
              //   ListView l = new ListView(context);
+
+                people.setTextColor(Color.WHITE);
 
                 attentionList.setAdapter(peopleAdapter);
 
@@ -123,6 +137,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
                // s(UserAttentionCourse.class);
             //    ListView l = new ListView(context);
 
+                course.setTextColor(Color.WHITE);
+
                 attentionList.setAdapter(courseAdapter);
                 attentionList.setOnRefreshListener(new Refresh(attentionType.COURSE.name()));
 
@@ -137,6 +153,7 @@ public class UserAttentionListActivity extends AppCompatActivity{
                 //s(UserAttentionActivity.class);
                // container.removeAllViews();
 
+                people.setTextColor(Color.WHITE);
                 //ListView l = new ListView(context);
                 attentionList.setAdapter(postAdapter);
                 attentionList.setOnRefreshListener(new Refresh(attentionType.POST.name()));
