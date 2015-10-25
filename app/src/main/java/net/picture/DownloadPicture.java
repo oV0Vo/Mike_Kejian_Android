@@ -44,8 +44,15 @@ public class DownloadPicture {
 
     public Bitmap getBitMapFromNet(String url,String picturePath){
 
-        picturePath=picturePath.replaceAll("\\/","#");
-        picturePath=picturePath.replaceAll("\\.","#");
+        if(picturePath!=null&&(!picturePath.equals(""))) {
+
+            picturePath = picturePath.replaceAll("\\/", "#");
+            picturePath = picturePath.replaceAll("\\.", "#");
+
+        }
+        else{
+            picturePath="temp";
+        }
 
         File  file=new File("/sdcard/mike/user/"+picturePath);
         Bitmap bitmap=null;

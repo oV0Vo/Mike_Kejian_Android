@@ -111,7 +111,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         if (mListener != null) {
             Post post = (Post)mAdapter.getItem(position);
             CourseModel.getInstance().setCurrentPost(post);
-            mListener.onPostSelected();
+            mListener.onPostSelected(post.getPostId());
         }
     }
 
@@ -138,11 +138,10 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if(convertView != null) {
-                return convertView;
+            if(convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_post_brief, null);
             }
 
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_post_brief, null);
             Post post = getItem(position);
 
             TextView titleView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_title);
@@ -168,7 +167,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
     }
 
     public interface OnPostSelectedListener {
-        public void onPostSelected();
+        void onPostSelected(String postId);
     }
 
     private class UpdateCommentsTask extends AsyncTask<Void, Integer, ArrayList<Post>> {

@@ -240,11 +240,10 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView != null)
-                return convertView;
-
-            convertView = getActivity().getLayoutInflater().inflate(
-                    R.layout.layout_history_question_brief, null);
+            if(convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(
+                        R.layout.layout_history_question_brief, null);
+            }
             BasicQuestion question = getItem(position);
 
             TextView timeText = (TextView)convertView.findViewById(R.id.history_question_brief_time);

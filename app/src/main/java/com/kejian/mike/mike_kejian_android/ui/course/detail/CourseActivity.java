@@ -343,8 +343,9 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPostSelected() {
+    public void onPostSelected(String postId) {
         Intent intent = new Intent(this, PostDetailActivity.class);
+        intent.putExtra("postId", postId);
         startActivity(intent);
     }
 

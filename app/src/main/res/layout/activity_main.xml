@@ -30,7 +30,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium_padding"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -42,11 +41,19 @@
                         android:layout_width="@dimen/main_tab_width"
                         android:layout_height="@dimen/main_tab_height"
                         android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
                         android:background="@drawable/course_tab_selector"/>
+
+                    <ImageView
+                        android:id="@+id/course_news_icon"
+                        android:layout_width="@dimen/sub_small_icon_size"
+                        android:layout_height="@dimen/sub_small_icon_size"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/message_tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -55,8 +62,15 @@
                         android:layout_width="@dimen/main_tab_width"
                         android:layout_height="@dimen/main_tab_height"
                         android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
                         android:background="@drawable/message_tab_selector"/>
+
+                    <ImageView
+                        android:id="@+id/message_news_icon"
+                        android:layout_width="@dimen/sub_small_icon_size"
+                        android:layout_height="@dimen/sub_small_icon_size"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -68,8 +82,15 @@
                         android:layout_width="@dimen/main_tab_width"
                         android:layout_height="@dimen/main_tab_height"
                         android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
                         android:background="@drawable/campus_tab_selector"/>
+                    
+                    <ImageView
+                        android:id="@+id/campus_news_icon"
+                        android:layout_width="@dimen/sub_small_icon_size"
+                        android:layout_height="@dimen/sub_small_icon_size"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
             </LinearLayout>

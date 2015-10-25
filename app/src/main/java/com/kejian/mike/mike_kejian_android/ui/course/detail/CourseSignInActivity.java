@@ -232,11 +232,10 @@ public class CourseSignInActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if (convertView != null) {
-                return convertView;
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.layout_history_sign_in, null);
             }
 
-            convertView = getLayoutInflater().inflate(R.layout.layout_history_sign_in, null);
             CourseSignInRecord  r = getItem(position);
 
             Date beginTime = r.getBeginTime();
