@@ -168,7 +168,7 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
 //        SearchView searchView = (SearchView) searchItem.getActionView();
 //        searchview.setInputType();
 //        searchView.setIconifiedByDefault(false);
-        searchview.setQueryHint("请输入用户id或昵称");
+        searchview.setQueryHint("请输入用户昵称");
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

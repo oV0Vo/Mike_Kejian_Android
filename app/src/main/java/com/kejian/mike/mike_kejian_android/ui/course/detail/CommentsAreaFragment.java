@@ -42,6 +42,8 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private ProgressBar progressBar;
 
+    private TextView emptyText;
+
     private int taskCountDown;
 
     public CommentsAreaFragment() {
@@ -76,6 +78,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         mListView.setOnItemClickListener(this);
 
         progressBar = (ProgressBar)view.findViewById(R.id.course_post_progress_bar);
+        emptyText = (TextView)view.findViewById(R.id.empty_text);
 
         if(taskCountDown != 0) {
             progressBar.setVisibility(View.VISIBLE);
@@ -122,7 +125,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private void onUpdateTaskFinished() {
         taskCountDown -= 1;
-        if(taskCountDown == 0 && progressBar != null) {
+        if(taskCountDown == 0) {
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -177,9 +180,17 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         }
 
         protected void onPostExecute(ArrayList<Post> posts) {
+            if(progressBar == null)
+                return;
+
             onUpdateTaskFinished();
             if(posts != null) {
-                mAdapter.notifyDataSetChanged();
+                if(posts.size() != 0) {
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    mListView.setVisibility(View.GONE);
+                    emptyText.setVisibility(View.VISIBLE);
+                }
             } else {
                 Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
                 Log.i(TAG, "net_disconnet");

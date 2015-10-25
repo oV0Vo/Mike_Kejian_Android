@@ -93,7 +93,7 @@ public class LatestAnnoucFragment extends Fragment {
         } else {
             contentView.setText((R.string.annoucement_no_annoucement));
             contentView.setGravity(Gravity.CENTER);
-            //contentView.setTextSize(getResources().getDimension(R.dimen.big_font));
+            contentView.setTextSize(getResources().getDimension(R.dimen.sub_big_font));
             contentView.setTextColor(getResources().getColor(R.color.dark));
             ViewGroup annoucTimeLayout = (ViewGroup)mainLayout.findViewById(R.id.annouc_time_layout);
             annoucTimeLayout.setVisibility(View.GONE);

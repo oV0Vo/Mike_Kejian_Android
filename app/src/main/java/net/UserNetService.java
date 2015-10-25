@@ -90,9 +90,12 @@ public class UserNetService {
 
         System.out.println("register "+r);
 
+        r=URLEncoder.encode(r);
 
 
         h.put("userToken", r);
+
+
 
 
 

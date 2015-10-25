@@ -167,6 +167,8 @@ public class CourseListContainerFragment extends Fragment {
                 if (isChecked) {
                     allCourseSelectLayout.setVisibility(View.VISIBLE);
                     getActivity().setTitle(R.string.all_course_title);
+                    academySelectText.setText(R.string.main_course_select_all_academy);
+                    courseTypeSelectText.setText(R.string.main_course_select_all_course);
                     courseListFg.showAllCourse();
                 }
             }

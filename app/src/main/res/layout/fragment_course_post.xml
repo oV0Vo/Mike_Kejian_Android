@@ -18,7 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        style="?android:attr/progressBarStyleLarge"/>
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/sub_big_font"
+        android:textColor="@color/dark"
+        android:text="@string/course_post_empty_text"
+        android:visibility="gone" />
 
 </RelativeLayout>

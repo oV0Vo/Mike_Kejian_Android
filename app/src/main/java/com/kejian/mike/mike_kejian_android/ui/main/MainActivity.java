@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity
                 case 1:
                     return new Fragment_Msg();
                 case 2:
-                    return new PostListContainerFragment();
+                    return new Fragment();
                 default:
                     return null;
             }

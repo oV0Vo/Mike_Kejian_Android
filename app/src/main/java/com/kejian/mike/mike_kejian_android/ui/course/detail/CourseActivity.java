@@ -74,11 +74,13 @@ public class CourseActivity extends AppCompatActivity implements
         this.setTitle(R.string.course_title);
 
         taskCountDown++;
+        new InitCourseDetailTask().execute();
+
+        taskCountDown++;
         new InitUserTypeTask().execute();
 
         initPostAndQuestionLayoutFragment();
-        initCourseBriefFragment();
-        initCourseAnnoucementFragment();
+
     }
 
     private void initCourseBriefFragment() {
@@ -119,6 +121,7 @@ public class CourseActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.menu_course, menu);
         initDownInfoMenuItem(menu);
         initSearchMenuItem(menu);
+        Log.e(TAG, "addItem");
         addItem = menu.findItem(R.id.course_add_menu_item);
         addItem.setVisible(false);
         return true;
@@ -277,6 +280,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     private void startPublishPostActivity() {
         Intent intent = new Intent(this, PostPublishActivity.class);
+        intent.putExtra("courseId", courseModel.getCurrentCourseId());
         startActivity(intent);
     }
 
@@ -347,6 +351,10 @@ public class CourseActivity extends AppCompatActivity implements
     private void updateViewOnInitCourseDetailFinish() {
         if(mainLayout == null)
             return;
+
+        initCourseBriefFragment();
+        initCourseAnnoucementFragment();
+
         updateViewIfAllTaskFinish();
     }
 
@@ -374,13 +382,13 @@ public class CourseActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        Intent intent = new Intent();
-        intent.setClass(this, SearchPeopleActivity.class);
-        intent.putExtra("searchType", SearchType.addAssistant);
-        startActivityForResult(intent,1000);
 //        Intent intent = new Intent();
-//        intent.setClass(this,SearchViewDemo.class);
-//        startActivity(intent);
+//        intent.setClass(this, SearchPeopleActivity.class);
+//        intent.putExtra("searchType", SearchType.addAssistant);
+//        startActivityForResult(intent,1000);
+        Intent intent = new Intent();
+        intent.setClass(this,SearchViewDemo.class);
+        startActivity(intent);
         return true;
     }
 
@@ -401,6 +409,25 @@ public class CourseActivity extends AppCompatActivity implements
             } else {
                 updateViewOnTaskFail();
             }
+        }
+    }
+
+    private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean updateSuccess = courseModel.updateCourseDetail();
+            if(updateSuccess)
+                taskCountDown--;
+            return updateSuccess;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateSuccess) {
+            if(updateSuccess)
+                updateViewOnInitCourseDetailFinish();
+            else
+                updateViewOnTaskFail();
         }
     }
 
