@@ -14,7 +14,7 @@
     </style>
 
     <style name="submenuStyle">
-        <item name="android:background">@color/dark_blue</item>
+        <item name="android:background">@color/white</item>
         <item name="android:padding">20dp</item>
     </style>
     <style name="wideButton">

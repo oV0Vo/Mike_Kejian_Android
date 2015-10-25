@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/big_padding"
-            android:textColor="@color/white"
             android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_publish_annouc"/>
     </LinearLayout>
@@ -45,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/big_padding"
-            android:textColor="@color/white"
             android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_publish_post"/>
     </LinearLayout>
@@ -67,7 +65,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/big_padding"
-            android:textColor="@color/white"
             android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_question"/>
     </LinearLayout>

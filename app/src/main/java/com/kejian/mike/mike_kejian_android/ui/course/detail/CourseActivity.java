@@ -74,10 +74,13 @@ public class CourseActivity extends AppCompatActivity implements
         this.setTitle(R.string.course_title);
 
         taskCountDown++;
-        new InitUserTypeTask().execute();
+        new InitCourseDetailTask().execute();
 
         taskCountDown++;
-        new InitCourseDetailTask().execute();
+        new InitUserTypeTask().execute();
+
+        initPostAndQuestionLayoutFragment();
+
     }
 
     private void initCourseBriefFragment() {
@@ -118,6 +121,7 @@ public class CourseActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.menu_course, menu);
         initDownInfoMenuItem(menu);
         initSearchMenuItem(menu);
+        Log.e(TAG, "addItem");
         addItem = menu.findItem(R.id.course_add_menu_item);
         addItem.setVisible(false);
         return true;
@@ -276,6 +280,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     private void startPublishPostActivity() {
         Intent intent = new Intent(this, PostPublishActivity.class);
+        intent.putExtra("courseId", courseModel.getCurrentCourseId());
         startActivity(intent);
     }
 
@@ -348,7 +353,6 @@ public class CourseActivity extends AppCompatActivity implements
             return;
 
         initCourseBriefFragment();
-        initPostAndQuestionLayoutFragment();
         initCourseAnnoucementFragment();
 
         updateViewIfAllTaskFinish();

@@ -9,5 +9,6 @@
         "@drawable/search"
         android:orderInCategory="2" app:showAsAction="always"/>
     <item android:id="@+id/course_add_menu_item" android:title="" android:icon="@drawable/add"
-        android:orderInCategory="3" app:showAsAction="always"/>
+        android:orderInCategory="3" app:showAsAction="always"
+        app:actionProviderClass="com.kejian.mike.mike_kejian_android.ui.course.detail.menu.TeacherActionProvider"/>
 </menu>
