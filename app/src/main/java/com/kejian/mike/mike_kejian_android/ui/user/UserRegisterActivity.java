@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -279,6 +280,7 @@ public class UserRegisterActivity extends AppCompatActivity{
                         //获取验证码成功
                     }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
                         //返回支持发送验证码的国家列表
+
                         Looper.prepare();
 
                         Toast.makeText(context, "获取国家列表成功", Toast.LENGTH_SHORT).show();
@@ -357,6 +359,18 @@ public class UserRegisterActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home){
+
+
+            this.finish();
+        }
+
+        return true;
+    }
+
 
 
     public void close(){
@@ -383,6 +397,7 @@ public class UserRegisterActivity extends AppCompatActivity{
 
 
         }
+
 
     }
 }

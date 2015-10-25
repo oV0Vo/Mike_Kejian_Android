@@ -10,10 +10,23 @@
         android:text="教务网账号"
         android:gravity="center"
         android:textColor="@color/white"
-        android:background="@color/grey"
+        android:background="@color/blue"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:id="@+id/school_account_item"
+
+        android:layout_height="60dp" />
+    <TextView
+
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp"
+        android:text="退出登录"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@color/my_red"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:id="@+id/logout"
 
         android:layout_height="60dp" />
 

@@ -50,14 +50,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/attention_container"
         >
-        <ViewPager
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/attention_view_pager"
 
-            >
-
-        </ViewPager>
 
         <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
             android:layout_width="fill_parent"
