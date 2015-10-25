@@ -49,11 +49,13 @@ public class SearchResult {
                     if(start+key.length() > 15){
                         //居中显示
                         int offset = (16-key.length())/2;
-                        this.title = ".."+this.title.substring(start-offset,start+key.length()+offset);
-                        start = 2+offset;
+                        this.title = ".."+this.title.substring(start-offset,len-1);
+                        int start_tmp = 2+offset;
                         if(start+key.length()+offset < len-1){
-                            this.title = this.title+"..";
+
+                            this.title = this.title.substring(0,start_tmp+key.length()+offset)+"..";
                         }
+                        start = start_tmp;
                     }else{
                         this.title = this.title.substring(0,15)+"...";
                     }
