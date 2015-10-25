@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="show_interest">关注该课程</string>
+    <string name="show_interest_on_progress">正在关注该课程...</string>
+    <string name="already_interest">已经关注该课程</string>
+    <string name="course_info_edit">编辑信息</string>
+    <string name="course_assistant_management">助教管理</string>
+
+    <string name="course_sign_in_empty_text">目前还没有任何点名记录哦~~</string>
+
+    <!--naming-->
+    <string name="time_dialog_continue_time">持续时间:</string>
+    <string name="time_dialog_end_time">结束时间</string>
+    <string name="time_dialog_title">设置点名时间</string>
+    <string name="check_time_message">请检查时间格式</string>
+
+    <!--annouc-->
+    <string name="title_annouc_detail_activity">公告详情</string>
+    <string name="annouc_already_put_on_top">已置顶</string>
+    <string name="annouc_put_on_top_success">公告置顶成功!</string>
+    <string name="annouc_all_annouc_title">所有公告</string>
+
+    <!--course post-->
+    <string name="course_post_empty_text">还没有人发过帖子额~</string>
+
+    <!--course question-->
+    <string name="course_question_empty_text">目前还没有人发过问题额~</string>
+
+</resources>

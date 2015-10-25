@@ -49,7 +49,7 @@
 
     <string name="course_teach_teacher_title">授课教师:</string>
     <string name="annoucement_title">公告</string>
-    <string name="annoucement_no_annoucement">没有公告~~~</string>
+    <string name="annoucement_no_annoucement">目前还没有发过公告~</string>
     <string name="annoucement_action_name">发表于</string>
     <string name="comments_area_button_text">讨论区</string>
     <string name="course_question_area_button_text">课堂问题</string>
