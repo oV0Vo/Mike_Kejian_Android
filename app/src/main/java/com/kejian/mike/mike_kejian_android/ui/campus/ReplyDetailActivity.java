@@ -113,6 +113,7 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
 
     private void iniView(){
         this.container = (RefreshListView)findViewById(R.id.reply_container);
+        container.getHeaderView().setBackgroundResource(R.color.white);
         header= getLayoutInflater().inflate(R.layout.layout_post_detail_header, null);
         refreshHeader();
         container.addHeaderView(header);
@@ -242,6 +243,11 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         new AsyncTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String... params) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 String postId = params[0];
                 post = CampusBLService.getPostDetail(postId);
                 replies.clear();
@@ -261,17 +267,18 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
 
     @Override
     public void onLoadingMore() {
+        container.hideFooterView();
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
-            case RESULT_OK:
-                break;
-            default:
+            case 1000:
                 CampusBLService.inviteToAnswer(post.getPostId(), data.getStringExtra("user_id"));
                 Toast.makeText(this, "已邀请", Toast.LENGTH_SHORT).show();
+                break;
+            default:
                 break;
         }
 

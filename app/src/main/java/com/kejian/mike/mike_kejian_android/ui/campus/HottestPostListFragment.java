@@ -51,20 +51,13 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
 
     private void iniViews() {
         this.container = (RefreshListView)view.findViewById(R.id.post_container);
+        container.getHeaderView().setBackgroundResource(R.color.light_grey);
         container.setFooterDividersEnabled(false);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.hottestPosts);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
-        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(ctx, PostDetailActivity.class);
-                intent.putExtra("postId", ((PostAdapter.PostViewHolder) view.getTag()).postId);
-                startActivity(intent);
-            }
-        });
+
     }
 
 
@@ -101,6 +94,7 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
 
             @Override
             protected void onPostExecute(Void result) {
+                CampusBLService.moveHottestPosts();
                 adapter.notifyDataSetChanged();
 
                 // 控制脚布局隐藏
@@ -114,6 +108,11 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
     private class InitDataTask extends AsyncTask<String, Integer, String> {
         @Override
         public String doInBackground(String... params) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             String userId = params[0];
             CampusBLService.refreshHottestPosts();
             return "";

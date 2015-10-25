@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.kejian.mike.mike_kejian_android.R;
 
 
+import net.picture.DownloadPicture;
+
 import java.util.List;
 
 import model.campus.Reply;
@@ -58,7 +60,7 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
         }
 
         final Reply reply = getItem(position);
-        //DownloadPicture d=new DownloadPicture(getContext(),replyViewHolder.reply_user_icon, reply.getUserIconUrl(), reply.getUserIconUrl());
+        DownloadPicture d=new DownloadPicture(getContext(),replyViewHolder.reply_user_icon, reply.getUserIconUrl(), reply.getUserIconUrl());
 
 
         //d.getBitMapFromNet(reply.getUserIconUrl(), "");
@@ -74,7 +76,7 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ReplyDetailActivity.class);
                 intent.putExtra("title", reply.getTitle());
-                intent.putExtra("activity_title", (position+2) + "楼");
+                intent.putExtra("activity_title", (position + 2) + "楼");
                 intent.putExtra("postId", replyViewHolder.postId);
                 getContext().startActivity(intent);
             }

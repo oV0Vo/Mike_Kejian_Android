@@ -64,7 +64,7 @@
         <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
             android:id="@+id/reply_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:divider="@null"
             android:layout_weight="1">
 

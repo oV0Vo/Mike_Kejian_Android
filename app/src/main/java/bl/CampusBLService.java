@@ -15,7 +15,9 @@ import model.user.user;
  */
 public class CampusBLService {
     public static ArrayList<Post> latestPosts = new ArrayList<>();
+    public static ArrayList<Post> nextLatestPosts = new ArrayList<>();
     public static ArrayList<Post> hottestPosts = new ArrayList<>();
+    public static ArrayList<Post> nextHottestPosts = new ArrayList<>();
     public static Reply publishedReply;
 
 
@@ -26,8 +28,12 @@ public class CampusBLService {
 
     public static void getNextLatestPosts() {
         String startId = (latestPosts.size()-1)>0?latestPosts.get(latestPosts.size()-1).getPostId():"0";
-        ArrayList<Post> nextPosts = CampusNetService.getLatestPosts(startId, 7);
-        latestPosts.addAll(nextPosts);
+        nextLatestPosts = CampusNetService.getLatestPosts(startId, 7);
+    }
+
+    public static void moveLatestPosts() {
+        latestPosts.addAll(nextLatestPosts);
+        nextLatestPosts.clear();
     }
 
     public static void refreshHottestPosts() {
@@ -37,8 +43,12 @@ public class CampusBLService {
 
     public static void getNextHottestPosts() {
         String startId = (hottestPosts.size()-1)>0?hottestPosts.get(hottestPosts.size()-1).getPostId():"0";
-        ArrayList<Post> nextPosts = CampusNetService.getHottestPosts(startId, 7);
-        hottestPosts.addAll(nextPosts);
+        nextHottestPosts = CampusNetService.getHottestPosts(startId, 7);
+    }
+
+    public static void moveHottestPosts() {
+        hottestPosts.addAll(nextHottestPosts);
+        nextHottestPosts.clear();
     }
 
     public static Post getPostDetail(String postId) {
