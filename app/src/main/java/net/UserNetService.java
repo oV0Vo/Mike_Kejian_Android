@@ -55,7 +55,7 @@ public class UserNetService {
         para.put("schoolAccountPsd", schoolAccountPsd);
         String result=httpRequest.sentGetRequest(baseUrl+"bind/",para);
 
-        System.out.println("注册结果:"+result);
+        System.out.println("绑定结果:"+result);
 
 
         boolean state=Boolean.parseBoolean(result);
@@ -90,7 +90,7 @@ public class UserNetService {
 
         System.out.println("register "+r);
 
-        r=URLEncoder.encode(r);
+
 
         h.put("userToken", r);
 
@@ -299,12 +299,7 @@ public class UserNetService {
         HashMap<String,ArrayList<String>> list=new HashMap<String, ArrayList<String>>();
         ArrayList schoolList1=new ArrayList();
         schoolList1.add("南京大学");
-        schoolList1.add("东南大学");
-        schoolList1.add("南京航空航天大学");
-        schoolList1.add("南京邮电大学");
-        schoolList1.add("南京林业大学");
-        schoolList1.add("河海大学");
-        schoolList1.add("南京财经大学");
+
 
         ArrayList schoolList2=new ArrayList();
         schoolList2.add("上海交通大学");
@@ -326,8 +321,8 @@ public class UserNetService {
 
 
         list.put("南京", schoolList1);
-        list.put("上海",schoolList2);
-        list.put("北京",schoolListInBeijing);
+//        list.put("上海",schoolList2);
+//        list.put("北京",schoolListInBeijing);
 
         return list;
 
@@ -439,13 +434,14 @@ public class UserNetService {
                 String id = jsonObject.getString("userId");
                 String icon = jsonObject.getString("userIcon");
                 String name = jsonObject.getString("userName");
+                String signal=jsonObject.getString("userSignal");
 
                 Friend friend=new Friend();
 
                 friend.setUserName(name);
                 friend.setIcon(icon);
                 friend.setId(id);
-                friend.setSign("关山难越，谁悲失路之人");
+                friend.setSign(signal);
 
                 MessagePrint.print("name :" + friend.getUserName());
 

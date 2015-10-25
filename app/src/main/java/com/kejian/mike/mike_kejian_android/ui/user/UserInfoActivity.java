@@ -82,6 +82,7 @@ public class UserInfoActivity extends AppCompatActivity{
 
     }
 
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_info, menu);
@@ -373,6 +374,13 @@ public class UserInfoActivity extends AppCompatActivity{
 
                 MenuItem menuItem2=(MenuItem)menu.findItem(R.id.edit_user_info);
                 menuItem2.setVisible(true);
+
+                return true;
+            case android.R.id.home:
+
+                this.finish();
+
+                return true;
 
 
             default:

@@ -119,6 +119,7 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
             timeText.setText(TimeFormat.toMinute(annouc.getDate()));
 
             return convertView;
+
         }
 
         private ImageView getIsNewAnnoucImage() {

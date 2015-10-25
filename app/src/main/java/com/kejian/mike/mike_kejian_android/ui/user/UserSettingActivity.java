@@ -1,10 +1,14 @@
 package com.kejian.mike.mike_kejian_android.ui.user;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import com.kejian.mike.mike_kejian_android.R;
 
 import net.UserNetService;
+import net.picture.MessagePrint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +36,33 @@ public class UserSettingActivity extends AppCompatActivity {
     private ListView infoList;
     private Button unbind;
     private user us;
+    private TextView logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
         schoolAccount=(TextView)findViewById(R.id.school_account_item);
+        logout=(TextView)findViewById(R.id.logout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences sharedPreferences = getSharedPreferences("user_map", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+                editor.putString("user_name", "");
+                editor.putString("user_password", "");
+                editor.apply();
+
+
+                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                am.killBackgroundProcesses(getPackageName());
+            }
+        });
         schoolAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +160,16 @@ public class UserSettingActivity extends AppCompatActivity {
         super.onStop();
 
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home){
+            this.finish();
+        }
+
+        return true;
     }
 
 
