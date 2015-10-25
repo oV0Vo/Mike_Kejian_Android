@@ -51,19 +51,11 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
     private void iniViews() {
         this.container = (RefreshListView)view.findViewById(R.id.post_container);
+        container.getHeaderView().setBackgroundResource(R.color.light_grey);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPosts);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
-        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(ctx, PostDetailActivity.class);
-                intent.putExtra("postId", ((PostAdapter.PostViewHolder) view.getTag()).postId);
-                startActivity(intent);
-            }
-        });
     }
 
 
@@ -74,6 +66,11 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
             @Override
             protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 CampusBLService.refreshLatestPosts();
                 return null;
             }
@@ -100,9 +97,8 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
                 @Override
                 protected void onPostExecute(Void result) {
+                    CampusBLService.moveLatestPosts();
                     adapter.notifyDataSetChanged();
-
-                    // 控制脚布局隐藏
                     container.hideFooterView();
                 }
             }.execute(new Void[]{});

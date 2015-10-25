@@ -25,9 +25,9 @@
                 android:paddingRight="@dimen/negative_one_medium_font"
                 android:paddingBottom="@dimen/sub_big_padding"
                 android:button="@null"
-                android:background="@drawable/green_bottom_border_selector"
+                android:background="@drawable/blue_bottom_border_selector"
                 android:textSize="@dimen/medium_font"
-                android:textColor="@color/green_on_select"
+                android:textColor="@color/blue_on_select"
                 android:text="@string/main_course_my_course" />
 
             <RadioButton
@@ -40,9 +40,9 @@
                 android:paddingRight="@dimen/negative_one_medium_font"
                 android:paddingBottom="@dimen/sub_big_padding"
                 android:button="@null"
-                android:background="@drawable/green_bottom_border_selector"
+                android:background="@drawable/blue_bottom_border_selector"
                 android:textSize="@dimen/medium_font"
-                android:textColor="@color/green_on_select"
+                android:textColor="@color/blue_on_select"
                 android:text="@string/main_course_all_course"/>
 
         </RadioGroup>

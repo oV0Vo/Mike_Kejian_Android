@@ -105,11 +105,11 @@ public class PostPublishActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
-            case RESULT_OK:
-                break;
-            default:
+            case 1000:
                 invite_view.setText(invite_view.getText() + data.getStringExtra("nick_name") + ", ");
                 userList.add(data.getStringExtra("user_id"));
+                break;
+            default:
                 break;
         }
 

@@ -26,7 +26,7 @@
                 android:paddingLeft="@dimen/medium_button_padding"
                 android:paddingRight="@dimen/medium_button_padding"
                 android:button="@null"
-                android:background="@drawable/green_bottom_border_selector"
+                android:background="@drawable/blue_bottom_border_selector"
                 android:textSize="@dimen/big_font"
                 android:textColor="@color/green_on_select"
                 android:text="@string/comments_area_button_text"/>
@@ -39,7 +39,7 @@
                 android:paddingLeft="@dimen/sub_medium_button_padding"
                 android:paddingRight="@dimen/sub_medium_button_padding"
                 android:button="@null"
-                android:background="@drawable/green_bottom_border_selector"
+                android:background="@drawable/blue_bottom_border_selector"
                 android:textSize="@dimen/big_font"
                 android:textColor="@color/green_on_select"
                 android:text="@string/course_question_area_button_text" />
