@@ -249,7 +249,7 @@ public class UserLoginActivity extends Activity {
            if(!user.getId().equals("")){
 
 
-               editor.putString("user_name", user.getId());
+               editor.putString("user_name", userToken.getPhoneNumber());
 
                MessagePrint.print("login store user:" + user.getId());
 
