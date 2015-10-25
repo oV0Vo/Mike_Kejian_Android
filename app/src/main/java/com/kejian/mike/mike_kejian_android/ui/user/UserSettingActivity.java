@@ -53,10 +53,11 @@ public class UserSettingActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("user_map", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-
                 editor.putString("user_name", "");
                 editor.putString("user_password", "");
                 editor.apply();
+
+                finish();
 
 
                 ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

@@ -60,6 +60,9 @@ public class DownloadPicture {
         try {
 
             FileInputStream inputStream = new FileInputStream(file);
+
+            BitmapFactory.Options b=new BitmapFactory.Options();
+            b.inSampleSize=4;
             bitmap=BitmapFactory.decodeStream(inputStream);
 
         }catch (Exception e){
@@ -116,6 +119,10 @@ public class DownloadPicture {
                 connection.connect();
 
                 inputStream=connection.getInputStream();
+
+                BitmapFactory.Options bit=new BitmapFactory.Options();
+
+                bit.inSampleSize=4;
 
                  bitmap= BitmapFactory.decodeStream(inputStream);
 

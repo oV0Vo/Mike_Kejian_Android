@@ -397,7 +397,9 @@ public class UserRegisterActivity extends AppCompatActivity{
                 Toast.makeText(context,"手机已经被注册，或者没有网络连接",Toast.LENGTH_SHORT).show();
             }else{
 
+
                 Toast.makeText(context,"注册成功",Toast.LENGTH_SHORT).show();
+                finish();
 
             }
 
