@@ -377,17 +377,17 @@ public class CourseActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        Intent intent = new Intent();
-        intent.setClass(this, SearchPeopleActivity.class);
-        intent.putExtra("searchType", SearchType.addAssistant);
-        startActivityForResult(intent,1000);
 //        Intent intent = new Intent();
-//        intent.setClass(this,SearchViewDemo.class);
-//        startActivity(intent);
+//        intent.setClass(this, SearchPeopleActivity.class);
+//        intent.putExtra("searchType", SearchType.addAssistant);
+//        startActivityForResult(intent,1000);
+        Intent intent = new Intent();
+        intent.setClass(this,SearchViewDemo.class);
+        startActivity(intent);
         return true;
     }
 
-    private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
+        private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         public Boolean doInBackground(Void... params) {
