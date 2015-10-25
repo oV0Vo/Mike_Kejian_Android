@@ -78,7 +78,7 @@ public class DrawerViewAdapter extends BaseAdapter{
                     TextView name=(TextView)v.findViewById(R.id.drawerName);
                     ImageView identify=(ImageView)v.findViewById(R.id.drawerIdentify);
 
-                    if(u.getIdentify().equals("学生")){
+                    if(u.getIdentify().equals("0")){
 
                         identify.setImageResource(R.drawable.student);
                     }

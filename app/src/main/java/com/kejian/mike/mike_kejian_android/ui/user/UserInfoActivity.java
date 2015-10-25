@@ -263,14 +263,25 @@ public class UserInfoActivity extends AppCompatActivity{
 
 
 
-            baseInfoGender.setText(gender);
+            if(gender.equals("0")) {
+                baseInfoGender.setText("男生");
+            }
+            else{
+                baseInfoGender.setText("菇凉");
+            }
             baseInfoGender.setEnabled(false);
 
             baseInfoGrade.setText(grade);
             baseInfoGrade.setEnabled(false);
 
 
-            baseInfoIdentify.setText(identify);
+            if(identify.equals("0")) {
+                baseInfoIdentify.setText("学生");
+            }
+            else{
+
+                baseInfoIdentify.setText("教师");
+            }
             baseInfoIdentify.setEnabled(false);
 
 
@@ -340,11 +351,16 @@ public class UserInfoActivity extends AppCompatActivity{
 
         protected String doInBackground(Bitmap...Para){
 
-            System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon()))==null);
+            System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon())) == null);
 
-           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],user.getIcon())).getLinkurl();
+
+           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],"temp")).getLinkurl();
+
+
 
             UserNetService.setUserInfo(Integer.parseInt(user.getId()),"ICON",path);
+
+
 
             user.setIcon(path);
 

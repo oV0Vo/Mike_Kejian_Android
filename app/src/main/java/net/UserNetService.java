@@ -355,7 +355,7 @@ public class UserNetService {
 
 
             MessagePrint.print("before replace:" + content);
-            content=content.replaceAll("/", "#");
+            content=content.replaceAll("/", "\\/");
             MessagePrint.print("after replace:" + content);
 
             content = URLEncoder.encode(URLEncoder.encode(content, "utf-8"));
