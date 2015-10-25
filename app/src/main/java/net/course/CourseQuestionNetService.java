@@ -3,10 +3,12 @@ package net.course;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CommitAnswerResultMessage;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.MultiChoiceQuestion;
@@ -22,6 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import util.DateUtil;
+
 /**
  * Created by violetMoon on 2015/10/6.
  */
@@ -34,8 +38,6 @@ public class CourseQuestionNetService {
     private static HttpRequest httpRequest = HttpRequest.getInstance();
 
     public static ArrayList<BasicQuestion> getHistroryQuestions(String courseId) {
-        return new ArrayList<BasicQuestion>();
-    /*
         String url = BASE_URL + "getHistoryQuestions/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
@@ -55,12 +57,10 @@ public class CourseQuestionNetService {
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
-        }*/
+        }
     }
 
     public static ArrayList<CurrentQuestion> getCurrentQuestions(String courseId) {
-        return new ArrayList<CurrentQuestion>();
-        /*
         String url = BASE_URL + "getCurrentQuestions/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
@@ -77,16 +77,117 @@ public class CourseQuestionNetService {
             return questions;
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e(TAG, "getCurrentQuestions json error");
             return null;
-        }*/
+        }
     }
 
-    private static BasicQuestion parseHistoryQuestion(JSONObject jQuestion) {
-        return null;
+    private static BasicQuestion parseHistoryQuestion(JSONObject jQuestion) throws JSONException{
+        try {
+            BasicQuestion question = null;
+            String type = jQuestion.getString("type");
+            switch(type) {
+                case "1":
+                    question = new ApplicationQuestion();
+                    parseAP(jQuestion, (ApplicationQuestion)question);
+                    break;
+                case "2":
+                    question = new SingleChoiceQuestion();
+                    parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
+                    break;
+                case "3":
+                    question = new MultiChoiceQuestion();
+                    parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
+                    break;
+                default:
+                    break;
+            }
+
+            String content = jQuestion.getString("content");
+            question.setContent(content);
+
+            String id = jQuestion.getString("question_id");
+            question.setQuestionId(id);
+
+            String authorId = jQuestion.getString("author_id");
+            question.setAuthorId(authorId);
+
+            String beginDateStamp = jQuestion.getString("time");
+            Date beginTime = DateUtil.convertPhpTimeStamp(beginDateStamp);
+            question.setQuestionDate(beginTime);
+
+            boolean answered = jQuestion.getBoolean("answered");
+            question.setJoined(answered);
+
+            question.setCourseId(null);
+
+            return question;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i(TAG, "parseHistoryQuestion json error");
+            throw e;
+        }
     }
 
-    private static CurrentQuestion parseCurrentQuestion(JSONObject jQuestion) {
-        return null;
+    private static void parseAP(JSONObject jQuestion, ApplicationQuestion question) {
+        return;
+    }
+
+    private static void parseChoiceQuestion(JSONObject jQuestion, ChoiceQuestion question)
+            throws JSONException{
+        try {
+            JSONArray jOptions = jQuestion.getJSONArray("options");
+            ArrayList<String> options = new ArrayList<String>(jOptions.length());
+            for (int i = 0; i < jOptions.length(); ++i) {
+                options.add(jOptions.getString(i));
+            }
+            question.setChoiceContents(options);
+        } catch (JSONException e) {
+            question.setChoiceContents(new ArrayList<String>());
+        }
+    }
+
+    private static CurrentQuestion parseCurrentQuestion(JSONObject jQuestion) throws JSONException{
+        CurrentQuestion currentQuestion = new CurrentQuestion();
+        BasicQuestion question = null;
+
+        String type = jQuestion.getString("type");
+        switch(type) {
+            case "1":
+                question = new ApplicationQuestion();
+                parseAP(jQuestion, (ApplicationQuestion)question);
+                break;
+            case "2":
+                question = new SingleChoiceQuestion();
+                parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
+                break;
+            case "3":
+                question = new MultiChoiceQuestion();
+                parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
+                break;
+            default:
+                break;
+        }
+
+        String content = jQuestion.getString("content");
+        question.setContent(content);
+
+        String id = jQuestion.getString("question_id");
+        question.setQuestionId(id);
+
+        String authorId = jQuestion.getString("author_id");
+        question.setAuthorId(authorId);
+
+        String beginDateStamp = jQuestion.getString("time");
+        Date beginTime = DateUtil.convertPhpTimeStamp(beginDateStamp);
+        question.setQuestionDate(beginTime);
+
+        long leftTime = jQuestion.getLong("left_time");
+        currentQuestion.setLeftMills(leftTime);
+
+        currentQuestion.setQuestion(question);
+
+        return currentQuestion;
     }
 
     public static boolean addNewQuestion(CurrentQuestion question) {
@@ -114,11 +215,15 @@ public class CourseQuestionNetService {
 
         String response = httpRequest.sentPostRequest(url, paraMap);
 
+        Log.i(TAG, response);
+
         if(response == null)
             return false;
         else if(response.equals("false"))
             return false;
         else if(response.equals("true"))
+            return true;
+        else if(response.equals("nulltrue"))
             return true;
         else
             return false;

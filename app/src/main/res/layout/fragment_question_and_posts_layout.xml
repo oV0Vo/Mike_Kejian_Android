@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/over_medium_padding"
     android:orientation="vertical"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.QuestionAndPostsLayoutFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dark_thin_top_bottom_border">
+        android:background="@drawable/dark_thin_bottom_border">
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -51,7 +50,9 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/comments_post_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>

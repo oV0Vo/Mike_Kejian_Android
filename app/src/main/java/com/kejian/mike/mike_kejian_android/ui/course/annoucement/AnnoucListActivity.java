@@ -128,7 +128,7 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
 
         private ImageView getIsNewAnnoucImage() {
             ImageView image = new ImageView(AnnoucListActivity.this);
-            image.setBackgroundResource(R.drawable.new_img);
+            image.setBackgroundResource(R.drawable.new_image);
             return image;
         }
     }

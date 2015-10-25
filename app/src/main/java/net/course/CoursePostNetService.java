@@ -86,6 +86,9 @@ public class CoursePostNetService {
             String authorName = jPost.getString("authorName");
             post.setAuthorName(authorName);
 
+            int replyCount = jPost.getInt("reply_count");
+            post.setReplyNum(replyCount);
+
             post.setReplyList(null);
 
             return post;

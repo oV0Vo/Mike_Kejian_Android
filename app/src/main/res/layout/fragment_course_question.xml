@@ -13,8 +13,10 @@
         android:id="@+id/current_question_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_padding">
-    </ListView>
+        android:paddingTop="@dimen/medium_padding"
+        android:paddingBottom="@dimen/medium_padding"
+        android:divider="@null"
+        android:scrollbars="none"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding">
+        android:paddingBottom="@dimen/medium_padding"
+        android:divider="@null"
+        android:scrollbars="none">
     </ListView>
 
 </LinearLayout>
@@ -40,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        style="?android:attr/progressBarStyleLarge"/>
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>

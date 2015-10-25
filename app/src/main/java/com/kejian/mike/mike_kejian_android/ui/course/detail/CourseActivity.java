@@ -346,19 +346,26 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void updateViewOnInitCourseDetailFinish() {
+        if(mainLayout == null)
+            return;
         initCourseBriefFragment();
         initCourseAnnoucementFragment();
         updateViewIfAllTaskFinish();
     }
 
     private void updateViewOnInitUserTypeFinish() {
+        if(mainLayout == null)
+            return;
+
         initAddMenuItem();
         updateViewIfAllTaskFinish();
     }
 
     private void updateViewOnTaskFail() {
+        if(progressBar == null)
+            return;
+
         progressBar.setVisibility(View.GONE);
-        Log.e(TAG, "updateViewOnTaskFail");
     }
 
     private void updateViewIfAllTaskFinish() {
