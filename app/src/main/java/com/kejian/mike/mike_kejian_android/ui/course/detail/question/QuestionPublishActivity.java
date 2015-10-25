@@ -193,7 +193,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
         choiceButtons.add(choiceButton);
         choiceButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { Log.e("QuestionPublish", "choiceButton check changed");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     getCorrectHint((RadioButton) buttonView).setVisibility(View.VISIBLE);
                     //单选题的话还要把前一个选择的正确选项给消掉

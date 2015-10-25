@@ -2,7 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/dark_thin_bottom_border">
+    android:paddingTop="@dimen/sub_big_padding"
+    android:paddingBottom="@dimen/sub_big_padding"
+    android:background="@drawable/dark_light_bottom_border">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -30,9 +32,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding"
-            android:background="@drawable/dark_thin_bottom_border"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingBottom="@dimen/small_padding"
+            android:background="@drawable/dark_very_light_thin_bottom_border"
             android:orientation="horizontal">
 
             <ImageView
@@ -55,6 +59,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
             <TextView
@@ -71,8 +77,8 @@
                 android:id="@+id/annouc_time_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_padding"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/course_detail_annoucement_author_name"

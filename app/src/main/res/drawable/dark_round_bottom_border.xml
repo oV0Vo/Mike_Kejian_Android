@@ -4,10 +4,12 @@
         <shape>
             <solid android:color="@color/white"/>
             <stroke android:color="@color/dark_light" android:width="@dimen/line_thin"/>
+            <corners android:bottomLeftRadius="@dimen/medium_radius"
+                android:bottomRightRadius="@dimen/medium_radius"/>
         </shape>
     </item>
 
-    <item android:bottom="@dimen/line_thin" android:top="@dimen/line_thin">
+    <item android:bottom="@dimen/line_medium">
         <shape>
             <solid android:color="@color/white"/>
         </shape>

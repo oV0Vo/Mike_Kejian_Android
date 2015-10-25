@@ -32,6 +32,6 @@ public class MyCountDownTimer extends CountDownTimer{
     @Override
     public void onFinish() {
         if(countDownText != null)
-            countDownText.setTextColor(context.getResources().getColor(R.color.my_red));
+            countDownText.setTextColor(context.getResources().getColor(R.color.red));
     }
 }

@@ -74,12 +74,11 @@ public class CourseActivity extends AppCompatActivity implements
         this.setTitle(R.string.course_title);
 
         taskCountDown++;
-        new InitCourseDetailTask().execute();
-
-        taskCountDown++;
         new InitUserTypeTask().execute();
 
         initPostAndQuestionLayoutFragment();
+        initCourseBriefFragment();
+        initCourseAnnoucementFragment();
     }
 
     private void initCourseBriefFragment() {
@@ -348,8 +347,6 @@ public class CourseActivity extends AppCompatActivity implements
     private void updateViewOnInitCourseDetailFinish() {
         if(mainLayout == null)
             return;
-        initCourseBriefFragment();
-        initCourseAnnoucementFragment();
         updateViewIfAllTaskFinish();
     }
 
@@ -362,7 +359,7 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void updateViewOnTaskFail() {
-        if(progressBar == null)
+        if (progressBar == null)
             return;
 
         progressBar.setVisibility(View.GONE);
@@ -385,28 +382,6 @@ public class CourseActivity extends AppCompatActivity implements
 //        intent.setClass(this,SearchViewDemo.class);
 //        startActivity(intent);
         return true;
-    }
-
-    private class InitCourseDetailTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        public Boolean doInBackground(Void... params) {
-            CourseModel courseModel = CourseModel.getInstance();
-            boolean updateSuccess = courseModel.updateCourseDetail();
-            if (updateSuccess)
-                taskCountDown--;
-            return updateSuccess;
-        }
-
-        @Override
-        public void onPostExecute(Boolean getSuccess) {
-            progressBar.setVisibility(View.GONE);
-            if(getSuccess) {
-                updateViewOnInitCourseDetailFinish();
-            } else {
-                updateViewOnTaskFail();
-            }
-        }
     }
 
     private class InitUserTypeTask extends AsyncTask<Void, Void, Boolean> {

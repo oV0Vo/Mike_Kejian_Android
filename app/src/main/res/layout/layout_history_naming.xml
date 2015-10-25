@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/over_medium_padding"
     android:paddingBottom="@dimen/over_medium_padding"
-    android:background="@drawable/dark_light_thin_bottom_border">
+    android:background="@drawable/dark_very_light_thin_bottom_border">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -3,13 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/over_medium_padding"
-    android:paddingBottom="@dimen/over_medium_padding">
+    android:paddingTop="@dimen/medium_padding"
+    android:paddingBottom="@dimen/medium_padding"
+    android:background="@drawable/dark_very_light_thin_bottom_border">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_padding"
+        android:paddingBottom="@dimen/sub_medium_padding"
         android:orientation="horizontal">
 
         <TextView
@@ -24,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
+        android:paddingTop="@dimen/sub_medium_padding"
         android:orientation="horizontal">
 
         <TextView

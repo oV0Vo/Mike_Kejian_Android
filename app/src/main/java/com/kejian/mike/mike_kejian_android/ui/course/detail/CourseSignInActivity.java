@@ -131,7 +131,7 @@ public class CourseSignInActivity extends AppCompatActivity {
                         return;
                     leftTimeClock.setText(TimeFormat.toSeconds(millisUntilFinished));
                     if(millisUntilFinished < 10 * 1000)
-                        leftTimeClock.setTextColor(getResources().getColor(R.color.my_red));
+                        leftTimeClock.setTextColor(getResources().getColor(R.color.red));
                 }
 
                 @Override

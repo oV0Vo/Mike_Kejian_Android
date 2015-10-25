@@ -14,20 +14,13 @@
         <FrameLayout
             android:id="@+id/course_detail_brief_info_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/sub_big_padding">
+            android:layout_height="wrap_content">
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/course_detail_annoucement_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/sub_big_padding"
-            android:layout_marginBottom="@dimen/sub_big_padding">
+            android:layout_height="wrap_content">
         </FrameLayout>
 
         <FrameLayout
