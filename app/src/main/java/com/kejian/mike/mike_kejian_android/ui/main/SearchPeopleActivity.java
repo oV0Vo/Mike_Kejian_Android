@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +31,7 @@ import java.util.List;
 import bl.SearchBLService;
 import model.message.SearchResult;
 
-public class SearchPeopleActivity extends AppCompatActivity {
+public class SearchPeopleActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private LayoutInflater myInflater;
     private ListView container;
     private ArrayAdapter<SearchResult> peopleAdapter;
@@ -52,6 +53,20 @@ public class SearchPeopleActivity extends AppCompatActivity {
         this.container.setAdapter(this.peopleAdapter);
         this.searchTaskManager = new SearchTaskManager();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SearchResult searchResult = (SearchResult)parent.getItemAtPosition(position);
+        int user_id = searchResult.getId();
+        String nick_name = searchResult.getTitle();
+        Intent intent = new Intent();
+        intent.putExtra("user_id",user_id);
+        intent.putExtra("nick_name",nick_name);
+        setResult(1000,intent);
+        finish();
+
+    }
+
     static class ViewHolder{
         ImageView imageView;
         TextView title;
@@ -152,7 +167,7 @@ public class SearchPeopleActivity extends AppCompatActivity {
 //        SearchView searchView = (SearchView) searchItem.getActionView();
 //        searchview.setInputType();
 //        searchView.setIconifiedByDefault(false);
-        searchview.setQueryHint("请输入查询内容");
+        searchview.setQueryHint("请输入用户id或昵称");
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

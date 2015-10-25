@@ -23,8 +23,15 @@ public class SearchBLService {
         people.clear();
     }
     public static void searchPeople(String key,int searchType){
-        people = SearchNetService.searchPeople(key,searchType);
+        ArrayList<SearchResult> searchResults = SearchNetService.searchPeople(key,searchType);
+        addPeople(searchResults);
+    }
 
+    private synchronized static void addPeople(ArrayList<SearchResult> searchResults){
+        for(int i = 0;i<searchResults.size();i++){
+            SearchResult searchResult = searchResults.get(i);
+            people.add(searchResult);
+        }
     }
 
     private synchronized static void addResults(ArrayList<SearchResult> searchResults){

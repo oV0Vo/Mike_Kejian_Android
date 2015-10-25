@@ -30,9 +30,11 @@ import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPubli
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
+import com.kejian.mike.mike_kejian_android.ui.main.SearchPeopleActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo;
 
 import model.course.CourseModel;
+import model.helper.SearchType;
 
 public class CourseActivity extends AppCompatActivity implements
         LatestAnnoucFragment.OnAnnoucementClickListener,
@@ -369,8 +371,12 @@ public class CourseActivity extends AppCompatActivity implements
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent = new Intent();
-        intent.setClass(this,SearchViewDemo.class);
-        startActivity(intent);
+        intent.setClass(this, SearchPeopleActivity.class);
+        intent.putExtra("searchType", SearchType.addAssistant);
+        startActivityForResult(intent,1000);
+//        Intent intent = new Intent();
+//        intent.setClass(this,SearchViewDemo.class);
+//        startActivity(intent);
         return true;
     }
 
