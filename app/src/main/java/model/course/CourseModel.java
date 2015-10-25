@@ -180,7 +180,12 @@ public class CourseModel {
     }
 
     public ArrayList<CurrentQuestion> getCurrentQuestions() {
-        return currentCourse.currentQuestions;
+        //目前界面上涉及时钟计数的有些问题，用多个的话可能会出现界面上的bug
+        ArrayList<CurrentQuestion> questions = new ArrayList<CurrentQuestion>();
+        ArrayList<CurrentQuestion> currentQuestions = currentCourse.currentQuestions;
+        if(currentQuestions != null && currentQuestions.size() != 0)
+            questions.add(currentQuestions.get(0));
+        return questions;
     }
 
     @NeedAsyncAnnotation
