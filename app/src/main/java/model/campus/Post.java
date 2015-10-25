@@ -1,5 +1,6 @@
 package model.campus;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -80,7 +81,8 @@ public class Post {
         return date;
     }
     public void setDate(Date date) {
-        this.date = date.toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.date = sdf.format(date);
     }
 
     public void setDate(String date) {

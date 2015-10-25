@@ -74,7 +74,7 @@ public class CampusBLService {
         Reply reply = new Reply();
         reply.setCourseId(courseId);
         reply.setTitle("回复:" + replyToTitle);
-        reply.setUserIconUrl(((user)Global.getObjectByName("user")).getIcon());
+        reply.setUserIconUrl(((user) Global.getObjectByName("user")).getIcon());
         reply.setUserId(((user) Global.getObjectByName("user")).getId());
         reply.setAuthorName(((user) Global.getObjectByName("user")).getNick_name());
         reply.setContent(content);
@@ -82,9 +82,10 @@ public class CampusBLService {
         reply.setCommentNum(0);
         reply.setPraise(0);
         reply.setReplyTo(replyTo);
+        reply.setPostId(CampusNetService.reply(reply));
         publishedReply = reply;
 
-       return  CampusNetService.reply(reply);
+       return reply.getPostId();
 
     }
 

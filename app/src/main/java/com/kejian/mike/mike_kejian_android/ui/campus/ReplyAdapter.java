@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
@@ -73,6 +74,7 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("test: " + reply.getPostId());
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ReplyDetailActivity.class);
                 intent.putExtra("title", reply.getTitle());
