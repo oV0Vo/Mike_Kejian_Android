@@ -113,6 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/big_padding"
+        android:paddingLeft="@dimen/sub_big_padding"
         android:orientation="horizontal"
         android:background="@drawable/dark_thin_bottom_border">
 
@@ -120,14 +121,12 @@
             android:id="@+id/course_intro_teacher_image"
             android:layout_width="@dimen/big_icon_width"
             android:layout_height="@dimen/big_icon_height"
-            android:layout_marginLeft="@dimen/sub_big_padding"
-            android:layout_marginRight="@dimen/sub_big_padding"
             android:background="@drawable/xiaoxin"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/over_medium_padding">
+            android:layout_marginLeft="@dimen/big_padding">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -191,7 +190,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/sub_big_padding"
             android:paddingBottom="@dimen/sub_big_padding"
-            android:background="@drawable/green_bottom_border_selector"
+            android:background="@drawable/blue_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_brief_tab_title"
@@ -204,7 +203,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/sub_big_padding"
             android:paddingBottom="@dimen/sub_big_padding"
-            android:background="@drawable/green_bottom_border_selector"
+            android:background="@drawable/blue_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_teach_content_tab_title"
@@ -217,7 +216,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/sub_big_padding"
             android:paddingBottom="@dimen/sub_big_padding"
-            android:background="@drawable/green_bottom_border_selector"
+            android:background="@drawable/blue_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_reference_tab_title"

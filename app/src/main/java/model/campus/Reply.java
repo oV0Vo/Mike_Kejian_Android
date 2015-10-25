@@ -1,5 +1,6 @@
 package model.campus;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -45,7 +46,8 @@ public class Reply {
     public void setDate(String date) { this.date = date; }
 
     public void setDate(Date date) {
-        this.date = date.toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.date = sdf.format(date);
     }
 
     public int getPraise() {

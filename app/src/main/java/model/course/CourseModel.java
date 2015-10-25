@@ -229,7 +229,7 @@ public class CourseModel {
 
     @NeedAsyncAnnotation
     public boolean updateUserTypeInCurrentCourse() {
-        currentUserType = UserTypeInCourse.TEACHER;//CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId);
+        currentUserType = CourseInfoNetService.getUserTypeInCourse(currentCourse.courseId);
         return true;
     }
 

@@ -1,12 +1,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/course_question_main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ListView
@@ -29,15 +29,31 @@
             android:textSize="@dimen/big_font"
             android:textColor="@color/green"/>
 
-        <ListView
-            android:id="@+id/history_question_list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding"
-            android:divider="@null"
-            android:scrollbars="none">
-        </ListView>
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/history_question_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_padding"
+                android:paddingBottom="@dimen/medium_padding"
+                android:divider="@null"
+                android:scrollbars="none">
+            </ListView>
+
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/sub_big_font"
+                android:textColor="@color/dark"
+                android:text="@string/course_question_empty_text"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -45,7 +61,6 @@
         android:id="@+id/course_question_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

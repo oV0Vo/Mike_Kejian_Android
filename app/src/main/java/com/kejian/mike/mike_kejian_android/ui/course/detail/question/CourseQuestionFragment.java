@@ -39,6 +39,7 @@ public class CourseQuestionFragment extends Fragment {
 
     private ProgressBar progressBar;
     private ViewGroup mainLayout;
+    private TextView historyEmptyText;
 
     private ListView currentListView;
     private CurrentAdapter currentAdapter;
@@ -94,6 +95,7 @@ public class CourseQuestionFragment extends Fragment {
 
         mainLayout = (ViewGroup)v.findViewById(R.id.course_question_main_layout);
         progressBar = (ProgressBar)v.findViewById(R.id.course_question_progress_bar);
+        historyEmptyText = (TextView)v.findViewById(R.id.empty_text);
         if(taskCountDown != 0) {
             mainLayout.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
@@ -238,11 +240,10 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView != null)
-                return convertView;
-
-            convertView = getActivity().getLayoutInflater().inflate(
-                    R.layout.layout_history_question_brief, null);
+            if(convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(
+                        R.layout.layout_history_question_brief, null);
+            }
             BasicQuestion question = getItem(position);
 
             TextView timeText = (TextView)convertView.findViewById(R.id.history_question_brief_time);
@@ -343,13 +344,21 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            if(getActivity() != null) {
+            if(getActivity() == null)
+                return;
+
+            notifytTaskFinished();
+
+            if (!updateSuccess) {
+                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                Log.i(TAG, "UpdateHistoryQuestionTask net_disconnet");
+            }
+
+            if(historyAdapter.getCount() != 0) {
                 historyAdapter.notifyDataSetChanged();
-                notifytTaskFinished();
-                if (!updateSuccess) {
-                    Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "UpdateHistoryQuestionTask net_disconnet");
-                }
+            } else {
+                historyListView.setVisibility(View.GONE);
+                historyEmptyText.setVisibility(View.VISIBLE);
             }
         }
     }

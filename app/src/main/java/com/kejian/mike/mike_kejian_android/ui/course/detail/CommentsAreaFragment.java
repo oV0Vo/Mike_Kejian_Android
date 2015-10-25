@@ -42,6 +42,8 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private ProgressBar progressBar;
 
+    private TextView emptyText;
+
     private int taskCountDown;
 
     public CommentsAreaFragment() {
@@ -76,6 +78,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         mListView.setOnItemClickListener(this);
 
         progressBar = (ProgressBar)view.findViewById(R.id.course_post_progress_bar);
+        emptyText = (TextView)view.findViewById(R.id.empty_text);
 
         if(taskCountDown != 0) {
             progressBar.setVisibility(View.VISIBLE);
@@ -108,7 +111,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         if (mListener != null) {
             Post post = (Post)mAdapter.getItem(position);
             CourseModel.getInstance().setCurrentPost(post);
-            mListener.onPostSelected();
+            mListener.onPostSelected(post.getPostId());
         }
     }
 
@@ -122,7 +125,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private void onUpdateTaskFinished() {
         taskCountDown -= 1;
-        if(taskCountDown == 0 && progressBar != null) {
+        if(taskCountDown == 0) {
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -135,11 +138,10 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if(convertView != null) {
-                return convertView;
+            if(convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_post_brief, null);
             }
 
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.layout_post_brief, null);
             Post post = getItem(position);
 
             TextView titleView = (TextView)convertView.findViewById(R.id.course_detail_post_brief_title);
@@ -165,7 +167,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
     }
 
     public interface OnPostSelectedListener {
-        public void onPostSelected();
+        void onPostSelected(String postId);
     }
 
     private class UpdateCommentsTask extends AsyncTask<Void, Integer, ArrayList<Post>> {
@@ -177,9 +179,17 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         }
 
         protected void onPostExecute(ArrayList<Post> posts) {
+            if(progressBar == null)
+                return;
+
             onUpdateTaskFinished();
             if(posts != null) {
-                mAdapter.notifyDataSetChanged();
+                if(posts.size() != 0) {
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    mListView.setVisibility(View.GONE);
+                    emptyText.setVisibility(View.VISIBLE);
+                }
             } else {
                 Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
                 Log.i(TAG, "net_disconnet");

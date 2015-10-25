@@ -283,4 +283,8 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
         footerView.setPadding(0, -footerViewHeight, 0, 0);
         isLoadingMore = false;
     }
+
+    public View getHeaderView() {
+        return headerView;
+    }
 }

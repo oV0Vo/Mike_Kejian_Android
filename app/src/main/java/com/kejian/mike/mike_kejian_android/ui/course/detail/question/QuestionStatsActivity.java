@@ -346,11 +346,11 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            if(convertView != null)
-                return convertView;
+            if(convertView == null) {
+                convertView = View.inflate(QuestionStatsActivity.this, R.layout.
+                        layout_question_answer_brief, null);
+            }
 
-            convertView = View.inflate(QuestionStatsActivity.this, R.layout.
-                    layout_question_answer_brief, null);//@null?
             QuestionShowAnswer answer = getItem(position);
 
             ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
