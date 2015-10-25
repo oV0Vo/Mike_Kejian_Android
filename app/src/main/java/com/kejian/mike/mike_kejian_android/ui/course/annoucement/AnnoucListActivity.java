@@ -55,7 +55,6 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
         CourseAnnoucement topAnnouc = courseModel.getOnTopAnnouc();
         if(topAnnouc != null)
             setOnTopAnnoucView(topAnnouc);
-        CourseModel d;
     }
 
     private void setOnTopAnnoucView(CourseAnnoucement topAnnouc) {
