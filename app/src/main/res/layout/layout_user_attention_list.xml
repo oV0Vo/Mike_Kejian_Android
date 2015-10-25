@@ -21,6 +21,7 @@
             android:text="关注的人"
             android:height="40dp"
             android:gravity="center"
+            android:background="@color/blue"
             android:id="@+id/attention_list_people"
             />
         <TextView
@@ -30,6 +31,7 @@
             android:text="关注的帖子"
             android:height="40dp"
             android:gravity="center"
+            android:background="@color/blue"
             android:id="@+id/attention_list_post"
             />
         <TextView
@@ -39,6 +41,7 @@
             android:layout_weight="1"
             android:height="40dp"
             android:gravity="center"
+            android:background="@color/blue"
             android:id="@+id/attention_list_course"
             />
     </LinearLayout>
@@ -47,13 +50,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/attention_container"
         >
+        <ViewPager
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/attention_view_pager"
+
+            >
+
+        </ViewPager>
 
         <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/attention_list"
             android:divider="#321f0409"
-            android:dividerHeight="10dp"
+            android:dividerHeight="2dp"
             ></com.kejian.mike.mike_kejian_android.ui.message.RefreshListView>
 
 
