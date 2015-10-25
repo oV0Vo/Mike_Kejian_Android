@@ -12,17 +12,41 @@ public class TimeFormat {
 
     private static final String TAG = "TimeFormat";
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
+   // private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
 
     public static String toMinute(Date date) {
-        checkDateFormat();
-        String formatStr = dateFormat.format(date);
-        return formatStr;
-    }
+        StringBuilder strBuilder = new StringBuilder();
 
-    private static void checkDateFormat() {
-        if (dateFormat == null)
-            dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
+        int year = date.getYear();
+        strBuilder.append(year);
+        strBuilder.append("-");
+
+        int month = date.getMonth();
+        if(month < 10)
+            strBuilder.append("0");
+        strBuilder.append(month);
+        strBuilder.append("-");
+
+        int day = date.getDate();
+        if(day < 10)
+            strBuilder.append("0");
+        strBuilder.append(day);
+        strBuilder.append(" ");
+
+        int hour = date.getHours();
+        if(hour < 10)
+            strBuilder.append("0");
+        strBuilder.append(hour);
+        strBuilder.append(":");
+
+        int minute = date.getMinutes();
+        if(minute < 10)
+            strBuilder.append("0");
+        strBuilder.append(minute);
+
+        String result = strBuilder.toString();
+
+        return result;
     }
 
     public static String toSeconds(long millis) {

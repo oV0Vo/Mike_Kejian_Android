@@ -107,6 +107,11 @@
             android:name=".ui.course.detail.question.QuestionStatsActivity"
             android:label="@string/title_activity_question_stats" >
         </activity>
+
+        <activity android:name=".ui.course.annoucement.AnnoucDetailActivity"
+            android:label="@string/title_annouc_detail_activity">
+        </activity>
+
         <activity
             android:name=".ui.message.NewReplyActivity"
             android:label="@string/new_reply" >

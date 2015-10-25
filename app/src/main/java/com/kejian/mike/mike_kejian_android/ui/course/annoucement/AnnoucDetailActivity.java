@@ -3,8 +3,6 @@ package com.kejian.mike.mike_kejian_android.ui.course.annoucement;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,13 +13,10 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
 
 import net.course.CourseAnnoucNetService;
 
-import util.DateUtil;
-import util.StringUtil;
+import model.course.CourseModel;
 import util.TimeFormat;
 
 public class AnnoucDetailActivity extends AppCompatActivity {
-
-    public static final String ARG_ANNOUCEMENT = "annoucment";
 
     private CourseAnnoucement annouc;
 
@@ -33,7 +28,9 @@ public class AnnoucDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annouc_detail);
-        annouc = (CourseAnnoucement)getIntent().getSerializableExtra(ARG_ANNOUCEMENT);
+
+        CourseModel courseModel = CourseModel.getInstance();
+        annouc = courseModel.getCurrentFocusAnnouc();
 
         TextView authorNameText = (TextView)findViewById(R.id.author_name_text);
         authorNameText.setText(annouc.getPersonName());
@@ -60,7 +57,7 @@ public class AnnoucDetailActivity extends AppCompatActivity {
                 }
             });
         } else {
-            putOnTopView.setText(R.string.already_put_on_top);
+            putOnTopView.setText(R.string.annouc_already_put_on_top);
             putOnTopView.setEnabled(false);
         }
 
@@ -81,11 +78,12 @@ public class AnnoucDetailActivity extends AppCompatActivity {
             if(progressBar != null) {
                 progressBar.setVisibility(View.GONE);
                 if(success) {
-                    Toast.makeText(AnnoucDetailActivity.this, R.string.put_on_top_success,
+                    Toast.makeText(AnnoucDetailActivity.this, R.string.annouc_put_on_top_success,
                             Toast.LENGTH_LONG).show();
                     putOnTopView.setBackgroundColor(getResources().getColor(R.color.green));
-                    putOnTopView.setText(R.string.already_put_on_top);
+                    putOnTopView.setText(R.string.annouc_already_put_on_top);
                     putOnTopView.setEnabled(false);
+                    annouc.setOnTop(true);
                 } else {
                     Toast.makeText(AnnoucDetailActivity.this, R.string.net_disconnet,
                             Toast.LENGTH_LONG).show();

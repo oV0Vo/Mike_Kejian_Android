@@ -28,6 +28,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuesti
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionShowAnswer;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionStats;
 import model.course.CourseModel;
+import util.NumberUtil;
 
 public class QuestionStatsActivity extends AppCompatActivity {
 
@@ -230,7 +231,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         joinRateColorBarContainer.addView(joinColorRateBar);
 
         TextView joinRateText = (TextView)findViewById(R.id.join_rate_text);
-        joinRateText.setText("93.2%");
+        joinRateText.setText(Double.toString(NumberUtil.round(joinRate, 3) * 100));
         setTextColorAccordingToRate(joinRateText, joinRate);
 
         int correctNum = stats.getCorrectAnswerNum();
@@ -244,7 +245,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         correctRateColorBarContainer.addView(correctRateColorBar);
 
         TextView correctRateText = (TextView)findViewById(R.id.correct_rate_text);
-        correctRateText.setText("93.2%");
+        correctRateText.setText(Double.toString(NumberUtil.round(correctRate, 3) * 100));
         setTextColorAccordingToRate(correctRateText, correctRate);
 
         initChoiceDistributeView(stats.getChoiceDistribute());
