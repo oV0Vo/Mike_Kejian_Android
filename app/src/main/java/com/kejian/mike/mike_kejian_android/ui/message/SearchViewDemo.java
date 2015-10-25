@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 
 import net.picture.DownloadPicture;
 import net.picture.MessagePrint;
@@ -38,6 +39,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import bl.MessageBLService;
 import bl.SearchBLService;
+import model.course.CourseModel;
 import model.message.SearchResult;
 
 public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -112,6 +114,10 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             Intent intent = new Intent();
             intent.setClass(this, PostDetailActivity.class);
             intent.putExtra("postId",searchResult.getId()+"");
+            startActivity(intent);
+        }else{
+            CourseModel.getInstance().setCurrentCourseId(searchResult.getId()+"");
+            Intent intent = new Intent(this, CourseActivity.class);
             startActivity(intent);
         }
     }
