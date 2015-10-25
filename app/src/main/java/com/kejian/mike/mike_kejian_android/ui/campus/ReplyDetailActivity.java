@@ -95,7 +95,6 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
                 isFollowed = CampusBLService.isFollowed(postId);
                 isPraised = CampusBLService.isPraised(postId);
                 post = CampusBLService.getPostDetail(postId);
-                post.setTitle(getIntent().getStringExtra("title"));
                 replies = post.getReplyList();
                 return null;
             }
@@ -120,7 +119,6 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
-        this.setTitle(getIntent().getStringExtra("activity_title"));
         iniButtons();
 
     }
@@ -148,8 +146,9 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
                             Toast.makeText(ReplyDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
                         else {
                             Toast.makeText(ReplyDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
-                            replies.add(CampusBLService.publishedReply);
-                            adapter.notifyDataSetChanged();
+                            //replies.add(CampusBLService.publishedReply);
+                            //adapter.notifyDataSetChanged();
+                            onDownPullRefresh();
                         }
                     }
                 }.execute();

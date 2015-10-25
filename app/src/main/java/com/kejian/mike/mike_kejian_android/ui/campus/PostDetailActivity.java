@@ -146,8 +146,9 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
                             Toast.makeText(PostDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
                         else {
                             Toast.makeText(PostDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
-                            replies.add(CampusBLService.publishedReply);
-                            adapter.notifyDataSetChanged();
+                            onDownPullRefresh();
+                            //replies.add(CampusBLService.publishedReply);
+                            //adapter.notifyDataSetChanged();
                         }
                     }
                 }.execute();
