@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.main.SearchPeopleActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import bl.CampusBLService;
 import model.campus.Post;
 import model.campus.Reply;
+import model.helper.SearchType;
 import model.user.Invitee;
 
 /**
@@ -135,7 +137,7 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
 
                     @Override
                     protected String doInBackground(Void... params) {
-                        String result = CampusBLService.reply(post.getCourseId(), post.getPostId(), replyContent);
+                        String result = CampusBLService.reply(post.getCourseId(), post.getPostId(), post.getTitle(), replyContent);
                         return result;
                     }
 
@@ -174,6 +176,17 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         TextView detail_reply_num = (TextView) header.findViewById(R.id.detail_reply_num);
         detail_reply_num.setText("共(" + post.getReplyNum() + ")条");
         TextView detail_follow_button = (TextView) header.findViewById(R.id.detail_follow_button);
+        TextView detail_invite_button = (TextView) header.findViewById(R.id.detail_invite_button);
+
+        detail_invite_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(ReplyDetailActivity.this, SearchPeopleActivity.class);
+                intent.putExtra("searchType", SearchType.addAssistant);
+                startActivityForResult(intent,1000);
+            }
+        });
 
         if(isFollowed) {
             detail_follow_button.setText(" 已关注");
@@ -248,6 +261,19 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
 
     @Override
     public void onLoadingMore() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
+            case RESULT_OK:
+                break;
+            default:
+                CampusBLService.inviteToAnswer(post.getPostId(), data.getStringExtra("user_id"));
+                Toast.makeText(this, "已邀请", Toast.LENGTH_SHORT).show();
+                break;
+        }
 
     }
 }

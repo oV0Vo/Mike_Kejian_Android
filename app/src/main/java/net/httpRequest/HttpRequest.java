@@ -228,6 +228,8 @@ public class HttpRequest {
                 result=result+temp;
             }
 
+            System.out.println("http result:"+result);
+
         }catch (Exception e){
             e.printStackTrace();
             return null;

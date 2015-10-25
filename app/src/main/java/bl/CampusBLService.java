@@ -7,7 +7,6 @@ import java.util.Date;
 
 import model.campus.Post;
 import model.campus.Reply;
-import model.helper.ResultMessage;
 import model.user.Global;
 import model.user.user;
 
@@ -44,8 +43,6 @@ public class CampusBLService {
 
     public static Post getPostDetail(String postId) {
         Post post = CampusNetService.getPostInfo(postId);
-        for(Reply loopReply: post.getReplyList())
-            loopReply.setTitle("回复:" + post.getTitle());
         return post;
     }
 
@@ -63,9 +60,10 @@ public class CampusBLService {
         return CampusNetService.publish(courseId, post);
     }
 
-    public static String reply(String courseId, String replyTo, String content) {
+    public static String reply(String courseId, String replyTo, String replyToTitle, String content) {
         Reply reply = new Reply();
         reply.setCourseId(courseId);
+        reply.setTitle("回复:" + replyToTitle);
         reply.setUserIconUrl(((user)Global.getObjectByName("user")).getIcon());
         reply.setUserId(((user) Global.getObjectByName("user")).getId());
         reply.setAuthorName(((user) Global.getObjectByName("user")).getNick_name());
@@ -103,6 +101,17 @@ public class CampusBLService {
     public static void viewThisPost(String postId) {
         String userId = ((user) Global.getObjectByName("user")).getId();
         CampusNetService.viewThisPost(userId, postId);
+    }
+
+    public static String inviteToAnswer(String postId, ArrayList<String> userIdList) {
+        String userId = ((user) Global.getObjectByName("user")).getId();
+        return CampusNetService.inviteToAnswer(userId, postId, userIdList);
+    }
+
+    public static String inviteToAnswer(String postId, String userId) {
+        ArrayList<String> userList = new ArrayList<>();
+        userList.add(userId);
+        return inviteToAnswer(postId, userList);
     }
 
 }

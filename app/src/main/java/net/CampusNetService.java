@@ -134,7 +134,11 @@ public class CampusNetService {
         params.put("userId", post.getUserId());
         params.put("courseId", courseId);
 
-            params.put("postInfo",postJson.toString());
+        try {
+            params.put("postInfo",URLEncoder.encode(postJson.toString(), "utf8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
 
         String result = httpRequest.sentGetRequest(baseUrl + "postNewQuestion/", params);
@@ -149,7 +153,7 @@ public class CampusNetService {
         try {
             replyJson.put("postId", "0");
             replyJson.put("authorName", reply.getAuthorName());
-            replyJson.put("title", "");
+            replyJson.put("title", reply.getTitle());
             replyJson.put("content", reply.getContent());
             replyJson.put("date", reply.getDate());
             replyJson.put("reply_to", reply.getReplyTo());
@@ -214,4 +218,20 @@ public class CampusNetService {
         boolean result = Boolean.parseBoolean(httpRequest.sentGetRequest(baseUrl + "followThisPost/", params));
         return result;
     }
+
+    public static String inviteToAnswer(String senderId, String postId, ArrayList<String> userIdList) {
+        HashMap<String, String> params = new HashMap<>();
+        JSONArray userArray = new JSONArray();
+        for(String loopUser: userIdList)
+            userArray.put(loopUser);
+
+        params.put("senderId", senderId);
+        params.put("questionId", postId);
+        params.put("userIdList", userArray.toString());
+
+        String result = httpRequest.sentGetRequest(baseUrl + "inviteUserToAnswer", params);
+
+        return result;
+    }
+
 }

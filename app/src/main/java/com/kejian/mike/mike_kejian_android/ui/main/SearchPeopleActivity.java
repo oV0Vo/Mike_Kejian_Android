@@ -51,6 +51,7 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
         this.myInflater = getLayoutInflater();
         this.peopleAdapter = new SearchResultAdapter(this,android.R.layout.simple_list_item_1,SearchBLService.people);
         this.container.setAdapter(this.peopleAdapter);
+        this.container.setOnItemClickListener(this);
         this.searchTaskManager = new SearchTaskManager();
     }
 
@@ -60,10 +61,10 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
         int user_id = searchResult.getId();
         String nick_name = searchResult.getTitle();
         Intent intent = new Intent();
-        intent.putExtra("user_id",user_id);
+        intent.putExtra("user_id",user_id+"");
         intent.putExtra("nick_name",nick_name);
         setResult(1000,intent);
-        finish();
+        this.finish();
 
     }
 
@@ -219,7 +220,7 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
             MessagePrint.print("------------------------------------do in background-----------------------------------------");
             //延迟执行
             try{
-                Thread.sleep(800);
+                Thread.sleep(600);
             }catch (Exception e){
                 e.printStackTrace();
             }

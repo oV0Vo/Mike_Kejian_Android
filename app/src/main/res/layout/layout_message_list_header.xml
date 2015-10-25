@@ -40,15 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="下拉刷新"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_listview_header_last_update_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:text="最后刷新时间: 2014-10-10 12:56:12"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>
