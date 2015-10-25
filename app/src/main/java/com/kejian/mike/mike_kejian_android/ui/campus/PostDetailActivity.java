@@ -213,14 +213,14 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
         }
 
         if(isPraised) {
-            praise_button.setBackgroundResource(R.drawable.up_green);
+            praise_button.setBackgroundResource(R.drawable.agree_blue);
             praise_button.setEnabled(false);
         } else {
             praise_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ImageButton ib = (ImageButton) v;
-                    ib.setBackgroundResource(R.drawable.up_green);
+                    ib.setBackgroundResource(R.drawable.agree_blue);
                     ib.setEnabled(false);
                     new AsyncTask<Void, Void, Void>() {
 

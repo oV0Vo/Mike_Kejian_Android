@@ -51,6 +51,7 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
     private void iniViews() {
         this.container = (RefreshListView)view.findViewById(R.id.post_container);
+        container.setFooterDividersEnabled(false);
         container.getHeaderView().setBackgroundResource(R.color.light_grey);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPosts);
