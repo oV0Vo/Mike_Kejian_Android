@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
@@ -98,24 +99,26 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
     @Override
     public void onLoadingMore() {
-
+        if(true) {
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
                 protected Void doInBackground(Void... params) {
-                   CampusBLService.getNextLatestPosts();
+                    CampusBLService.getNextLatestPosts();
                     return null;
                 }
 
                 @Override
                 protected void onPostExecute(Void result) {
-                    if(CampusBLService.nextLatestPosts.size() != 0) {
-                        CampusBLService.moveLatestPosts();
-                        adapter.notifyDataSetChanged();
-                    }
+                    CampusBLService.moveLatestPosts();
+                    adapter.notifyDataSetChanged();
+                    container.hideFooterView();
                     container.hideFooterView();
                 }
             }.execute(new Void[]{});
+        } else {
+            container.hideFooterView();
+        }
 
 
     }
