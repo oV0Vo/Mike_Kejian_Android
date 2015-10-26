@@ -10,7 +10,7 @@
         android:layout_height="180dp"
 
 
-        android:background="@drawable/bg"
+        android:background="@drawable/bg_320_180"
 
 
         android:layout_marginBottom="10dp">
@@ -191,13 +191,13 @@
                 />
             <EditText
                 android:layout_height="40dp"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:background="@null"
 
                 android:id="@+id/user_school_info_department"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
-                />
+                android:paddingStart="10dp" />
             <TextView
                 android:layout_height="40dp"
                 android:layout_width="wrap_content"
@@ -207,15 +207,16 @@
 
 
 
-                android:layout_marginLeft="100dp"/>
+                android:layout_marginLeft="100dp"
+                android:layout_weight="1" />
             <EditText
                 android:layout_height="40dp"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:id="@+id/user_school_info_major"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
                 android:background="@null"
-                />
+                android:paddingStart="10dp" />
             </LinearLayout>
         </TableRow>
         <TableRow>

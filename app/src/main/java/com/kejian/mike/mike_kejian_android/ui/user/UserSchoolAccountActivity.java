@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.MessagePrint;
@@ -54,6 +55,8 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bind_school_account);
+
+       // AppManager.getAppManager().addActivity(this);
         context=this;
         userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
         if(userToken==null){

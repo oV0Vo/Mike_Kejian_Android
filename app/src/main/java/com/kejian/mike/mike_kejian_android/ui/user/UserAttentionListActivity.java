@@ -25,6 +25,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.MentionMeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.MessagePrint;
@@ -64,6 +65,10 @@ public class UserAttentionListActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_user_attention_list);
+
+       // AppManager.getAppManager().addActivity(this);
+
+
         context=this;
         bundle=savedInstanceState;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

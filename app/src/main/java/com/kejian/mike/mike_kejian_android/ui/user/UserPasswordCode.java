@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import java.util.Date;
 
@@ -42,6 +43,8 @@ public class UserPasswordCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_change_password_code);
+
+      //  AppManager.getAppManager().addActivity(this);
         context=this;
         userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
         if(userToken==null){

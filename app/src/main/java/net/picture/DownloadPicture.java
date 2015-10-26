@@ -62,7 +62,7 @@ public class DownloadPicture {
             FileInputStream inputStream = new FileInputStream(file);
 
             BitmapFactory.Options b=new BitmapFactory.Options();
-            b.inSampleSize=4;
+            b.inSampleSize=2;
             bitmap=BitmapFactory.decodeStream(inputStream,null,b);
 
         }catch (Exception e){

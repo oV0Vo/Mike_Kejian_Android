@@ -176,7 +176,7 @@ ps:userInfoType(enum):PASSWORD|SIGN_TEXT|ICON|NICKNAME
     private String schoolAccountPassword;
     private boolean ifBindSchoolAccount}  将以上对象转化为json 
 
-59.绑定教务网:http://112.124.101.41/mike_server_v02/index.php/Home/User/bind/userId/1/schoolAccount/131250043/19941026/schoolId/0
+59.绑定教务网:http://112.124.101.41/mike_server_v02/index.php/Home/User/bind/userId/1/schoolAccount/131250043/schoolAccountPsd/19941026/schoolId/0
 
 60.重设密码:http://112.124.101.41/mike_server_v02/index.php/Home/User/phoneNumber/15651850900/newPassword/194123
 
