@@ -1,6 +1,7 @@
 package com.kejian.mike.mike_kejian_android.ui.course.management;
 
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,6 +75,19 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.annoucement_publish_progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                if(NavUtils.getParentActivityIntent(this) != null)
+                    NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class CommitAnnoucementTask extends AsyncTask<String, Void , Boolean> {

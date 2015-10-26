@@ -10,7 +10,7 @@
         android:layout_height="180dp"
 
 
-        android:background="@drawable/bg"
+        android:background="@drawable/bg_320_180"
 
 
         android:layout_marginBottom="10dp">
@@ -71,6 +71,7 @@
                android:layout_height="40dp"
                android:layout_width="wrap_content"
 
+
                android:layout_marginLeft="10dp"
                android:textSize="@dimen/medium_font"
                android:gravity="center"
@@ -80,8 +81,8 @@
 
            <EditText
                android:layout_height="40dp"
-               android:layout_width="70dp"
-
+               android:layout_width="wrap_content"
+               android:paddingLeft="10dp"
 
                android:id="@+id/base_info_name"
                android:textSize="@dimen/medium_font"
@@ -128,7 +129,7 @@
                android:text="昵称"/>
            <EditText
                android:layout_height="40dp"
-               android:layout_width="70dp"
+               android:layout_width="wrap_content"
                android:background="@null"
                android:paddingLeft="10dp"
                android:id="@+id/base_info_nickname"
@@ -190,13 +191,13 @@
                 />
             <EditText
                 android:layout_height="40dp"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:background="@null"
 
                 android:id="@+id/user_school_info_department"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
-                />
+                android:paddingStart="10dp" />
             <TextView
                 android:layout_height="40dp"
                 android:layout_width="wrap_content"
@@ -206,15 +207,16 @@
 
 
 
-                android:layout_marginLeft="100dp"/>
+                android:layout_marginLeft="100dp"
+                android:layout_weight="1" />
             <EditText
                 android:layout_height="40dp"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:id="@+id/user_school_info_major"
                 android:textSize="@dimen/medium_font"
                 android:gravity="center"
                 android:background="@null"
-                />
+                android:paddingStart="10dp" />
             </LinearLayout>
         </TableRow>
         <TableRow>

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.DownloadPicture;
@@ -77,6 +78,8 @@ public class UserInfoActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_info);
 
+      //  AppManager.getAppManager().addActivity(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
 
@@ -110,6 +113,10 @@ public class UserInfoActivity extends AppCompatActivity{
         baseInfoIdentify=(EditText)findViewById(R.id.user_school_info_identify);
         baseInfoSign=(EditText)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
+
+        if(user.getIcon().equals("")){
+            photo.setImageResource(R.drawable.userxh);
+        }
 
 
 
@@ -295,10 +302,10 @@ public class UserInfoActivity extends AppCompatActivity{
             baseInfoNickname.setText(user.getNick_name());
             baseInfoNickname.setEnabled(false);
 
-            schoolDepartmentView.setText(user.getDepartmentInfo().getId());
+            schoolDepartmentView.setText(user.getDepartmentInfo().getName());
             schoolDepartmentView.setEnabled(false);
 
-            schoolMajorView.setText(user.getDepartmentInfo().getId());
+            schoolMajorView.setText(user.getMajorName());
             schoolMajorView.setEnabled(false);
 
 

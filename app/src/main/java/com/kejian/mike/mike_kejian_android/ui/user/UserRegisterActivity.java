@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 
@@ -62,6 +63,8 @@ public class UserRegisterActivity extends AppCompatActivity{
         setContentView(R.layout.activity_user_register);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+      //  AppManager.getAppManager().addActivity(this);
 
         getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
         setCodeMechine();
@@ -397,7 +400,9 @@ public class UserRegisterActivity extends AppCompatActivity{
                 Toast.makeText(context,"手机已经被注册，或者没有网络连接",Toast.LENGTH_SHORT).show();
             }else{
 
+
                 Toast.makeText(context,"注册成功",Toast.LENGTH_SHORT).show();
+                finish();
 
             }
 

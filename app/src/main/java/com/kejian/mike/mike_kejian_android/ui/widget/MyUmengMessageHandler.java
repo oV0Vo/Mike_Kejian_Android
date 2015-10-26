@@ -63,6 +63,8 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         if(args == null) {
             Log.i(TAG, "arg null!");
             return;
+        } else {
+            Log.i(TAG, Integer.toString(msg.extra.keySet().size()));
         }
 
         for(Map.Entry<String, String> entry: args.entrySet()) {
@@ -96,6 +98,10 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
             Log.i(TAG, "pushMessage null!");
         }
         if(pushMessage == null || receiverInfo == null || senderInfo == null) {
+            if(receiverInfo == null)
+                Log.i(TAG, "receiverInfo null");
+            if(senderInfo == null)
+                Log.i(TAG, "senderInfo null");
             return;
         }
         pushMessage.setReceiverInfo(receiverInfo);
@@ -106,6 +112,7 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
     }
 
     private void sendBroacast(Context context, InfoType infoType) {
+        Log.i(TAG, "sendBroacast");
         Intent messageIncreIntent = new Intent(ReceiverActions.increment_action);
         boolean isMessageNotice = false;
         //AT, ANNOUCE_TE, ANNOUCE_AD, ATTENTION, COMMENT, FOLLOW, LIKE, IDOL_POST, REPLY, INVITE
@@ -135,6 +142,7 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
         LocalBroadcastManager.getInstance(context).sendBroadcast(messageIncreIntent);
         if(isMessageNotice) {
+            Log.i(TAG, "sendMessageNotice");
             Intent messageNoticeIntent = new Intent(UmengMessageAction.NEW_MESSAGE_ACTION);
             LocalBroadcastManager.getInstance(context).sendBroadcast(messageNoticeIntent);
         }

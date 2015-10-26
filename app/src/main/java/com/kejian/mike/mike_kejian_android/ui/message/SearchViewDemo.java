@@ -80,6 +80,8 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
         postContainer.setAdapter(postAdapter);
 
         this.searchTaskManager = new SearchTaskManager();
+        this.courseContainer.setOnItemClickListener(this);
+        this.postContainer.setOnItemClickListener(this);
 //        lv1.setTextFilterEnabled(true);
 
 //        srv1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -319,6 +321,8 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
         if (id == R.id.action_settings) {
             return true;
         }else if(id == android.R.id.home){
+            SearchBLService.clearPosts();;
+            SearchBLService.clearCourses();
             this.finish();
             return true;
         }

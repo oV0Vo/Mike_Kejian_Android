@@ -78,14 +78,20 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/enter_course"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/medium_padding"
-                style="@style/white_greenText_round"
-                android:text="@string/enter_course_text"/>
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/enter_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    style="@style/white_greenText_round"
+                    android:text="@string/enter_course_text"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

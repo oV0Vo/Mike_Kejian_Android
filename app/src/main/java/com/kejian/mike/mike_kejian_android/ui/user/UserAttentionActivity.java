@@ -23,6 +23,7 @@ import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class UserAttentionActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attention_people);
+
+        //AppManager.getAppManager().addActivity(this);
+
+
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);

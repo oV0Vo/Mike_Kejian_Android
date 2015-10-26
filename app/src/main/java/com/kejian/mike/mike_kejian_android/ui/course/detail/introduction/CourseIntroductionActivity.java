@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -61,6 +62,25 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         initViewPager();
         initInterestText();
         initPushAgent();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_course_introduction, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                if(NavUtils.getParentActivityIntent(this) != null)
+                    NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initPushAgent() {
@@ -121,7 +141,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch(position) {
+                switch (position) {
                     case 0:
                         briefTab.setChecked(true);
                         break;
@@ -168,24 +188,6 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(2);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_course_introduction, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.assistant_management_menu) {
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class CourseContentAdpater extends FragmentStatePagerAdapter {

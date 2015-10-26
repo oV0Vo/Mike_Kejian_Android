@@ -19,6 +19,7 @@ import java.util.List;
 
 import model.user.Global;
 import model.user.user;
+import util.GetBitmapByPinyin;
 
 /**
  * Created by kisstheraik on 15/9/18.
@@ -71,9 +72,14 @@ public class DrawerViewAdapter extends BaseAdapter{
                     user u=(user)Global.getObjectByName("user");
 
                     final CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.photo);
+                    if(u.getIcon().equals("")){
+                        circleImageView.setImageResource(R.drawable.userxh);
+                    }
+
 
                     DownloadPicture d=new DownloadPicture(context,circleImageView,u.getIcon(),u.getIcon());
 
+                   // circleImageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin("我是谁",context));
 
                     TextView name=(TextView)v.findViewById(R.id.drawerName);
                     ImageView identify=(ImageView)v.findViewById(R.id.drawerIdentify);
