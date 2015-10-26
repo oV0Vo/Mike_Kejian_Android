@@ -1,8 +1,10 @@
 package com.kejian.mike.mike_kejian_android.ui.course.annoucement;
 
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -64,6 +66,20 @@ public class AnnoucDetailActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                if(NavUtils.getParentActivityIntent(this) != null)
+                    NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class PutOnTopTask extends AsyncTask<String, Void, Boolean> {
 
         @Override

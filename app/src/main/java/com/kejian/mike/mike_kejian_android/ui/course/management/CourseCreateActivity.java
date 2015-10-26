@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.course.management;
 
 import android.app.AlertDialog;
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -54,6 +55,19 @@ public class CourseCreateActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.course_create_progress_bar);
         progressBar.setVisibility(View.GONE);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                if(NavUtils.getParentActivityIntent(this) != null)
+                    NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initAddTeacherButtonListener() {
@@ -112,21 +126,6 @@ public class CourseCreateActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course_create, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class SubmitNewCourseTask extends AsyncTask<CourseDetailInfo, Void, NetOperateResultMessage> {

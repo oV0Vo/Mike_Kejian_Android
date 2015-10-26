@@ -45,7 +45,7 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
     }
 
     private void iniData() {
-        new InitDataTask().execute("1234");
+        new InitDataTask().execute();
 
     }
 
@@ -57,6 +57,17 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPosts);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent();
+                intent.setClass(getContext(), PostDetailActivity.class);
+                intent.putExtra("postId", ((PostAdapter.PostViewHolder)view.getTag()).postId);
+                getContext().startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -110,7 +121,6 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
     private class InitDataTask extends AsyncTask<String, Integer, String> {
         @Override
         public String doInBackground(String... params) {
-            String userId = params[0];
             CampusBLService.refreshLatestPosts();
             return "";
         }
