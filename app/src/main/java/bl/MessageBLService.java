@@ -44,6 +44,14 @@ public class
         editor.commit();
     }
 
+    public static boolean isAllMessageReaded(){
+        if(unreadCourseNoticeNum+unreadMentionNum+unreadPraiseNum+unreadReplyNum == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static void initUnreadMessageNum(Context context){
         SharedPreferences sharedPreferences= context.getSharedPreferences(UnReadMessageType.unRead,
                 Activity.MODE_PRIVATE);
