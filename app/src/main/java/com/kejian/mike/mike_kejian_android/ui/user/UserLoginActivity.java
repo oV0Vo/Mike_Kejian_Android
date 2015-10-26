@@ -73,16 +73,16 @@ public class UserLoginActivity extends Activity {
         context=this;
 
 
-        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+//        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
 
         if(userToken!=null){
 
 
         }
 
-        netBroadcast=new NetBroadcast();
-
-        Global.addGlobalItem("network_listing", netBroadcast);
+//        netBroadcast=new NetBroadcast();
+//
+//        Global.addGlobalItem("network_listing", netBroadcast);
 
         initViews();
 
@@ -334,7 +334,7 @@ public class UserLoginActivity extends Activity {
         });
 
 
-        loginFromLocal();
+//        loginFromLocal();
 
 
 

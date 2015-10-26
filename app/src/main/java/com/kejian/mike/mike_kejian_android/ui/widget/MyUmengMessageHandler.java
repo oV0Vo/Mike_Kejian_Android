@@ -51,58 +51,58 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
 
     @Override
     public void dealWithNotificationMessage(Context context, UMessage msg) {
-        Log.i(TAG, "message arrive" + msg.text);
-        UTrack.getInstance(context).trackMsgClick(msg);
+//        Log.i(TAG, "message arrive" + msg.text);
+//        UTrack.getInstance(context).trackMsgClick(msg);
+//
+//        SenderInfo senderInfo = null;
+//        ReceiverInfo receiverInfo = null;
+//        Date time = null;
+//        InfoType infoType = null;
+//        String messageContent = null;
+//        Map<String, String> args = msg.extra;
+//        if(args == null) {
+//            Log.i(TAG, "arg null!");
+//            return;
+//        }
+//
+//        for(Map.Entry<String, String> entry: args.entrySet()) {
+//            String value = entry.getValue();
+//            switch (entry.getKey()) {
+//                case ARG_SENDER_INFO_KEY:
+//                    senderInfo = parseSenderInfo(value);
+//                    break;
+//                case ARG_RECEIVER_INFO_KEY:
+//                    receiverInfo = parseReceiverInfo(value);
+//                    break;
+//                case ARG_TIME:
+//                    time = parseTime(value);
+//                    break;
+//                case ARG_INF_TYPE:
+//                    infoType = parseInfoType(value);
+//                    break;
+//                case ARG_CONTENT:
+//                    //有可能因为参数顺序不对然后infoType没有从而不能解析，所以解析决定留到后面
+//                    messageContent = value;
+//                    break;
+//                default:
+//                    Log.e(TAG, "unable to parse key " + entry.getKey());
+//                    break;
+//
+//            }
+//        }
+//
+//        PushMessage pushMessage = parseMessageContent(messageContent, infoType);
+//        if(pushMessage  == null) {
+//            Log.i(TAG, "pushMessage null!");
+//        }
+//        if(pushMessage == null || receiverInfo == null || senderInfo == null) {
+//            return;
+//        }
+//        pushMessage.setReceiverInfo(receiverInfo);
+//        pushMessage.setSenderInfo(senderInfo);
+//        pushMessage.setTime(time);
 
-        SenderInfo senderInfo = null;
-        ReceiverInfo receiverInfo = null;
-        Date time = null;
-        InfoType infoType = null;
-        String messageContent = null;
-        Map<String, String> args = msg.extra;
-        if(args == null) {
-            Log.i(TAG, "arg null!");
-            return;
-        }
-
-        for(Map.Entry<String, String> entry: args.entrySet()) {
-            String value = entry.getValue();
-            switch (entry.getKey()) {
-                case ARG_SENDER_INFO_KEY:
-                    senderInfo = parseSenderInfo(value);
-                    break;
-                case ARG_RECEIVER_INFO_KEY:
-                    receiverInfo = parseReceiverInfo(value);
-                    break;
-                case ARG_TIME:
-                    time = parseTime(value);
-                    break;
-                case ARG_INF_TYPE:
-                    infoType = parseInfoType(value);
-                    break;
-                case ARG_CONTENT:
-                    //有可能因为参数顺序不对然后infoType没有从而不能解析，所以解析决定留到后面
-                    messageContent = value;
-                    break;
-                default:
-                    Log.e(TAG, "unable to parse key " + entry.getKey());
-                    break;
-
-            }
-        }
-
-        PushMessage pushMessage = parseMessageContent(messageContent, infoType);
-        if(pushMessage  == null) {
-            Log.i(TAG, "pushMessage null!");
-        }
-        if(pushMessage == null || receiverInfo == null || senderInfo == null) {
-            return;
-        }
-        pushMessage.setReceiverInfo(receiverInfo);
-        pushMessage.setSenderInfo(senderInfo);
-        pushMessage.setTime(time);
-
-        sendBroacast(context, infoType);
+        sendBroacast(context, InfoType.AT);
     }
 
     private void sendBroacast(Context context, InfoType infoType) {
