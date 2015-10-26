@@ -63,6 +63,8 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         if(args == null) {
             Log.i(TAG, "arg null!");
             return;
+        } else {
+            Log.i(TAG, Integer.toString(msg.extra.keySet().size()));
         }
 
         for(Map.Entry<String, String> entry: args.entrySet()) {
@@ -96,6 +98,10 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
             Log.i(TAG, "pushMessage null!");
         }
         if(pushMessage == null || receiverInfo == null || senderInfo == null) {
+            if(receiverInfo == null)
+                Log.i(TAG, "receiverInfo null");
+            if(senderInfo == null)
+                Log.i(TAG, "senderInfo null");
             return;
         }
         pushMessage.setReceiverInfo(receiverInfo);
