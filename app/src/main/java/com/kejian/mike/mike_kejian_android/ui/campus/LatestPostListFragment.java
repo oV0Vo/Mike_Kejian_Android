@@ -109,8 +109,10 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
                 @Override
                 protected void onPostExecute(Void result) {
-                    CampusBLService.moveLatestPosts();
-                    adapter.notifyDataSetChanged();
+                    if(CampusBLService.nextLatestPosts.size() != 0) {
+                        CampusBLService.moveLatestPosts();
+                        adapter.notifyDataSetChanged();
+                    }
                     container.hideFooterView();
                 }
             }.execute(new Void[]{});

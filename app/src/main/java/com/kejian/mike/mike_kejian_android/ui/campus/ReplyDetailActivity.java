@@ -91,7 +91,6 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
             @Override
             protected Void doInBackground(String... params) {
                 CampusBLService.viewThisPost(postId);
-                String postId = params[0];
                 isFollowed = CampusBLService.isFollowed(postId);
                 isPraised = CampusBLService.isPraised(postId);
                 post = CampusBLService.getPostDetail(postId);
@@ -121,6 +120,17 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
         this.setTitle(getIntent().getStringExtra("activity_title"));
+        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
+                intent.putExtra("title","回复: " +  post.getTitle());
+                intent.putExtra("activity_title", position + "楼");
+                intent.putExtra("postId", ((ReplyAdapter.ReplyViewHolder) view.getTag()).postId);
+                startActivity(intent);
+            }
+        });
         iniButtons();
 
     }
