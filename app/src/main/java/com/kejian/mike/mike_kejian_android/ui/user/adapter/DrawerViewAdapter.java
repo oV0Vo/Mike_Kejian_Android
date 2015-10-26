@@ -72,6 +72,10 @@ public class DrawerViewAdapter extends BaseAdapter{
                     user u=(user)Global.getObjectByName("user");
 
                     final CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.photo);
+                    if(u.getIcon().equals("")){
+                        circleImageView.setImageResource(R.drawable.userxh);
+                    }
+
 
                     DownloadPicture d=new DownloadPicture(context,circleImageView,u.getIcon(),u.getIcon());
 

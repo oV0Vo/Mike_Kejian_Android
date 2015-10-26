@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">课件</string>
+    <string name="app_name">课间</string>
 
     <string name="course_add">新增课程</string>
     <string name="course_tab_tag">课程</string>
