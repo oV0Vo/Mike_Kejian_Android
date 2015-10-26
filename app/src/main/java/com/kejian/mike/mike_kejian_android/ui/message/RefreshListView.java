@@ -274,4 +274,8 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
     public View getHeaderView() {
         return headerView;
     }
+
+    public View getFooterView() {
+        return footerView;
+    }
 }
