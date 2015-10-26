@@ -144,7 +144,14 @@ public class UserSettingActivity extends AppCompatActivity {
         List list = new ArrayList();
 
         list.add("账号 : " + us.getSchoolAccount());
-        list.add("身份 : "+us.getIdentify());
+
+        if(us.getIdentify().equals("0")) {
+            list.add("身份 : " + "学生");
+        }
+        else
+        {
+            list.add("身份 : " + "老师");
+        }
 
 
 

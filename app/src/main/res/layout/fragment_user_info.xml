@@ -70,7 +70,7 @@
                android:text="姓名"
                android:layout_height="40dp"
                android:layout_width="wrap_content"
-               android:paddingLeft="10dp"
+
 
                android:layout_marginLeft="10dp"
                android:textSize="@dimen/medium_font"
@@ -82,7 +82,7 @@
            <EditText
                android:layout_height="40dp"
                android:layout_width="wrap_content"
-
+               android:paddingLeft="10dp"
 
                android:id="@+id/base_info_name"
                android:textSize="@dimen/medium_font"
