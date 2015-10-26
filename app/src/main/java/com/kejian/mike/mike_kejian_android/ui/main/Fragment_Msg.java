@@ -153,6 +153,9 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
                 }
                 break;
         }
+        if(MessageBLService.isAllMessageReaded()){
+            messageBeenReadListener.onAllMessageHasBeenRead();
+        }
     }
     private void setOnListener(){
         layout.findViewById(R.id.txt_courseNotice).setOnClickListener(this);
