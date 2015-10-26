@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.DownloadPicture;
@@ -76,6 +77,8 @@ public class UserInfoActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_info);
+
+      //  AppManager.getAppManager().addActivity(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();

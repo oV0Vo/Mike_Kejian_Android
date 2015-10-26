@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 
@@ -33,6 +34,10 @@ public class UserForgetPasswordActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_forget_password);
+
+
+
+       // AppManager.getAppManager().addActivity(this);
         Intent intent=getIntent();
         UserToken userToken=(UserToken)intent.getSerializableExtra(UserActivityComm.USER_TOKEN.name());
         phoneNumber=userToken.getPhoneNumber();

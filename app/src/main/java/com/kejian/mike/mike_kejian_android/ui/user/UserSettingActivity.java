@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.MessagePrint;
@@ -46,6 +47,8 @@ public class UserSettingActivity extends AppCompatActivity {
         logout=(TextView)findViewById(R.id.logout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+       // AppManager.getAppManager().addActivity(this);
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,11 +60,18 @@ public class UserSettingActivity extends AppCompatActivity {
                 editor.putString("user_password", "");
                 editor.apply();
 
+//                Intent intent=new Intent();
+//
+//                intent.setClass(getApplicationContext(),UserLoginActivity.class);
+//
+//                startActivity(intent);
+
+                AppManager.getAppManager().AppExit(getApplicationContext());
                 finish();
 
 
-                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                am.killBackgroundProcesses(getPackageName());
+//                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//                am.killBackgroundProcesses(getPackageName());
             }
         });
         schoolAccount.setOnClickListener(new View.OnClickListener() {
