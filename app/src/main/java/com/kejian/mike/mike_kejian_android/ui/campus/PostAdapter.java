@@ -70,7 +70,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
             postViewHolder = (PostViewHolder) convertView.getTag();
         }
 
-
+        System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
         new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
 
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
@@ -113,15 +113,6 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         postViewHolder.post_content.setText(post.getContent());
         postViewHolder.post_praise_num.setText(Integer.toString(post.getPraise()));
         postViewHolder.post_comment_num.setText(Integer.toString(post.getViewNum()));
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), PostDetailActivity.class);
-                intent.putExtra("postId", postViewHolder.postId);
-                getContext().startActivity(intent);
-            }
-        });
 
 
         return convertView;

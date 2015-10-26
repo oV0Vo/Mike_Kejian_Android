@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -125,6 +126,19 @@ public class CourseActivity extends AppCompatActivity implements
         addItem = menu.findItem(R.id.course_add_menu_item);
         addItem.setVisible(false);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                if(NavUtils.getParentActivityIntent(this) != null)
+                    NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initDownInfoMenuItem(Menu menu) {

@@ -70,46 +70,73 @@
         <activity
             android:name=".ui.course.detail.CourseActivity"
             android:label="@string/course_detail_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.MainActivity"/>
         </activity>
+
         <activity
             android:name=".ui.course.detail.introduction.CourseIntroductionActivity"
             android:label="@string/course_intro_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
+
         <activity
             android:name=".ui.course.management.CourseCreateActivity"
             android:label="@string/course_create_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.MainActivity"/>
         </activity>
         <activity
             android:name=".ui.course.management.AnnoucementPublishActivity"
             android:label="@string/annouc_publish_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
         <activity
             android:name=".ui.course.annoucement.AnnoucListActivity"
             android:label="@string/annouc_list_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
+
         <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
+
         <activity
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/course_naming_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
+
         <activity
             android:name=".ui.course.detail.CourseSignInActivity"
             android:label="@string/course_sign_in_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
+
         <activity
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
+
         <activity
             android:name=".ui.course.detail.question.QuestionStatsActivity"
             android:label="@string/title_activity_question_stats" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
 
         <activity android:name=".ui.course.annoucement.AnnoucDetailActivity"
             android:label="@string/title_annouc_detail_activity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.annoucement.AnnoucListActivity"/>
         </activity>
 
         <activity
@@ -127,6 +154,8 @@
         <activity
             android:name=".ui.course.detail.question.QuestionPublishActivity"
             android:label="@string/question_publish_activity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity"/>
         </activity>
         <activity
             android:name=".ui.user.UserInfoActivity"
