@@ -45,7 +45,8 @@ import util.NeedRefinedAnnotation;
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         MainFragment.OnFragmentInteractionListener,
-        CourseListFragment.OnCourseSelectedListener {
+        CourseListFragment.OnCourseSelectedListener,
+        Fragment_Msg.OnMessageBeenReadListener{
     private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -63,12 +64,6 @@ public class MainActivity extends AppCompatActivity
     private RadioButton currentImageTab;
 
     private ImageView messageNewsImage;
-
-    private CourseListContainerFragment courseFg;
-    private Fragment_Msg msgFg;
-    private PostListContainerFragment campusFg;
-
-
 
     private enum FgState {
         COURSE, MESSAGE, CAMPUS
@@ -169,7 +164,6 @@ public class MainActivity extends AppCompatActivity
                     case 1:
                         messageTextTab.setChecked(true);
                         messageImageTab.setChecked(true);
-                        messageNewsImage.setVisibility(View.GONE);
                         currentImageTab = messageImageTab;
                         fgState = FgState.MESSAGE;
                         setMessageMenu();
@@ -220,7 +214,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
-                messageNewsImage.setVisibility(View.GONE);
             }
         });
         messageImageTab = (RadioButton)findViewById(R.id.message_tab_image);
@@ -228,7 +221,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
-                messageNewsImage.setVisibility(View.GONE);
             }
         });
 
@@ -316,8 +308,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMainFragmentInteraction(Uri uri) {
-
+    public void onAllMessageHasBeenRead() {
+        messageNewsImage.setVisibility(View.GONE);
     }
 
     @Override
@@ -375,6 +367,11 @@ public class MainActivity extends AppCompatActivity
         for(MenuItem item: visibleItems)
             item.setVisible(false);
         visibleItems.clear();
+    }
+
+    @Override
+    public void onMainFragmentInteraction(Uri uri) {
+
     }
 }
 
