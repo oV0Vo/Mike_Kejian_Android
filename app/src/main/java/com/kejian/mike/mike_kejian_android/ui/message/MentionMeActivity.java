@@ -182,18 +182,18 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
             }
             Reply reply = getItem(position);
 //            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
-//            DownloadPicture d=new DownloadPicture(getContext(),viewHolder.avatar_view,"http://i11.tietuku.com/139f6a761dadc909.jpg");
-            DownloadPicture d=new DownloadPicture(getContext()){
-
-                @Override
-                public void updateView(Bitmap bitmap) {
-
-                    viewHolder.avatar_view.setImageBitmap(bitmap);
-
-                }
-            };
-
-            d.getBitMapFromNet(reply.getIconUrl(), reply.getLocalIconPath());
+            DownloadPicture d=new DownloadPicture(getContext(),viewHolder.avatar_view,reply.getIconUrl(),reply.getIconUrl());
+//            DownloadPicture d=new DownloadPicture(getContext()){
+//
+//                @Override
+//                public void updateView(Bitmap bitmap) {
+//
+//                    viewHolder.avatar_view.setImageBitmap(bitmap);
+//
+//                }
+//            };
+//
+//            d.getBitMapFromNet(reply.getIconUrl(), reply.getLocalIconPath());
             viewHolder.mentioner_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());
             viewHolder.time_view.setText(reply.getAdjustTime());

@@ -146,17 +146,18 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             SearchResult searchResult = getItem(position);
-            DownloadPicture d=new DownloadPicture(getContext()){
-
-                @Override
-                public void updateView(Bitmap bitmap) {
-
-                    viewHolder.imageView.setImageBitmap(bitmap);
-
-                }
-            };
-
-            d.getBitMapFromNet(searchResult.getIconUrl(), searchResult.getLocalIconPath());
+            DownloadPicture downloadPicture=new DownloadPicture(getContext(),viewHolder.imageView,searchResult.getIconUrl(),searchResult.getIconUrl());
+//            DownloadPicture d=new DownloadPicture(getContext()){
+//
+//                @Override
+//                public void updateView(Bitmap bitmap) {
+//
+//                    viewHolder.imageView.setImageBitmap(bitmap);
+//
+//                }
+//            };
+//
+//            d.getBitMapFromNet(searchResult.getIconUrl(), searchResult.getLocalIconPath());
 //            viewHolder.imageView.setImageResource(R.drawable.daoxu);
             viewHolder.title.setText(searchResult.getBuilder());
             return convertView;

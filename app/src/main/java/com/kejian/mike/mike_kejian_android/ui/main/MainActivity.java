@@ -20,8 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
@@ -32,6 +34,10 @@ import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
+
+import net.picture.MessagePrint;
 
 import java.util.ArrayList;
 
@@ -131,6 +137,22 @@ public class MainActivity extends AppCompatActivity
         pushAgent = PushAgent.getInstance(this);
         pushAgent.enable();
         pushAgent.onAppStart();
+        UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler(){
+            @Override
+            public void dealWithCustomAction(Context context, UMessage
+                    msg) {
+                String message=msg.extra.get("inf_type");
+                if(message.equals("INVITE")){
+                    Intent intent = new Intent();
+                    intent.setClass(context, PostDetailActivity.class);
+                    intent.putExtra("postId", msg.extra.get("postId"));
+                    getApplicationContext().startActivity(intent);
+                    MessagePrint.print("get post");
+                }
+
+            }
+        };
+        pushAgent.setNotificationClickHandler(notificationClickHandler);
         pushAgent.setMessageHandler(new MyUmengMessageHandler());
         user user = (user)Global.getObjectByName("user");
         String userId = user.getId();

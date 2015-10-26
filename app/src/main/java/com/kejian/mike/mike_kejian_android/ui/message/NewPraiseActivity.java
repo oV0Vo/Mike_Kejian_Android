@@ -179,17 +179,18 @@ public class NewPraiseActivity extends AppCompatActivity implements View.OnClick
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Praise praise = getItem(position);
-            DownloadPicture d=new DownloadPicture(getContext()){
-
-                @Override
-                public void updateView(Bitmap bitmap) {
-
-                    viewHolder.avatar_view.setImageBitmap(bitmap);
-
-                }
-            };
-
-            d.getBitMapFromNet(praise.getIconUrl(), praise.getLocalIconPath());
+            DownloadPicture downloadPicture = new DownloadPicture(getContext(),viewHolder.avatar_view,praise.getIconUrl(),praise.getIconUrl());
+//            DownloadPicture d=new DownloadPicture(getContext()){
+//
+//                @Override
+//                public void updateView(Bitmap bitmap) {
+//
+//                    viewHolder.avatar_view.setImageBitmap(bitmap);
+//
+//                }
+//            };
+//
+//            d.getBitMapFromNet(praise.getIconUrl(), praise.getLocalIconPath());
 //            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.praiser_view.setText(praise.getReplyer());
             viewHolder.post_view.setText(praise.getPost());

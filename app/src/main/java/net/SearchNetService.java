@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,42 +24,7 @@ public class SearchNetService {
     private static String courseSearchUrl = "http://112.124.101.41:80/mike_server_v02/index.php/Home/Course/searchCourse";
     private static String postSearchUrl = "http://112.124.101.41/mike_server_v02/index.php/Home/Post/searchPost";
     private static String peopleSearchUrl = "http://112.124.101.41/mike_server_v02/index.php/Home/User/searchUser";
-    private static ArrayList<Post> posts = new ArrayList();
-    private static ArrayList<CourseBrief> courseBriefs = new ArrayList();
-    static {
-        String[] words = {"数","我","是","蘑","故","事","会","大","街","上","人","无","为","可","你","个","扣","品","未"};
-        for(int i = 0;i<5;i++){
-            Post post = new Post();
-            int ran1 = (int)(Math.random()*19);
-            int ran2 = (int)(Math.random()*19);
-            int ran3 = (int)(Math.random()*19);
-            post.setTitle("ab"+words[ran1]+words[ran2]+words[ran3]);
-            posts.add(post);
-        }
-        for(int i = 0;i<5;i++){
-            Post post = new Post();
-            int ran1 = (int)(Math.random()*19);
-            int ran2 = (int)(Math.random()*19);
-            int ran3 = (int)(Math.random()*19);
-            post.setTitle(words[ran1]+words[ran2]+words[ran3]+"学");
-            posts.add(post);
-        }
-        for(int i =0;i<5;i++){
-            CourseBrief courseBrief = new CourseBrief();
-            int ran1 = (int)(Math.random()*19);
-            int ran2 = (int)(Math.random()*19);
-            courseBrief.setCourseName("a" + words[ran1] + words[ran2]+"bc");
-            courseBriefs.add(courseBrief);
-        }
-        for(int i =0;i<5;i++){
-            CourseBrief courseBrief = new CourseBrief();
-            int ran1 = (int)(Math.random()*19);
-            int ran2 = (int)(Math.random()*19);
-            courseBrief.setCourseName(words[ran1]+words[ran2]+"学");
-            courseBriefs.add(courseBrief);
-        }
 
-    }
     private static void handleCourseResults(ArrayList<SearchResult> searchResults,String key, String jsonString){
         if(jsonString != null){
             try {
@@ -136,7 +102,8 @@ public class SearchNetService {
     public static ArrayList<SearchResult> searchPeople(String key,int searchType){
         ArrayList<SearchResult> searchResults = new ArrayList<>();
         HashMap<String,String> params = new HashMap<>();
-        params.put("key",key);
+        String tmp_key = URLEncoder.encode(key);
+        params.put("key", tmp_key);
         params.put("type",searchType+"");
         String peopleResult = httpRequest.sentGetRequest(peopleSearchUrl,params);
         handlePeopleResults(searchResults,key,peopleResult);
@@ -151,7 +118,8 @@ public class SearchNetService {
 
         ArrayList<SearchResult> searchResults = new ArrayList();
         HashMap<String,String> params = new HashMap<>();
-        params.put("info",key);
+        String tmp_key = URLEncoder.encode(key);
+        params.put("info",tmp_key);
         String courseResult = httpRequest.sentGetRequest(courseSearchUrl,params);
         handleCourseResults(searchResults,key,courseResult);
 
