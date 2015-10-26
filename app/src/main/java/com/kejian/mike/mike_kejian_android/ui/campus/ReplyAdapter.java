@@ -71,18 +71,6 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
         replyViewHolder.reply_content.setText(reply.getContent());
         replyViewHolder.reply_view_num.setText(Integer.toString(reply.getViewNum()));
         replyViewHolder.reply_comment_num.setText(Integer.toString(reply.getCommentNum()));
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("test: " + reply.getPostId());
-                Intent intent = new Intent();
-                intent.setClass(getContext(), ReplyDetailActivity.class);
-                intent.putExtra("title", reply.getTitle());
-                intent.putExtra("activity_title", (position + 2) + "楼");
-                intent.putExtra("postId", replyViewHolder.postId);
-                getContext().startActivity(intent);
-            }
-        });
 
         return convertView;
     }
