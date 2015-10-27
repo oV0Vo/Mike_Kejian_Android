@@ -32,7 +32,6 @@ public class   PostAdapter extends ArrayAdapter<Post>{
     private int layoutId;
 
     public static class PostViewHolder {
-        ImageButton post_praise_button;
         ImageView post_user_icon;
         TextView post_title;
         TextView post_date;
@@ -71,7 +70,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         }
 
         System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
-        new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
+        //new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
 
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,10 +18,12 @@ public class CampusBLService {
     public static ArrayList<Post> nextLatestPosts = new ArrayList<>();
     public static ArrayList<Post> hottestPosts = new ArrayList<>();
     public static ArrayList<Post> nextHottestPosts = new ArrayList<>();
+    public static int postNum;
     public static Reply publishedReply;
 
 
     public static void refreshLatestPosts() {
+        refreshPostNum();
         latestPosts.clear();
         latestPosts.addAll(CampusNetService.getLatestPosts("0", 7));
     }
@@ -37,6 +39,7 @@ public class CampusBLService {
     }
 
     public static void refreshHottestPosts() {
+        refreshPostNum();
         hottestPosts.clear();
         hottestPosts.addAll(CampusNetService.getHottestPosts("0",7));
     }
@@ -123,6 +126,18 @@ public class CampusBLService {
         ArrayList<String> userList = new ArrayList<>();
         userList.add(userId);
         return inviteToAnswer(postId, userList);
+    }
+
+    public static void refreshPostNum() {
+        postNum = CampusNetService.getPostNum();
+    }
+
+    public static  boolean hasNextLatestPost() {
+        return postNum > latestPosts.size();
+    }
+
+    public static boolean hasNextHottestPost() {
+        return postNum > hottestPosts.size();
     }
 
 }

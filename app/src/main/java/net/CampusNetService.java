@@ -234,4 +234,11 @@ public class CampusNetService {
         return result;
     }
 
+    public static int getPostNum() {
+        HashMap<String, String> params = new HashMap<>();
+        String result = httpRequest.sentGetRequest(baseUrl + "getPostNum/", params);
+        return Integer.parseInt(result);
+
+    }
+
 }

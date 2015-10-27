@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="47dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
         <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
@@ -16,9 +16,9 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="离散数学"
             android:textSize="@dimen/over_big_font"
-            android:layout_marginLeft="@dimen/sub_big_padding"
-            android:layout_marginTop="@dimen/small_padding" />
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/big_padding"/>
 </LinearLayout>
