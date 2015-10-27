@@ -374,4 +374,8 @@ public class XListView extends ListView implements OnScrollListener {
 
 		public void onLoadMore();
 	}
+
+	public void setFooterState(int state) {
+		mFooterView.setState(state);
+	}
 }

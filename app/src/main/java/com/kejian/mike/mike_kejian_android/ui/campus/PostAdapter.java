@@ -68,11 +68,12 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         } else {
             postViewHolder = (PostViewHolder) convertView.getTag();
         }
+
+        new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
+
         /*
 
         System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
-        new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
-
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
