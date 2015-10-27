@@ -60,9 +60,13 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
         SearchResult searchResult = (SearchResult)parent.getItemAtPosition(position);
         int user_id = searchResult.getId();
         String nick_name = searchResult.getTitle();
+        String real_name = searchResult.getRealName();
+        String school_identify = searchResult.getSchoolIdentify();
         Intent intent = new Intent();
         intent.putExtra("user_id",user_id+"");
         intent.putExtra("nick_name",nick_name);
+        intent.putExtra("school_identify",school_identify);
+        intent.putExtra("real_name",real_name);
         setResult(1000,intent);
         this.finish();
 

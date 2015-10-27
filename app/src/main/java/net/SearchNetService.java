@@ -83,8 +83,11 @@ public class SearchNetService {
                     int id = peolpeResultJson.getInt("id");
                     String title = peolpeResultJson.getString("nick_name");
                     String iconUrl = peolpeResultJson.getString("icon_url");
-
+                    String school_identify = peolpeResultJson.getString("school_identify");
+                    String name = peolpeResultJson.getString("name");
                     SearchResult searchResult = new SearchResult();
+                    searchResult.setSchoolIdentify(school_identify);
+                    searchResult.setRealName(name);
                     searchResult.setTitle(title);
                     searchResult.setStringBuilder(key);
                     searchResult.setIsCourse(false);
