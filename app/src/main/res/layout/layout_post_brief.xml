@@ -76,7 +76,7 @@
                     android:layout_height="@dimen/small_icon_size"
                     android:layout_marginLeft="@dimen/sub_big_padding"
                     android:layout_marginRight="@dimen/small_padding"
-                    android:src="@drawable/watch"/>
+                    android:src="@drawable/comment1"/>
 
                 <TextView
                     android:id="@+id/course_detail_post_brief_reply_num"
