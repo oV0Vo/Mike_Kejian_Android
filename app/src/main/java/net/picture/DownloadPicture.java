@@ -12,6 +12,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.logging.Handler;
 
 /**
@@ -22,6 +24,8 @@ public class DownloadPicture {
     private Context context;
     private Bitmap bitmap;
     private ImageView imageView;
+    private static Hashtable<String,Bitmap> memoryCache = new Hashtable<>();
+    public static int maxMapSize = 500;
 
     public DownloadPicture(Context context){
 
@@ -83,6 +87,11 @@ public class DownloadPicture {
                 picturePath="temp";
             }
 
+            if(memoryCache.containsKey(picturePath)){
+                bitmap = memoryCache.get(picturePath);
+                return;
+            }
+
             File  file=new File("/sdcard/mike/user/"+picturePath);
 
 
@@ -93,7 +102,11 @@ public class DownloadPicture {
                 BitmapFactory.Options b=new BitmapFactory.Options();
                 b.inSampleSize=7;
                 bitmap=BitmapFactory.decodeStream(inputStream,null,b);
-
+                if(memoryCache.size() > maxMapSize){
+                    //超过数量直接清空
+                    memoryCache.clear();
+                }
+                memoryCache.put(picturePath,bitmap);
                 inputStream.close();
 
             }catch (Exception e){
@@ -133,7 +146,11 @@ public class DownloadPicture {
                 bit.inSampleSize=4;
 
                  bitmap= BitmapFactory.decodeStream(inputStream);
-
+                if(memoryCache.size() > maxMapSize){
+                    //超过数量直接清空
+                    memoryCache.clear();
+                }
+                memoryCache.put(picturePath,bitmap);
 
 
             }catch(Exception e){
