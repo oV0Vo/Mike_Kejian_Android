@@ -23,15 +23,14 @@ import model.campus.Post;
 /**
  * Created by showjoy on 15/9/17.
  */
-public class HottestPostListFragment extends Fragment implements OnRefreshListener {
+public class HottestPostListFragment extends Fragment implements XListView.IXListViewListener {
     private View view;
     private LinearLayout mainLayout;
-    private RefreshListView container;
+    private XListView container;
     private Activity ctx;
     private LayoutInflater mInflater;
     private ProgressBar progressBar;
     private PostAdapter adapter;
-    private int post_num = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +50,12 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
     }
 
     private void iniViews() {
-        this.container = (RefreshListView)view.findViewById(R.id.post_container);
-        container.getHeaderView().setBackgroundResource(R.color.light_grey);
-        container.setFooterDividersEnabled(false);
+        this.container = (XListView)view.findViewById(R.id.post_container);
+        container.setPullLoadEnable(true);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.hottestPosts);
         this.container.setAdapter(adapter);
-        this.container.setOnRefreshListener(this);
+        this.container.setXListViewListener(this);
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,13 +71,17 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
     }
 
 
-
     @Override
-    public void onDownPullRefresh() {
+    public void onRefresh() {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 CampusBLService.refreshHottestPosts();
                 return null;
             }
@@ -87,14 +89,13 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
             @Override
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
-                container.hideHeaderView();
+                onLoad();
             }
         }.execute(new Void[]{});
-
     }
 
     @Override
-    public void onLoadingMore() {
+    public void onLoadMore() {
         if(CampusBLService.hasNextHottestPost()) {
             new AsyncTask<Void, Void, Void>() {
 
@@ -108,13 +109,14 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
                 protected void onPostExecute(Void result) {
                     CampusBLService.moveHottestPosts();
                     adapter.notifyDataSetChanged();
-                    container.hideFooterView();
+                    onLoad();
+
                 }
             }.execute(new Void[]{});
         } else {
-            container.hideFooterView();
+            onLoad();
+            container.setFooterState(XListViewFooter.STATE_NOMORE);
         }
-
 
     }
 
@@ -136,5 +138,11 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
             iniViews();
             mainLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void onLoad() {
+        container.stopRefresh();
+        container.stopLoadMore();
+        container.setRefreshTime("刚刚");
     }
 }

@@ -7,7 +7,7 @@
         android:id="@+id/xlistview_footer_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp" >
+        android:padding="5dp" >
 
         <ProgressBar
             android:id="@+id/xlistview_footer_progressbar"

@@ -74,19 +74,6 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
 
 
 
-
-    public void onDownPullRefresh() {
-
-
-    }
-
-
-    public void onLoadingMore() {
-
-
-
-    }
-
     @Override
     public void onRefresh() {
         new AsyncTask<Void, Void, Void>() {
@@ -132,6 +119,7 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
             }.execute(new Void[]{});
         } else {
             onLoad();
+            container.setFooterState(XListViewFooter.STATE_NOMORE);
         }
     }
 
