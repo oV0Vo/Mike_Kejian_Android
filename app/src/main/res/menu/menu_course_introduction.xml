@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseIntroductionActivity">
-    <item android:id="@+id/edit_menu" android:title="@string/course_info_edit"
-        android:icon="@null" app:showAsAction="never"/>
     <item android:id="@+id/assistant_management_menu" android:title="@string/course_assistant_management"
-        android:icon="@null" app:showAsAction="never"/>
+        android:icon="@null" app:showAsAction="ifRoom|withText"/>
+    <item android:id="@+id/exit_edit_menu" android:title="@string/exit_edit"
+        android:icon="@drawable/off" app:showAsAction="ifRoom|withText"/>
 </menu>

@@ -46,6 +46,8 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
 
     private int taskCountDown;
 
+    private boolean initFinish;
+
     public CommentsAreaFragment() {
     }
 
@@ -66,6 +68,18 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
             mAdapter = null;
         }
 
+    }
+
+    public void initView() {
+        //by default do nothing
+    }
+
+    public void refreshView() {
+        if(!initFinish) //no need to refresh
+            return;
+        Log.i(TAG, "refreshView");
+        taskCountDown++;
+        new UpdateCommentsTask().execute();
     }
 
     @Override
@@ -182,13 +196,20 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
             if(progressBar == null)
                 return;
 
+            if(!initFinish)
+                initFinish = true;
+
             onUpdateTaskFinished();
             if(posts != null) {
-                if(posts.size() != 0) {
-                    mAdapter.notifyDataSetChanged();
-                } else {
+                if(posts.size() == 0) {
                     mListView.setVisibility(View.GONE);
                     emptyText.setVisibility(View.VISIBLE);
+                } else {
+                    if(mListView.getVisibility() != View.INVISIBLE) {
+                        mListView.setVisibility(View.VISIBLE);
+                        emptyText.setVisibility(View.GONE);
+                    }
+                    mAdapter.notifyDataSetChanged();
                 }
             } else {
                 Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();

@@ -26,4 +26,13 @@
     <!--course question-->
     <string name="course_question_empty_text">目前还没有人发过问题额~</string>
 
+    <!--assistant management-->
+    <string name="delete_assistant_on_progress">正在删除助教</string>
+    <string name="delete_assistant_success">删除助教成功</string>
+    <string name="delete_assistant_fail">删除助教失败</string>
+    <string name="add_asssitant_on_progress">正在添加助教</string>
+    <string name="add_assistant_success">添加助教成功</string>
+    <string name="add_assistant_fail">删除助教成功</string>
+    <string name="add_assistant_jw_not_bound">该用户尚未绑定教务网账号，不能添加助教.</string>
+
 </resources>

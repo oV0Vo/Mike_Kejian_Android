@@ -62,9 +62,10 @@
 
                     <ImageView
                         android:id="@+id/message_news_icon"
-                        android:layout_width="@dimen/sub_small_font"
-                        android:layout_height="@dimen/sub_small_font"
+                        android:layout_width="@dimen/small_size"
+                        android:layout_height="@dimen/small_size"
                         android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/big_padding"
                         android:src="@drawable/aii"
                         android:visibility="gone"/>
                 </RelativeLayout>

@@ -29,16 +29,15 @@ public class CoursePostNetService {
 
     private static HttpRequest http = HttpRequest.getInstance();
 
-    public static ArrayList<Post> getPosts(String courseId, String lastPostId, int num) {
+    public static ArrayList<Post> getPosts(String courseId) {
         String url = BASE_URL + "getCoursePosts/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
-        if(lastPostId == null)
-            lastPostId = Integer.toString(Integer.MAX_VALUE);
-        paraMap.put("lastId", lastPostId);
-        paraMap.put("num", Integer.toString(num));
+        paraMap.put("lastId", Integer.toString(Integer.MAX_VALUE));
+        paraMap.put("num", Integer.toString(Integer.MAX_VALUE));
 
         String responseContent = http.sentGetRequest(url, paraMap);
+        Log.i(TAG, "getPosts: " + responseContent);
         try {
             JSONArray jPosts = new JSONArray(responseContent);
             ArrayList<Post> posts = new ArrayList<Post>();
