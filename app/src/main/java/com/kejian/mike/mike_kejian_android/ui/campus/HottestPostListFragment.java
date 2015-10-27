@@ -18,6 +18,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
 
 import bl.CampusBLService;
+import model.campus.Post;
 
 /**
  * Created by showjoy on 15/9/17.
@@ -63,7 +64,7 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
 
                 Intent intent = new Intent();
                 intent.setClass(getContext(), PostDetailActivity.class);
-                intent.putExtra("postId", ((PostAdapter.PostViewHolder) view.getTag()).postId);
+                intent.putExtra("postId", ((Post)parent.getAdapter().getItem(position)).getPostId());
                 getContext().startActivity(intent);
 
             }
@@ -94,24 +95,25 @@ public class HottestPostListFragment extends Fragment implements OnRefreshListen
 
     @Override
     public void onLoadingMore() {
+        if(CampusBLService.hasNextHottestPost()) {
+            new AsyncTask<Void, Void, Void>() {
 
-        new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    CampusBLService.getNextHottestPosts();
+                    return null;
+                }
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                CampusBLService.getNextHottestPosts();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                CampusBLService.moveHottestPosts();
-                adapter.notifyDataSetChanged();
-
-                // 控制脚布局隐藏
-                container.hideFooterView();
-            }
-        }.execute(new Void[]{});
+                @Override
+                protected void onPostExecute(Void result) {
+                    CampusBLService.moveHottestPosts();
+                    adapter.notifyDataSetChanged();
+                    container.hideFooterView();
+                }
+            }.execute(new Void[]{});
+        } else {
+            container.hideFooterView();
+        }
 
 
     }

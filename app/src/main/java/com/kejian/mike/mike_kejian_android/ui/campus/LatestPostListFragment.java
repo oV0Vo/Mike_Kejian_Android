@@ -19,6 +19,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
 
 import bl.CampusBLService;
+import model.campus.Post;
 
 /**
  * Created by showjoy on 15/9/17.
@@ -61,10 +62,9 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent intent = new Intent();
                 intent.setClass(getContext(), PostDetailActivity.class);
-                intent.putExtra("postId", ((PostAdapter.PostViewHolder)view.getTag()).postId);
+                intent.putExtra("postId", ((Post)parent.getAdapter().getItem(position)).getPostId());
                 getContext().startActivity(intent);
 
             }
@@ -99,7 +99,7 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
     @Override
     public void onLoadingMore() {
-        if(true) {
+        if(CampusBLService.hasNextLatestPost()) {
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
@@ -112,7 +112,6 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
                 protected void onPostExecute(Void result) {
                     CampusBLService.moveLatestPosts();
                     adapter.notifyDataSetChanged();
-                    container.hideFooterView();
                     container.hideFooterView();
                 }
             }.execute(new Void[]{});

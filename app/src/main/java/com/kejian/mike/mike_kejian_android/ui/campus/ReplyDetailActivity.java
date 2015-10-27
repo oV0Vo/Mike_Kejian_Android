@@ -127,7 +127,7 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
                 intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
                 intent.putExtra("title","回复: " +  post.getTitle());
                 intent.putExtra("activity_title", position + "楼");
-                intent.putExtra("postId", ((ReplyAdapter.ReplyViewHolder) view.getTag()).postId);
+                intent.putExtra("postId", ((Reply)parent.getAdapter().getItem(position)).getPostId());
                 startActivity(intent);
             }
         });
