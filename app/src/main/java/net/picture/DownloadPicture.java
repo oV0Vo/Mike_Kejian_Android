@@ -10,8 +10,13 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Handler;
 
 /**
@@ -20,8 +25,11 @@ import java.util.logging.Handler;
 public class DownloadPicture {
 
     private Context context;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private ImageView imageView;
+    private static Hashtable<String,SoftReference<Bitmap>> memoryCache = new Hashtable<>();
+    public static int maxMapSize = 500;
+    private static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     public DownloadPicture(Context context){
 
@@ -48,9 +56,19 @@ public class DownloadPicture {
 
         MessagePrint.print("Start getBitMapFromNet");
 
+        if(memoryCache.containsKey(picturePath)){
+            SoftReference<Bitmap> softReference = memoryCache.get(picturePath);
+            bitmap = softReference.get();
+            if(bitmap != null){
+                return null;
+            }
+        }
+
         Thread task=new Thread(new DownloadPicTask(url,picturePath));
 
-        task.start();
+        cachedThreadPool.execute(task);
+
+//        task.start();
 
         return null;
 
@@ -93,7 +111,12 @@ public class DownloadPicture {
                 BitmapFactory.Options b=new BitmapFactory.Options();
                 b.inSampleSize=7;
                 bitmap=BitmapFactory.decodeStream(inputStream,null,b);
-
+                if(memoryCache.size() > maxMapSize){
+                    //超过数量直接清空
+                    memoryCache.clear();
+                }
+                SoftReference<Bitmap> softReference = new SoftReference<Bitmap>(bitmap);
+                memoryCache.put(picturePath,softReference);
                 inputStream.close();
 
             }catch (Exception e){
@@ -133,7 +156,12 @@ public class DownloadPicture {
                 bit.inSampleSize=4;
 
                  bitmap= BitmapFactory.decodeStream(inputStream);
-
+                if(memoryCache.size() > maxMapSize){
+                    //超过数量直接清空
+                    memoryCache.clear();
+                }
+                SoftReference<Bitmap> softReference = new SoftReference<Bitmap>(bitmap);
+                memoryCache.put(picturePath,softReference);
 
 
             }catch(Exception e){
