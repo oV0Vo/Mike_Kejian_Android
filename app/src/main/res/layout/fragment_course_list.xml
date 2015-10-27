@@ -1,29 +1,33 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
             android:id="@+id/main_course_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/main_tab_layout_height"
+            android:scrollbars="none"/>
 
         <TextView
-            android:id="@+id/main_course_llist_end_view"
+            android:id="@+id/no_more_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/sub_big_padding"
+            android:paddingBottom="@dimen/sub_big_padding"
+            android:layout_marginBottom="100dp"
             android:gravity="center"
             android:textColor="@color/dark"
             android:singleLine="false"
             android:textSize="@dimen/big_font"
-            android:text="@string/main_course_no_more_course"/>
+            android:text="@string/main_course_no_more_course"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

@@ -22,6 +22,7 @@ import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
 import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
 import com.kejian.mike.mike_kejian_android.ui.main.SearchableActivity;
+import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 
 import java.util.List;
 
@@ -103,6 +104,9 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent messageIncreIntent = new Intent(ReceiverActions.increment_action);
+//        messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(messageIncreIntent);
 //        Intent intent = new Intent(ReceiverActions.increment_action);
 //        intent.putExtra("messageType", MessageType.mentionMe);
 //        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

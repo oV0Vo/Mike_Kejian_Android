@@ -60,71 +60,77 @@ public class SearchNetService {
 
     }
     private static void handleCourseResults(ArrayList<SearchResult> searchResults,String key, String jsonString){
-        try {
-            JSONArray courseResultsArray = new JSONArray(jsonString);
-            for(int i = 0;i<courseResultsArray.length();i++){
-                JSONObject courseResultJson = courseResultsArray.getJSONObject(i);
-                int id = courseResultJson.getInt("id");
-                String courseName = courseResultJson.getString("course_name");
-                String iconUrl = courseResultJson.getString("icon_url");
+        if(jsonString != null){
+            try {
+                JSONArray courseResultsArray = new JSONArray(jsonString);
+                for(int i = 0;i<courseResultsArray.length();i++){
+                    JSONObject courseResultJson = courseResultsArray.getJSONObject(i);
+                    int id = courseResultJson.getInt("id");
+                    String courseName = courseResultJson.getString("course_name");
+                    String iconUrl = courseResultJson.getString("icon_url");
 
-                SearchResult searchResult = new SearchResult();
-                searchResult.setTitle(courseName);
-                searchResult.setStringBuilder(key);
-                searchResult.setIsCourse(true);
-                searchResult.setId(id);
-                searchResult.setIconUrl(iconUrl);
-                searchResult.setLocalIconPath();
-                searchResults.add(searchResult);
+                    SearchResult searchResult = new SearchResult();
+                    searchResult.setTitle(courseName);
+                    searchResult.setStringBuilder(key);
+                    searchResult.setIsCourse(true);
+                    searchResult.setId(id);
+                    searchResult.setIconUrl(iconUrl);
+                    searchResult.setLocalIconPath();
+                    searchResults.add(searchResult);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
     private static void handlePostResults(ArrayList<SearchResult> searchResults,String key, String jsonString){
-        try {
-            JSONArray postResultsArray = new JSONArray(jsonString);
-            for(int i = 0;i<postResultsArray.length();i++){
-                JSONObject postResultJson = postResultsArray.getJSONObject(i);
-                int id = postResultJson.getInt("post_id");
-                String title = postResultJson.getString("title");
-                String iconUrl = postResultJson.getString("icon_url");
-                int iconId = postResultJson.getInt("user_id");
-                SearchResult searchResult = new SearchResult();
-                searchResult.setTitle(title);
-                searchResult.setStringBuilder(key);
-                searchResult.setIsCourse(false);
-                searchResult.setId(id);
-                searchResult.setIconUrl(iconUrl);
-                searchResult.setIconId(iconId);
-                searchResult.setLocalIconPath();
-                searchResults.add(searchResult);
+        if(jsonString != null){
+            try {
+                JSONArray postResultsArray = new JSONArray(jsonString);
+                for(int i = 0;i<postResultsArray.length();i++){
+                    JSONObject postResultJson = postResultsArray.getJSONObject(i);
+                    int id = postResultJson.getInt("post_id");
+                    String title = postResultJson.getString("title");
+                    String iconUrl = postResultJson.getString("icon_url");
+                    int iconId = postResultJson.getInt("user_id");
+                    SearchResult searchResult = new SearchResult();
+                    searchResult.setTitle(title);
+                    searchResult.setStringBuilder(key);
+                    searchResult.setIsCourse(false);
+                    searchResult.setId(id);
+                    searchResult.setIconUrl(iconUrl);
+                    searchResult.setIconId(iconId);
+                    searchResult.setLocalIconPath();
+                    searchResults.add(searchResult);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
     private static void handlePeopleResults(ArrayList<SearchResult> searchResults,String key,String jsonString){
-        try {
-            JSONArray peopleResultsArray = new JSONArray(jsonString);
-            for(int i = 0;i<peopleResultsArray.length();i++){
-                JSONObject peolpeResultJson = peopleResultsArray.getJSONObject(i);
-                int id = peolpeResultJson.getInt("id");
-                String title = peolpeResultJson.getString("nick_name");
-                String iconUrl = peolpeResultJson.getString("icon_url");
+        if(jsonString != null){
+            try {
+                JSONArray peopleResultsArray = new JSONArray(jsonString);
+                for(int i = 0;i<peopleResultsArray.length();i++){
+                    JSONObject peolpeResultJson = peopleResultsArray.getJSONObject(i);
+                    int id = peolpeResultJson.getInt("id");
+                    String title = peolpeResultJson.getString("nick_name");
+                    String iconUrl = peolpeResultJson.getString("icon_url");
 
-                SearchResult searchResult = new SearchResult();
-                searchResult.setTitle(title);
-                searchResult.setStringBuilder(key);
-                searchResult.setIsCourse(false);
-                searchResult.setId(id);
-                searchResult.setIconUrl(iconUrl);
-                searchResult.setIconId(id);
-                searchResult.setLocalIconPath();
-                searchResults.add(searchResult);
+                    SearchResult searchResult = new SearchResult();
+                    searchResult.setTitle(title);
+                    searchResult.setStringBuilder(key);
+                    searchResult.setIsCourse(false);
+                    searchResult.setId(id);
+                    searchResult.setIconUrl(iconUrl);
+                    searchResult.setIconId(id);
+                    searchResult.setLocalIconPath();
+                    searchResults.add(searchResult);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
     public static ArrayList<SearchResult> searchPeople(String key,int searchType){

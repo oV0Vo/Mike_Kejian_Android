@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.DownloadPicture;
@@ -77,6 +78,8 @@ public class UserInfoActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_info);
 
+      //  AppManager.getAppManager().addActivity(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
 
@@ -110,6 +113,10 @@ public class UserInfoActivity extends AppCompatActivity{
         baseInfoIdentify=(EditText)findViewById(R.id.user_school_info_identify);
         baseInfoSign=(EditText)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
+
+        if(user.getIcon().equals("")){
+            photo.setImageResource(R.drawable.userxh);
+        }
 
 
 
@@ -263,14 +270,25 @@ public class UserInfoActivity extends AppCompatActivity{
 
 
 
-            baseInfoGender.setText(gender);
+            if(gender.equals("0")) {
+                baseInfoGender.setText("男生");
+            }
+            else{
+                baseInfoGender.setText("菇凉");
+            }
             baseInfoGender.setEnabled(false);
 
             baseInfoGrade.setText(grade);
             baseInfoGrade.setEnabled(false);
 
 
-            baseInfoIdentify.setText(identify);
+            if(identify.equals("0")) {
+                baseInfoIdentify.setText("学生");
+            }
+            else{
+
+                baseInfoIdentify.setText("教师");
+            }
             baseInfoIdentify.setEnabled(false);
 
 
@@ -284,10 +302,10 @@ public class UserInfoActivity extends AppCompatActivity{
             baseInfoNickname.setText(user.getNick_name());
             baseInfoNickname.setEnabled(false);
 
-            schoolDepartmentView.setText(user.getDepartmentInfo().getId());
+            schoolDepartmentView.setText(user.getDepartmentInfo().getName());
             schoolDepartmentView.setEnabled(false);
 
-            schoolMajorView.setText(user.getDepartmentInfo().getId());
+            schoolMajorView.setText(user.getMajorName());
             schoolMajorView.setEnabled(false);
 
 
@@ -340,11 +358,16 @@ public class UserInfoActivity extends AppCompatActivity{
 
         protected String doInBackground(Bitmap...Para){
 
-            System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon()))==null);
+            System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon())) == null);
 
-           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],user.getIcon())).getLinkurl();
+
+           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],"temp")).getLinkurl();
+
+
 
             UserNetService.setUserInfo(Integer.parseInt(user.getId()),"ICON",path);
+
+
 
             user.setIcon(path);
 

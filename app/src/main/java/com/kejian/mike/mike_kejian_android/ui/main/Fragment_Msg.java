@@ -36,6 +36,8 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
     private TextView unreadReplyLabel;
     private TextView unreadMentionLabel;
 
+    private OnMessageBeenReadListener messageBeenReadListener;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
@@ -54,6 +56,23 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
         broadcastManager.registerReceiver(messageReceiver, intentFilter);
         MessageBLService.initUnreadMessageNum(getContext());
         MessagePrint.print("-----------------------------Message fragment onActivityCreated--------------------------------------");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            messageBeenReadListener = (OnMessageBeenReadListener) context;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(messageBeenReadListener != null)
+            messageBeenReadListener = null;
     }
 
     @Override
@@ -134,6 +153,9 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
                 }
                 break;
         }
+        if(MessageBLService.isAllMessageReaded()){
+            messageBeenReadListener.onAllMessageHasBeenRead();
+        }
     }
     private void setOnListener(){
         layout.findViewById(R.id.txt_courseNotice).setOnClickListener(this);
@@ -172,5 +194,9 @@ public class Fragment_Msg extends Fragment implements View.OnClickListener{
         super.onDestroy();
         MessagePrint.print("------------------------------------message fragment is destroyed-----------------------------------------");
         MessageBLService.persistentUnreadMessageNum(getContext());
+    }
+
+    public interface OnMessageBeenReadListener {
+        void onAllMessageHasBeenRead();
     }
 }

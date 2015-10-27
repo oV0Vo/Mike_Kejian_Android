@@ -35,7 +35,7 @@
 ;
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/kj_icon_xh"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
@@ -52,13 +52,19 @@
         </meta-data>
 
         <activity
-            android:name=".ui.user.UserLoginActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.main.WelcomeActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@style/MyTheme.NoTitleBar.CustomBackground">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.user.UserLoginActivity">
+
         </activity>
 
         <receiver android:name=".ui.broadcast.NetBroadcast" >
@@ -107,11 +113,10 @@
             android:name=".ui.course.detail.question.QuestionStatsActivity"
             android:label="@string/title_activity_question_stats" >
         </activity>
-
-        <activity android:name=".ui.course.annoucement.AnnoucDetailActivity"
-            android:label="@string/title_annouc_detail_activity">
+        <activity
+            android:name=".ui.course.annoucement.AnnoucDetailActivity"
+            android:label="@string/title_annouc_detail_activity" >
         </activity>
-
         <activity
             android:name=".ui.message.NewReplyActivity"
             android:label="@string/new_reply" >
@@ -321,21 +326,6 @@
         <activity
             android:name=".ui.user.UserOtherState"
             android:label="他的动态" />
-        <activity
-            android:name=".ui.message.SearchTestActivity"
-            android:label="@string/title_activity_search_test"
-            android:launchMode="singleTop" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <!-- enable the search dialog to send searches to SearchableActivity -->
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".ui.main.SearchableActivity" />
-        </activity>
         <activity
             android:name=".ui.message.SearchViewDemo"
             android:label="" >

@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 
-import net.picture.MessagePrint;
-
 import java.text.SimpleDateFormat;
 
 /**
@@ -118,12 +116,10 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
     public boolean onTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN :
-                MessagePrint.print("----------------------Action_Down start--------------------------------");
                 this.setEnabled(false);
                 downY = (int) ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE :
-                MessagePrint.print("----------------------Action_Move start--------------------------------");
                 int moveY = (int) ev.getY();
                 // 移动中的y - 按下的y = 间距.
                 int diff = (moveY - downY) / 2;
@@ -136,13 +132,11 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                     currentState = DOWN_PULL_REFRESH;
                     if (paddingTop > 0 && currentState == DOWN_PULL_REFRESH) { // 完全显示了.
 //                        Log.i(TAG, "松开刷新");
-                        MessagePrint.print("----------------------松开刷新----------------------------");
                         currentState = RELEASE_REFRESH;
                         refreshHeaderView();
                     } else if (paddingTop < 0
                             && currentState == RELEASE_REFRESH) { // 没有显示完全
 //                        Log.i(TAG, "下拉刷新");
-                        MessagePrint.print("----------------------下拉刷新----------------------------");
                         currentState = DOWN_PULL_REFRESH;
                         refreshHeaderView();
                     }
@@ -154,11 +148,9 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                 }
                 break;
             case MotionEvent.ACTION_UP :
-                MessagePrint.print("----------------------Action_Up start--------------------------------");
                 // 判断当前的状态是松开刷新还是下拉刷新
                 if (currentState == RELEASE_REFRESH) {
 //                    Log.i(TAG, "刷新数据.");
-                    MessagePrint.print("----------------------开始刷新数据----------------------------");
                     // 把头布局设置为完全显示状态
                     headerView.setPadding(0, 0, 0, 0);
                     // 进入到正在刷新中状态
@@ -170,7 +162,6 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                     }
                 } else if (currentState == DOWN_PULL_REFRESH) {
                     // 隐藏头布局
-                    MessagePrint.print("----------------------不用刷新----------------------------");
                     headerView.setPadding(0, -headerViewHeight, 0, 0);
                     currentState = NORMAL;
                 }else{
@@ -213,7 +204,6 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
      */
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        MessagePrint.print("--------------------on Scroll state change start-----------------------------------");
         if (scrollState == SCROLL_STATE_IDLE
                 || scrollState == SCROLL_STATE_FLING) {
             // 判断当前是否已经到了底部
@@ -229,7 +219,6 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                 }
             }
         }
-        MessagePrint.print("--------------------on Scroll Change end -----------------------------------");
     }
 
     /**
@@ -245,7 +234,6 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
                          int visibleItemCount, int totalItemCount) {
-        MessagePrint.print("--------------------on Scroll start-----------------------------------");
         firstVisibleItemPosition = firstVisibleItem;
 
         if (getLastVisiblePosition() == (totalItemCount - 1)) {
@@ -253,7 +241,6 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
         } else {
             isScrollToBottom = false;
         }
-        MessagePrint.print("--------------------on Scroll end-----------------------------------");
     }
 
     /**
@@ -286,5 +273,9 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
 
     public View getHeaderView() {
         return headerView;
+    }
+
+    public View getFooterView() {
+        return footerView;
     }
 }

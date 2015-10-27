@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Base64;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -72,16 +73,16 @@ public class UserLoginActivity extends Activity {
         context=this;
 
 
-        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
+//        userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
 
         if(userToken!=null){
 
 
         }
 
-        netBroadcast=new NetBroadcast();
-
-        Global.addGlobalItem("network_listing", netBroadcast);
+//        netBroadcast=new NetBroadcast();
+//
+//        Global.addGlobalItem("network_listing", netBroadcast);
 
         initViews();
 
@@ -195,7 +196,7 @@ public class UserLoginActivity extends Activity {
             userToken = new UserToken();
             userToken.setPassword(passwordView.getText().toString().trim());
 
-            userToken.setName(nameView.getText().toString().trim());
+            userToken.setPhoneNumber(nameView.getText().toString().trim());
 
 
 
@@ -204,6 +205,10 @@ public class UserLoginActivity extends Activity {
 
 
         MessagePrint.print("login : name="+userToken.getName()+" password="+ userToken.getPassword());
+
+
+
+        userToken.setPassword(userToken.getPassword());
 
         user=UserBLService.getInstance().login(userToken);
 
@@ -244,7 +249,7 @@ public class UserLoginActivity extends Activity {
            if(!user.getId().equals("")){
 
 
-               editor.putString("user_name", user.getId());
+               editor.putString("user_name", userToken.getPhoneNumber());
 
                MessagePrint.print("login store user:" + user.getId());
 
@@ -329,7 +334,7 @@ public class UserLoginActivity extends Activity {
         });
 
 
-        loginFromLocal();
+//        loginFromLocal();
 
 
 
@@ -346,7 +351,7 @@ public class UserLoginActivity extends Activity {
         if((!localHistory.first.equals(""))&&(!localHistory.second.equals(""))){
 
             this.userToken=new UserToken();
-            this.userToken.setName(localHistory.first);
+            this.userToken.setPhoneNumber(localHistory.first);
             this.userToken.setPassword(localHistory.second);
 
 //            userToken.setName("1");

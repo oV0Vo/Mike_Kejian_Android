@@ -6,6 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
+import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
 import com.umeng.message.UTrack;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
@@ -62,6 +63,8 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
         if(args == null) {
             Log.i(TAG, "arg null!");
             return;
+        } else {
+            Log.i(TAG, Integer.toString(msg.extra.keySet().size()));
         }
 
         for(Map.Entry<String, String> entry: args.entrySet()) {
@@ -95,6 +98,10 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
             Log.i(TAG, "pushMessage null!");
         }
         if(pushMessage == null || receiverInfo == null || senderInfo == null) {
+            if(receiverInfo == null)
+                Log.i(TAG, "receiverInfo null");
+            if(senderInfo == null)
+                Log.i(TAG, "senderInfo null");
             return;
         }
         pushMessage.setReceiverInfo(receiverInfo);
@@ -105,32 +112,40 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
     }
 
     private void sendBroacast(Context context, InfoType infoType) {
-
-        Log.i(TAG, infoType.toString() + " message has been broacast");
-
-        Intent intent = new Intent(ReceiverActions.increment_action);
+        Log.i(TAG, "sendBroacast");
+        Intent messageIncreIntent = new Intent(ReceiverActions.increment_action);
+        boolean isMessageNotice = false;
         //AT, ANNOUCE_TE, ANNOUCE_AD, ATTENTION, COMMENT, FOLLOW, LIKE, IDOL_POST, REPLY, INVITE
         final String ARG_MESSAGE_TYPE = "messageType";
         switch(infoType) {
             case AT:
-                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.mentionMe);
+                messageIncreIntent.putExtra(ARG_MESSAGE_TYPE, MessageType.mentionMe);
+                isMessageNotice = true;
                 break;
             case ANNOUCE_TE:
-                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.courseNotice);
+                messageIncreIntent.putExtra(ARG_MESSAGE_TYPE, MessageType.courseNotice);
+                isMessageNotice = true;
                 break;
             case LIKE:
-                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.praise);
+                messageIncreIntent.putExtra(ARG_MESSAGE_TYPE, MessageType.praise);
+                isMessageNotice = true;
                 break;
             case IDOL_POST:
-                intent.putExtra(ARG_MESSAGE_TYPE, MessageType.reply);
+                messageIncreIntent.putExtra(ARG_MESSAGE_TYPE, MessageType.reply);
+                isMessageNotice = true;
                 break;
             default:
                 Log.i(TAG, infoType.toString() + " message has not broacast");
                 break;
 
         }
-        intent.putExtra("messageType", MessageType.mentionMe);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(messageIncreIntent);
+        if(isMessageNotice) {
+            Log.i(TAG, "sendMessageNotice");
+            Intent messageNoticeIntent = new Intent(UmengMessageAction.NEW_MESSAGE_ACTION);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(messageNoticeIntent);
+        }
     }
 
     private SenderInfo parseSenderInfo(String value) {

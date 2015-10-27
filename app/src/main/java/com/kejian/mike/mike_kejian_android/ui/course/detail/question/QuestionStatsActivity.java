@@ -135,7 +135,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         ViewGroup zhankaiContainer = (ViewGroup)findViewById(R.id.zhankai_container);
         zhankaiContainer.addView(zhankaiLayout);
     }
-
+/*
     private void setChoiceContentView() {
         ViewGroup choiceContainer = (ViewGroup)findViewById(R.id.choice_container);
 
@@ -157,7 +157,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         }
 
         choiceContainer.setVisibility(View.VISIBLE);
-    }
+    }*/
 
     private void initStatsLayout() {
         statsContentLayout = (ViewGroup)findViewById(R.id.question_stats_container);

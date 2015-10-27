@@ -48,15 +48,7 @@
 
 
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#16a085"
-                    android:text="政府应该害怕民众"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:id="@+id/coursesignView"
-                    />
+
             </LinearLayout>
 
 

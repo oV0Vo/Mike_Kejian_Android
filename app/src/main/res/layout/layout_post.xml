@@ -67,16 +67,13 @@
                 android:gravity="right">
 
                 <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/up"
                     android:maxHeight="@dimen/sub_small_icon_height"
                     android:maxWidth="@dimen/sub_small_icon_width"
-                    android:adjustViewBounds="true"
-                    android:id="@+id/post_praise_button"
-                    android:focusable="false"
-                    android:clickable="true"/>
+                    android:adjustViewBounds="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,10 +86,10 @@
 
 
                 <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/comment2"
+                    android:background="@drawable/eye"
                     android:maxHeight="@dimen/sub_small_icon_height"
                     android:maxWidth="@dimen/sub_small_icon_width"
                     android:adjustViewBounds="true"

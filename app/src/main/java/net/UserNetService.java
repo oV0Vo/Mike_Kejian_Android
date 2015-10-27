@@ -213,7 +213,11 @@ public class UserNetService {
          */
 
         HashMap<String,String> par = new HashMap();
-        par.put("phoneNumber",userToken.getName());
+
+
+        par.put("phoneNumber",userToken.getPhoneNumber());
+
+
         par.put("password", userToken.getPassword());
 
         System.out.println(userToken.getName() + "  " + userToken.getPassword());
@@ -260,6 +264,9 @@ public class UserNetService {
                 userInfo.put("school_identify",userDataJson.getString("school_identify"));
                 userInfo.put("school_id",userDataJson.getString("school_id"));
                 userInfo.put("department_id",userDataJson.getString("department_id"));
+                userInfo.put("school_name",userDataJson.getString("school_name"));
+                userInfo.put("department_name",userDataJson.getString("department_name"));
+                userInfo.put("major_name",userDataJson.getString("major_name"));
 
 
                 return new user(userInfo);
@@ -351,7 +358,7 @@ public class UserNetService {
 
 
             MessagePrint.print("before replace:" + content);
-            content=content.replaceAll("/", "#");
+            content=content.replaceAll("/", "\\/");
             MessagePrint.print("after replace:" + content);
 
             content = URLEncoder.encode(URLEncoder.encode(content, "utf-8"));

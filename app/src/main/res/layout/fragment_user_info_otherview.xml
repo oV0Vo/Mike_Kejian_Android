@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:background="@drawable/bg"
+        android:background="@drawable/bg_320_180"
         android:layout_marginBottom="10dp">
 
         <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
@@ -71,12 +71,7 @@
 
                 android:layout_marginLeft="20dp"
                 android:text="昵称: 夏至未至"/>
-            <TextView
 
-                android:id="@+id/otherBirthday"
-
-                android:layout_marginLeft="100dp"
-                android:text="生日"/>
         </TableRow>
         <TableRow
             android:layout_marginTop="20dp"
@@ -151,7 +146,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="关注他的人"
+                    android:text="他关注的人"
 
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"

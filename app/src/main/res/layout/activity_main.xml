@@ -44,12 +44,6 @@
                         android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
                         android:background="@drawable/course_tab_selector"/>
-
-                    <ImageView
-                        android:id="@+id/course_news_icon"
-                        android:layout_width="@dimen/sub_small_icon_size"
-                        android:layout_height="@dimen/sub_small_icon_size"
-                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -68,8 +62,10 @@
 
                     <ImageView
                         android:id="@+id/message_news_icon"
-                        android:layout_width="@dimen/sub_small_icon_size"
-                        android:layout_height="@dimen/sub_small_icon_size"
+                        android:layout_width="@dimen/sub_small_font"
+                        android:layout_height="@dimen/sub_small_font"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/aii"
                         android:visibility="gone"/>
                 </RelativeLayout>
 
@@ -85,12 +81,6 @@
                         android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
                         android:background="@drawable/campus_tab_selector"/>
-                    
-                    <ImageView
-                        android:id="@+id/campus_news_icon"
-                        android:layout_width="@dimen/sub_small_icon_size"
-                        android:layout_height="@dimen/sub_small_icon_size"
-                        android:visibility="gone"/>
                 </RelativeLayout>
 
             </LinearLayout>

@@ -91,10 +91,10 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
             @Override
             protected Void doInBackground(String... params) {
                 CampusBLService.viewThisPost(postId);
-                String postId = params[0];
                 isFollowed = CampusBLService.isFollowed(postId);
                 isPraised = CampusBLService.isPraised(postId);
                 post = CampusBLService.getPostDetail(postId);
+                post.setTitle(getIntent().getStringExtra("title"));
                 replies = post.getReplyList();
                 return null;
             }
@@ -119,6 +119,18 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        this.setTitle(getIntent().getStringExtra("activity_title"));
+        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
+                intent.putExtra("title","回复: " +  post.getTitle());
+                intent.putExtra("activity_title", position + "楼");
+                intent.putExtra("postId", ((Reply)parent.getAdapter().getItem(position)).getPostId());
+                startActivity(intent);
+            }
+        });
         iniButtons();
 
     }
@@ -146,9 +158,8 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
                             Toast.makeText(ReplyDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
                         else {
                             Toast.makeText(ReplyDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
-                            //replies.add(CampusBLService.publishedReply);
-                            //adapter.notifyDataSetChanged();
-                            onDownPullRefresh();
+                            replies.add(CampusBLService.publishedReply);
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 }.execute();
@@ -214,14 +225,14 @@ public class ReplyDetailActivity extends AppCompatActivity implements OnRefreshL
         }
 
         if(isPraised) {
-            praise_button.setBackgroundResource(R.drawable.up_green);
+            praise_button.setBackgroundResource(R.drawable.agree_blue);
             praise_button.setEnabled(false);
         } else {
             praise_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ImageButton ib = (ImageButton) v;
-                    ib.setBackgroundResource(R.drawable.up_green);
+                    ib.setBackgroundResource(R.drawable.agree_blue);
                     ib.setEnabled(false);
                     new AsyncTask<Void, Void, Void>() {
 

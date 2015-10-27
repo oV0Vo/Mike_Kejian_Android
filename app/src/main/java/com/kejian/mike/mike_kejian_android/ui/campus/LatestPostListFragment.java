@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
@@ -18,6 +19,7 @@ import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
 
 import bl.CampusBLService;
+import model.campus.Post;
 
 /**
  * Created by showjoy on 15/9/17.
@@ -45,17 +47,28 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
     }
 
     private void iniData() {
-        new InitDataTask().execute("1234");
+        new InitDataTask().execute();
 
     }
 
     private void iniViews() {
         this.container = (RefreshListView)view.findViewById(R.id.post_container);
+        container.setFooterDividersEnabled(false);
         container.getHeaderView().setBackgroundResource(R.color.light_grey);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPosts);
         this.container.setAdapter(adapter);
         this.container.setOnRefreshListener(this);
+        this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), PostDetailActivity.class);
+                intent.putExtra("postId", ((Post)parent.getAdapter().getItem(position)).getPostId());
+                getContext().startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -86,12 +99,12 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
     @Override
     public void onLoadingMore() {
-
+        if(CampusBLService.hasNextLatestPost()) {
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
                 protected Void doInBackground(Void... params) {
-                   CampusBLService.getNextLatestPosts();
+                    CampusBLService.getNextLatestPosts();
                     return null;
                 }
 
@@ -102,6 +115,9 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
                     container.hideFooterView();
                 }
             }.execute(new Void[]{});
+        } else {
+            container.hideFooterView();
+        }
 
 
     }
@@ -109,7 +125,6 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
     private class InitDataTask extends AsyncTask<String, Integer, String> {
         @Override
         public String doInBackground(String... params) {
-            String userId = params[0];
             CampusBLService.refreshLatestPosts();
             return "";
         }

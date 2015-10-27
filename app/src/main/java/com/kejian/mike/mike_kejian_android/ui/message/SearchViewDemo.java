@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 
 import net.picture.DownloadPicture;
 import net.picture.MessagePrint;
@@ -38,7 +39,9 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import bl.MessageBLService;
 import bl.SearchBLService;
+import model.course.CourseModel;
 import model.message.SearchResult;
+import util.GetBitmapByPinyin;
 
 public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private LayoutInflater myInflater;
@@ -78,6 +81,8 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
         postContainer.setAdapter(postAdapter);
 
         this.searchTaskManager = new SearchTaskManager();
+        this.courseContainer.setOnItemClickListener(this);
+        this.postContainer.setOnItemClickListener(this);
 //        lv1.setTextFilterEnabled(true);
 
 //        srv1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -113,6 +118,10 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             intent.setClass(this, PostDetailActivity.class);
             intent.putExtra("postId",searchResult.getId()+"");
             startActivity(intent);
+        }else{
+            CourseModel.getInstance().setCurrentCourseId(searchResult.getId()+"");
+            Intent intent = new Intent(this, CourseActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -138,17 +147,11 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             SearchResult searchResult = getItem(position);
-            DownloadPicture d=new DownloadPicture(getContext()){
-
-                @Override
-                public void updateView(Bitmap bitmap) {
-
-                    viewHolder.imageView.setImageBitmap(bitmap);
-
-                }
-            };
-
-            d.getBitMapFromNet(searchResult.getIconUrl(), searchResult.getLocalIconPath());
+            if(searchResult.isCourse()){
+                viewHolder.imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(searchResult.getTitle(),getContext()));
+            }else{
+                DownloadPicture downloadPicture = new DownloadPicture(getContext(),viewHolder.imageView,searchResult.getIconUrl(),searchResult.getIconUrl());
+            }
 //            viewHolder.imageView.setImageResource(R.drawable.daoxu);
             viewHolder.title.setText(searchResult.getBuilder());
             return convertView;
@@ -313,6 +316,8 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
         if (id == R.id.action_settings) {
             return true;
         }else if(id == android.R.id.home){
+            SearchBLService.clearPosts();;
+            SearchBLService.clearCourses();
             this.finish();
             return true;
         }

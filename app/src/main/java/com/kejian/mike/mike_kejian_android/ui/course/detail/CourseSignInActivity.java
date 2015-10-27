@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -66,6 +68,19 @@ public class CourseSignInActivity extends AppCompatActivity {
         new GetHistorySignInTask().execute();
         taskCountDown++;
         new GetCurrentNamingTask().execute();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                if(NavUtils.getParentActivityIntent(this) != null)
+                    NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateViewOnGetHistoryRecord(ArrayList<CourseSignInRecord> records) {

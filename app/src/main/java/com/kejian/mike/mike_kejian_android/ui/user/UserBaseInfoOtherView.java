@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.DownloadPicture;
@@ -37,7 +38,7 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
     private TextView name;
     private TextView gender;
     private TextView nickName;
-    private TextView birthday;
+
     private TextView department;
     private TextView major;
     private TextView grade;
@@ -50,6 +51,9 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         friend=(user)getIntent().getSerializableExtra("friend");
         context=this;
         initViews();
+
+
+     //   AppManager.getAppManager().addActivity(this);
 
         new AsyncTask<String,Integer,user>(){
 
@@ -103,7 +107,7 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         name=(TextView)findViewById(R.id.otherName);
         gender=(TextView)findViewById(R.id.otherGender);
         nickName=(TextView)findViewById(R.id.otherNickName);
-        birthday=(TextView)findViewById(R.id.otherBirthday);
+
         department=(TextView)findViewById(R.id.otherDepartment);
         major=(TextView)findViewById(R.id.otherMajor);
         grade=(TextView)findViewById(R.id.otherMajor);
@@ -115,7 +119,7 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         gender.setText("性别 :"+friend.getGender());
         nickName.setText("昵称 :"+friend.getNick_name());
         department.setText("院系 :"+friend.getDepartmentInfo().getName());
-        major.setText("专业 :"+friend.getDepartmentInfo().getName());
+        major.setText("专业 :"+friend.getMajorName());
         grade.setText("年级 :"+friend.getGrade());
 
 
@@ -216,6 +220,7 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
             if(result){
 
                 Toast.makeText(context,"关注成功",Toast.LENGTH_SHORT).show();
+                button.setText("取消关注");
             }
 
         }

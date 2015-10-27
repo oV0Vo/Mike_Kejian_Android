@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
 import net.picture.MessagePrint;
@@ -46,6 +47,8 @@ public class UserSettingActivity extends AppCompatActivity {
         logout=(TextView)findViewById(R.id.logout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+       // AppManager.getAppManager().addActivity(this);
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,14 +56,22 @@ public class UserSettingActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("user_map", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-
                 editor.putString("user_name", "");
                 editor.putString("user_password", "");
                 editor.apply();
 
+//                Intent intent=new Intent();
+//
+//                intent.setClass(getApplicationContext(),UserLoginActivity.class);
+//
+//                startActivity(intent);
 
-                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                am.killBackgroundProcesses(getPackageName());
+                AppManager.getAppManager().AppExit(getApplicationContext());
+                finish();
+
+
+//                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//                am.killBackgroundProcesses(getPackageName());
             }
         });
         schoolAccount.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +154,14 @@ public class UserSettingActivity extends AppCompatActivity {
         List list = new ArrayList();
 
         list.add("账号 : " + us.getSchoolAccount());
-        list.add("身份 : "+us.getIdentify());
+
+        if(us.getIdentify().equals("0")) {
+            list.add("身份 : " + "学生");
+        }
+        else
+        {
+            list.add("身份 : " + "老师");
+        }
 
 
 
