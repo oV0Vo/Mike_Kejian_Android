@@ -104,14 +104,18 @@ public class CourseListFragment extends Fragment{
         listView.setOnRefreshListener(noActionRL);
         listData.clear();
         if(initMyCourseDataFinish) {
+            Log.i(TAG, "initMyCourseDataFinish");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
             listData.addAll(courseModel.getMyCourseBriefs());
             listAdapter.notifyDataSetChanged();
         } else if(initMyCourseDataFail) {
+            Log.i(TAG, "initMyCourseDataFail");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.VISIBLE);
         } else { //on progress
+            Log.i(TAG, "on progress my course");
+            Log.i(TAG, "progressBar visible");
             progressBar.setVisibility(View.VISIBLE);
             errorMessageText.setVisibility(View.GONE);
         }
@@ -124,16 +128,20 @@ public class CourseListFragment extends Fragment{
         listData.clear();
 
         if(initAllCourseDataFinish) {
+            Log.i(TAG, "initAllCourseDataFinish");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
             listData.addAll(courseModel.getAllCourseBriefs());
             listAdapter.notifyDataSetChanged();
             listView.setOnRefreshListener(allCourseRL);
         } else if(initAllCourseDataFail) {
+            Log.i(TAG, "initAllCourseDataFail");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.VISIBLE);
             listView.setOnRefreshListener(noActionRL);
         } else { //on progress
+            Log.i(TAG, "on progress all course");
+            Log.i(TAG, "progressBar visible");
             progressBar.setVisibility(View.VISIBLE);
             errorMessageText.setVisibility(View.GONE);
             listView.setOnRefreshListener(noActionRL);
@@ -172,8 +180,10 @@ public class CourseListFragment extends Fragment{
         progressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
         if(initMyCourseDataFinish)
             progressBar.setVisibility(View.GONE);
-        else
+        else {
+            Log.i(TAG, "progressBar visible in onCreateView");
             progressBar.setVisibility(View.VISIBLE);
+        }
 
         errorMessageText = (TextView)view.findViewById(R.id.error_message_text);
 
@@ -330,7 +340,10 @@ public class CourseListFragment extends Fragment{
 
         @Override
         public void onLoadingMore() {
-            new UpdateAllCourseBriefTask().execute();
+            if(courseModel.hasMoreAllCourseBriefs())
+                new UpdateAllCourseBriefTask().execute();
+            else
+                listView.hideFooterView();
         }
     }
 

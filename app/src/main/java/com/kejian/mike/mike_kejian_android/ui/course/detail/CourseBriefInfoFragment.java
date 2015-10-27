@@ -22,10 +22,13 @@ import model.course.CourseModel;
  */
 public class CourseBriefInfoFragment extends Fragment {
 
+    private static final String TAG = "CourseBriefInfoFg";
+
     private OnCourseBriefSelectedListener mListener;
 
+    private View layoutView;
+
     public CourseBriefInfoFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -33,25 +36,31 @@ public class CourseBriefInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_course_brief_info, container, false);
+    public void initView() {
+        if(layoutView == null) {
+            return;
+        }
         CourseDetailInfo courseDetailInfo = CourseModel.getInstance().getCurrentCourseDetail();
 
-        ImageView imageView = (ImageView)v.findViewById(R.id.course_detail_brief_image);
+        ImageView imageView = (ImageView)layoutView.findViewById(R.id.course_detail_brief_image);
         imageView.setImageResource(R.drawable.default_book);
 
-        TextView academyView = (TextView)v.findViewById(R.id.course_detail_brief_academy);
+        TextView academyView = (TextView)layoutView.findViewById(R.id.course_detail_brief_academy);
         academyView.setText(courseDetailInfo.getAccademyName());
 
-        TextView teacherView = (TextView)v.findViewById(R.id.course_detail_brief_teacher_text);
+        TextView teacherView = (TextView)layoutView.findViewById(R.id.course_detail_brief_teacher_text);
         String teacherNames = getMergeTeacherName();
         teacherView.setText(teacherNames);
 
-        v.setOnClickListener(new onViewClickListener());
+        layoutView.setOnClickListener(new onViewClickListener());
 
-        return v;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        layoutView = inflater.inflate(R.layout.fragment_course_brief_info, container, false);
+        return layoutView;
     }
 
     private String getMergeTeacherName() {

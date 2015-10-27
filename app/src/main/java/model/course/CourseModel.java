@@ -1,5 +1,7 @@
 package model.course;
 
+import android.util.Log;
+
 import net.course.CourseAnnoucNetService;
 import net.course.CourseInfoNetService;
 import net.course.CoursePostNetService;
@@ -23,13 +25,17 @@ import util.NetOperateResultMessage;
  * Created by violetMoon on 2015/9/8.
  */
 public class CourseModel {
-    public static final String ARG_COURSE_ID = "courseId";
+
+    private static final String TAG = "CourseModel";
 
     private static CourseModel instance;
     private ArrayList<CourseBriefInfo> myCourseBriefs;
     private ArrayList<CourseBriefInfo> allCourseBriefs;
 
-    private static final int MY_COURSE_BRIEF_UPDATE_NUM = 20;
+    private ArrayList<String> allAcademyNames;
+    private ArrayList<String> allCourseTypes;
+
+    private static final int DEFAULT_ALL_COURSE_INIT_NUM = 100;
     private static final int ALL_COURSE_BRIEF_UPDATE_NUM = 20;
 
     private CurrentCourseModel currentCourse;
@@ -37,12 +43,15 @@ public class CourseModel {
 
     private CourseAnnoucement focusAnnouc;
 
-    private String sidMock = "131250012";
+    private boolean noMoreAllCourseBriefs;
+
     private String schoolIdMock = "南京大学";
 
     private CourseModel() {
         myCourseBriefs = new ArrayList<CourseBriefInfo>();
-        allCourseBriefs = new ArrayList<CourseBriefInfo>();
+        allCourseBriefs = new ArrayList<CourseBriefInfo>(DEFAULT_ALL_COURSE_INIT_NUM);
+        allAcademyNames = new ArrayList<String>();
+        allCourseTypes = new ArrayList<String>();
     }
 
     public static CourseModel getInstance() {
@@ -59,39 +68,20 @@ public class CourseModel {
         }
     }
 
+    public ArrayList<String> getAllAcademyNames() {
+        return allAcademyNames;
+    }
+
+    public ArrayList<String> getAllCourseTypes() {
+        return allCourseTypes;
+    }
+
     public ArrayList<CourseBriefInfo> getMyCourseBriefs() {
         return myCourseBriefs;
     }
 
     public ArrayList<CourseBriefInfo> getAllCourseBriefs() {
         return allCourseBriefs;
-    }
-
-/*
-    public ArrayList<CourseBriefInfo> getMyCourseBriefs(int beginPos, int num) {
-        return getSubList(beginPos, num, myCourseBriefs);
-    }
-
-    public ArrayList<CourseBriefInfo> getAllCourseBriefs(int beginPos, int num) {
-        return getSubList(beginPos, num, allCourseBriefs);
-    }*/
-
-    /**
-     *
-     * @param courseId
-     * @return
-     */
-    public CourseBriefInfo getCourseBriefInMyCourse(String courseId) {
-        return getCourseBrief(courseId, myCourseBriefs);
-    }
-
-    /**
-     *
-     * @param courseId
-     * @return
-     */
-    public CourseBriefInfo getCourseBriefInAllCourse(String courseId) {
-        return getCourseBrief(courseId, allCourseBriefs);
     }
 
     private CourseBriefInfo getCourseBrief(String courseId, ArrayList<CourseBriefInfo> briefs) {
@@ -114,6 +104,10 @@ public class CourseModel {
         return updateInfos;
     }
 
+    public boolean hasMoreAllCourseBriefs() {
+        return !noMoreAllCourseBriefs;
+    }
+
     @NeedAsyncAnnotation
     public ArrayList<CourseBriefInfo> updateAllCourseBriefs(){
         return updateAllCourseBriefs(Integer.MAX_VALUE, TimeUnit.SECONDS);
@@ -128,10 +122,14 @@ public class CourseModel {
         int updateNum = ALL_COURSE_BRIEF_UPDATE_NUM;
         ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getAllCourseBrief(schoolIdMock,
                 lastCourseId, updateNum, time, timeUnit);
-        this.allCourseBriefs.addAll(updateInfos);
+        if(updateInfos != null) {
+            if(updateInfos.size() != 0)
+                allCourseBriefs.addAll(updateInfos);
+            else
+                noMoreAllCourseBriefs = true;
+        }
         return updateInfos;
     }
-
 
     private <E> ArrayList<E> getSubList(int beginPos, int num, List<E> list) {
         if(!isValidPos(beginPos, list)) {
@@ -350,44 +348,38 @@ public class CourseModel {
         }
 
         public ArrayList<BasicQuestion> updateHistoryQuestions(int time, TimeUnit timeUnit) {
-            int beginPos = historyQuestions.size();
-            int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<BasicQuestion> updateInfos = CourseQuestionNetService.getHistroryQuestions(courseId);
-            if(updateInfos != null) {
-                historyQuestions.addAll(updateInfos);
+            ArrayList<BasicQuestion> newInfos = CourseQuestionNetService.getHistroryQuestions(courseId);
+            if(newInfos != null) {
+                historyQuestions.clear();
+                historyQuestions.addAll(newInfos);
             }
-            return updateInfos;
+            return newInfos;
         }
 
         public ArrayList<CurrentQuestion> updateCurrentQuestions(int time, TimeUnit timeUnit) {
-            int beginPos = currentQuestions.size();
-            int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<CurrentQuestion> updateInfos = CourseQuestionNetService.getCurrentQuestions(courseId);
-            if(updateInfos != null) {
-                currentQuestions.addAll(updateInfos);
+            ArrayList<CurrentQuestion> newInfos = CourseQuestionNetService.getCurrentQuestions(courseId);
+            if(newInfos != null) {
+                historyQuestions.clear();
+                currentQuestions.addAll(newInfos);
             }
-            return updateInfos;
+            return newInfos;
         }
 
         public ArrayList<Post> updatePosts(int time, TimeUnit timeUnit) {
-            String lastPostId = null;
-            if(posts.size() != 0)
-                lastPostId = posts.get(posts.size() - 1).getPostId();
-            int updateNum = HISTORY_QUESTION_UPDATE_NUM;
-            ArrayList<Post> updateInfos = CoursePostNetService.getPosts(courseId,
-                    lastPostId, updateNum);
+            ArrayList<Post> updateInfos = CoursePostNetService.getPosts(courseId);
             if(updateInfos != null) {
+                posts.clear();
                 posts.addAll(updateInfos);
+                Log.i(TAG, "posts size " + Integer.toString(posts.size()));
             }
             return updateInfos;
 
         }
 
         public boolean updateAnnouc(int time, TimeUnit timeUnit) {
-            int beginPos = annoucs.size();
-            int updateNum = ANNOUC_UPDATE_NUM;
             ArrayList<CourseAnnoucement> updateInfos = CourseAnnoucNetService.getAnnoucs(courseId);
             if(updateInfos != null) {
+                annoucs.clear();
                 annoucs.addAll(updateInfos);
             }
             return updateInfos != null;

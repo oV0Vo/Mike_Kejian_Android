@@ -168,11 +168,33 @@
             android:textColor="@color/green"
             android:text="@string/course_intro_assistant_title"/>
 
-        <TextView
-            android:id="@+id/assistant_text"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/assistant_add_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="false"/>
+            android:paddingLeft="@dimen/small_size"
+            android:paddingRight="@dimen/small_size"
+            android:paddingTop="@dimen/sub_small_size"
+            android:paddingBottom="@dimen/sub_small_size"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/medium_size"
+                android:layout_height="@dimen/medium_size"
+                android:layout_marginLeft="@dimen/sub_small_size"
+                android:src="@drawable/add"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_font" />
+
+        </LinearLayout>
+
+        <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
+            android:id="@+id/assistant_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <RadioGroup
@@ -190,7 +212,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/sub_big_padding"
             android:paddingBottom="@dimen/sub_big_padding"
-            android:background="@drawable/blue_bottom_border_selector"
+            android:background="@drawable/green_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_brief_tab_title"
@@ -203,7 +225,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/sub_big_padding"
             android:paddingBottom="@dimen/sub_big_padding"
-            android:background="@drawable/blue_bottom_border_selector"
+            android:background="@drawable/green_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_teach_content_tab_title"
@@ -216,7 +238,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/sub_big_padding"
             android:paddingBottom="@dimen/sub_big_padding"
-            android:background="@drawable/blue_bottom_border_selector"
+            android:background="@drawable/green_bottom_border_selector"
             android:gravity="center"
             android:button="@null"
             android:text="@string/course_intro_reference_tab_title"

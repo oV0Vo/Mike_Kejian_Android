@@ -12,6 +12,20 @@ public class SearchResult {
     SpannableStringBuilder builder;
     private int id;
     private boolean isCourse = true;
+    private String realName;
+    public void setRealName(String realName){
+        this.realName  = realName;
+    }
+    public String getRealName(){
+        return realName;
+    }
+    private String schoolIdentify;
+    public void setSchoolIdentify(String schoolIdentify){
+        this.schoolIdentify = schoolIdentify;
+    }
+    public String getSchoolIdentify(){
+        return this.schoolIdentify;
+    }
     public void setIsCourse(boolean isCourse){
         this.isCourse = isCourse;
     }

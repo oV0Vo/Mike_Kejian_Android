@@ -16,14 +16,39 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.question.CourseQuest
 
 public class QuestionAndPostsLayoutFragment extends Fragment {
 
+    private static final String TAG = "QuestionAndPostFg";
+
     private ViewPager viewPager;
     private CommentsPostFragmentAdapter viewPagerAdapter;
 
     private RadioButton commentsButton;
     private RadioButton questionButton;
 
+    private CommentsAreaFragment postFg;
+
+    private CourseQuestionFragment questionFg;
+
     public QuestionAndPostsLayoutFragment() {
-        // Required empty public constructor
+        postFg = new CommentsAreaFragment();
+        questionFg = new CourseQuestionFragment();
+    }
+
+    public void initView() {
+        if(questionFg == null || postFg == null) {
+            Log.i(TAG, "initView fg null");
+            return;
+        }
+        Log.e(TAG, "initView");
+        postFg.initView();
+        questionFg.initView();
+    }
+
+    public void refreshView() {
+        if(questionFg == null || postFg == null) {
+            return;
+        }
+        postFg.refreshView();
+        questionFg.refreshView();
     }
 
     @Override
@@ -95,9 +120,13 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                    return new CommentsAreaFragment();
+                    if(postFg == null)
+                        postFg = new CommentsAreaFragment();
+                    return postFg;
                 case 1:
-                    return new CourseQuestionFragment();
+                    if(questionFg == null)
+                        questionFg = new CourseQuestionFragment();
+                    return questionFg;
                 default:
                     return null;
             }

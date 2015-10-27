@@ -38,13 +38,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/medium_padding"
                     android:layout_gravity="right"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/red"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/history_question_brief_join_image"
                     android:layout_width="@dimen/small_icon_size"
                     android:layout_height="@dimen/small_icon_size"
-                    android:layout_gravity="right"/>
+                    android:layout_gravity="right"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

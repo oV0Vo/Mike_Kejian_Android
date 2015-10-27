@@ -2,6 +2,7 @@ package net.course;
 
 import android.util.Log;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -333,7 +334,7 @@ public class CourseQuestionNetService {
         String url = BASE_URL + "answerQuestions/";
         HashMap<String, String> paraMap = new HashMap<String ,String >();
         paraMap.put("questionId", questionId);
-        paraMap.put("answer", answer);
+        paraMap.put("answer", answer);//@need encode
         String response = httpRequest.sentGetRequest(url, paraMap);
 
         try {

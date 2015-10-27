@@ -29,6 +29,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
 import model.course.CourseModel;
+import model.user.UserType;
 import util.TimeFormat;
 import util.TimerThread;
 
@@ -53,8 +54,9 @@ public class CourseQuestionFragment extends Fragment {
 
     private ArrayList<TimerThread> timerThreads;
 
+    private boolean initFinish;
+
     public CourseQuestionFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -62,6 +64,14 @@ public class CourseQuestionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
         timerThreads = new ArrayList<TimerThread>();
+    }
+
+    public void initView() {
+        if(mainLayout == null) {
+            Log.e(TAG, "initView call on illegal state!");
+            return;
+        }
+        Log.e(TAG, "initView");
         initCurrentAdpater();
         initHistoryAdapter();
     }
@@ -75,6 +85,7 @@ public class CourseQuestionFragment extends Fragment {
 
         currentAdapter = new CurrentAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 currentQuestions);
+        currentListView.setAdapter(currentAdapter);
     }
 
     private void initHistoryAdapter() {
@@ -86,6 +97,17 @@ public class CourseQuestionFragment extends Fragment {
 
         historyAdapter = new HistoryAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 historyQuestion);
+        historyListView.setAdapter(historyAdapter);
+    }
+
+    public void refreshView() {
+        if(!initFinish)  //no need to refresh
+            return;
+        Log.i(TAG, "refreshView");
+        taskCountDown += 1;
+        new UpdateCurrentQuestionTask().execute();
+        taskCountDown += 1;
+        new UpdateHistoryQuestionTask().execute();
     }
 
     @Override
@@ -105,15 +127,15 @@ public class CourseQuestionFragment extends Fragment {
         }
 
         historyListView = (ListView)v.findViewById(R.id.history_question_list);
-        historyListView.setAdapter(historyAdapter);
 
         currentListView = (ListView)v.findViewById(R.id.current_question_list_view);
-        currentListView.setAdapter(currentAdapter);
 
         return v;
     }
 
     private void notifytTaskFinished() {
+        if(taskCountDown == 0)
+            initFinish = true;
         mainLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
@@ -249,16 +271,20 @@ public class CourseQuestionFragment extends Fragment {
             TextView timeText = (TextView)convertView.findViewById(R.id.history_question_brief_time);
             timeText.setText(TimeFormat.toMinute(question.getQuestionDate()));
 
-            ImageView joinedView = (ImageView)convertView.findViewById(R.id.
-                    history_question_brief_join_image);
-            boolean hasJoined = question.IJoined();
-            if(hasJoined) {
-               joinedView.setImageResource(R.drawable.done);
-            } else {
-                joinedView.setImageResource(R.drawable.undo);
-                TextView unJoinedTextView = (TextView)convertView.findViewById(R.id.
-                        history_question_brief_join_text);
-                unJoinedTextView.setVisibility(View.VISIBLE);
+            UserTypeInCourse userTypeInCourse = courseModel.getUserTypeInCurrentCourse();
+            if(userTypeInCourse == UserTypeInCourse.STUDENT) {
+                ImageView joinedView = (ImageView)convertView.findViewById(R.id.
+                        history_question_brief_join_image);
+                boolean hasJoined = question.IJoined();
+                if (hasJoined) {
+                    joinedView.setImageResource(R.drawable.done);
+                } else {
+                    joinedView.setImageResource(R.drawable.undo);
+                    TextView unJoinedTextView = (TextView) convertView.findViewById(R.id.
+                            history_question_brief_join_text);
+                    unJoinedTextView.setVisibility(View.VISIBLE);
+                }
+                joinedView.setVisibility(View.VISIBLE);
             }
 
             TextView contentText = (TextView)convertView.findViewById(R.id.
@@ -355,10 +381,18 @@ public class CourseQuestionFragment extends Fragment {
             }
 
             if(historyAdapter.getCount() != 0) {
+                if(historyListView.getVisibility() != View.VISIBLE) {
+                    historyListView.setVisibility(View.VISIBLE);
+                    historyEmptyText.setVisibility(View.GONE);
+                    Log.i(TAG, "historyEmptyText GONE");
+                } else {
+                    Log.i(TAG, "???");
+                }
                 historyAdapter.notifyDataSetChanged();
             } else {
                 historyListView.setVisibility(View.GONE);
                 historyEmptyText.setVisibility(View.VISIBLE);
+                Log.i(TAG, "historyEmptyText visible");
             }
         }
     }

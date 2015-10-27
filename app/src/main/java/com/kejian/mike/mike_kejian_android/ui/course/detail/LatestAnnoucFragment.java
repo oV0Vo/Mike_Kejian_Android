@@ -38,8 +38,9 @@ public class LatestAnnoucFragment extends Fragment {
 
     private CourseAnnoucement annouc;
 
+    private boolean initFinish;
+
     public LatestAnnoucFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -74,14 +75,27 @@ public class LatestAnnoucFragment extends Fragment {
         mListener = null;
     }
 
+    public void refreshView() {
+        if(!initFinish)  //no need to refresh
+            return;
+        Log.i(TAG, "refreshView");
+        String courseId = CourseModel.getInstance().getCurrentCourseId();
+        new GetAnnoucsTask().execute(courseId);
+    }
+
     private void updateViewOnGetAnnouc() {
         if(mainLayout == null)
             return;
 
+        initFinish = true;
         mainLayout.setVisibility(View.VISIBLE);
+
         TextView contentView = (TextView) mainLayout.findViewById(R.id.
                 course_detail_annoucement_content);
         if(annouc != null) {
+            if(contentView.getGravity() == Gravity.CENTER) //有人刚发布了新公告，所以gravity要变回来
+                contentView.setGravity(Gravity.NO_GRAVITY);
+
             contentView.setText(annouc.getContent());
             TextView authorView = (TextView) mainLayout.findViewById(R.id.
                     course_detail_annoucement_author_name);
@@ -116,6 +130,9 @@ public class LatestAnnoucFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean success) {
+            if(progressBar == null)
+                return;
+
             progressBar.setVisibility(View.GONE);
             if(success) {
                 updateViewOnGetAnnouc();

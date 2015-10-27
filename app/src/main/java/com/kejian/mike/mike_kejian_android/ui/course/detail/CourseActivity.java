@@ -16,10 +16,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.annoucement.AnnoucListActivity;
@@ -28,14 +26,10 @@ import com.kejian.mike.mike_kejian_android.ui.course.detail.naming.CourseNamingA
 import com.kejian.mike.mike_kejian_android.ui.course.detail.question.QuestionPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.AnnoucementPublishActivity;
 
-import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
-import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
-import com.kejian.mike.mike_kejian_android.ui.main.SearchPeopleActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo;
 
 import model.course.CourseModel;
-import model.helper.SearchType;
 
 public class CourseActivity extends AppCompatActivity implements
         LatestAnnoucFragment.OnAnnoucementClickListener,
@@ -61,6 +55,7 @@ public class CourseActivity extends AppCompatActivity implements
     private PopupWindow addItemPopupWindow;
 
     private int taskCountDown;
+    private boolean initFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +75,13 @@ public class CourseActivity extends AppCompatActivity implements
         taskCountDown++;
         new InitUserTypeTask().execute();
 
-        initPostAndQuestionLayoutFragment();
+        setCourseBriefLayout();
+        setCourseAnnoucementLayout();
+        setPostAndQuestionLayout();
 
     }
 
-    private void initCourseBriefFragment() {
+    private void setCourseBriefLayout() {
         FragmentManager fm = getSupportFragmentManager();
         courseBriefFg = (CourseBriefInfoFragment)
                 fm.findFragmentById(R.id.course_detail_brief_info_container);
@@ -95,7 +92,7 @@ public class CourseActivity extends AppCompatActivity implements
         }
     }
 
-    private void initCourseAnnoucementFragment() {
+    private void setCourseAnnoucementLayout() {
         FragmentManager fm = getSupportFragmentManager();
         annoucemntFg = (LatestAnnoucFragment)
                 fm.findFragmentById(R.id.course_detail_annoucement_container);
@@ -106,7 +103,7 @@ public class CourseActivity extends AppCompatActivity implements
         }
     }
 
-    private void initPostAndQuestionLayoutFragment() {
+    private void setPostAndQuestionLayout() {
         FragmentManager fm = getSupportFragmentManager();
         postsAndQuestionFg = (QuestionAndPostsLayoutFragment)
                 fm.findFragmentById(R.id.course_detail_post_and_question_container);
@@ -118,11 +115,19 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(!initFinish) // no need to refresh
+            return;
+        postsAndQuestionFg.refreshView();
+        annoucemntFg.refreshView();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course, menu);
         initDownInfoMenuItem(menu);
         initSearchMenuItem(menu);
-        Log.e(TAG, "addItem");
         addItem = menu.findItem(R.id.course_add_menu_item);
         addItem.setVisible(false);
         return true;
@@ -367,9 +372,7 @@ public class CourseActivity extends AppCompatActivity implements
         if(mainLayout == null)
             return;
 
-        initCourseBriefFragment();
-        initCourseAnnoucementFragment();
-
+        courseBriefFg.initView();
         updateViewIfAllTaskFinish();
     }
 
@@ -378,6 +381,7 @@ public class CourseActivity extends AppCompatActivity implements
             return;
 
         initAddMenuItem();
+        postsAndQuestionFg.initView();
         updateViewIfAllTaskFinish();
     }
 
@@ -390,6 +394,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     private void updateViewIfAllTaskFinish() {
         if(taskCountDown == 0 && mainLayout != null) {
+            initFinish = true;
             progressBar.setVisibility(View.GONE);
             mainLayout.setVisibility(View.VISIBLE);
         }
@@ -397,10 +402,6 @@ public class CourseActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-//        Intent intent = new Intent();
-//        intent.setClass(this, SearchPeopleActivity.class);
-//        intent.putExtra("searchType", SearchType.addAssistant);
-//        startActivityForResult(intent,1000);
         Intent intent = new Intent();
         intent.setClass(this,SearchViewDemo.class);
         startActivity(intent);

@@ -15,6 +15,14 @@
     <dimen name="line_thick">10dp</dimen>
 
     <dimen name="negative_one_medium_font">-5dp</dimen>
+
+    <!-- size 下面的很多东西都应该归到这个size里面的-->
+    <dimen name="sub_small_size">3dp</dimen>
+    <dimen name="small_size">6dp</dimen>
+    <dimen name="over_small_size">9dp</dimen>
+    <dimen name="over_over_small_size">12dp</dimen>
+    <dimen name="medium_size">18dp</dimen>
+
     <!--padding-->
     <dimen name="sub_small_padding">1dp</dimen>
     <dimen name="small_padding">3dp</dimen>
@@ -50,7 +58,7 @@
     <dimen name="main_tab_width">72px</dimen>
     <dimen name="main_tab_height">72px</dimen>
 
-    <dimen name="main_tab_layout_height">90dp</dimen>
+    <dimen name="main_tab_layout_height">80dp</dimen>
 
     <dimen name="sign_in_status_icon_size">70dp</dimen>
     <dimen name="over_big_icon_size">65dp</dimen>
