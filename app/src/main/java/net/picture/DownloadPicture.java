@@ -56,6 +56,14 @@ public class DownloadPicture {
 
         MessagePrint.print("Start getBitMapFromNet");
 
+        if(memoryCache.containsKey(picturePath)){
+            SoftReference<Bitmap> softReference = memoryCache.get(picturePath);
+            bitmap = softReference.get();
+            if(bitmap != null){
+                return null;
+            }
+        }
+
         Thread task=new Thread(new DownloadPicTask(url,picturePath));
 
         task.start();
@@ -89,14 +97,6 @@ public class DownloadPicture {
             }
             else{
                 picturePath="temp";
-            }
-
-            if(memoryCache.containsKey(picturePath)){
-                SoftReference<Bitmap> softReference = memoryCache.get(picturePath);
-                bitmap = softReference.get();
-                if(bitmap != null){
-                    return;
-                }
             }
 
             File  file=new File("/sdcard/mike/user/"+picturePath);
