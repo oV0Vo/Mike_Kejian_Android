@@ -10,10 +10,13 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Handler;
 
 /**
@@ -22,10 +25,11 @@ import java.util.logging.Handler;
 public class DownloadPicture {
 
     private Context context;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private ImageView imageView;
-    private static Hashtable<String,Bitmap> memoryCache = new Hashtable<>();
+    private static Hashtable<String,SoftReference<Bitmap>> memoryCache = new Hashtable<>();
     public static int maxMapSize = 500;
+    private ExecutorService executorService = Executors.newFixedThreadPool(5);
 
     public DownloadPicture(Context context){
 
@@ -88,8 +92,11 @@ public class DownloadPicture {
             }
 
             if(memoryCache.containsKey(picturePath)){
-                bitmap = memoryCache.get(picturePath);
-                return;
+                SoftReference<Bitmap> softReference = memoryCache.get(picturePath);
+                bitmap = softReference.get();
+                if(bitmap != null){
+                    return;
+                }
             }
 
             File  file=new File("/sdcard/mike/user/"+picturePath);
@@ -106,7 +113,8 @@ public class DownloadPicture {
                     //超过数量直接清空
                     memoryCache.clear();
                 }
-                memoryCache.put(picturePath,bitmap);
+                SoftReference<Bitmap> softReference = new SoftReference<Bitmap>(bitmap);
+                memoryCache.put(picturePath,softReference);
                 inputStream.close();
 
             }catch (Exception e){
@@ -150,7 +158,8 @@ public class DownloadPicture {
                     //超过数量直接清空
                     memoryCache.clear();
                 }
-                memoryCache.put(picturePath,bitmap);
+                SoftReference<Bitmap> softReference = new SoftReference<Bitmap>(bitmap);
+                memoryCache.put(picturePath,softReference);
 
 
             }catch(Exception e){
