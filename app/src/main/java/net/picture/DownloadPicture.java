@@ -91,8 +91,10 @@ public class DownloadPicture {
                 FileInputStream inputStream = new FileInputStream(file);
 
                 BitmapFactory.Options b=new BitmapFactory.Options();
-                b.inSampleSize=2;
+                b.inSampleSize=7;
                 bitmap=BitmapFactory.decodeStream(inputStream,null,b);
+
+                inputStream.close();
 
             }catch (Exception e){
 
@@ -102,7 +104,11 @@ public class DownloadPicture {
             if(bitmap!=null){
 
                 System.out.println("get bitmap from local");
-                updateView(imageView);
+                UIHandler handler=new UIHandler(context.getMainLooper());
+
+                Message message=handler.obtainMessage(1,1,1,1);
+
+                handler.sendMessage(message);
                 return ;
 
             }
