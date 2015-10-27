@@ -68,6 +68,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         } else {
             postViewHolder = (PostViewHolder) convertView.getTag();
         }
+        /*
 
         System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
         new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
@@ -105,6 +106,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
                 }.execute(postViewHolder.userId);
             }
         });
+        */
 
 
         postViewHolder.post_title.setText(post.getTitle());
