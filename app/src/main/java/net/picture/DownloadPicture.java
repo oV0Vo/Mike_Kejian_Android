@@ -29,7 +29,7 @@ public class DownloadPicture {
     private ImageView imageView;
     private static Hashtable<String,SoftReference<Bitmap>> memoryCache = new Hashtable<>();
     public static int maxMapSize = 500;
-    private ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     public DownloadPicture(Context context){
 
@@ -66,7 +66,9 @@ public class DownloadPicture {
 
         Thread task=new Thread(new DownloadPicTask(url,picturePath));
 
-        task.start();
+        cachedThreadPool.execute(task);
+
+//        task.start();
 
         return null;
 
