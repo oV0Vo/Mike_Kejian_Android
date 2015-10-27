@@ -24,6 +24,7 @@ import java.util.List;
 
 import bl.course.CourseBriefFilter;
 import model.course.CourseModel;
+import util.GetBitmapByPinyin;
 import util.StringUtil;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
@@ -98,7 +99,7 @@ public class CourseListFragment extends Fragment{
     }
 
     public void showMyCourse() {
-        if (listView == null)
+        if (listView == null || getContext() == null)
             return;
         isShowMyCourse = true;
         listView.setOnRefreshListener(noActionRL);
@@ -230,7 +231,8 @@ public class CourseListFragment extends Fragment{
             CourseBriefInfo courseBriefInfo = getItem(position);
 
             ImageView imageView = (ImageView)convertView.findViewById(R.id.course_brief_image);
-            imageView.setImageResource(R.drawable.default_book);
+            imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
+                    courseBriefInfo.getCourseName(), getContext()));
 
             TextView nameView = (TextView)convertView.findViewById(R.id.course_brief_name);
             nameView.setText(courseBriefInfo.getCourseName());

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
@@ -161,7 +162,14 @@ public class CourseActivity extends AppCompatActivity implements
             Log.i("CourseQuestionFg", "addItem null");
             return;
         }
+
         UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
+        if(userType == null) {
+            Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "unexpected userType null");
+            return;
+        }
+
         switch(userType) {
             case TEACHER:
                 addSubMenuView = createTeacherAddSubMenuView();
@@ -188,7 +196,8 @@ public class CourseActivity extends AppCompatActivity implements
         addItem.getActionView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItemPopupWindow.showAsDropDown(v);
+                int yOff = (int)getResources().getDimension(R.dimen.over_over_small_size);
+                addItemPopupWindow.showAsDropDown(v, 0, yOff);
             }
         });
     }

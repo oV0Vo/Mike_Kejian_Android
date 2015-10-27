@@ -34,6 +34,7 @@ import java.util.HashMap;
 
 import model.course.CourseModel;
 import model.helper.SearchType;
+import util.GetBitmapByPinyin;
 import util.StringUtil;
 
 public class CourseIntroductionActivity extends AppCompatActivity {
@@ -58,7 +59,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private PushAgent pushAgent;
 
-    private int searchResultCode = 1000;
+    private int searchRequestCode = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,22 +90,13 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_course_introduction, menu);
         this.menu = menu;
-        final MenuItem manageItem = menu.findItem(R.id.assistant_management_menu);
+        MenuItem manageItem = menu.findItem(R.id.assistant_management_menu);
         UserTypeInCourse userTypeInCourse = CourseModel.getInstance().getUserTypeInCurrentCourse();
-        if(userTypeInCourse == UserTypeInCourse.TEACHER) {
-            MenuItem exitEditItem = menu.findItem(R.id.exit_edit_menu);
-            exitEditItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    item.setVisible(false);
-                    manageItem.setVisible(true);
-                    hideAssistantManageLayout();
-                    return true;
-                }
-            });
-        } else {
+        if(userTypeInCourse != UserTypeInCourse.TEACHER) {
             manageItem.setVisible(false);
         }
+        MenuItem exitEditItem = menu.findItem(R.id.exit_edit_menu);
+        exitEditItem.setVisible(false);
         return true;
     }
 
@@ -121,6 +113,12 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                 MenuItem exitEditItem = menu.findItem(R.id.exit_edit_menu);
                 exitEditItem.setVisible(true);
                 showAssistantManageLayout();
+                return true;
+            case R.id.exit_edit_menu:
+                item.setVisible(false);
+                MenuItem manageItem = menu.findItem(R.id.assistant_management_menu);
+                manageItem.setVisible(true);
+                hideAssistantManageLayout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -160,6 +158,10 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         TextView courseTitleView = (TextView)findViewById(R.id.course_intro_course_name);
         courseTitleView.setText(courseDetail.getCourseName());
 
+        ImageView courseImage = (ImageView)findViewById(R.id.course_intro_image);
+        courseImage.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
+                courseDetail.getCourseName(), this));
+
         TextView courseAcademyView = (TextView)findViewById(R.id.course_intro_course_academy);
         courseAcademyView.setText(courseDetail.getAccademyName());
 
@@ -179,13 +181,13 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         teacherNameView.setText(teacherName);
 
         TextView teacherBriefIntroView = (TextView)findViewById(R.id.course_intro_teacher_brief_intro);
-        teacherBriefIntroView.setText("");
+        teacherBriefIntroView.setText("目前还没有该老师的相关介绍");
 
     }
 
     private void initAssistantManagement(ArrayList<String> names, ArrayList<String> ids) {
         initAssistantContainer(names, ids);
-        initAssistantLayout();
+        initAssistantAddLayout();
     }
 
     private void initAssistantContainer(ArrayList<String> names, ArrayList<String> ids) {
@@ -205,7 +207,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         assitantViewMap.put(id, newAssistantLayout);
     }
 
-    private void initAssistantLayout() {
+    private void initAssistantAddLayout() {
         assistantAddLayout = (ViewGroup)findViewById(R.id.assistant_add_layout);
         assistantAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,20 +215,21 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(CourseIntroductionActivity.this, SearchPeopleActivity.class);
                 intent.putExtra("searchType", SearchType.addAssistant);
-                startActivityForResult(intent,searchResultCode);
+                startActivityForResult(intent,searchRequestCode);
             }
         });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == searchResultCode) {
-            if(!data.hasExtra("name")) {
+        if(requestCode == searchRequestCode) {
+            String sid = data.getStringExtra("school_identify");
+            if(sid.length() == 0) {
                 Toast.makeText(this, R.string.add_assistant_jw_not_bound, Toast.LENGTH_LONG)
                     .show();
                 return;
             }
-            String name = data.getStringExtra("name");
+            String name = data.getStringExtra("real_name");
             String id = data.getStringExtra("user_id");
             addAssistant(name, id);
             Toast.makeText(this, R.string.add_assistant_success, Toast.LENGTH_SHORT).show();
@@ -244,6 +247,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
         ImageView deleteImage = (ImageView)layout.findViewById(R.id.delete_image);
         deleteImage.setOnClickListener(new AssistantDeleteListener(id));
+
         return layout;
     }
 

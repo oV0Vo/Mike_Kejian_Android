@@ -67,6 +67,10 @@ public class CourseQuestionFragment extends Fragment {
     }
 
     public void initView() {
+        if(getContext() == null) {
+            Log.e(TAG, "attach no activity");
+            return;
+        }
         if(mainLayout == null) {
             Log.e(TAG, "initView call on illegal state!");
             return;
@@ -453,6 +457,9 @@ public class CourseQuestionFragment extends Fragment {
         }
 
         private void updateViewOnShutDownFail() {
+            if(getActivity() == null)
+                return;
+
             actionText.setEnabled(true);
             actionText.setText(R.string.shut_down_question_text);
             actionText.setBackgroundColor(getResources().getColor(R.color.green));
@@ -482,7 +489,7 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if(leftTimeText == null)
+            if(leftTimeText == null || getActivity() == null)
                 return;
             leftTimeText.setText(TimeFormat.toSeconds(millisUntilFinished));
             if(millisUntilFinished < 10 * 1000)
@@ -491,10 +498,10 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public void onFinish() {
-            if(leftTimeText == null)
+            if(leftTimeText == null || getContext() == null)
                 return;
             leftTimeText.setText(TimeFormat.toSeconds(0));
-            leftTimeText.setTextColor(getActivity().getResources().getColor(R.color.black));
+            leftTimeText.setTextColor(getResources().getColor(R.color.black));
             switch(userType) {
                 case TEACHER:
                     actionText.setText(R.string.show_question_stats);

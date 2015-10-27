@@ -102,9 +102,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
+
         initJpush();
-
-
         new MyReceiver();
 
         System.out.println("ID:" + JPushInterface.getRegistrationID(getApplicationContext()));

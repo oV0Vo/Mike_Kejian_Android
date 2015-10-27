@@ -12,11 +12,14 @@ import com.kejian.mike.mike_kejian_android.R;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
+import util.StringUtil;
 
 
 public class CourseReferenceFragment extends Fragment {
+
+    private static final String TAG = "CourseRefrenceFg";
+
     public CourseReferenceFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -37,9 +40,21 @@ public class CourseReferenceFragment extends Fragment {
         }
 
         TextView contentView = (TextView)v.findViewById(R.id.course_reference_content);
-        contentView.setText("龙珠超\n" +
-                "简介：《龙珠超》（日文：ドラゴンボール超，英文：Dragon Ball Super）是根据日本漫画家鸟山明的代表作《龙珠》改编而成的电视动画，由原作者鸟山明担当原案");
+        String refrences = StringUtil.toString(courseDetail.getReferences(), "\n");
+        if(refrences == null) {
+            Log.e(TAG, "refrences null!");
+            showEmptyText(v);
+        } else if (refrences.length() == 0) {
+            showEmptyText(v);
+        } else {
+            contentView.setText(refrences);
+        }
         return v;
+    }
+
+    private void showEmptyText(View v) {
+        TextView emptyText = (TextView)v.findViewById(R.id.empty_text);
+        emptyText.setVisibility(View.VISIBLE);
     }
 
 }

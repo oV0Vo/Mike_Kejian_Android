@@ -84,7 +84,7 @@ public class LatestAnnoucFragment extends Fragment {
     }
 
     private void updateViewOnGetAnnouc() {
-        if(mainLayout == null)
+        if(getActivity() == null)
             return;
 
         initFinish = true;

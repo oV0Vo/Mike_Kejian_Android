@@ -14,7 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.util.MyImageCache;
 import com.kejian.mike.mike_kejian_android.ui.widget.ColorBar;
 import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
@@ -60,6 +64,8 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
     private int taskCountDown;
 
+    private RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +74,8 @@ public class QuestionStatsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initAttrs();
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());//@不应该放这里的
 
         answers = new ArrayList();
         courseModel = CourseModel.getInstance();
@@ -135,29 +143,6 @@ public class QuestionStatsActivity extends AppCompatActivity {
         ViewGroup zhankaiContainer = (ViewGroup)findViewById(R.id.zhankai_container);
         zhankaiContainer.addView(zhankaiLayout);
     }
-/*
-    private void setChoiceContentView() {
-        ViewGroup choiceContainer = (ViewGroup)findViewById(R.id.choice_container);
-
-        ChoiceQuestion choiceQuestion = (ChoiceQuestion)question;
-        ArrayList<String> choiceContents = choiceQuestion.getChoiceContents();
-        for(int i=0; i<choiceContents.size(); ++i){
-            ViewGroup choiceContentLayout = (ViewGroup)getLayoutInflater().inflate(R.layout.
-                    layout_quesiton_choice_content, null);
-
-            TextView choiceIndexText = (TextView)choiceContentLayout.findViewById(
-                    R.id.choice_index_text);
-            choiceIndexText.setText(Character.toString((char)('A' + i)));
-
-            TextView choiceContentText = (TextView)choiceContentLayout.findViewById
-                    (R.id.choice_content_text);
-            choiceContentText.setText(choiceContents.get(i));
-
-            choiceContainer.addView(choiceContentLayout);
-        }
-
-        choiceContainer.setVisibility(View.VISIBLE);
-    }*/
 
     private void initStatsLayout() {
         statsContentLayout = (ViewGroup)findViewById(R.id.question_stats_container);
@@ -354,7 +339,11 @@ public class QuestionStatsActivity extends AppCompatActivity {
             QuestionShowAnswer answer = getItem(position);
 
             ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
-            userImageView.setImageDrawable(null);
+            ImageLoader imageLoader = new ImageLoader(requestQueue, MyImageCache.getInstance
+                    (QuestionStatsActivity.this));
+            ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(userImageView,
+                    R.drawable.default_user, R.drawable.default_user);
+            imageLoader.get(answer.getHeadIconUrl(), imageListener);
 
             TextView userNameText = (TextView)convertView.findViewById(R.id.user_name);
             userNameText.setText(answer.getStudentName());

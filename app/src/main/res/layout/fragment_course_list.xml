@@ -12,7 +12,6 @@
             android:id="@+id/main_course_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/main_tab_layout_height"
             android:scrollbars="none"/>
 
         <TextView

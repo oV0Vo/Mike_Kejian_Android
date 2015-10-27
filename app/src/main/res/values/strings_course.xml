@@ -26,7 +26,10 @@
     <!--course question-->
     <string name="course_question_empty_text">目前还没有人发过问题额~</string>
 
-    <!--assistant management-->
+    <!--course introduction-->
+    <string name="course_no_outline">课程还没有相关简介</string>
+    <string name="course_no_teach_content">课程还没有关于教学内容的介绍</string>
+    <string name="course_no_refrences">课程还没有关于参考文献的介绍</string>
     <string name="delete_assistant_on_progress">正在删除助教</string>
     <string name="delete_assistant_success">删除助教成功</string>
     <string name="delete_assistant_fail">删除助教失败</string>

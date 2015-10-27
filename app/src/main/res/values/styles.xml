@@ -78,4 +78,12 @@
         <item name="android:background">@color/green</item>
     </style>
 
+    <style name="empty_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">@dimen/sub_big_font</item>
+        <item name="android:textColor">@color/dark</item>
+    </style>
+
 </resources>

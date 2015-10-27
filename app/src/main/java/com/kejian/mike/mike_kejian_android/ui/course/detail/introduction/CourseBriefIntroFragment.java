@@ -16,8 +16,9 @@ import model.course.CourseModel;
 
 public class CourseBriefIntroFragment extends Fragment {
 
+    private static final String TAG = "CourseOutlineFg";
+
     public CourseBriefIntroFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -38,8 +39,21 @@ public class CourseBriefIntroFragment extends Fragment {
         }
 
         TextView contentView = (TextView)v.findViewById(R.id.course_brief_intro_content);
-        contentView.setText("日本动漫《名侦探柯南》中的主要人物，本名宫野志保");
+        String outLine = courseDetail.getOutline();
+        if(outLine == null) {
+            Log.e(TAG, "outLine null!");
+            showEmptyText(v);
+        } else if (outLine.length() == 0) {
+            showEmptyText(v);
+        } else {
+            contentView.setText(outLine);
+        }
         return v;
+    }
+
+    private void showEmptyText(View v) {
+        TextView emptyText = (TextView)v.findViewById(R.id.empty_text);
+        emptyText.setVisibility(View.VISIBLE);
     }
 
 }

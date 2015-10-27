@@ -22,6 +22,7 @@
     <dimen name="over_small_size">9dp</dimen>
     <dimen name="over_over_small_size">12dp</dimen>
     <dimen name="medium_size">18dp</dimen>
+    <dimen name="big_size">30dp</dimen>
 
     <!--padding-->
     <dimen name="sub_small_padding">1dp</dimen>
@@ -94,6 +95,7 @@
 
     <dimen name="book_height">85dp</dimen>
     <dimen name="book_width">60dp</dimen>
+    <dimen name="book_size">70dp</dimen>
 
     <dimen name="medium_dialog_height">180dp</dimen>
 

@@ -1,4 +1,4 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,15 @@
 
     <TextView
         android:id="@+id/course_teach_content_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="false"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/empty_text"
+        style="@style/empty_text_style"
+        android:text="@string/course_no_outline"
+        android:layout_marginBottom="@dimen/big_size"
+        android:visibility="gone"/>
+
+</RelativeLayout>

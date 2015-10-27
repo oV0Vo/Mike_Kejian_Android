@@ -193,7 +193,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
         }
 
         protected void onPostExecute(ArrayList<Post> posts) {
-            if(progressBar == null)
+            if(progressBar == null || getActivity() == null)
                 return;
 
             if(!initFinish)

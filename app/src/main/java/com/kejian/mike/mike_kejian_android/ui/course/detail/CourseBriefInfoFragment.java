@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
+import util.GetBitmapByPinyin;
 
 /**
  */
@@ -43,7 +44,8 @@ public class CourseBriefInfoFragment extends Fragment {
         CourseDetailInfo courseDetailInfo = CourseModel.getInstance().getCurrentCourseDetail();
 
         ImageView imageView = (ImageView)layoutView.findViewById(R.id.course_detail_brief_image);
-        imageView.setImageResource(R.drawable.default_book);
+        imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
+                courseDetailInfo.getCourseName(), getContext()));
 
         TextView academyView = (TextView)layoutView.findViewById(R.id.course_detail_brief_academy);
         academyView.setText(courseDetailInfo.getAccademyName());

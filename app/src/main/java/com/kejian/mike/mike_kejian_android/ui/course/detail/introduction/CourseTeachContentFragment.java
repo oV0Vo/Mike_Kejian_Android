@@ -14,8 +14,10 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
 
 public class CourseTeachContentFragment extends Fragment {
+
+    private static final String TAG = "CourseTeachContentFg";
+
     public CourseTeachContentFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -36,8 +38,21 @@ public class CourseTeachContentFragment extends Fragment {
         }
 
         TextView contentView = (TextView)v.findViewById(R.id.course_teach_content_content);
-        contentView.setText("电影《小岛惊魂》是由亚历桑德罗·阿曼巴执导，妮可·基德曼、伊莲·卡西迪、基思·艾伦主演的一部惊悚悬疑剧情片。该片讲述了二战结束后，在英伦的小岛上独自抚养着一对儿女，等待着丈夫归来的格蕾丝，迎来了三个古怪的新仆人的故事");
+        String teachContent = courseDetail.getTeachContent();
+        if(teachContent == null) {
+            Log.e(TAG, "teachContent null!");
+            showEmptyText(v);
+        } else if (teachContent.length() == 0) {
+            showEmptyText(v);
+        } else {
+            contentView.setText(teachContent);
+        }
         return v;
+    }
+
+    private void showEmptyText(View v) {
+        TextView emptyText = (TextView)v.findViewById(R.id.empty_text);
+        emptyText.setVisibility(View.VISIBLE);
     }
 
 }
