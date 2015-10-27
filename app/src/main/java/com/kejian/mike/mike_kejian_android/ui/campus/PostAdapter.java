@@ -70,6 +70,16 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         }
 
         System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
+        DownloadPicture downloadPicture=new DownloadPicture(getContext()){
+
+            @Override
+        public void updateView(Bitmap bitmap){
+
+                postViewHolder.post_user_icon.setImageBitmap(bitmap);
+
+            }
+        };
+        downloadPicture.getBitMapFromNet(post.getUserIconUrl(),post.getUserIconUrl());
         //new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
 
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
