@@ -24,10 +24,10 @@ import model.campus.Post;
 /**
  * Created by showjoy on 15/9/17.
  */
-public class LatestPostListFragment extends Fragment implements OnRefreshListener {
+public class LatestPostListFragment extends Fragment implements XListView.IXListViewListener {
     private View view;
     private LinearLayout mainLayout;
-    private RefreshListView container;
+    private XListView container;
     private Activity ctx;
     private LayoutInflater mInflater;
     private ProgressBar progressBar;
@@ -52,13 +52,14 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
     }
 
     private void iniViews() {
-        this.container = (RefreshListView)view.findViewById(R.id.post_container);
-        container.setFooterDividersEnabled(false);
-        container.getHeaderView().setBackgroundResource(R.color.light_grey);
+        this.container = (XListView)view.findViewById(R.id.post_container);
+        container.setPullLoadEnable(true);
+        //container.setFooterDividersEnabled(false);
+        //container.getHeaderView().setBackgroundResource(R.color.light_grey);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPosts);
         this.container.setAdapter(adapter);
-        this.container.setOnRefreshListener(this);
+        this.container.setXListViewListener(this);
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,8 +74,21 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
 
 
 
-    @Override
+
     public void onDownPullRefresh() {
+
+
+    }
+
+
+    public void onLoadingMore() {
+
+
+
+    }
+
+    @Override
+    public void onRefresh() {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -91,14 +105,14 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
             @Override
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
-                container.hideHeaderView();
+                onLoad();
             }
         }.execute(new Void[]{});
 
     }
 
     @Override
-    public void onLoadingMore() {
+    public void onLoadMore() {
         if(CampusBLService.hasNextLatestPost()) {
             new AsyncTask<Void, Void, Void>() {
 
@@ -112,14 +126,13 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
                 protected void onPostExecute(Void result) {
                     CampusBLService.moveLatestPosts();
                     adapter.notifyDataSetChanged();
-                    container.hideFooterView();
+                    onLoad();
+
                 }
             }.execute(new Void[]{});
         } else {
-            container.hideFooterView();
+            onLoad();
         }
-
-
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -135,5 +148,11 @@ public class LatestPostListFragment extends Fragment implements OnRefreshListene
             iniViews();
             mainLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void onLoad() {
+        container.stopRefresh();
+        container.stopLoadMore();
+        container.setRefreshTime("刚刚");
     }
 }

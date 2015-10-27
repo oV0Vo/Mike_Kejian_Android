@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.jpush.android.api.JPushInterface;
 import model.campus.Post;
 import model.user.CourseBrief;
 import util.NetOperateResultMessage;
@@ -51,6 +52,7 @@ public class CourseInfoNetService {
             for(int i=0; i<jCourseBriefs.length(); ++i) {
                 JSONObject jCourseBrief = jCourseBriefs.getJSONObject(i);
                 CourseBriefInfo courseBrief = parseCourseBriefInfo(jCourseBrief);
+
                 courseBriefs.add(courseBrief);
             }
             return courseBriefs;

@@ -21,6 +21,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+    sourceSets.main {
+        jniLibs.srcDirs = ['libs']  // <-- Set your folder here!
+    }
 }
 
 dependencies {
@@ -35,6 +38,7 @@ dependencies {
     compile files('src/main/libs/xom-1.2.8.jar')
     compile files('src/main/libs/commons-lang-2.6.jar')
     provided files('src/main/libs/commons-collections-3.2.1.jar')
+    compile files('libs/jpush-sdk-release1.8.2.jar')
 }
 
 

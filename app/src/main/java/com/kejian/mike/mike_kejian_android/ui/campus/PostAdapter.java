@@ -68,9 +68,10 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         } else {
             postViewHolder = (PostViewHolder) convertView.getTag();
         }
+        /*
 
         System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
-        //new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
+        new DownloadPicture(getContext(),postViewHolder.post_user_icon, post.getUserIconUrl(), post.getUserIconUrl());
 
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +106,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
                 }.execute(postViewHolder.userId);
             }
         });
+        */
 
 
         postViewHolder.post_title.setText(post.getTitle());

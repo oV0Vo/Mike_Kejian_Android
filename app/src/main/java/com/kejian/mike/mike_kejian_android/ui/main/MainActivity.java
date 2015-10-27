@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,8 +21,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
+import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostPublishActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment;
@@ -29,14 +33,25 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
 import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
+import com.kejian.mike.mike_kejian_android.ui.widget.MyReceiver;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.UmengRegistrar;
+import com.umeng.message.entity.UMessage;
+
+import net.course.CourseInfoNetService;
+import net.picture.MessagePrint;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import bl.UserInfoServiceMock;
+import cn.jpush.android.api.JPushInterface;
 import model.course.CourseModel;
+import model.user.CourseBrief;
 import model.user.Global;
 import model.user.UserType;
 import model.user.user;
@@ -87,6 +102,13 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initJpush();
+
+
+        new MyReceiver();
+
+        System.out.println("ID:" + JPushInterface.getRegistrationID(getApplicationContext()));
+
         title = getTitle();
 
         initNavigationDrawer();
@@ -94,13 +116,14 @@ public class MainActivity extends AppCompatActivity
         initRadioButtons();
         initPushAgent();
         initMessageNotice();
+
         fgState = FgState.COURSE;
         courseTextTab.setChecked(true);
     }
 
     //@还不是很清楚广播，所以先这样写
     private void initMessageNotice() {
-        messageNewsImage = (ImageView)findViewById(R.id.message_news_icon);
+        messageNewsImage = (ImageView) findViewById(R.id.message_news_icon);
         BroadcastReceiver messageBR = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -126,13 +149,102 @@ public class MainActivity extends AppCompatActivity
         pushAgent = PushAgent.getInstance(this);
         pushAgent.enable();
         pushAgent.onAppStart();
+        UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler(){
+            @Override
+            public void dealWithCustomAction(Context context, UMessage
+                    msg) {
+                String message=msg.extra.get("inf_type");
+                if(message.equals("INVITE")){
+                    Intent intent = new Intent();
+                    intent.setClass(context, PostDetailActivity.class);
+                    intent.putExtra("postId", msg.extra.get("postId"));
+                    getApplicationContext().startActivity(intent);
+                    MessagePrint.print("get post");
+                }
+
+
+            }
+        };
+        pushAgent.setNotificationClickHandler(notificationClickHandler);
+
+
         pushAgent.setMessageHandler(new MyUmengMessageHandler());
-        user user = (user)Global.getObjectByName("user");
-        String userId = user.getId();
+
         try {
-            pushAgent.addAlias(userId, "mike_kejian_alias_type");
-        } catch (Exception e) {
+
+            pushAgent.getTagManager().add("course_1");
+            System.out.println("um ali " + pushAgent.getTagManager().list().get(0));
+        }catch(Exception e){
             e.printStackTrace();
+        }
+
+
+        PushAgent.getInstance(getApplicationContext()).setMergeNotificaiton(false);
+
+        user user = (user)Global.getObjectByName("user");
+
+       if(user!=null) {
+           String userId = user.getId();
+           try {
+               pushAgent.addAlias(userId, "mike_kejian_alias_type");
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+       }
+        String token=UmengRegistrar.getRegistrationId(getApplicationContext());
+        System.out.println("um token " + token);
+
+    }
+
+    private void initJpush(){
+
+
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(getApplicationContext());
+
+        new SetTag().execute("");
+
+
+
+    }
+
+    //设置别名和标签
+
+    private  class SetTag extends AsyncTask<String,Integer,String>{
+
+        @Override
+        public String doInBackground(String...Para){
+
+            user user=(user)Global.getObjectByName("user");
+            String ali=null;
+
+            //设置手机别名
+            if(user!=null){
+
+                ali="user_"+user.getId();
+
+            }
+
+
+
+            ArrayList <CourseBriefInfo> list= CourseInfoNetService.getMyCourseBrief();
+            int size=list.size();
+
+            Set h=new HashSet();
+
+            for(int i=0;i<size;i++){
+
+                h.add("course_"+list.get(i).getCourseId());
+
+                MessagePrint.print("set tag :"+"course_"+list.get(i).getCourseId());
+
+
+            }
+
+            JPushInterface.setAliasAndTags(getApplicationContext(),(ali==null?"":ali),h,null);
+
+
+            return null;
         }
     }
 

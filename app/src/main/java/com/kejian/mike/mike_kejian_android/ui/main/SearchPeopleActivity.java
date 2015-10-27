@@ -60,9 +60,13 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
         SearchResult searchResult = (SearchResult)parent.getItemAtPosition(position);
         int user_id = searchResult.getId();
         String nick_name = searchResult.getTitle();
+        String real_name = searchResult.getRealName();
+        String school_identify = searchResult.getSchoolIdentify();
         Intent intent = new Intent();
         intent.putExtra("user_id",user_id+"");
         intent.putExtra("nick_name",nick_name);
+        intent.putExtra("school_identify",school_identify);
+        intent.putExtra("real_name",real_name);
         setResult(1000,intent);
         this.finish();
 
@@ -90,17 +94,18 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             SearchResult searchResult = getItem(position);
-            DownloadPicture d=new DownloadPicture(getContext()){
-
-                @Override
-                public void updateView(Bitmap bitmap) {
-
-                    viewHolder.imageView.setImageBitmap(bitmap);
-
-                }
-            };
-
-            d.getBitMapFromNet(searchResult.getIconUrl(), searchResult.getLocalIconPath());
+            DownloadPicture downloadPicture=new DownloadPicture(getContext(),viewHolder.imageView,searchResult.getIconUrl(),searchResult.getIconUrl());
+//            DownloadPicture d=new DownloadPicture(getContext()){
+//
+//                @Override
+//                public void updateView(Bitmap bitmap) {
+//
+//                    viewHolder.imageView.setImageBitmap(bitmap);
+//
+//                }
+//            };
+//
+//            d.getBitMapFromNet(searchResult.getIconUrl(), searchResult.getLocalIconPath());
 //            viewHolder.imageView.setImageResource(R.drawable.daoxu);
             viewHolder.title.setText(searchResult.getBuilder());
             return convertView;

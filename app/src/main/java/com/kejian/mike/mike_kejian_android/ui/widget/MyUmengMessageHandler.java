@@ -30,6 +30,8 @@ import com.kejian.mike.mike_kejian_android.dataType.pushMessage.ReplyPraisePushM
 import com.kejian.mike.mike_kejian_android.dataType.pushMessage.SenderInfo;
 import com.kejian.mike.mike_kejian_android.dataType.pushMessage.UserNoticePushMessage;
 
+import net.picture.MessagePrint;
+
 import model.message.MessageType;
 
 /**
@@ -51,68 +53,95 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
 
     @Override
     public void dealWithNotificationMessage(Context context, UMessage msg) {
-        Log.i(TAG, "message arrive" + msg.text);
-        UTrack.getInstance(context).trackMsgClick(msg);
 
-        SenderInfo senderInfo = null;
-        ReceiverInfo receiverInfo = null;
-        Date time = null;
-        InfoType infoType = null;
-        String messageContent = null;
+        MessagePrint.print("message arrive");
+
         Map<String, String> args = msg.extra;
-        if(args == null) {
-            Log.i(TAG, "arg null!");
-            return;
-        } else {
-            Log.i(TAG, Integer.toString(msg.extra.keySet().size()));
+        String inf=args.get("inf_type");
+
+        MessagePrint.print("inf_type "+inf);
+
+//        Log.i(TAG, "message arrive" + msg.text);
+//        UTrack.getInstance(context).trackMsgClick(msg);
+//
+//        SenderInfo senderInfo = null;
+//        ReceiverInfo receiverInfo = null;
+//        Date time = null;
+//        InfoType infoType = null;
+//        String messageContent = null;
+//        Map<String, String> args = msg.extra;
+//        if(args == null) {
+//            Log.i(TAG, "arg null!");
+//            return;
+//        }
+//
+//        for(Map.Entry<String, String> entry: args.entrySet()) {
+//            String value = entry.getValue();
+//
+//            System.out.println("value "+value);
+//            switch (entry.getKey()) {
+//                case ARG_SENDER_INFO_KEY:
+//                    MessagePrint.print("sender info");
+//                    senderInfo = parseSenderInfo(value);
+//
+//                    break;
+//                case ARG_RECEIVER_INFO_KEY:
+//                    MessagePrint.print("receiver info");
+//                    receiverInfo = parseReceiverInfo(value);
+//                    break;
+//                case ARG_TIME:
+//                    MessagePrint.print("time");
+//                    time = parseTime(value);
+//                    break;
+//                case ARG_INF_TYPE:
+//                    MessagePrint.print("type");
+//                    infoType = parseInfoType(value);
+//                    break;
+//                case ARG_CONTENT:
+//                    MessagePrint.print("sender info");
+//                    //有可能因为参数顺序不对然后infoType没有从而不能解析，所以解析决定留到后面
+//                    messageContent = value;
+//                    break;
+//                default:
+//                    Log.e(TAG, "unable to parse key " + entry.getKey());
+//                    break;
+//
+//            }
+//        }
+//
+//        PushMessage pushMessage = parseMessageContent(messageContent, infoType);
+//        if(pushMessage  == null) {
+//            Log.i(TAG, "pushMessage null!");
+//        }
+//        if(pushMessage == null || receiverInfo == null || senderInfo == null) {
+//            return;
+//        }
+//        pushMessage.setReceiverInfo(receiverInfo);
+//        pushMessage.setSenderInfo(senderInfo);
+//        pushMessage.setTime(time);
+
+        switch (inf){
+            case "LIKE":
+                sendBroacast(context, InfoType.LIKE);
+                break;
+            case "INVITE":
+                //sendBroacast(context, InfoType.INVITE);
+                break;
+            case "ANNOUNCE_TE":
+                sendBroacast(context, InfoType.ANNOUCE_TE);
+                break;
+            case "AT":
+                sendBroacast(context, InfoType.AT);
+                break;
+            case "REPLY":
+                sendBroacast(context, InfoType.REPLY);
+                break;
         }
 
-        for(Map.Entry<String, String> entry: args.entrySet()) {
-            String value = entry.getValue();
-            switch (entry.getKey()) {
-                case ARG_SENDER_INFO_KEY:
-                    senderInfo = parseSenderInfo(value);
-                    break;
-                case ARG_RECEIVER_INFO_KEY:
-                    receiverInfo = parseReceiverInfo(value);
-                    break;
-                case ARG_TIME:
-                    time = parseTime(value);
-                    break;
-                case ARG_INF_TYPE:
-                    infoType = parseInfoType(value);
-                    break;
-                case ARG_CONTENT:
-                    //有可能因为参数顺序不对然后infoType没有从而不能解析，所以解析决定留到后面
-                    messageContent = value;
-                    break;
-                default:
-                    Log.e(TAG, "unable to parse key " + entry.getKey());
-                    break;
 
-            }
-        }
-
-        PushMessage pushMessage = parseMessageContent(messageContent, infoType);
-        if(pushMessage  == null) {
-            Log.i(TAG, "pushMessage null!");
-        }
-        if(pushMessage == null || receiverInfo == null || senderInfo == null) {
-            if(receiverInfo == null)
-                Log.i(TAG, "receiverInfo null");
-            if(senderInfo == null)
-                Log.i(TAG, "senderInfo null");
-            return;
-        }
-        pushMessage.setReceiverInfo(receiverInfo);
-        pushMessage.setSenderInfo(senderInfo);
-        pushMessage.setTime(time);
-
-        sendBroacast(context, infoType);
     }
 
     private void sendBroacast(Context context, InfoType infoType) {
-        Log.i(TAG, "sendBroacast");
         Intent messageIncreIntent = new Intent(ReceiverActions.increment_action);
         boolean isMessageNotice = false;
         //AT, ANNOUCE_TE, ANNOUCE_AD, ATTENTION, COMMENT, FOLLOW, LIKE, IDOL_POST, REPLY, INVITE
@@ -130,7 +159,7 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
                 messageIncreIntent.putExtra(ARG_MESSAGE_TYPE, MessageType.praise);
                 isMessageNotice = true;
                 break;
-            case IDOL_POST:
+            case REPLY:
                 messageIncreIntent.putExtra(ARG_MESSAGE_TYPE, MessageType.reply);
                 isMessageNotice = true;
                 break;
@@ -139,10 +168,9 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
                 break;
 
         }
-        messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
+       // messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
         LocalBroadcastManager.getInstance(context).sendBroadcast(messageIncreIntent);
         if(isMessageNotice) {
-            Log.i(TAG, "sendMessageNotice");
             Intent messageNoticeIntent = new Intent(UmengMessageAction.NEW_MESSAGE_ACTION);
             LocalBroadcastManager.getInstance(context).sendBroadcast(messageNoticeIntent);
         }

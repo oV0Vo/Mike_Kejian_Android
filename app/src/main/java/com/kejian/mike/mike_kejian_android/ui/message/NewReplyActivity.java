@@ -178,17 +178,18 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
                 viewHolder = (ViewHolder)convertView.getTag();
             }
             Reply reply = getItem(position);
-            DownloadPicture d=new DownloadPicture(getContext()){
-
-                @Override
-                public void updateView(Bitmap bitmap) {
-
-                    viewHolder.avatar_view.setImageBitmap(bitmap);
-
-                }
-            };
-
-            d.getBitMapFromNet(reply.getIconUrl(), reply.getLocalIconPath());
+            DownloadPicture downloadPicture = new DownloadPicture(getContext(),viewHolder.avatar_view,reply.getIconUrl(),reply.getIconUrl());
+//            DownloadPicture d=new DownloadPicture(getContext()){
+//
+//                @Override
+//                public void updateView(Bitmap bitmap) {
+//
+//                    viewHolder.avatar_view.setImageBitmap(bitmap);
+//
+//                }
+//            };
+//
+//            d.getBitMapFromNet(reply.getIconUrl(), reply.getLocalIconPath());
 //            viewHolder.avatar_view.setImageResource(R.drawable.xiaoxin);
             viewHolder.replyer_view.setText(reply.getReplyer());
             viewHolder.post_view.setText(reply.getPost());

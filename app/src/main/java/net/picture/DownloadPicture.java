@@ -10,8 +10,13 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Handler;
 
 /**
@@ -20,8 +25,11 @@ import java.util.logging.Handler;
 public class DownloadPicture {
 
     private Context context;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private ImageView imageView;
+    private static Hashtable<String,SoftReference<Bitmap>> memoryCache = new Hashtable<>();
+    public static int maxMapSize = 500;
+    private static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     public DownloadPicture(Context context){
 
@@ -44,46 +52,23 @@ public class DownloadPicture {
 
     public Bitmap getBitMapFromNet(String url,String picturePath){
 
-        if(picturePath!=null&&(!picturePath.equals(""))) {
-
-            picturePath = picturePath.replaceAll("\\/", "#");
-            picturePath = picturePath.replaceAll("\\.", "#");
-
-        }
-        else{
-            picturePath="temp";
-        }
-
-        File  file=new File("/sdcard/mike/user/"+picturePath);
-        Bitmap bitmap=null;
-
-        try {
-
-            FileInputStream inputStream = new FileInputStream(file);
-
-            BitmapFactory.Options b=new BitmapFactory.Options();
-            b.inSampleSize=2;
-            bitmap=BitmapFactory.decodeStream(inputStream,null,b);
-
-        }catch (Exception e){
-
-            e.printStackTrace();
-        }
-
-        if(bitmap!=null){
-
-            System.out.println("get bitmap from local");
-
-            return bitmap;
-
-        }
 
 
         MessagePrint.print("Start getBitMapFromNet");
 
+        if(memoryCache.containsKey(picturePath)){
+            SoftReference<Bitmap> softReference = memoryCache.get(picturePath);
+            bitmap = softReference.get();
+            if(bitmap != null){
+                return null;
+            }
+        }
+
         Thread task=new Thread(new DownloadPicTask(url,picturePath));
 
-        task.start();
+        cachedThreadPool.execute(task);
+
+//        task.start();
 
         return null;
 
@@ -92,19 +77,65 @@ public class DownloadPicture {
     private class DownloadPicTask implements   Runnable{
 
         private String picUrl;
-        private String picPath;
+        private String picturePath;
 
         public DownloadPicTask(String url,String path){
 
             MessagePrint.print("Start Download pic");
 
-            this.picPath=path;
+            this.picturePath=path;
             this.picUrl=url;
 
         }
 
 
         public void run(){
+
+            if(picturePath!=null&&(!picturePath.equals(""))) {
+
+                picturePath = picturePath.replaceAll("\\/", "#");
+                picturePath = picturePath.replaceAll("\\.", "#");
+
+            }
+            else{
+                picturePath="temp";
+            }
+
+            File  file=new File("/sdcard/mike/user/"+picturePath);
+
+
+            try {
+
+                FileInputStream inputStream = new FileInputStream(file);
+
+                BitmapFactory.Options b=new BitmapFactory.Options();
+                b.inSampleSize=7;
+                bitmap=BitmapFactory.decodeStream(inputStream,null,b);
+                if(memoryCache.size() > maxMapSize){
+                    //超过数量直接清空
+                    memoryCache.clear();
+                }
+                SoftReference<Bitmap> softReference = new SoftReference<Bitmap>(bitmap);
+                memoryCache.put(picturePath,softReference);
+                inputStream.close();
+
+            }catch (Exception e){
+
+                e.printStackTrace();
+            }
+
+            if(bitmap!=null){
+
+                System.out.println("get bitmap from local");
+                UIHandler handler=new UIHandler(context.getMainLooper());
+
+                Message message=handler.obtainMessage(1,1,1,1);
+
+                handler.sendMessage(message);
+                return ;
+
+            }
+
 
             MessagePrint.print("Start Download pic");
 
@@ -125,7 +156,12 @@ public class DownloadPicture {
                 bit.inSampleSize=4;
 
                  bitmap= BitmapFactory.decodeStream(inputStream);
-
+                if(memoryCache.size() > maxMapSize){
+                    //超过数量直接清空
+                    memoryCache.clear();
+                }
+                SoftReference<Bitmap> softReference = new SoftReference<Bitmap>(bitmap);
+                memoryCache.put(picturePath,softReference);
 
 
             }catch(Exception e){
@@ -134,7 +170,7 @@ public class DownloadPicture {
 
             MessagePrint.print("save the pic to local ");
 
-            PictureToFile.bitmapToFile(bitmap, picPath);
+            PictureToFile.bitmapToFile(bitmap, picturePath);
 
 
             UIHandler handler=new UIHandler(context.getMainLooper());
@@ -158,6 +194,11 @@ public class DownloadPicture {
     public void updateView(Bitmap bitmap){
 
         MessagePrint.print("Start update view");
+
+    }
+    public void updateView(ImageView imageView){
+
+        imageView.setImageBitmap(bitmap);
 
     }
     private class UIHandler extends android.os.Handler{
