@@ -31,18 +31,19 @@ public class SearchResult {
     private String localIconPath;
 
     public void setStringBuilder(String key){
-        int start = this.title.toLowerCase().indexOf(key.toLowerCase());
-        int len = this.title.length();
+        String tmp_title = this.title;
+        int start = tmp_title.toLowerCase().indexOf(key.toLowerCase());
+        int len = tmp_title.length();
         if(start == -1){
 
             if(len >= 17){
-                title = title.substring(0,16)+"..";
+                tmp_title = tmp_title.substring(0,16)+"..";
             }
-            this.builder = new SpannableStringBuilder(this.title);
+            this.builder = new SpannableStringBuilder(tmp_title);
         }else{
             ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.RED);
             if(key.length() >= 17){
-                title = ".."+key.substring(0,16)+"..";
+                tmp_title = ".."+key.substring(0,16)+"..";
                 key = key.substring(0,16);
                 start = 2;
             }else{
@@ -50,16 +51,16 @@ public class SearchResult {
                     int offset = (16-key.length())/2;
                     if(start+key.length()-1+offset >= len-1 ){
                         start = start - len +18;
-                        title = ".."+title.substring(len-16,len);
+                        tmp_title = ".."+tmp_title.substring(len-16,len);
                     }else if(start - offset <=0){
-                        title = title.substring(0,16)+"..";
+                        tmp_title = tmp_title.substring(0,16)+"..";
                     }else{
-                        title = ".."+title.substring(start-offset,start+offset+key.length())+"..";
+                        tmp_title = ".."+tmp_title.substring(start-offset,start+offset+key.length())+"..";
                         start = offset+2;
                     }
                 }
             }
-            this.builder = new SpannableStringBuilder(this.title);
+            this.builder = new SpannableStringBuilder(tmp_title);
             this.builder.setSpan(redSpan,start,start+key.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
