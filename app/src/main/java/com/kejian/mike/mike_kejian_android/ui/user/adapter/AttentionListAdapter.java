@@ -105,7 +105,7 @@ public class AttentionListAdapter extends BaseAdapter {
 
                 CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.photoView);
 
-                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,friend.getIcon(),"");
+                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,friend.getIcon(),friend.getIcon());
 
                 TextView textView=(TextView)v.findViewById(R.id.nameView);
 
@@ -153,7 +153,7 @@ public class AttentionListAdapter extends BaseAdapter {
                 });
 
 
-                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,courseBrief.getIcon(),"");
+                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,courseBrief.getIcon(),courseBrief.getIcon());
 
 
             }
@@ -181,7 +181,7 @@ public class AttentionListAdapter extends BaseAdapter {
                 });
 
 
-                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,postBrief.getUserIcon(),"");
+                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,postBrief.getUserIcon(),postBrief.getUserIcon());
 
                 }
             }

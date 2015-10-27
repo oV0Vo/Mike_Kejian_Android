@@ -159,7 +159,7 @@
                 android:gravity="right"
                 android:layout_marginRight="20dp">
                 <TextView
-                    android:id="@+id/unread_newReply_number"
+                    android:id="@+id/peopleNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -226,7 +226,7 @@
                 android:gravity="right"
                 android:layout_marginRight="20dp">
                 <TextView
-                    android:id="@+id/unread_newPraise_number"
+                    android:id="@+id/courseNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -280,7 +280,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="他的帖子"
+                    android:text="他关注的帖子"
 
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
@@ -293,7 +293,7 @@
                 android:gravity="right"
                 android:layout_marginRight="20dp">
                 <TextView
-                    android:id="@+id/unread_mentionMe_number"
+                    android:id="@+id/postNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 

@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/other_state_list"
         android:divider="#321f0409"
-        android:dividerHeight="10dp"
+        android:dividerHeight="2dp"
         ></com.kejian.mike.mike_kejian_android.ui.message.RefreshListView>
 
 

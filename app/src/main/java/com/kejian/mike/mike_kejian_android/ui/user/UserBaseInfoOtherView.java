@@ -21,6 +21,9 @@ import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 import net.UserNetService;
 import net.picture.DownloadPicture;
 
+import java.util.ArrayList;
+
+import model.user.Friend;
 import model.user.Global;
 import model.user.user;
 
@@ -42,6 +45,9 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
     private TextView department;
     private TextView major;
     private TextView grade;
+    private TextView postNum;
+    private TextView courseNum;
+    private TextView peopleNum;
     private CircleImageView circleImageView;
 
     protected void onCreate(Bundle savedInstanceState){
@@ -50,7 +56,14 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         setContentView(R.layout.fragment_user_info_otherview);
         friend=(user)getIntent().getSerializableExtra("friend");
         context=this;
+
+        String friendId=friend.getId();
+        String userId=((user)Global.getObjectByName("user")).getId();
         initViews();
+        new haveConnection().execute(userId, friendId);
+        new initNum().execute(friendId);
+
+
 
 
      //   AppManager.getAppManager().addActivity(this);
@@ -112,6 +125,10 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         major=(TextView)findViewById(R.id.otherMajor);
         grade=(TextView)findViewById(R.id.otherMajor);
         circleImageView=(CircleImageView)findViewById(R.id.other_user_photo_view);
+
+        postNum=(TextView)findViewById(R.id.postNum);
+        courseNum=(TextView)findViewById(R.id.courseNum);
+        peopleNum=(TextView)findViewById(R.id.peopleNum);
 
         DownloadPicture downloadPicture=new DownloadPicture(this,circleImageView,friend.getIcon(),"");
 
@@ -181,6 +198,30 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
 
     }
 
+    private  class initNum extends  AsyncTask<String,Integer,Integer[]>{
+
+        @Override
+        public Integer[] doInBackground(String...Para){
+
+            Integer[] list=new Integer[3];
+
+            list[0]=UserNetService.getAttentionPeople(Para[0]).size();
+            list[1]=UserNetService.getAttentionCourse(Para[0]).size();
+            list[2]=UserNetService.getAttentionPost(Para[0]).size();
+            return list;
+        }
+
+        @Override
+        public void onPostExecute(Integer[] list){
+
+            peopleNum.setText(list[0]+"");
+            courseNum.setText(list[1]+"");
+            postNum.setText(list[2]+"");
+
+
+        }
+    }
+
     private  class LoadInfo extends  AsyncTask<String,Integer,String>{
 
         public String doInBackground(String...Para){
@@ -201,7 +242,62 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
 
             if(result){
 
+
+
                 Toast.makeText(context,"关注成功",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    private class haveConnection extends AsyncTask<String,Integer,Boolean>{
+
+        @Override
+        public Boolean doInBackground(String...Para){
+
+            ArrayList<Friend> list=UserNetService.getAttentionPeople(Para[0]);
+
+            int size=list.size();
+
+            for(int i=0;i<size;i++){
+                if(list.get(i).getId().equals(Para[1]))
+                    return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onPostExecute(Boolean result){
+
+            if(result){
+                button.setText("取消关注");
+                button.setOnClickListener(new View.OnClickListener() {
+                    user u=(user) Global.getObjectByName("user");
+                    @Override
+                    public void onClick(View v) {
+
+                        new unattention().execute(u.getId(),"PEOPLE",friend.getId());
+
+
+
+                    }
+                });
+            }
+            else{
+
+                button.setText("关注");
+                button.setOnClickListener(new View.OnClickListener() {
+                    user u = (user) Global.getObjectByName("user");
+
+                    @Override
+                    public void onClick(View v) {
+
+                        new attention().execute(u.getId(), "PEOPLE", friend.getId());
+
+
+                    }
+                });
+
             }
 
         }

@@ -228,6 +228,11 @@ public class UserNetService {
 
         String userData = httpRequest.sentGetRequest(baseUrl+"login/",par);
 
+        if(userData==null){
+
+            return null;
+        }
+
 
 
 
