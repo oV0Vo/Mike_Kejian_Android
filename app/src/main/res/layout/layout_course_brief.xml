@@ -32,7 +32,8 @@
             android:paddingLeft="@dimen/big_padding"
             android:paddingBottom="@dimen/over_medium_padding"
             android:textColor="@color/green"
-            android:textSize="@dimen/big_font"/>
+            android:textSize="@dimen/big_font"
+            android:singleLine="true"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

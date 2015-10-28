@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import bl.AcademyBLService;
-import com.kejian.mike.mike_kejian_android.dataType.course.CourseType;
 import model.course.CourseModel;
 
 /**
@@ -50,10 +48,10 @@ public class CourseListContainerFragment extends Fragment {
 
     private void createListFragment() {
         FragmentManager fm = getChildFragmentManager();
-        CourseListFragment fg= (CourseListFragment)fm.findFragmentById(R.id.main_course_course_list);
+        CourseListFragment fg= (CourseListFragment)fm.findFragmentById(R.id.main_course_list_container);
         if(fg == null) {
             fg = new CourseListFragment();
-            fm.beginTransaction().add(R.id.main_course_course_list, fg).commit();
+            fm.beginTransaction().add(R.id.main_course_list_container, fg).commit();
         }
         courseListFg = fg;
     }

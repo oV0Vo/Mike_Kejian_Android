@@ -63,24 +63,4 @@ public class CourseTeacherNetService {
         }
     }
 
-/*
-    public static final boolean addTeacher(String courseId, String teacherId) {
-        String url = BASE_URL + "setTeacher";
-        HashMap<String, String> paraMap = new HashMap<String, String>();
-        paraMap.put("userId", teacherId);
-        paraMap.put("courseId", courseId);
-
-        String responseContent = http.sentGetRequest(url, paraMap);
-        return true;
-    }
-
-    public static final boolean deleteTeacher(String courseId, String teacherId) {
-        String url = BASE_URL + "unsignTeacher";
-        HashMap<String, String> paraMap = new HashMap<String, String>();
-        paraMap.put("userId", teacherId);
-        paraMap.put("courseId", courseId);
-
-        String responseContent = http.sentGetRequest(url, paraMap);
-        return true;
-    }*/
 }
