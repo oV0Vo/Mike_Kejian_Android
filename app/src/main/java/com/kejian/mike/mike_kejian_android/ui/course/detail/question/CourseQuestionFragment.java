@@ -68,7 +68,7 @@ public class CourseQuestionFragment extends Fragment {
 
     public void initView() {
         if(getContext() == null) {
-            Log.e(TAG, "attach no activity");
+            Log.i(TAG, "attach no activity");
             return;
         }
         if(mainLayout == null) {

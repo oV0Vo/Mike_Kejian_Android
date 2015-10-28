@@ -38,7 +38,7 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
             Log.i(TAG, "initView fg null");
             return;
         }
-        Log.e(TAG, "initView");
+        Log.i(TAG, "initView");
         postFg.initView();
         questionFg.initView();
     }
