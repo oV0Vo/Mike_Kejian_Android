@@ -23,6 +23,12 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/medium_font"
             android:textStyle="bold"/>
+        
+        <ImageView
+            android:id="@+id/new_notice_image"
+            android:layout_width="@dimen/new_icon_width"
+            android:layout_height="@dimen/new_icon_height"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <TextView

@@ -85,6 +85,9 @@
     <dimen name="quiz_icon_height">40dp</dimen>
     <dimen name="half_quiz_icon_height">20dp</dimen>
 
+    <dimen name="new_icon_width">40dp</dimen>
+    <dimen name="new_icon_height">20dp</dimen>
+
     <dimen name="color_bar_width">180dp</dimen>
     <dimen name="color_bar_height">10dp</dimen>
 

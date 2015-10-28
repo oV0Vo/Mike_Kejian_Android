@@ -26,9 +26,10 @@
                 android:background="@color/white">
 
                 <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
+                    android:id="@+id/user_image"
                     android:layout_width="@dimen/over_big_icon_size"
                     android:layout_height="@dimen/over_big_icon_size"
-                    android:src="@drawable/xiaoxin"/>
+                    android:src="@drawable/default_user"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -121,7 +121,8 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
             titleText.setText(annouc.getTitle());
             if(position == 0) {
                 ViewGroup titleLayout = (ViewGroup)convertView.findViewById(R.id.annouc_title_layout);
-                titleLayout.addView(getIsNewAnnoucImage());
+                ImageView newNoticeImage = (ImageView)titleLayout.findViewById(R.id.new_notice_image);
+                newNoticeImage.setVisibility(View.VISIBLE);
             }
 
             TextView contentText = (TextView)convertView.findViewById(R.id.annouc_content_text);
@@ -137,10 +138,5 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
 
         }
 
-        private ImageView getIsNewAnnoucImage() {
-            ImageView image = new ImageView(AnnoucListActivity.this);
-            image.setBackgroundResource(R.drawable.new_image);
-            return image;
-        }
     }
 }

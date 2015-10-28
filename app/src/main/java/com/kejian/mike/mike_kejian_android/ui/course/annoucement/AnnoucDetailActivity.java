@@ -6,12 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.ui.util.MyImageCache;
 
 import net.course.CourseAnnoucNetService;
 
@@ -33,6 +38,13 @@ public class AnnoucDetailActivity extends AppCompatActivity {
 
         CourseModel courseModel = CourseModel.getInstance();
         annouc = courseModel.getCurrentFocusAnnouc();
+
+        ImageView userImage = (ImageView)findViewById(R.id.user_image);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        ImageLoader imageLoader = new ImageLoader(requestQueue, MyImageCache.getInstance(this));
+        ImageLoader.ImageListener imageListener = imageLoader.getImageListener(userImage,
+                R.drawable.default_user, R.drawable.default_user);
+        String userImageUrl = annouc.getPersonId();
 
         TextView authorNameText = (TextView)findViewById(R.id.author_name_text);
         authorNameText.setText(annouc.getPersonName());
