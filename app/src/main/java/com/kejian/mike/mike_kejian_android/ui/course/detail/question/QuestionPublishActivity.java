@@ -312,7 +312,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 CurrentQuestion currentQuestion = new CurrentQuestion(question, timeLimit);
                 new SubmitQuestionTask().execute(currentQuestion);
                 Toast.makeText(QuestionPublishActivity.this, R.string.on_process,
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 commitButton.setEnabled(false);
                 commitButton.setBackgroundColor(getResources().getColor(R.color.dark));
                 return;
@@ -334,7 +334,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             int correctChoice = getSingleCorrectChoice();
             if(correctChoice < 0) {
                 Toast.makeText(QuestionPublishActivity.this, R.string.question_publish_no_choice,
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -349,7 +349,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             ArrayList<Integer> correctChoices = getMultiCorrectChoice();
             if(correctChoices.size() == 0) {
                 Toast.makeText(QuestionPublishActivity.this, R.string.question_publish_no_choice,
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -406,11 +406,11 @@ public class QuestionPublishActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean success) {
             if(success) {
                 Toast.makeText(QuestionPublishActivity.this, R.string.question_publish_success_message,
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 QuestionPublishActivity.this.finish();
             } else {
                 Toast.makeText(QuestionPublishActivity.this, R.string.net_disconnet,
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 commitButton.setEnabled(true);
                 commitButton.setBackgroundColor(getResources().getColor(R.color.green));
             }

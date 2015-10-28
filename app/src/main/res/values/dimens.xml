@@ -22,6 +22,7 @@
     <dimen name="over_small_size">9dp</dimen>
     <dimen name="over_over_small_size">12dp</dimen>
     <dimen name="medium_size">18dp</dimen>
+    <dimen name="over_medium_size">21dp</dimen>
     <dimen name="big_size">30dp</dimen>
     <dimen name="extreme_big_size">42dp</dimen>
 

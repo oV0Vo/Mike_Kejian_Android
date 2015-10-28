@@ -216,12 +216,7 @@ public class CourseModel {
     }
 
     public ArrayList<CurrentQuestion> getCurrentQuestions() {
-        //目前界面上涉及时钟计数的有些问题，用多个的话可能会出现界面上的bug
-        ArrayList<CurrentQuestion> questions = new ArrayList<CurrentQuestion>();
-        ArrayList<CurrentQuestion> currentQuestions = currentCourse.currentQuestions;
-        if(currentQuestions != null && currentQuestions.size() != 0)
-            questions.add(currentQuestions.get(0));
-        return questions;
+        return currentCourse.currentQuestions;
     }
 
     @NeedAsyncAnnotation
@@ -275,7 +270,7 @@ public class CourseModel {
     }
 
     public UserTypeInCourse getUserTypeInCurrentCourse() {
-        return currentUserType;
+        return UserTypeInCourse.TEACHER;
     }
 
     @NeedAsyncAnnotation
@@ -388,7 +383,7 @@ public class CourseModel {
         public ArrayList<CurrentQuestion> updateCurrentQuestions(int time, TimeUnit timeUnit) {
             ArrayList<CurrentQuestion> newInfos = CourseQuestionNetService.getCurrentQuestions(courseId);
             if(newInfos != null) {
-                historyQuestions.clear();
+                currentQuestions.clear();
                 currentQuestions.addAll(newInfos);
             }
             return newInfos;

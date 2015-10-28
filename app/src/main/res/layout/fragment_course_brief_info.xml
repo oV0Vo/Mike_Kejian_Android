@@ -57,24 +57,20 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/medium_padding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/small_size">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/big_padding"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/right" />
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:textColor="@color/green"
+                android:textSize="@dimen/medium_font"
+                android:text="@string/show_more"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </LinearLayout>

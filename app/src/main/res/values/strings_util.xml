@@ -7,4 +7,6 @@
     <string name="put_on_top">置顶</string>
     <string name="exit_edit">退出编辑</string>
     <string name="not_implemented">很抱歉，本功能暂未实现~</string>
+    <string name="zan_wu">暂无</string>
+    <string name="show_more">更多</string>
 </resources>

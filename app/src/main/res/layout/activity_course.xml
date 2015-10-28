@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/course_detail_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:visibility="gone">
 
         <FrameLayout
@@ -20,16 +19,18 @@
         <FrameLayout
             android:id="@+id/course_detail_annoucement_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/course_detail_brief_info_container">
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/course_detail_post_and_question_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_below="@id/course_detail_annoucement_container">
         </FrameLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/course_progress_bar"

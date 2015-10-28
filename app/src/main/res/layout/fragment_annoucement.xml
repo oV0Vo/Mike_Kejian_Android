@@ -22,12 +22,16 @@
         android:text="@string/net_disconnet"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/empty_text"
+        style="@style/empty_text_style"
+        android:text="@string/course_no_outline"
+        android:visibility="gone"/>
+
     <LinearLayout
-        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="invisible">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,11 +61,13 @@
 
 
         <LinearLayout
+            android:id="@+id/annouc_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/course_detail_annoucement_content"

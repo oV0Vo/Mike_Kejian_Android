@@ -18,6 +18,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
 import model.course.CourseModel;
 import util.GetBitmapByPinyin;
+import util.StringUtil;
 
 /**
  */
@@ -51,8 +52,9 @@ public class CourseBriefInfoFragment extends Fragment {
         academyView.setText(courseDetailInfo.getAccademyName());
 
         TextView teacherView = (TextView)layoutView.findViewById(R.id.course_detail_brief_teacher_text);
-        String teacherNames = getMergeTeacherName();
-        teacherView.setText(teacherNames);
+        ArrayList<String> teacherNames = courseDetailInfo.getTeacherNames();
+        String teacherNameStr = StringUtil.toString(teacherNames, " ");
+        teacherView.setText(teacherNameStr);
 
         layoutView.setOnClickListener(new onViewClickListener());
 
@@ -63,21 +65,6 @@ public class CourseBriefInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         layoutView = inflater.inflate(R.layout.fragment_course_brief_info, container, false);
         return layoutView;
-    }
-
-    private String getMergeTeacherName() {
-        CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
-        if(courseDetail != null) {
-            ArrayList<String> teacherNames = courseDetail.getTeacherNames();
-            String mergeName = new String();
-            for(String teacherName: teacherNames)
-                mergeName.concat(teacherName);
-            return mergeName;
-        } else {
-            return "";
-        }
-
-
     }
 
     @Override

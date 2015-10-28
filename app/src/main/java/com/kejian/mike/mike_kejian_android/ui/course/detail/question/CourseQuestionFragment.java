@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuestion;
 import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
 import net.course.CourseQuestionNetService;
@@ -42,8 +44,7 @@ public class CourseQuestionFragment extends Fragment {
     private ViewGroup mainLayout;
     private TextView historyEmptyText;
 
-    private ListView currentListView;
-    private CurrentAdapter currentAdapter;
+    private ViewGroup currentQuestionContainer;
 
     private ListView historyListView;
     private HistoryAdapter historyAdapter;
@@ -67,32 +68,113 @@ public class CourseQuestionFragment extends Fragment {
     }
 
     public void initView() {
-        if(getContext() == null) {
-            Log.i(TAG, "attach no activity");
-            return;
-        }
-        if(mainLayout == null) {
-            Log.e(TAG, "initView call on illegal state!");
-            return;
-        }
-        Log.e(TAG, "initView");
-        initCurrentAdpater();
-        initHistoryAdapter();
+        //by default do nothing
     }
 
-    private void initCurrentAdpater() {
-        ArrayList<CurrentQuestion> currentQuestions = courseModel.getCurrentQuestions();
-        if(currentQuestions.size() == 0) {
-            taskCountDown += 1;
-            new UpdateCurrentQuestionTask().execute();
-        }
+    private void initCurrentQuestionContainer() {
+        if(getContext() == null)
+            return;
 
-        currentAdapter = new CurrentAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                currentQuestions);
-        currentListView.setAdapter(currentAdapter);
+        ArrayList<CurrentQuestion> currentQuestions = courseModel.getCurrentQuestions();
+        if(currentQuestions.size() != 0) {
+            currentQuestionContainer.removeAllViews();
+            clearTimerThreads();
+            for(CurrentQuestion currentQuestion: currentQuestions) {
+                View newQuestionView = createCurrentQuestionView(currentQuestion);
+                currentQuestionContainer.addView(newQuestionView);
+            }
+        }
+    }
+
+    private View createCurrentQuestionView(CurrentQuestion currentQuestion) {
+        View convertView = LayoutInflater.from(getContext()).inflate(R.layout.
+                layout_current_question, null);
+
+        TextView contentText = initContentText(convertView, currentQuestion.getQuestion());
+
+        initTextExpandLayout(convertView, contentText);
+
+        UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
+        TextView actionText = initActionText(convertView, userType, currentQuestion.getQuestion());
+
+        long leftMillis = currentQuestion.getLeftMills();
+        initLeftTimeText(convertView, actionText, leftMillis, userType, currentQuestion.getQuestion());
+
+        return convertView;
+    }
+
+
+    private TextView initContentText(View convertView, BasicQuestion questionInfo) {
+        TextView contentText = (TextView)convertView.findViewById(R.id.current_question_content);
+        String content = questionInfo.getContent();
+        if(questionInfo instanceof ChoiceQuestion) {
+            StringBuilder strBuilder = new StringBuilder(content);
+            ChoiceQuestion choiceQuestion = (ChoiceQuestion)questionInfo;
+            ArrayList<String> choiceContents = choiceQuestion.getChoiceContents();
+            for(int i=0; i<choiceContents.size(); ++i) {
+                strBuilder.append("\n");
+                strBuilder.append("  ");
+                String indexStr = Character.toString((char)('A' + i));
+                Log.i(TAG, "question choice " + indexStr);
+                strBuilder.append(indexStr);
+                strBuilder.append("  ");
+                String choiceContent = choiceContents.get(i);
+                strBuilder.append(choiceContent);
+            }
+            content = strBuilder.toString();
+        }
+        Log.i(TAG, "question content " + contentText);
+        contentText.setText(content);
+        return contentText;
+    }
+
+    private void initTextExpandLayout(View convertView, TextView contentText) {
+        ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);
+        TextView zhankaiText = (TextView)convertView.findViewById(R.id.zhankai_text);
+        ImageView zhankaiImage = (ImageView)convertView.findViewById(R.id.zhankai_image);
+        TextExpandListener textExpandListener = new TextExpandListener(contentText, zhankaiText,
+                zhankaiImage, 3);
+        zhankaiLayout.setOnClickListener(textExpandListener);
+    }
+
+    private TextView initActionText(View convertView, UserTypeInCourse userType,
+                                    BasicQuestion question) {
+        TextView actionText = (TextView)convertView.findViewById(R.id.action_text);
+        switch(userType) {
+            case TEACHER:
+                actionText.setOnClickListener(new ShutDownQuestionClickListener(question, actionText));
+                actionText.setText(R.string.shut_down_question_text);
+                break;
+            case STUDENT:
+                actionText.setOnClickListener(new AnswerQuestionClickListener(question));
+                actionText.setText(R.string.answer_question_text);
+                break;
+            case ASSISTANT:
+                actionText.setOnClickListener(new ShutDownQuestionClickListener(question, actionText));
+                actionText.setText(R.string.shut_down_question_text);
+                break;
+            case VISITOR:
+                actionText.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
+        return actionText;
+    }
+
+    private void initLeftTimeText(View convertView, TextView actionText, long leftMills,
+                                  UserTypeInCourse userType, BasicQuestion question) {
+        TextView leftTimeText = (TextView)convertView.findViewById(R.id.
+                current_question_countdown_time_text);
+        CountDownTimer timer = new MyCountDownTimer(leftTimeText, actionText, question,
+                userType, leftMills, 1000L);
+        appendNewTimer(timer);
     }
 
     private void initHistoryAdapter() {
+        if(getContext() == null)
+            return;
+
         ArrayList<BasicQuestion> historyQuestion = courseModel.getHistoryQuestions();
         if (historyQuestion.size() == 0) {
             taskCountDown += 1;
@@ -117,6 +199,7 @@ public class CourseQuestionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView");
         View v = inflater.inflate(R.layout.fragment_course_question, container, false);
 
         mainLayout = (ViewGroup)v.findViewById(R.id.course_question_main_layout);
@@ -130,16 +213,45 @@ public class CourseQuestionFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         }
 
+        currentQuestionContainer = (ViewGroup)v.findViewById(R.id.current_question_container);
         historyListView = (ListView)v.findViewById(R.id.history_question_list);
-
-        currentListView = (ListView)v.findViewById(R.id.current_question_list_view);
+        if(courseModel.getUserTypeInCurrentCourse() == null) {
+            new InitUserTypeTask().execute();
+        } else {
+            initHistoryAdapter();
+            taskCountDown++;
+            new UpdateCurrentQuestionTask().execute();
+        }
 
         return v;
+    }
+
+    private class InitUserTypeTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean updateSuccess = courseModel.updateUserTypeInCurrentCourse();
+            if(updateSuccess)
+                taskCountDown--;
+            return updateSuccess;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean updateSuccess) {
+            if(updateSuccess) {
+                initHistoryAdapter();
+                taskCountDown++;
+                new UpdateCurrentQuestionTask().execute();
+            }
+        }
     }
 
     private void notifytTaskFinished() {
         if(taskCountDown == 0)
             initFinish = true;
+        if(getContext() == null)
+            return;
+
         mainLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
@@ -178,86 +290,6 @@ public class CourseQuestionFragment extends Fragment {
         clearTimerThreads();
     }
 
-    private class CurrentAdapter extends ArrayAdapter<CurrentQuestion> {
-
-        public CurrentAdapter(Context context, int resource, List<CurrentQuestion> objects) {
-            super(context, resource, objects);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView != null) {
-                return convertView;
-            }
-
-            convertView = getActivity().getLayoutInflater().inflate(
-                    R.layout.layout_current_question, null);
-            CurrentQuestion currentQuestion = getItem(position);
-
-            String content = currentQuestion.getQuestion().getContent();
-            TextView contentText = initContentText(convertView, content);
-
-            initTextExpandLayout(convertView, contentText);
-
-            UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
-            TextView actionText = initActionText(convertView, userType, currentQuestion.getQuestion());
-
-            long leftMillis = currentQuestion.getLeftMills();
-            initLeftTimeText(convertView, actionText, leftMillis, userType, currentQuestion.getQuestion());
-
-            return convertView;
-        }
-
-        private TextView initContentText(View convertView, String content) {
-            TextView contentText = (TextView)convertView.findViewById(R.id.current_question_content);
-            contentText.setText(content);
-            return contentText;
-        }
-
-        private void initTextExpandLayout(View convertView, TextView contentText) {
-            ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);
-            TextView zhankaiText = (TextView)convertView.findViewById(R.id.zhankai_text);
-            ImageView zhankaiImage = (ImageView)convertView.findViewById(R.id.zhankai_image);
-            TextExpandListener textExpandListener = new TextExpandListener(contentText, zhankaiText,
-                    zhankaiImage, 3);
-            zhankaiLayout.setOnClickListener(textExpandListener);
-        }
-
-        private TextView initActionText(View convertView, UserTypeInCourse userType,
-                                        BasicQuestion question) {
-            TextView actionText = (TextView)convertView.findViewById(R.id.action_text);
-            switch(userType) {
-                case TEACHER:
-                    actionText.setOnClickListener(new ShutDownQuestionClickListener(question, actionText));
-                    actionText.setText(R.string.shut_down_question_text);
-                    break;
-                case STUDENT:
-                    actionText.setOnClickListener(new AnswerQuestionClickListener(question));
-                    actionText.setText(R.string.answer_question_text);
-                    break;
-                case ASSISTANT:
-                    actionText.setOnClickListener(new ShutDownQuestionClickListener(question, actionText));
-                    actionText.setText(R.string.shut_down_question_text);
-                    break;
-                case VISITOR:
-                    actionText.setVisibility(View.GONE);
-                    break;
-                default:
-                    break;
-            }
-            return actionText;
-        }
-
-        private void initLeftTimeText(View convertView, TextView actionText, long leftMills,
-                                      UserTypeInCourse userType, BasicQuestion question) {
-            TextView leftTimeText = (TextView)convertView.findViewById(R.id.
-                    current_question_countdown_time_text);
-            CountDownTimer timer = new MyCountDownTimer(leftTimeText, actionText, question,
-                    userType, leftMills, 1000L);
-            appendNewTimer(timer);
-        }
-    }
-
     private class HistoryAdapter extends ArrayAdapter<BasicQuestion> {
 
         public HistoryAdapter(Context context, int resource, List<BasicQuestion> objects) {
@@ -266,6 +298,7 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            Log.i(TAG, "getView history" + Boolean.toString(convertView == null) + Integer.toString(position));
             if(convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(
                         R.layout.layout_history_question_brief, null);
@@ -412,13 +445,12 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            if(getActivity() != null) {
-                currentAdapter.notifyDataSetChanged();
-                notifytTaskFinished();
-                if (!updateSuccess) {
-                    Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "UpdateCurrentQuestionTask net_disconnet");
-                }
+            notifytTaskFinished();
+            if(updateSuccess) {
+                initCurrentQuestionContainer();
+            } else {
+                if(getContext() != null)
+                    Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             }
         }
     }

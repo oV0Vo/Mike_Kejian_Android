@@ -52,8 +52,6 @@ public class FlowLayout extends ViewGroup
         int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
         int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
 
-        Log.e(TAG, sizeWidth + "," + sizeHeight);
-
         // 如果是warp_content情况下，记录宽和高
         int width = 0;
         int height = 0;
@@ -176,9 +174,6 @@ public class FlowLayout extends ViewGroup
             // 当前行的最大高度
             lineHeight = mLineHeight.get(i);
 
-            Log.e(TAG, "第" + i + "行 ：" + lineViews.size() + " , " + lineViews);
-            Log.e(TAG, "第" + i + "行， ：" + lineHeight);
-
             // 遍历当前行所有的View
             for (int j = 0; j < lineViews.size(); j++)
             {
@@ -195,9 +190,6 @@ public class FlowLayout extends ViewGroup
                 int tc = top + lp.topMargin;
                 int rc =lc + child.getMeasuredWidth();
                 int bc = tc + child.getMeasuredHeight();
-
-                Log.e(TAG, child + " , l = " + lc + " , t = " + t + " , r ="
-                        + rc + " , b = " + bc);
 
                 child.layout(lc, tc, rc, bc);
 

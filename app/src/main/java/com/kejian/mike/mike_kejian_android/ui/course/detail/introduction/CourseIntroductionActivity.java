@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,8 @@ import util.StringUtil;
 
 public class CourseIntroductionActivity extends AppCompatActivity {
 
+    private static final String TAG = "CourseIntroActivity";
+
     private ViewPager viewPager;
     private CourseContentAdpater viewPagerAdapter;
 
@@ -46,7 +49,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private ViewGroup assistantAddLayout;
     private ViewGroup assistantConatainer;
-
+    private TextView assistantEmptyText;
     private HashMap<String, ViewGroup> assitantViewMap;
 
     private RadioButton briefTab;
@@ -188,6 +191,11 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     private void initAssistantManagement(ArrayList<String> names, ArrayList<String> ids) {
         initAssistantContainer(names, ids);
         initAssistantAddLayout();
+        assistantEmptyText = (TextView)findViewById(R.id.assistant_empty_text);
+
+        if(names.size() == 0) {
+            assistantEmptyText.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initAssistantContainer(ArrayList<String> names, ArrayList<String> ids) {
@@ -223,6 +231,10 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == searchRequestCode) {
+            if(data == null) {
+                return;
+            }
+
             String sid = data.getStringExtra("school_identify");
             if(sid.length() == 0) {
                 Toast.makeText(this, R.string.add_assistant_jw_not_bound, Toast.LENGTH_LONG)
@@ -232,6 +244,8 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             String name = data.getStringExtra("real_name");
             String id = data.getStringExtra("user_id");
             addAssistant(name, id);
+            if(assistantEmptyText.getVisibility() == View.VISIBLE)
+                assistantEmptyText.setVisibility(View.GONE);
             Toast.makeText(this, R.string.add_assistant_success, Toast.LENGTH_SHORT).show();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -422,7 +436,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                 return;
             interestText.setVisibility(View.VISIBLE);
             switch(interest) {
-                case UserInterestInCourse.INTEREST:
+                case UserInterestInCourse.NO_INTEREST:
                     interestText.setText(R.string.show_interest);
                     interestText.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -435,7 +449,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                         }
                     });
                     break;
-                case UserInterestInCourse.NO_INTEREST:
+                case UserInterestInCourse.INTEREST:
                     setAlreadyInterestView();
                     break;
                 case UserInterestInCourse.ERROR:
