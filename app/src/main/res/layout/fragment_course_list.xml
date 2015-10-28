@@ -19,7 +19,7 @@
             android:layout_marginBottom="@dimen/big_size"
             android:visibility="gone"/>
 
-        <com.kejian.mike.mike_kejian_android.ui.message.RefreshListView
+        <com.kejian.mike.mike_kejian_android.ui.campus.XListView
             android:id="@+id/all_course_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

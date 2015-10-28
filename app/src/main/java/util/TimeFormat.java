@@ -49,6 +49,26 @@ public class TimeFormat {
         return result;
     }
 
+    public static String toTime(Date date) {
+        StringBuilder strBuilder = new StringBuilder();
+
+        int hour = date.getHours();
+        strBuilder.append(Integer.toString(hour));
+        strBuilder.append(":");
+
+        int minute = date.getMinutes();
+        strBuilder.append(Integer.toString(minute));
+        strBuilder.append(":");
+
+        int seconds = date.getSeconds();
+        strBuilder.append(Integer.toString(seconds));
+
+        String result = strBuilder.toString();
+        Log.i(TAG, "toTime " + result);
+
+        return result;
+    }
+
     public static String toSeconds(long millis) {
         millis /= 1000;
         long seconds = millis % 60;

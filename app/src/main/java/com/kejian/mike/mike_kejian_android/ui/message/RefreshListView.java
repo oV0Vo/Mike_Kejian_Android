@@ -114,6 +114,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        Log.i(TAG, "onTouchEvent");
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN :
                 this.setEnabled(false);
