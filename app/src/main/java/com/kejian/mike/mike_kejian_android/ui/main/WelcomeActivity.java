@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import bl.UpdateBLService;
 import bl.UserBLService;
 import cn.jpush.android.api.JPushInterface;
 import model.user.Global;
@@ -45,7 +46,18 @@ public class WelcomeActivity extends Activity {
         netBroadcast=new NetBroadcast();
 
         Global.addGlobalItem("network_listing", netBroadcast);
+        initGlobal();
         loginFromLocal();
+    }
+
+    public void initGlobal(){
+        try{
+            Global.localVersion = getPackageManager().getPackageInfo(getPackageName(),0).versionCode;
+            UpdateBLService.update();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void loginFromLocal(){
