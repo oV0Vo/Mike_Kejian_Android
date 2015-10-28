@@ -12,14 +12,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.ui.broadcast.NetBroadcast;
 import com.kejian.mike.mike_kejian_android.ui.user.UserActivityComm;
 import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserOperationResult;
 
+import net.course.CourseInfoNetService;
 import net.picture.MessagePrint;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import bl.UserBLService;
+import cn.jpush.android.api.JPushInterface;
 import model.user.Global;
 import model.user.UserToken;
 import model.user.user;
@@ -33,11 +40,63 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        initJpush();
         userToken=(UserToken)getIntent().getSerializableExtra(UserActivityComm.USER_TOKEN.name());
         netBroadcast=new NetBroadcast();
 
         Global.addGlobalItem("network_listing", netBroadcast);
         loginFromLocal();
+    }
+    private void initJpush(){
+
+
+        JPushInterface.setDebugMode(false);
+        JPushInterface.init(getApplicationContext());
+
+        new SetTag().execute("");
+
+
+
+    }
+
+    //设置别名和标签
+
+    private  class SetTag extends AsyncTask<String,Integer,String>{
+
+        @Override
+        public String doInBackground(String...Para){
+
+            user user=(user)Global.getObjectByName("user");
+            String ali=null;
+
+            //设置手机别名
+            if(user!=null){
+
+                ali="user_"+user.getId();
+
+            }
+
+
+
+            ArrayList<CourseBriefInfo> list= CourseInfoNetService.getMyCourseBrief();
+            int size=list.size();
+
+            Set h=new HashSet();
+
+            for(int i=0;i<size;i++){
+
+                h.add("course_"+list.get(i).getCourseId());
+
+                MessagePrint.print("set tag :"+"course_"+list.get(i).getCourseId());
+
+
+            }
+
+            JPushInterface.setAliasAndTags(getApplicationContext(),(ali==null?"":ali),h,null);
+
+
+            return null;
+        }
     }
     public void loginFromLocal(){
 

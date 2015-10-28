@@ -131,7 +131,11 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Reply reply = (Reply)parent.getItemAtPosition(position);
+        if(id < 0){
+            return;
+        }
+        int realPosition = (int)id;
+        Reply reply = (Reply)parent.getItemAtPosition(realPosition);
         Intent intent = new Intent();
         intent.setClass(this, PostDetailActivity.class);
         intent.putExtra("postId",reply.getPostId()+"");
