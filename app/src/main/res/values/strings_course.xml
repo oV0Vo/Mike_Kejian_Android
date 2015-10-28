@@ -8,6 +8,11 @@
 
     <string name="course_sign_in_empty_text">目前还没有任何点名记录哦~~</string>
 
+    <!--course brief-->
+    <string name="my_course_empty">当前还没有参加的课程哦</string>
+    <string name="all_course_empty">系统还没有记录当前学校的有关课程哦</string>
+    <string name="filter_result_empty">没有筛选到相关课程~</string>
+
     <!--naming-->
     <string name="time_dialog_continue_time">持续时间:</string>
     <string name="time_dialog_end_time">结束时间</string>

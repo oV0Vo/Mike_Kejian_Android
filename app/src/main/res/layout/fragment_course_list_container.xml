@@ -55,7 +55,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"
         android:paddingBottom="@dimen/medium_padding"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

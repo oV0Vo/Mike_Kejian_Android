@@ -1,6 +1,5 @@
 package com.kejian.mike.mike_kejian_android.ui.user;
 
-import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -11,28 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
-import com.kejian.mike.mike_kejian_android.ui.campus.HottestPostListFragment;
-import com.kejian.mike.mike_kejian_android.ui.campus.PostListContainerFragment;
-import com.kejian.mike.mike_kejian_android.ui.message.CourseNoticeActivity;
-import com.kejian.mike.mike_kejian_android.ui.message.MentionMeActivity;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
-import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
-import net.picture.MessagePrint;
 
 import java.util.ArrayList;
 
-import bl.AcademyBLService;
 import model.user.CourseBrief;
 import model.user.Friend;
 import model.user.Global;
