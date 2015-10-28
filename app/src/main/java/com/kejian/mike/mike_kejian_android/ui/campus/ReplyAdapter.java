@@ -14,6 +14,7 @@ import com.kejian.mike.mike_kejian_android.R;
 
 
 import net.picture.DownloadPicture;
+import net.picture.MessagePrint;
 
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
         }
 
         final Reply reply = getItem(position);
+        MessagePrint.print("reply url:"+reply.getUserIconUrl());
         DownloadPicture d=new DownloadPicture(getContext(),replyViewHolder.reply_user_icon, reply.getUserIconUrl(), reply.getUserIconUrl());
 
 
