@@ -592,11 +592,26 @@ public class UserNetService {
         para.put("phoneNumber",phoneNumber);
         para.put("newPassword", newPassword);
 
-        String result=httpRequest.sentGetRequest(baseUrl+"resetPassword/",para);
+        String result=httpRequest.sentGetRequest(baseUrl + "resetPassword/", para);
 
 
 
         return Boolean.parseBoolean(result);
+    }
+
+   // http://112.124.101.41/mike_server_v02/index.php/Home/User/unbind
+
+    public static boolean unbind(){
+
+        String result=HttpRequest.getInstance().sentGetRequest("http://112.124.101.41/mike_server_v02/index.php/Home/User/unbind",null);
+
+        if(result.equals("true")){
+
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 

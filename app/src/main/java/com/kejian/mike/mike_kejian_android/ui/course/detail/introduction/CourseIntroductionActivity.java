@@ -159,8 +159,8 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         courseTitleView.setText(courseDetail.getCourseName());
 
         ImageView courseImage = (ImageView)findViewById(R.id.course_intro_image);
-        courseImage.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
-                courseDetail.getCourseName(), this));
+       GetBitmapByPinyin.getBitmapByPinyin(
+                courseDetail.getCourseName(), this,courseImage);
 
         TextView courseAcademyView = (TextView)findViewById(R.id.course_intro_course_academy);
         courseAcademyView.setText(courseDetail.getAccademyName());

@@ -231,8 +231,13 @@ public class CourseListFragment extends Fragment{
             CourseBriefInfo courseBriefInfo = getItem(position);
 
             ImageView imageView = (ImageView)convertView.findViewById(R.id.course_brief_image);
-            imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
-                    courseBriefInfo.getCourseName(), getContext()));
+
+
+//            imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
+//                    courseBriefInfo.getCourseName(), getContext(),imageView));
+
+            GetBitmapByPinyin.getBitmapByPinyin(
+                   courseBriefInfo.getCourseName(), getContext(),imageView);
 
             TextView nameView = (TextView)convertView.findViewById(R.id.course_brief_name);
             nameView.setText(courseBriefInfo.getCourseName());

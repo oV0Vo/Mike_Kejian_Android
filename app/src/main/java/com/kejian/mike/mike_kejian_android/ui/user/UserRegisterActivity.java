@@ -190,28 +190,7 @@ public class UserRegisterActivity extends AppCompatActivity{
 
         if(userBLResult.equals(UserBLResult.REGISTER_SUCCEED)){
 
-            Toast.makeText(context,"注册成功 >_<",Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent();
-
-            Bundle bundle = new Bundle();
-
-
-            bundle.putSerializable(UserActivityComm.USER_TOKEN.name(), userToken);
-
-            intent.putExtra(UserActivityComm.USER_TOKEN.name(), userToken);
-
-            //跳转到绑定教务网账号的界面
-
-            //把token压入全局数组
-
-            Global.addGlobalItem("userToken", userToken);
-
-            intent.setClass(context, UserSchoolAccountActivity.class);
-
-            startActivity(intent);
-
-            close();
 
             return true;
 
@@ -400,8 +379,31 @@ public class UserRegisterActivity extends AppCompatActivity{
                 Toast.makeText(context,"手机已经被注册，或者没有网络连接",Toast.LENGTH_SHORT).show();
             }else{
 
+                Toast.makeText(context,"注册成功 >_<",Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context,"注册成功",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+
+                Bundle bundle = new Bundle();
+
+
+                bundle.putSerializable(UserActivityComm.USER_TOKEN.name(), userToken);
+
+                intent.putExtra(UserActivityComm.USER_TOKEN.name(), userToken);
+
+                //跳转到绑定教务网账号的界面
+
+                //把token压入全局数组
+
+                Global.addGlobalItem("userToken", userToken);
+
+                intent.setClass(context, UserLoginActivity.class);
+
+                startActivity(intent);
+
+                close();
+
+
+
                 finish();
 
             }

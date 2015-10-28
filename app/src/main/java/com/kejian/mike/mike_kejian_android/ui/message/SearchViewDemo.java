@@ -148,7 +148,7 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             }
             SearchResult searchResult = getItem(position);
             if(searchResult.isCourse()){
-                viewHolder.imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(searchResult.getTitle(),getContext()));
+               GetBitmapByPinyin.getBitmapByPinyin(searchResult.getTitle(),getContext(),viewHolder.imageView);
             }else{
                 DownloadPicture downloadPicture = new DownloadPicture(getContext(),viewHolder.imageView,searchResult.getIconUrl(),searchResult.getIconUrl());
             }

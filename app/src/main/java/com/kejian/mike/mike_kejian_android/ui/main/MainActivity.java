@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity
     private void initJpush(){
 
 
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(false);
         JPushInterface.init(getApplicationContext());
 
         new SetTag().execute("");

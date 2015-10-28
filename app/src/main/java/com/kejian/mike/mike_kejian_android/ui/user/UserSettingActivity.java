@@ -66,8 +66,9 @@ public class UserSettingActivity extends AppCompatActivity {
 //
 //                startActivity(intent);
 
-                AppManager.getAppManager().AppExit(getApplicationContext());
-                finish();
+                System.exit(0);
+
+
 
 
 //                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -121,7 +122,7 @@ public class UserSettingActivity extends AppCompatActivity {
 
 
 
-                     return   UserNetService.setUserInfo(Integer.parseInt(us.getId()), "SCHOOL_NUMBER", "");
+                     return   UserNetService.unbind();
 
 
 

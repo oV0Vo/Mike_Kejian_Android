@@ -1,11 +1,14 @@
 package net.picture;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
 import android.os.Message;
 import android.widget.ImageView;
+
+import com.kejian.mike.mike_kejian_android.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,9 +44,11 @@ public class DownloadPicture {
         this.context=context;
         this.imageView=imageView;
 
-        Bitmap bit=getBitMapFromNet(url,path);
+        getBitMapFromNet(url,path);
 
-        imageView.setImageBitmap(bit);
+        if(bitmap!=null)
+
+        imageView.setImageBitmap(bitmap);
 
     }
 
@@ -54,7 +59,24 @@ public class DownloadPicture {
 
 
 
+        if(picturePath!=null&&(!picturePath.equals(""))) {
+
+            picturePath = picturePath.replaceAll("\\/", "#");
+            picturePath = picturePath.replaceAll("\\.", "#");
+
+        }
+        else{
+
+
+            bitmap= BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.no_pic);
+
+            return null;
+
+
+        }
+
         MessagePrint.print("Start getBitMapFromNet");
+
 
         if(memoryCache.containsKey(picturePath)){
             SoftReference<Bitmap> softReference = memoryCache.get(picturePath);
@@ -91,15 +113,6 @@ public class DownloadPicture {
 
         public void run(){
 
-            if(picturePath!=null&&(!picturePath.equals(""))) {
-
-                picturePath = picturePath.replaceAll("\\/", "#");
-                picturePath = picturePath.replaceAll("\\.", "#");
-
-            }
-            else{
-                picturePath="temp";
-            }
 
             File  file=new File("/sdcard/mike/user/"+picturePath);
 
@@ -109,7 +122,7 @@ public class DownloadPicture {
                 FileInputStream inputStream = new FileInputStream(file);
 
                 BitmapFactory.Options b=new BitmapFactory.Options();
-                b.inSampleSize=7;
+                b.inSampleSize=2;
                 bitmap=BitmapFactory.decodeStream(inputStream,null,b);
                 if(memoryCache.size() > maxMapSize){
                     //超过数量直接清空

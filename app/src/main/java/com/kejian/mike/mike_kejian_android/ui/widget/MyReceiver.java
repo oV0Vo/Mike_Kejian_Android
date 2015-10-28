@@ -141,6 +141,9 @@ public class MyReceiver extends BroadcastReceiver {
                     jumpToPost(postId);
 
                     break;
+                case "UPDATE":
+                    jumpToUpdate();
+                    break;
             }
         } catch (Exception e) {
             //Logger.w(TAG, "Unexpected: extras is not a valid json", e);
@@ -161,6 +164,10 @@ public class MyReceiver extends BroadcastReceiver {
 //        }
     }
 
+
+    public void jumpToUpdate(){
+
+    }
     public void jumpToPost(String postId){
 
         MessagePrint.print("打开通知");
