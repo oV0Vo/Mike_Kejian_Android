@@ -143,7 +143,8 @@ public class CourseListFragment extends Fragment{
 
     public void showAcademyCourseList(CharSequence academyName) {
         if(initAllCourseDataFinish) {
-            if(! academyName.equals(getContext().getResources().getString(
+            Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
+            if(academyName.equals(getContext().getResources().getString(
                     R.string.main_course_select_all_academy))) {
                 allCourseList.setAdapter(allCourseAdapter);
                 allCourseList.setOnRefreshListener(refreshRL);
@@ -161,6 +162,7 @@ public class CourseListFragment extends Fragment{
 
     public void showCourseTypeList(CharSequence courseType) {
         if(initAllCourseDataFinish) {
+            Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
             if(courseType.equals(getContext().getResources().getString(
                     R.string.main_course_select_all_course))) {
                 allCourseList.setAdapter(allCourseAdapter);

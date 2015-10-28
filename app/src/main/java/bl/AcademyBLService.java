@@ -25,6 +25,7 @@ public class AcademyBLService {
 
     public ArrayList<String> getAllAcademyNamesMock() {
         ArrayList<String> names = new ArrayList<String>();
+        names.add("所有院系");
         names.add("软件学院");
         names.add("商学院");
         names.add("物理学院");

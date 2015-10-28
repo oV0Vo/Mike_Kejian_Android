@@ -298,6 +298,7 @@ public class CourseModel {
 
     public ArrayList<String> getAllCourseTypeNamesMock() {
         ArrayList<String> names = new ArrayList<String>();
+        names.add("所有课程");
         names.add("通识课");
         names.add("通修课");
         names.add("核心课");
