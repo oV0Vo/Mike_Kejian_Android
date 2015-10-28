@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -23,6 +24,8 @@ import java.util.List;
 
 import bl.course.CourseBriefFilter;
 import model.course.CourseModel;
+import model.user.Global;
+import model.user.user;
 import util.DateUtil;
 import util.GetBitmapByPinyin;
 import util.StringUtil;
@@ -32,6 +35,8 @@ import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
+
+import net.course.CourseInfoNetService;
 
 
 public class CourseListFragment extends Fragment{
@@ -47,7 +52,9 @@ public class CourseListFragment extends Fragment{
     private XListView.IXListViewListener refreshListener;
     private TextView allCourseEmptyText;
 
-    private OnCourseSelectedListener listner;
+    private TextView allCourseFilterEmptyText;
+
+    private OnCourseSelectedListener courseSelectListener;
 
     private CourseModel courseModel;
 
@@ -64,6 +71,10 @@ public class CourseListFragment extends Fragment{
     private TextView errorMessageText;
 
     private boolean isShowMyCourse;
+
+    private boolean isShowFilterResult;
+
+    private int currentFilterVersion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,8 +109,11 @@ public class CourseListFragment extends Fragment{
         if (myCourseList == null || getContext() == null)
             return;
         isShowMyCourse = true;
+
         allCourseList.setVisibility(View.GONE);
         allCourseEmptyText.setVisibility(View.GONE);
+        allCourseFilterEmptyText.setVisibility(View.GONE);
+        isShowFilterResult = false;
         myCourseList.setVisibility(View.VISIBLE);
 
         if(initMyCourseDataFinish) {
@@ -128,6 +142,8 @@ public class CourseListFragment extends Fragment{
         isShowMyCourse = false;
         myCourseList.setVisibility(View.GONE);
         myCourseEmptyText.setVisibility(View.GONE);
+        allCourseFilterEmptyText.setVisibility(View.GONE);
+        isShowFilterResult = false;
         allCourseList.setVisibility(View.VISIBLE);
 
         if(initAllCourseDataFinish) {
@@ -150,42 +166,80 @@ public class CourseListFragment extends Fragment{
         }
     }
 
-    public void showAcademyCourseList(CharSequence academyName) {
+    public void showCourseByCondition(String academyName, String courseType) {
         if(initAllCourseDataFinish) {
-            if(academyName.equals(getContext().getResources().getString(
-                    R.string.main_course_select_all_academy))) {
+            boolean showAllAcademy = academyName.equals(getContext().getResources().getString(
+                    R.string.main_course_select_all_academy));
+            boolean showAllCourseType = courseType.equals(getContext().getResources().getString(
+                    R.string.main_course_select_all_course));
+
+            String academyId = null;
+            if(showAllAcademy && showAllCourseType) {
                 allCourseList.setAdapter(allCourseAdapter);
                 allCourseList.setPullLoadEnable(true);
+                return;
+            } else if(showAllAcademy){
+                academyId = "";
+            } else if(showAllCourseType) {
+                courseType = "";//java的string是不变的，不会改变传进来的值
+                academyId = courseModel.getAcademyIdByName(academyName);
             } else {
-                Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
-                ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-                ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
-                        academyName);
-                CourseAdapter adapter = new CourseAdapter(getActivity(),
-                        android.R.layout.simple_list_item_1, filterResults);
-                allCourseList.setAdapter(adapter);
-                allCourseList.setPullLoadEnable(false);
+                academyId = courseModel.getAcademyIdByName(academyName);
             }
+
+            isShowFilterResult = true;
+            String schoolId = ((user)Global.getObjectByName("user")).getSchoolInfo().getId();
+            new GetCourseByConditionTask(++currentFilterVersion).execute(schoolId, academyId,
+                    courseType);
+            progressBar.setVisibility(View.VISIBLE);
+            errorMessageText.setVisibility(View.GONE);
+            allCourseFilterEmptyText.setVisibility(View.GONE);
         }
     }
 
-    public void showCourseTypeList(CharSequence courseType) {
-        if(initAllCourseDataFinish) {
-            Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
-            if(courseType.equals(getContext().getResources().getString(
-                    R.string.main_course_select_all_course))) {
-                allCourseList.setAdapter(allCourseAdapter);
-                allCourseList.setPullLoadEnable(true);
-            } else {
-                Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
-                ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-                ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
-                        courseType);
-                CourseAdapter adapter = new CourseAdapter(getActivity(),
-                        android.R.layout.simple_list_item_1, filterResults);
-                allCourseList.setAdapter(adapter);
-                allCourseList.setPullLoadEnable(false);
+    private class GetCourseByConditionTask extends AsyncTask<String, Void,
+            ArrayList<CourseBriefInfo>> {
+
+        private int filterVersion;
+
+        public GetCourseByConditionTask(int filterVersion) {
+            this.filterVersion = filterVersion;
+        }
+
+        @Override
+        protected ArrayList<CourseBriefInfo> doInBackground(String... params) {
+            String schoolId = params[0];
+            String academyId = params[1];
+            String courseType = params[2];
+            ArrayList<CourseBriefInfo> results = CourseInfoNetService.getCourseByCondition(schoolId,
+                    academyId, courseType);
+            return results;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<CourseBriefInfo> results) {
+            if(getContext() == null)
+                return;
+
+            if(!(isShowFilterResult && filterVersion == currentFilterVersion)) {
+                Log.i(TAG, Boolean.toString(isShowFilterResult));
+                return;
             }
+
+            progressBar.setVisibility(View.GONE);
+            if(results != null) {
+                if(results.size() != 0) {
+                    CourseAdapter resultAdapter = new CourseAdapter(getContext(),
+                            android.R.layout.simple_list_item_1, results);
+                    allCourseList.setAdapter(resultAdapter);
+                } else {
+                    allCourseList.setVisibility(View.GONE);
+                    allCourseFilterEmptyText.setVisibility(View.VISIBLE);
+                }
+            } else {
+                errorMessageText.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 
@@ -211,6 +265,15 @@ public class CourseListFragment extends Fragment{
 
     private void initMyCourseView(View layoutView) {
         myCourseList = (AbsListView) layoutView.findViewById(R.id.my_course_list);
+        myCourseList.setOnItemClickListener(new AbsListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CourseBriefInfo selectedCourseBrief = (CourseBriefInfo)
+                        ((AbsListView) parent).getItemAtPosition(position);
+                courseModel.setCurrentCourseId(selectedCourseBrief.getCourseId());
+                courseSelectListener.onCourseSelected();
+            }
+        });
         myCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
                 courseModel.getMyCourseBriefs());
         myCourseList.setAdapter(myCourseAdapter);
@@ -220,6 +283,15 @@ public class CourseListFragment extends Fragment{
 
     private void initAllCourseView(View layoutView) {
         allCourseList = (XListView)layoutView.findViewById(R.id.all_course_list);
+        allCourseList.setOnItemClickListener(new AbsListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CourseBriefInfo selectedCourseBrief = (CourseBriefInfo)
+                        ((AbsListView) parent).getItemAtPosition(position);
+                courseModel.setCurrentCourseId(selectedCourseBrief.getCourseId());
+                courseSelectListener.onCourseSelected();
+            }
+        });
         allCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
                 courseModel.getAllCourseBriefs());
         allCourseList.setAdapter(allCourseAdapter);
@@ -233,13 +305,14 @@ public class CourseListFragment extends Fragment{
             allCourseList.setPullLoadEnable(false);
 
         allCourseEmptyText = (TextView)layoutView.findViewById(R.id.all_course_empty_text);
+        allCourseFilterEmptyText = (TextView)layoutView.findViewById(R.id.filter_empty_text);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listner = (OnCourseSelectedListener) context;
+            courseSelectListener = (OnCourseSelectedListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnCourseSelectedListener");
@@ -249,7 +322,7 @@ public class CourseListFragment extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        listner = null;
+        courseSelectListener = null;
     }
 
     private class CourseAdapter extends ArrayAdapter<CourseBriefInfo> {
@@ -285,10 +358,6 @@ public class CourseListFragment extends Fragment{
             ArrayList<String> teacherNames = courseBriefInfo.getTeacherNames();
             String teacherNameStr = StringUtil.toString(teacherNames, " ");
             teacherNameText.setText(teacherNameStr);
-
-            TextView enterCourseText = (TextView)convertView.findViewById(R.id.enter_course);
-            enterCourseText.setOnClickListener(new OnCourseClickListener(courseBriefInfo.getCourseId()));
-
             convertView.setEnabled(false);
 
             return convertView;
@@ -382,21 +451,6 @@ public class CourseListFragment extends Fragment{
         @Override
         public void onLoadMore() {
             new UpdateAllCourseBriefTask().execute();
-        }
-    }
-
-    private class OnCourseClickListener implements View.OnClickListener{
-
-        private String courseId;
-
-        public OnCourseClickListener(String courseId) {
-            this.courseId = courseId;
-        }
-
-        @Override
-        public void onClick(View v) {
-            courseModel.setCurrentCourseId(courseId);
-            listner.onCourseSelected();
         }
     }
 

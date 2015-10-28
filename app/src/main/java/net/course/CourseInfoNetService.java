@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseDetailInfo;
@@ -50,11 +51,10 @@ public class CourseInfoNetService {
             return null;
         try {
             JSONArray jCourseBriefs = new JSONArray(response);
-            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
+            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>(jCourseBriefs.length());
             for(int i=0; i<jCourseBriefs.length(); ++i) {
                 JSONObject jCourseBrief = jCourseBriefs.getJSONObject(i);
                 CourseBriefInfo courseBrief = parseCourseBriefInfo(jCourseBrief);
-
                 courseBriefs.add(courseBrief);
             }
             return courseBriefs;
@@ -89,21 +89,11 @@ public class CourseInfoNetService {
             String imageUrl = jCourseBrief.getString("icon_url");
             courseBrief.setImageUrl(imageUrl);
 
-            JSONArray jTeachers = jCourseBrief.getJSONArray("teachers");
-            ArrayList<String> teacherNames = new ArrayList<String>();
-            ArrayList<String> teacherIds = new ArrayList<String>();
-            for(int i=0; i<jTeachers.length(); ++i) {
-                JSONObject jTeacher = jTeachers.getJSONObject(i);
-
-                String tId = jTeacher.getString("id");
-                teacherIds.add(tId);
-
-                String tName = jTeacher.getString("name");
-                teacherNames.add(tName);
-            }
-
+            JSONArray jTeacherNames = jCourseBrief.getJSONArray("teachers");
+            ArrayList<String> teacherNames = new ArrayList<String>(jTeacherNames.length());
+            for(int i=0; i<jTeacherNames.length(); ++i)
+                teacherNames.add(jTeacherNames.getString(i));
             courseBrief.setTeacherNames(teacherNames);
-            courseBrief.setTeacherIds(teacherIds);
 
             return courseBrief;
         } catch (JSONException e) {
@@ -144,7 +134,8 @@ public class CourseInfoNetService {
             return null;
         try {
             JSONArray jCourseBriefs = new JSONArray(response);
-            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
+            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>(
+                    jCourseBriefs.length());
             for(int i=0; i<jCourseBriefs.length(); ++i) {
                 JSONObject jCourseBrief = jCourseBriefs.getJSONObject(i);
                 CourseBriefInfo courseBrief = parseCourseBriefInfo(jCourseBrief);
@@ -154,6 +145,111 @@ public class CourseInfoNetService {
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG, "getAllCourseBrief json error");
+            return null;
+        }
+    }
+
+    public static Map<String, String> getAllAcademyInfos(String schoolId) {
+        String url = NetConfig.BASE_URL + "School/getAllDepartmentsBySchoolId/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("schoolId", schoolId);
+        String response = http.sentGetRequest(url, paraMap);
+        if(response == null) {
+            return null;
+        }
+
+        try {
+            JSONArray jAcademys = new JSONArray(response);
+            Map<String, String> academys = new HashMap<String, String>(jAcademys.length());
+            for(int i=0; i<jAcademys.length(); ++i) {
+                JSONObject jAcademy = jAcademys.getJSONObject(i);
+                String id = jAcademy.getString("id");
+                String name = jAcademy.getString("name");
+                academys.put(id, name);
+            }
+            return academys;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getAllAcademyInfos json error");
+            return null;
+        }
+    }
+
+    public static ArrayList<String> getAllCourseType(String schoolId) {
+        String url = BASE_URL + "getAllCourseType/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("schoolId", schoolId);
+        String response = http.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
+
+        try {
+            JSONArray jCourseTypes = new JSONArray(response);
+            ArrayList<String> courseTypes = new ArrayList<String>(jCourseTypes.length());
+            for(int i=0; i<jCourseTypes.length(); ++i) {
+                JSONObject jCourseType = jCourseTypes.getJSONObject(i);
+                String courseType = jCourseType.getString("platform");
+                courseTypes.add(courseType);
+            }
+            return courseTypes;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getAllCourseType json error");
+            return null;
+
+        }
+    }
+
+    public static ArrayList<CourseBriefInfo> getCourseByCondition(String schoolId, String academyId,
+                                                           String courseType) {
+        String url = BASE_URL + "getCourseBriefByCondition/";
+        HashMap<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("dept", academyId);
+        String encodeCourseType = null;
+        try {
+            encodeCourseType = URLEncoder.encode(courseType, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        paraMap.put("courseType", encodeCourseType);
+        paraMap.put("schoolId", schoolId);
+        String response = http.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
+
+        try {
+            JSONArray jCourseBriefs = new JSONArray(response);
+            ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<>(jCourseBriefs.length());
+            for(int i=0; i<jCourseBriefs.length(); ++i) {
+                JSONObject jCourseBrief = jCourseBriefs.getJSONObject(i);
+                CourseBriefInfo courseBrief = new CourseBriefInfo();
+
+                String courseId = jCourseBrief.getString("id");
+                courseBrief.setCourseId(courseId);
+
+                String courseName = jCourseBrief.getString("name");
+                courseBrief.setCourseName(courseName);
+
+                String imageUrl = jCourseBrief.getString("icon_url");
+                courseBrief.setImageUrl(imageUrl);
+
+                String academyName = jCourseBrief.getString("department_name");
+                courseBrief.setAcademyName(academyName);
+
+                JSONArray jTeachers = jCourseBrief.getJSONArray("teachers");
+                ArrayList<String> teacherNames = new ArrayList<String>(jTeachers.length());
+                for(int nameIndex=0; nameIndex<jTeachers.length(); ++nameIndex)
+                    teacherNames.add(jTeachers.getString(nameIndex));
+                courseBrief.setTeacherNames(teacherNames);
+
+                courseBriefs.add(courseBrief);
+            }
+
+            return courseBriefs;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getCourseByCondition json error");
             return null;
         }
     }
@@ -185,21 +281,13 @@ public class CourseInfoNetService {
                 courseDetail.setAccademyName((String) academyName);
             }
 
-            JSONArray jTeachers = jCourseDetail.getJSONArray("teachers");
-            ArrayList<String> teacherNames = new ArrayList<String>();
-            ArrayList<String> teacherIds = new ArrayList<String>();
-            for(int i=0; i<jTeachers.length(); ++i) {
-                JSONObject jTeacher = jTeachers.getJSONObject(i);
-
-                String teacherId = jTeacher.getString("id");
-                teacherIds.add(teacherId);
-
-                String teacherName = jTeacher.getString("name");
-                teacherNames.add(teacherName);
-            }
+            JSONArray jTeacherNames = jCourseDetail.getJSONArray("teachers");
+            ArrayList<String> teacherNames = new ArrayList<String>(jTeacherNames.length());
+            for(int i=0; i<jTeacherNames.length(); ++i)
+                teacherNames.add(jTeacherNames.getString(i));
+            courseDetail.setTeacherNames(teacherNames);
 
             courseDetail.setTeacherNames(teacherNames);
-            courseDetail.setTeacherIds(teacherIds);
 
             JSONArray jAssistants = jCourseDetail.getJSONArray("assitants");
             ArrayList<String> assistantNames = new ArrayList<String>();

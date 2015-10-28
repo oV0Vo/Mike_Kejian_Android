@@ -10,7 +10,6 @@ public class CourseBriefInfo {
     private String courseName;
     private String academyName;
     private String courseType;
-    private ArrayList<String> teacherIds;
     private ArrayList<String> teacherNames;
     private String imageUrl;
 
@@ -32,14 +31,6 @@ public class CourseBriefInfo {
 
     public java.lang.String getAcademyName() {
         return academyName;
-    }
-
-    public ArrayList<String> getTeacherIds() {
-        return teacherIds;
-    }
-
-    public void setTeacherIds(ArrayList<String> teacherIds) {
-        this.teacherIds = teacherIds;
     }
 
     public String getCourseType() {

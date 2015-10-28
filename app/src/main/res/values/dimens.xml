@@ -23,6 +23,7 @@
     <dimen name="over_over_small_size">12dp</dimen>
     <dimen name="medium_size">18dp</dimen>
     <dimen name="big_size">30dp</dimen>
+    <dimen name="extreme_big_size">42dp</dimen>
 
     <!--padding-->
     <dimen name="sub_small_padding">1dp</dimen>

@@ -8,7 +8,9 @@ import net.course.CoursePostNetService;
 import net.course.CourseQuestionNetService;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
@@ -31,11 +33,15 @@ public class CourseModel {
     private static final String TAG = "CourseModel";
 
     private static CourseModel instance;
-    private ArrayList<CourseBriefInfo> myCourseBriefs;
-    private ArrayList<CourseBriefInfo> allCourseBriefs;
 
+    private String schoolId;
+
+    private ArrayList<CourseBriefInfo> myCourseBriefs;
+
+    private ArrayList<String> allAcademyIds;
     private ArrayList<String> allAcademyNames;
     private ArrayList<String> allCourseTypes;
+    private ArrayList<CourseBriefInfo> allCourseBriefs;
 
     private static final int DEFAULT_ALL_COURSE_INIT_NUM = 100;
     private static final int ALL_COURSE_BRIEF_UPDATE_NUM = 20;
@@ -50,8 +56,8 @@ public class CourseModel {
     private CourseModel() {
         myCourseBriefs = new ArrayList<CourseBriefInfo>();
         allCourseBriefs = new ArrayList<CourseBriefInfo>(DEFAULT_ALL_COURSE_INIT_NUM);
-        allAcademyNames = new ArrayList<String>();
-        allCourseTypes = new ArrayList<String>();
+        user loginUser = (user)Global.getObjectByName("user");
+        schoolId = loginUser.getSchoolInfo().getId();
     }
 
     public static CourseModel getInstance() {
@@ -70,6 +76,12 @@ public class CourseModel {
 
     public ArrayList<String> getAllAcademyNames() {
         return allAcademyNames;
+    }
+
+    public String getAcademyIdByName(String academyName) {
+        int indexOfName = allAcademyNames.indexOf(academyName);
+        String academyId = allAcademyIds.get(indexOfName);
+        return academyId;
     }
 
     public ArrayList<String> getAllCourseTypes() {
@@ -118,10 +130,7 @@ if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
         String lastCourseId = null;
         if(allCourseBriefs.size() != 0)
             lastCourseId = allCourseBriefs.get(allCourseBriefs.size() - 1).getCourseId();
-
         int updateNum = ALL_COURSE_BRIEF_UPDATE_NUM;
-
-        String schoolId = getSchoolId();
         ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getAllCourseBrief(schoolId,
                 lastCourseId, updateNum, time, timeUnit);
         if(updateInfos != null) {
@@ -133,11 +142,31 @@ if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
         return updateInfos;
     }
 
-    private String getSchoolId() {
-        user currentUser = (user)Global.getObjectByName("user");
-        if(currentUser == null)
-            return null;
-        return currentUser.getSchoolInfo().getId();
+    @NeedAsyncAnnotation
+    public boolean initAllCourseTypes() {
+        ArrayList<String> results = CourseInfoNetService.getAllCourseType(schoolId);
+        if(results == null)
+            return false;
+        allCourseTypes = new ArrayList<String>();
+        allCourseTypes.addAll(results);
+        return true;
+    }
+
+    @NeedAsyncAnnotation
+    public boolean initAllAcademyInfos() {
+        Map<String, String> academyInfos = CourseInfoNetService.getAllAcademyInfos(schoolId);
+        if(academyInfos == null)
+            return false;
+
+        allAcademyIds = new ArrayList<String>(academyInfos.size());
+        allAcademyNames = new ArrayList<String>(academyInfos.size());
+        Iterator<Map.Entry<String, String>> iter = academyInfos.entrySet().iterator();
+        while(iter.hasNext()) {
+            Map.Entry<String, String> entry = iter.next();
+            allAcademyIds.add(entry.getKey());
+            allAcademyNames.add(entry.getValue());
+        }
+        return true;
     }
 
     private <E> ArrayList<E> getSubList(int beginPos, int num, List<E> list) {
@@ -294,16 +323,6 @@ if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
 
     public BasicQuestion getAnswerFocusQuestion() {
         return currentCourse.answerFocusQuestion;
-    }
-
-    public ArrayList<String> getAllCourseTypeNamesMock() {
-        ArrayList<String> names = new ArrayList<String>();
-        names.add("所有课程");
-        names.add("通识课");
-        names.add("通修课");
-        names.add("核心课");
-        names.add("平台课");
-        return names;
     }
 
     public void setCurrentFocusAnnouc(CourseAnnoucement annouc) {

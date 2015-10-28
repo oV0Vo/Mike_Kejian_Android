@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.course;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,18 +15,20 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 
 import java.util.ArrayList;
 
-import bl.AcademyBLService;
 import model.course.CourseModel;
 
 /**
  *
  */
 public class CourseListContainerFragment extends Fragment {
+
+    private View contentView;
 
     private RadioButton myCourseButton;
     private RadioButton allCourseButton;
@@ -34,11 +37,9 @@ public class CourseListContainerFragment extends Fragment {
 
     private TextView academySelectText;
     private ViewGroup academySelectLayout;
-    private PopupMenu academySelectMenu;
 
     private TextView courseTypeSelectText;
     private ViewGroup courseTypeSelectLayout;
-    private PopupMenu courseTypeSelectMenu;
 
     private CourseListFragment courseListFg;
 
@@ -65,30 +66,42 @@ public class CourseListContainerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_course_list_container, container, false);
-        allCourseButton = (RadioButton)v.findViewById(R.id.main_course_all_course_button);
-        myCourseButton = (RadioButton)v.findViewById(R.id.main_course_my_course_button);
+        contentView = inflater.inflate(R.layout.fragment_course_list_container, container, false);
+        allCourseButton = (RadioButton)contentView.findViewById(R.id.main_course_all_course_button);
+        myCourseButton = (RadioButton)contentView.findViewById(R.id.main_course_my_course_button);
         initCourseButtonListener();
         myCourseButton.setChecked(true);
-        initAllCourseSelectLayout(v);
+        CourseModel.getInstance();
+        initAllCourseSelectLayout(contentView);
         myCourseButton.setChecked(true);
-        return v;
+        return contentView;
     }
 
     private void initAllCourseSelectLayout(View contentView) {
         allCourseSelectLayout = (LinearLayout)contentView.findViewById(R.id.main_course_all_course_select_layout);
         initAcademySelectView(allCourseSelectLayout);
-        initCourseTypeSelectView(allCourseSelectLayout);
-        allCourseSelectLayout.setVisibility(View.GONE);
+        initCourseTypeSelectLayout(allCourseSelectLayout);
     }
 
     private void initAcademySelectView(View contentView) {
+        if(getContext() == null)
+            return;
+
+        CourseModel courseModel = CourseModel.getInstance();
+        ArrayList<String> allAcademyNames = courseModel.getAllAcademyNames();
+        if(allAcademyNames == null) {
+            new InitAllAcademyNamesTask().execute();
+            return;
+        }
+
+        ArrayList<String> allNames = new ArrayList<String>(allAcademyNames.size() + 1);
+        allNames.add(getContext().getResources().getString(R.string.
+                main_course_select_all_academy));
+        allNames.addAll(allAcademyNames);
+
         academySelectText = (TextView)contentView.findViewById(R.id.main_course_academy_select_text);
         academySelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_academy_layout);
-
-        AcademyBLService academyBL = AcademyBLService.getInstance();
-        ArrayList<String> allNames = academyBL.getAllAcademyNamesMock();
-        academySelectMenu = new PopupMenu(this.getActivity(), academySelectText);
+        final PopupMenu academySelectMenu = new PopupMenu(this.getActivity(), academySelectText);
         Menu menu = academySelectMenu.getMenu();
         for(String academyName: allNames) {
             menu.add(academyName).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -96,7 +109,7 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence academyName = item.getTitle();
                     academySelectText.setText(academyName);
-                    showAcademyCourseList(academyName);
+                    showCourseByCondition();
                     academySelectMenu.dismiss();
                     return true;
                 }
@@ -114,22 +127,31 @@ public class CourseListContainerFragment extends Fragment {
         menuInflater.inflate(R.menu.menu_empty, menu);
     }
 
-    private void showAcademyCourseList(CharSequence academyNameList) {
-        courseListFg.showAcademyCourseList(academyNameList);
+    private void showCourseByCondition() {
+        String courseType = courseTypeSelectText.getText().toString();
+        String academyName = academySelectText.getText().toString();
+        courseListFg.showCourseByCondition(academyName, courseType);
     }
 
-    private void showCourseTypeList(CharSequence courseType) {
-        courseListFg.showCourseTypeList(courseType);
-    }
-
-    private void initCourseTypeSelectView(View contentView) {
-        courseTypeSelectText = (TextView)contentView.findViewById(R.id.main_course_course_type_select_text);
-        courseTypeSelectText.setText(R.string.main_course_select_all_course);
-        courseTypeSelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_type_layout);
+    private void initCourseTypeSelectLayout(View contentView) {
+        if(getContext() == null)
+            return;
 
         CourseModel courseModel = CourseModel.getInstance();
-        ArrayList<String> allNames = courseModel.getAllCourseTypeNamesMock();
-        courseTypeSelectMenu = new PopupMenu(this.getActivity(), courseTypeSelectText);
+        ArrayList<String> allCourseTypes = courseModel.getAllCourseTypes();
+        if(allCourseTypes == null) {
+            new InitAllCourseTypeTask().execute();
+            return;
+        }
+
+        ArrayList<String> allNames = new ArrayList<String>(allCourseTypes.size() + 1);
+        allNames.add(getContext().getResources().getString(R.string.
+                main_course_select_all_course));
+        allNames.addAll(allCourseTypes);
+
+        courseTypeSelectText = (TextView)contentView.findViewById(R.id.main_course_course_type_select_text);
+        courseTypeSelectLayout = (ViewGroup)contentView.findViewById(R.id.course_select_type_layout);
+        final PopupMenu courseTypeSelectMenu = new PopupMenu(this.getActivity(), courseTypeSelectText);
         Menu menu = courseTypeSelectMenu.getMenu();
         for(String courseTypeName: allNames) {
             menu.add(courseTypeName).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -137,7 +159,7 @@ public class CourseListContainerFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     CharSequence courseTypeName = item.getTitle();
                     courseTypeSelectText.setText(courseTypeName);
-                    showCourseTypeList(courseTypeName);
+                    showCourseByCondition();
                     courseTypeSelectMenu.dismiss();
                     return true;
                 }
@@ -185,7 +207,43 @@ public class CourseListContainerFragment extends Fragment {
         });
     }
 
+    private class InitAllAcademyNamesTask extends AsyncTask<Void, Void, Boolean> {
 
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean initSuccess = CourseModel.getInstance().initAllAcademyInfos();
+            return initSuccess;
+        }
 
+        @Override
+        protected  void onPostExecute(Boolean initSuccess) {
+            if(getContext() == null)
+                return;
+            if(initSuccess) {
+                initCourseTypeSelectLayout(contentView);
+            } else {
+                Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
+    private class InitAllCourseTypeTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean initSuccess = CourseModel.getInstance().initAllCourseTypes();
+            return initSuccess;
+        }
+
+        @Override
+        protected  void onPostExecute(Boolean initSuccess) {
+            if(getContext() == null)
+                return;
+            if(initSuccess) {
+                initAllCourseSelectLayout(contentView);
+            } else {
+                Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
