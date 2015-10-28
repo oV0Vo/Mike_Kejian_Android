@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -100,6 +101,13 @@ public class MainActivity extends AppCompatActivity
     private CharSequence title;
 
     private PushAgent pushAgent;
+
+    public void checkVersion(){
+        if(Global.localVersion < Global.serverVersion){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("软件升级").setMessage("发现新版本，建议立即更新使用").setPositiveButton();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
