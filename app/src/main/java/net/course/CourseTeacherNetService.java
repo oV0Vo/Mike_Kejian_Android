@@ -27,6 +27,8 @@ public class CourseTeacherNetService {
         paraMap.put("userId", assistantId);
         paraMap.put("courseId", courseId);
         String response = http.sentGetRequest(url, paraMap);
+        if(response == null)
+            return false;
 
         try {
             JSONObject jResult = new JSONObject(response);
@@ -46,6 +48,8 @@ public class CourseTeacherNetService {
         paraMap.put("userId", assistantId);
         paraMap.put("courseId", courseId);
         String response = http.sentGetRequest(url, paraMap);
+        if(response == null)
+            return false;
 
         try {
             JSONObject jResult = new JSONObject(response);

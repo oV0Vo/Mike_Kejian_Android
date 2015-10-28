@@ -35,9 +35,10 @@ public class CoursePostNetService {
         paraMap.put("courseId", courseId);
         paraMap.put("lastId", Integer.toString(Integer.MAX_VALUE));
         paraMap.put("num", Integer.toString(Integer.MAX_VALUE));
-
         String responseContent = http.sentGetRequest(url, paraMap);
-        Log.i(TAG, "getPosts: " + responseContent);
+        if(responseContent == null)
+            return null;
+
         try {
             JSONArray jPosts = new JSONArray(responseContent);
             ArrayList<Post> posts = new ArrayList<Post>();
