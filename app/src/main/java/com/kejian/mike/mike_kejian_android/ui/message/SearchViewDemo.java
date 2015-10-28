@@ -148,7 +148,7 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
             }
             SearchResult searchResult = getItem(position);
             if(searchResult.isCourse()){
-               GetBitmapByPinyin.getBitmapByPinyin(searchResult.getTitle(),getContext(),viewHolder.imageView);
+               GetBitmapByPinyin.getBitmapByPinyin(searchResult.getTitle(), getContext(), viewHolder.imageView);
             }else{
                 DownloadPicture downloadPicture = new DownloadPicture(getContext(),viewHolder.imageView,searchResult.getIconUrl(),searchResult.getIconUrl());
             }
@@ -237,9 +237,9 @@ public class SearchViewDemo extends AppCompatActivity implements AdapterView.OnI
                 postText.setVisibility(View.GONE);
                 courseAdapter.notifyDataSetChanged();
                 postAdapter.notifyDataSetChanged();
+                searchTaskManager.clearSearchTasks();
                 if(newText.length() > 0){
                     SearchTask searchTask = new SearchTask();
-                    searchTaskManager.clearSearchTasks();
                     searchTaskManager.addSearchTask(searchTask);
                     searchTask.execute(newText);
                 }

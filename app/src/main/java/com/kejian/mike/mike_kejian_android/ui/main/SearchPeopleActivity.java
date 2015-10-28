@@ -188,9 +188,9 @@ public class SearchPeopleActivity extends AppCompatActivity implements AdapterVi
 // Toast.makeText(MainActivity.this, "1111", Toast.LENGTH_LONG).show();
                 SearchBLService.clearPeople();
                 peopleAdapter.notifyDataSetChanged();
+                searchTaskManager.clearSearchTasks();
                 if(newText.length() > 0){
                     SearchTask searchTask = new SearchTask();
-                    searchTaskManager.clearSearchTasks();
                     searchTaskManager.addSearchTask(searchTask);
                     searchTask.execute(newText);
                 }
