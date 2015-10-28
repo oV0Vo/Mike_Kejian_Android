@@ -39,10 +39,11 @@ public class CourseListFragment extends Fragment{
 
     private CourseAdapter myCourseAdapter;
     private AbsListView myCourseList;
+    private TextView myCourseEmptyText;
 
     private CourseAdapter allCourseAdapter;
     private RefreshListView allCourseList;
-
+    private TextView allCourseEmptyText;
 
     private OnCourseSelectedListener listner;
 
@@ -97,19 +98,24 @@ public class CourseListFragment extends Fragment{
             return;
         isShowMyCourse = true;
         allCourseList.setVisibility(View.GONE);
+        allCourseEmptyText.setVisibility(View.GONE);
         myCourseList.setVisibility(View.VISIBLE);
+
         if(initMyCourseDataFinish) {
-            Log.i(TAG, "initMyCourseDataFinish");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
-            myCourseAdapter.notifyDataSetChanged();
+            if(myCourseAdapter.getCount() != 0) {
+                myCourseAdapter.notifyDataSetChanged();
+            }
+            else {
+                myCourseList.setVisibility(View.GONE);
+                myCourseEmptyText.setVisibility(View.VISIBLE);
+            }
+
         } else if(initMyCourseDataFail) {
-            Log.i(TAG, "initMyCourseDataFail");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.VISIBLE);
-        } else { //on progress
-            Log.i(TAG, "on progress my course");
-            Log.i(TAG, "progressBar visible");
+        } else {
             progressBar.setVisibility(View.VISIBLE);
             errorMessageText.setVisibility(View.GONE);
         }
@@ -120,22 +126,24 @@ public class CourseListFragment extends Fragment{
             return;
         isShowMyCourse = false;
         myCourseList.setVisibility(View.GONE);
+        myCourseEmptyText.setVisibility(View.GONE);
         allCourseList.setVisibility(View.VISIBLE);
 
         if(initAllCourseDataFinish) {
-            Log.i(TAG, "initAllCourseDataFinish");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
-            allCourseAdapter.notifyDataSetChanged();
-            allCourseList.setOnRefreshListener(refreshRL);
+            if(allCourseAdapter.getCount() != 0) {
+                allCourseAdapter.notifyDataSetChanged();
+                allCourseList.setOnRefreshListener(refreshRL);
+            } else {
+                allCourseEmptyText.setVisibility(View.VISIBLE);
+                allCourseList.setVisibility(View.GONE);
+            }
         } else if(initAllCourseDataFail) {
-            Log.i(TAG, "initAllCourseDataFail");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.VISIBLE);
             allCourseList.setOnRefreshListener(noActionRL);
-        } else { //on progress
-            Log.i(TAG, "on progress all course");
-            Log.i(TAG, "progressBar visible");
+        } else {
             progressBar.setVisibility(View.VISIBLE);
             errorMessageText.setVisibility(View.GONE);
         }
@@ -193,21 +201,22 @@ public class CourseListFragment extends Fragment{
 
         errorMessageText = (TextView)layoutView.findViewById(R.id.error_message_text);
 
-        initMyCourseList(layoutView);
-        initAllCourseList(layoutView);
+        initMyCourseView(layoutView);
+        initAllCourseView(layoutView);
 
         return layoutView;
     }
 
-    private void initMyCourseList(View layoutView) {
+    private void initMyCourseView(View layoutView) {
         myCourseList = (AbsListView) layoutView.findViewById(R.id.my_course_list);
         myCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
                 courseModel.getMyCourseBriefs());
         myCourseList.setAdapter(myCourseAdapter);
         isShowMyCourse = true;
+        myCourseEmptyText = (TextView)layoutView.findViewById(R.id.my_course_empty_text);
     }
 
-    private void initAllCourseList(View layoutView) {
+    private void initAllCourseView(View layoutView) {
         allCourseList = (RefreshListView)layoutView.findViewById(R.id.all_course_list);
         allCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
                 courseModel.getAllCourseBriefs());
@@ -219,6 +228,8 @@ public class CourseListFragment extends Fragment{
             allCourseList.setOnRefreshListener(refreshRL);
         else
             allCourseList.setOnRefreshListener(noActionRL);
+
+        allCourseEmptyText = (TextView)layoutView.findViewById(R.id.all_course_empty_text);
     }
 
     @Override
