@@ -20,98 +20,83 @@ import java.util.concurrent.Executors;
  */
 public class GetBitmapByPinyin {
 
-    public static Hashtable<String,SoftReference<Bitmap>> bitmapHashtable=new Hashtable<>();
+   // public static Hashtable<String,SoftReference<Bitmap>> bitmapHashtable=new Hashtable<>();
 
-    public static int maxSize=500;
 
-    public static Context context;
 
-    public  static  ImageView imageView;
 
-    public static  String picPath;
+
 
 
     //线程池
-    public static ExecutorService executorService= Executors.newCachedThreadPool();
+   // public static ExecutorService executorService= Executors.newCachedThreadPool();
    // ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     public static void getBitmapByPinyin(String words,Context context,ImageView imageView){
 
-        GetBitmapByPinyin.context=context;
-        GetBitmapByPinyin.imageView=imageView;
 
 
-        System.out.println("拼音:"+HanziToPinyin.getPinYin(words).charAt(0));
-
-        String path="char_"+HanziToPinyin.getPinYin(words).charAt(0);
-
-        GetBitmapByPinyin.picPath=path;
-
-        if(bitmapHashtable.containsKey(path)){
-
-           SoftReference<Bitmap> temreference= bitmapHashtable.get(path);
-
-            Bitmap bitmap=temreference.get();
-
-            imageView.setImageBitmap(bitmap);
+        System.out.println("words :"+words);
 
 
-        }else{
+        System.out.println("拼音:"+HanziToPinyin.getPinYin("国家地理"));
+
+        String pinyin=HanziToPinyin.getPinYin(words);
 
 
-             GetBitmapFromLocal getBitmapFromLocal=new GetBitmapFromLocal();
+        String path=null;
 
-            new GetBitmapFromLocal().execute("");
+        if(pinyin.length()>0) {
 
-
-
-
-
-
+            path= "char_" + pinyin.charAt(0);
         }
+        else{
+
+            path="no_pic";
+        }
+
+
+
+//        if(bitmapHashtable.containsKey(path)){
+//
+//           SoftReference<Bitmap> temreference= bitmapHashtable.get(path);
+//
+//            Bitmap bitmap=temreference.get();
+//
+//            imageView.setImageBitmap(bitmap);
+//
+//
+//        }else{
+
+
+            // GetBitmapFromLocal getBitmapFromLocal=new GetBitmapFromLocal();
+
+
+        String packageName = context.getApplicationInfo().packageName;
+
+        int sourceId= context.getResources().getIdentifier(path, "drawable", packageName);
+
+        BitmapFactory.Options b=new BitmapFactory.Options();
+
+        b.inSampleSize=2;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), sourceId,b);
+
+        imageView.setImageBitmap(bitmap);
+
+           // new GetBitmapFromLocal().execute("");
+
+
+
+
+
+
+      //  }
 
 
         return;
 
     }
 
-    public static class GetBitmapFromLocal extends AsyncTask<String,Integer,Bitmap>{
 
-
-
-        @Override
-        public Bitmap doInBackground(String...Para){
-
-
-
-            String packageName = context.getApplicationInfo().packageName;
-
-            int sourceId= context.getResources().getIdentifier(picPath, "drawable", packageName);
-
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), sourceId);
-
-            return bitmap;
-        }
-
-        @Override
-        public void onPostExecute(Bitmap bitmap){
-
-            imageView.setImageBitmap(bitmap);
-
-            if(maxSize<0){
-                bitmapHashtable.clear();
-                maxSize=500;
-            }else {
-
-                maxSize--;
-
-                bitmapHashtable.put(picPath,new SoftReference<Bitmap>(bitmap));
-
-
-            }
-
-
-
-        }
-    }
 }

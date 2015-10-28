@@ -567,6 +567,9 @@ public class HanziToPinyin {
                 }
             }
         }
+
+       // return "a";
+
         return sb.toString().toLowerCase();
     }
     private void addToken(
@@ -574,5 +577,10 @@ public class HanziToPinyin {
         String str = sb.toString();
         tokens.add(new Token(tokenType, str, str));
         sb.setLength(0);
+    }
+
+    public static  void main(String[] args){
+
+        System.out.println(HanziToPinyin.getPinYin("国家地理"));
     }
 }

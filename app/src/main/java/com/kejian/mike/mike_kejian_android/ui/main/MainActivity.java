@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initJpush();
         if(getSupportActionBar() != null)
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
@@ -122,6 +123,58 @@ public class MainActivity extends AppCompatActivity
 
         fgState = FgState.COURSE;
         courseTextTab.setChecked(true);
+    }
+
+    private void initJpush(){
+
+
+        JPushInterface.setDebugMode(false);
+        JPushInterface.init(getApplicationContext());
+
+        new SetTag().execute("");
+
+
+
+    }
+
+    //设置别名和标签
+
+    private  class SetTag extends AsyncTask<String,Integer,String>{
+
+        @Override
+        public String doInBackground(String...Para){
+
+            user user=(user)Global.getObjectByName("user");
+            String ali=null;
+
+            //设置手机别名
+            if(user!=null){
+
+                ali="user_"+user.getId();
+
+            }
+
+
+
+            ArrayList<CourseBriefInfo> list= CourseInfoNetService.getMyCourseBrief();
+            int size=list.size();
+
+            Set h=new HashSet();
+
+            for(int i=0;i<size;i++){
+
+                h.add("course_"+list.get(i).getCourseId());
+
+                MessagePrint.print("set tag :"+"course_"+list.get(i).getCourseId());
+
+
+            }
+
+            JPushInterface.setAliasAndTags(getApplicationContext(),(ali==null?"":ali),h,null);
+
+
+            return null;
+        }
     }
 
     //@还不是很清楚广播，所以先这样写

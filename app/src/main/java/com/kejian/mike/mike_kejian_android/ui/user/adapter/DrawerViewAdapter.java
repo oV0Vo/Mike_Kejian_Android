@@ -79,7 +79,11 @@ public class DrawerViewAdapter extends BaseAdapter{
 
                     DownloadPicture d=new DownloadPicture(context,circleImageView,u.getIcon(),u.getIcon());
 
-                   // circleImageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin("我是谁",context));
+                    //circleImageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView));
+
+
+                    GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView);
+
 
                     TextView name=(TextView)v.findViewById(R.id.drawerName);
                     ImageView identify=(ImageView)v.findViewById(R.id.drawerIdentify);

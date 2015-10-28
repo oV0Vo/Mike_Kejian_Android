@@ -52,6 +52,9 @@ public class MyReceiver extends BroadcastReceiver {
 
         try {
 
+            if(message==null)
+                return;
+
             JSONObject jsonObject = new JSONObject(message);
 
             String action =jsonObject.getString("inf_type");
