@@ -32,8 +32,7 @@
             android:paddingLeft="@dimen/big_padding"
             android:paddingBottom="@dimen/over_medium_padding"
             android:textColor="@color/green"
-            android:textSize="@dimen/big_font"
-            android:singleLine="true"/>
+            android:textSize="@dimen/big_font"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -86,21 +85,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true">
-
-                <TextView
-                    android:id="@+id/enter_course"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    style="@style/white_greenText_round"
-                    android:text="@string/enter_course_text"/>
-
-            </RelativeLayout>
 
         </RelativeLayout>
 

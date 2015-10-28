@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/small_padding"
+            android:paddingTop="@dimen/small_size"
+            android:paddingBottom="@dimen/small_size"
             android:orientation="horizontal"
             android:background="@color/white"
             android:visibility="gone">
@@ -74,6 +74,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_size"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/medium_padding"
