@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Base64;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,21 @@ public class UserLoginActivity extends Activity {
     private NetBroadcast netBroadcast;
 
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            //do something...
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     protected void onCreate(Bundle savedInstanceState){
 

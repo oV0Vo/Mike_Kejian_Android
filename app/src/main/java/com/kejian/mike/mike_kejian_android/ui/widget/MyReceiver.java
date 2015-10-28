@@ -74,6 +74,7 @@ public class MyReceiver extends BroadcastReceiver {
                 case "ANNOUNCE_TE":
 
                     sendBroadcast(MessageType.courseNotice);break;
+
 //                case "INVITE":openNotification(context,intent.getExtras());
 
             }
@@ -145,7 +146,7 @@ public class MyReceiver extends BroadcastReceiver {
 
                     break;
                 case "UPDATE":
-                    jumpToUpdate();
+                    jumpToUpdate(context);
                     break;
             }
         } catch (Exception e) {
@@ -168,7 +169,9 @@ public class MyReceiver extends BroadcastReceiver {
     }
 
 
-    public void jumpToUpdate(){
+    public void jumpToUpdate(Context context){
+
+
 
     }
     public void jumpToPost(String postId){

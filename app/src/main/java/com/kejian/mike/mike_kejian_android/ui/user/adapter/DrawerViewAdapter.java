@@ -72,17 +72,17 @@ public class DrawerViewAdapter extends BaseAdapter{
                     user u=(user)Global.getObjectByName("user");
 
                     final CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.photo);
-                    if(u.getIcon().equals("")){
+                  if(u!=null)  if(u.getIcon().equals("")){
                         circleImageView.setImageResource(R.drawable.userxh);
                     }
 
 
                     DownloadPicture d=new DownloadPicture(context,circleImageView,u.getIcon(),u.getIcon());
 
-                    //circleImageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView));
+                   // circleImageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView));
 
 
-                    GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView);
+                    //GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView);
 
 
                     TextView name=(TextView)v.findViewById(R.id.drawerName);

@@ -60,18 +60,18 @@ public class UserSettingActivity extends AppCompatActivity {
                 editor.putString("user_password", "");
                 editor.apply();
 
-//                Intent intent=new Intent();
-//
-//                intent.setClass(getApplicationContext(),UserLoginActivity.class);
-//
-//                startActivity(intent);
+                Intent intent=new Intent();
 
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setClass(getApplicationContext(),UserLoginActivity.class);
+
                 startActivity(intent);
 
-                System.exit(0);
+//                Intent intent = new Intent(Intent.ACTION_MAIN);
+//                intent.addCategory(Intent.CATEGORY_HOME);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+
+
 
 
 

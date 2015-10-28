@@ -239,14 +239,16 @@ public class UserAttentionListActivity extends AppCompatActivity{
         @Override
         public void onLoadingMore() {
 
-            switch(type){
+            hideFoot();
 
-                case "PEOPLE":new GetData().execute("");break;
-                case "COURSE":new GetData().execute("");break;
-                case "POST":new GetData().execute("");break;
-                default:break;
-
-            }
+//            switch(type){
+//
+//                case "PEOPLE":new GetData().execute("");break;
+//                case "COURSE":new GetData().execute("");break;
+//                case "POST":new GetData().execute("");break;
+//                default:break;
+//
+//            }
 
 
         }

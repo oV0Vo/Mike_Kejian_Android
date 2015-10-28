@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,7 @@ import net.picture.MessagePrint;
 import net.picture.PictureToFile;
 import net.picture.PictureUploadUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -65,6 +68,8 @@ public class UserInfoActivity extends AppCompatActivity{
     private EditText schoolMajorView;
     private EditText schoolDepartmentView;
     private Menu menu;
+
+    private File file;
 
     private CircleImageView photo;
 
@@ -144,17 +149,73 @@ public class UserInfoActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
+                file=new File("/sdcard/tmp.jpg");
+
+
+                Intent intent = new Intent("android.intent.action.PICK");
+                intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
+                intent.putExtra("output", Uri.fromFile(file));
                 intent.putExtra("crop", "true");
-                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectX", 1);// 裁剪框比例
                 intent.putExtra("aspectY", 1);
+                intent.putExtra("outputX", 200);// 输出图片大小
+                intent.putExtra("outputY", 200
+                );
+                startActivityForResult(intent, 100);
+
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+//
+//                intent.setType("image/*");
+//
+//                intent.putExtra("crop", "true");
+//
+//                intent.putExtra("aspectX", 2);
+//
+//                intent.putExtra("aspectY", 1);
+//
+//                intent.putExtra("outputX", 200);
+//
+//                intent.putExtra("outputY", 200);
+//
+//                intent.putExtra("scale", true);
+//
+//                intent.putExtra("return-data", true);
+//
+//                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//
+//                intent.putExtra("noFaceDetection", true); // no face detection
+//
+//                startActivityForResult(intent, 100);
+
+
+//                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                intent.setType("image/*");
+//                intent.putExtra("crop", "true");
+//                intent.putExtra("aspectX", 1);
+//                intent.putExtra("aspectY", 1);
 //                intent.putExtra("outputX", 80);
 //                intent.putExtra("outputY", 80);
-                intent.putExtra("return-data", true);
+//                intent.putExtra("return-data", true);
+//
+//                startActivityForResult(intent, 0);
 
-                startActivityForResult(intent, 0);
+//                Intent intent = new Intent("com.android.camera.action.CROP");
+//                intent.setDataAndType(uri, "image/*");
+//                // crop为true是设置在开启的intent中设置显示的view可以剪裁
+//                intent.putExtra("crop", "true");
+//
+//                // aspectX aspectY 是宽高的比例
+//                intent.putExtra("aspectX", 1);
+//                intent.putExtra("aspectY", 1);
+//
+//                // outputX,outputY 是剪裁图片的宽高
+//                intent.putExtra("outputX", 300);
+//                intent.putExtra("outputY", 300);
+//                intent.putExtra("return-data", true);
+//                intent.putExtra("noFaceDetection", true);
+//                System.out.println("22================");
+//                startActivityForResult(intent, PHOTO_REQUEST_CUT);
 
 
             }
@@ -167,20 +228,28 @@ public class UserInfoActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
+
+
+        System.out.println("camera result:"+requestCode+" "+requestCode+" "+data);
+
+
         Bitmap cameraBitmap = null;
 
-       if(data!=null) {cameraBitmap=(Bitmap) data.getExtras().get("data");}
-        super.onActivityResult(requestCode, resultCode, data);
+        cameraBitmap=BitmapFactory.decodeFile(file.getAbsolutePath());
+
+       //if(data!=null&&data.getExtras()!=null) {cameraBitmap=(Bitmap) data.getExtras().get("data");}
 
 
 
-        if(cameraBitmap!=null) {
+
+        if(cameraBitmap != null) {
 
             Global.addGlobalItem("bitmap", cameraBitmap);
 
 
             photo.setImageBitmap(cameraBitmap);
         }
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
 

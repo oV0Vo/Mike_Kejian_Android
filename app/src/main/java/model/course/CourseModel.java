@@ -100,7 +100,7 @@ public class CourseModel {
     @NeedAsyncAnnotation
     public ArrayList<CourseBriefInfo> updateMyCourseBriefs(int time, TimeUnit timeUnit) {
         ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getMyCourseBrief();
-        this.myCourseBriefs.addAll(updateInfos);
+if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
         return updateInfos;
     }
 
