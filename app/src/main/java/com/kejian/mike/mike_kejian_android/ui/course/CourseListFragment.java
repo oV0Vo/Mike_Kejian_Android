@@ -152,12 +152,12 @@ public class CourseListFragment extends Fragment{
 
     public void showAcademyCourseList(CharSequence academyName) {
         if(initAllCourseDataFinish) {
-            Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
             if(academyName.equals(getContext().getResources().getString(
                     R.string.main_course_select_all_academy))) {
                 allCourseList.setAdapter(allCourseAdapter);
                 allCourseList.setPullLoadEnable(true);
             } else {
+                Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
                 ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
                 ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
                         academyName);
@@ -177,6 +177,7 @@ public class CourseListFragment extends Fragment{
                 allCourseList.setAdapter(allCourseAdapter);
                 allCourseList.setPullLoadEnable(true);
             } else {
+                Toast.makeText(getContext(), R.string.not_implemented, Toast.LENGTH_SHORT).show();
                 ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
                 ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
                         courseType);
