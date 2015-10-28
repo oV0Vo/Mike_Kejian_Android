@@ -34,4 +34,8 @@ import java.util.HashMap;
         itemList.remove(name);
 
     }
+    public static int localVersion = 0;
+    public static int serverVersion = 0;
+    public static String downloadDir = "app/download/";
+    public static String downloadUrl = "";
 }
