@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,12 +35,14 @@ public class CourseListFragment extends Fragment{
     private static final String TAG = "CourseListFragment";
 
     private OnRefreshListener noActionRL;
+    private OnRefreshListener refreshRL;
 
-    private OnRefreshListener allCourseRL;
+    private CourseAdapter myCourseAdapter;
+    private AbsListView myCourseList;
 
-    private RefreshListView listView;
+    private CourseAdapter allCourseAdapter;
+    private RefreshListView allCourseList;
 
-    private CourseAdapter listAdapter;
 
     private OnCourseSelectedListener listner;
 
@@ -64,45 +67,42 @@ public class CourseListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         courseModel = CourseModel.getInstance();
 
-        initListAdapter();
-        initListRefreshListener();
+        initMyCourseAdapter();
+        initAllCourseAdapter();
     }
 
-    private void initListAdapter() {
+    private void initMyCourseAdapter() {
         if (courseModel.getMyCourseBriefs().size() == 0) {
             new InitMyCourseBriefTask().execute();
         } else {
             initMyCourseDataFinish = true;
         }
 
-        if (courseModel.getAllCourseBriefs().size() == 0) {
+        myCourseAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                courseModel.getMyCourseBriefs());
+    }
+
+    private void initAllCourseAdapter() {
+        if(courseModel.getAllCourseBriefs().size() == 0) {
             new InitAllCourseBriefTask().execute();
         } else {
             initAllCourseDataFinish = true;
         }
-
-        isShowMyCourse = true;
-        listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                courseModel.getMyCourseBriefs());
-    }
-
-    private void initListRefreshListener() {
-        noActionRL = new NoActionRefreshListener();
-        allCourseRL = new AllCourseRefreshListener();
+        allCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
+                courseModel.getAllCourseBriefs());
     }
 
     public void showMyCourse() {
-        if (listView == null || getContext() == null)
+        if (myCourseList == null || getContext() == null)
             return;
         isShowMyCourse = true;
-        listView.setOnRefreshListener(noActionRL);
+        allCourseList.setVisibility(View.GONE);
+        myCourseList.setVisibility(View.VISIBLE);
         if(initMyCourseDataFinish) {
             Log.i(TAG, "initMyCourseDataFinish");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
-            listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                    courseModel.getMyCourseBriefs());
-            listView.setAdapter(listAdapter);
+            myCourseAdapter.notifyDataSetChanged();
         } else if(initMyCourseDataFail) {
             Log.i(TAG, "initMyCourseDataFail");
             progressBar.setVisibility(View.GONE);
@@ -116,77 +116,107 @@ public class CourseListFragment extends Fragment{
     }
 
     public void showAllCourse() {
-        if (listView == null)
+        if (myCourseList == null)
             return;
         isShowMyCourse = false;
+        myCourseList.setVisibility(View.GONE);
+        allCourseList.setVisibility(View.VISIBLE);
 
         if(initAllCourseDataFinish) {
             Log.i(TAG, "initAllCourseDataFinish");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
-            ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-            listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                    allCourseBriefs);
-            listView.setAdapter(listAdapter);
-            listView.setOnRefreshListener(allCourseRL);
+            allCourseAdapter.notifyDataSetChanged();
+            allCourseList.setOnRefreshListener(refreshRL);
         } else if(initAllCourseDataFail) {
             Log.i(TAG, "initAllCourseDataFail");
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.VISIBLE);
-            listView.setOnRefreshListener(noActionRL);
+            allCourseList.setOnRefreshListener(noActionRL);
         } else { //on progress
             Log.i(TAG, "on progress all course");
             Log.i(TAG, "progressBar visible");
             progressBar.setVisibility(View.VISIBLE);
             errorMessageText.setVisibility(View.GONE);
-            listView.setOnRefreshListener(noActionRL);
         }
     }
 
     public void showAcademyCourseList(CharSequence academyName) {
         if(initAllCourseDataFinish) {
-            ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-            ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
-                    academyName);
-            listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                    filterResults);
-            listView.setAdapter(listAdapter);
-            listView.setOnRefreshListener(noActionRL);
+            if(! academyName.equals(getContext().getResources().getString(
+                    R.string.main_course_select_all_academy))) {
+                allCourseList.setAdapter(allCourseAdapter);
+                allCourseList.setOnRefreshListener(refreshRL);
+            } else {
+                ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
+                ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByAcademyName(allCourseBriefs,
+                        academyName);
+                CourseAdapter adapter = new CourseAdapter(getActivity(),
+                        android.R.layout.simple_list_item_1, filterResults);
+                allCourseList.setAdapter(adapter);
+                allCourseList.setOnRefreshListener(noActionRL);
+            }
         }
     }
 
     public void showCourseTypeList(CharSequence courseType) {
         if(initAllCourseDataFinish) {
-            ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
-            ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
-                    courseType);
-            listAdapter = new CourseAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                    filterResults);
-            listView.setAdapter(listAdapter);
-            listView.setOnRefreshListener(noActionRL);
+            if(courseType.equals(getContext().getResources().getString(
+                    R.string.main_course_select_all_course))) {
+                allCourseList.setAdapter(allCourseAdapter);
+                allCourseList.setOnRefreshListener(refreshRL);
+            } else {
+                ArrayList<CourseBriefInfo> allCourseBriefs = courseModel.getAllCourseBriefs();
+                ArrayList<CourseBriefInfo> filterResults = CourseBriefFilter.filterByCourseType(allCourseBriefs,
+                        courseType);
+                CourseAdapter adapter = new CourseAdapter(getActivity(),
+                        android.R.layout.simple_list_item_1, filterResults);
+                allCourseList.setAdapter(adapter);
+                allCourseList.setOnRefreshListener(noActionRL);
+            }
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
+        View layoutView = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-        progressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
+        progressBar = (ProgressBar)layoutView.findViewById(R.id.progress_bar);
         if(initMyCourseDataFinish)
             progressBar.setVisibility(View.GONE);
         else {
-            Log.i(TAG, "progressBar visible in onCreateView");
             progressBar.setVisibility(View.VISIBLE);
         }
 
-        errorMessageText = (TextView)view.findViewById(R.id.error_message_text);
+        errorMessageText = (TextView)layoutView.findViewById(R.id.error_message_text);
 
-        listView = (RefreshListView) view.findViewById(R.id.main_course_list);
-        listView.setAdapter(listAdapter);
-        listView.setOnRefreshListener(noActionRL);
+        initMyCourseList(layoutView);
+        initAllCourseList(layoutView);
 
-        return view;
+        return layoutView;
+    }
+
+    private void initMyCourseList(View layoutView) {
+        myCourseList = (AbsListView) layoutView.findViewById(R.id.my_course_list);
+        myCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
+                courseModel.getMyCourseBriefs());
+        myCourseList.setAdapter(myCourseAdapter);
+        isShowMyCourse = true;
+    }
+
+    private void initAllCourseList(View layoutView) {
+        allCourseList = (RefreshListView)layoutView.findViewById(R.id.all_course_list);
+        allCourseAdapter = new CourseAdapter(getContext(), android.R.layout.simple_list_item_1,
+                courseModel.getAllCourseBriefs());
+        allCourseList.setAdapter(allCourseAdapter);
+
+        noActionRL = new NoActionRefreshListener(allCourseList);
+        refreshRL = new AllCourseRefreshListener(allCourseList);
+        if(initAllCourseDataFinish)
+            allCourseList.setOnRefreshListener(refreshRL);
+        else
+            allCourseList.setOnRefreshListener(noActionRL);
     }
 
     @Override
@@ -212,9 +242,6 @@ public class CourseListFragment extends Fragment{
             super(context, layoutId, courses);
         }
 
-        /*
-        使用自定义的View替换默认的View
-         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             Log.i(TAG, "getView " + Integer.toString(position) + " " + Boolean.toString(
@@ -228,11 +255,6 @@ public class CourseListFragment extends Fragment{
             CourseBriefInfo courseBriefInfo = getItem(position);
 
             ImageView imageView = (ImageView)convertView.findViewById(R.id.course_brief_image);
-
-
-//            imageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin(
-//                    courseBriefInfo.getCourseName(), getContext(),imageView));
-
             GetBitmapByPinyin.getBitmapByPinyin(
                     courseBriefInfo.getCourseName(), getContext(), imageView);
 
@@ -272,13 +294,12 @@ public class CourseListFragment extends Fragment{
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            //设置更新状态
             if(updateSuccess) {
                 initMyCourseDataFinish = true;
             } else {
                 initMyCourseDataFail = true;
             }
-            //更新界面
+
             if(isShowMyCourse) {
                 showMyCourse();
             }
@@ -299,13 +320,12 @@ public class CourseListFragment extends Fragment{
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            //设置更新状态
-            if(updateSuccess) { 
+            if(updateSuccess) {
                 initAllCourseDataFinish = true;
             } else {
                 initAllCourseDataFail = true;
             }
-            //更新界面
+
             if(!isShowMyCourse) {
                 showAllCourse();
             }
@@ -326,9 +346,9 @@ public class CourseListFragment extends Fragment{
 
         @Override
         protected void onPostExecute(Boolean updateSuccess) {
-            listView.hideFooterView();
+            allCourseList.hideFooterView();
             if(updateSuccess) {
-                listAdapter.notifyDataSetChanged();
+                allCourseAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             }
@@ -337,6 +357,12 @@ public class CourseListFragment extends Fragment{
 
     private class AllCourseRefreshListener implements OnRefreshListener {
 
+        private RefreshListView listView;
+
+        public AllCourseRefreshListener(RefreshListView listView) {
+            this.listView = listView;
+        }
+
         @Override
         public void onDownPullRefresh() {
             listView.hideHeaderView();
@@ -344,7 +370,7 @@ public class CourseListFragment extends Fragment{
 
         @Override
         public void onLoadingMore() {
-            if(courseModel.hasMoreAllCourseBriefs())
+            if(CourseModel.getInstance().hasMoreAllCourseBriefs())
                 new UpdateAllCourseBriefTask().execute();
             else
                 listView.hideFooterView();
@@ -352,6 +378,12 @@ public class CourseListFragment extends Fragment{
     }
 
     private class NoActionRefreshListener implements OnRefreshListener {
+
+        private RefreshListView listView;
+
+        public NoActionRefreshListener(RefreshListView listView) {
+            this.listView = listView;
+        }
 
         @Override
         public void onDownPullRefresh() {
