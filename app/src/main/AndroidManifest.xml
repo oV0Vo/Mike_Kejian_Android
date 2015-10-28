@@ -2,64 +2,38 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kejian.mike.mike_kejian_android"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
-    <permission android:name="com.kejian.mike.mike_kejian_android.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
-
+    <permission
+        android:name="com.kejian.mike.mike_kejian_android.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
 
     <!-- Required -->
     <uses-permission android:name="com.kejian.mike.mike_kejian_android.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="com.kejian.mike.mike_kejian_android.permission.JPUSH_MESSAGE" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
-
-
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!-- Optional. Required for location feature -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
 
     <!-- 友盟推送需要的permission -->
     <!-- 必选 -->
 
-
-
-
-
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
 
     <!-- 【必选】用以设置前台是否显示通知 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -78,6 +52,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <uses-permission android:name="com.kejian.mike.mike_kejian_android.JPUSH_MESSAGE" />
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5614fe4d67e58e36e50024e3" >
@@ -103,26 +78,25 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
-
-
         <service
             android:name="cn.jpush.android.service.DaemonService"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter >
+            android:exported="true" >
+            <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="com.kejian.mike.mike_kejian_android"/>
+
+                <category android:name="com.kejian.mike.mike_kejian_android" />
             </intent-filter>
         </service>
-
 
         <!-- Required -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true" >
-            <intent-filter android:priority="1000">
+            <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                <category android:name="com.kejian.mike.mike_kejian_android"/>
+
+                <category android:name="com.kejian.mike.mike_kejian_android" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -132,27 +106,29 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false" >
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.kejian.mike.mike_kejian_android" />
             </intent-filter>
         </activity>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" >
         </service>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
         <!-- Required -->
@@ -170,18 +146,16 @@
 
         <activity
             android:name=".ui.main.WelcomeActivity"
-            android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@style/MyTheme.NoTitleBar.CustomBackground">
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme.NoTitleBar.CustomBackground" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.user.UserLoginActivity">
-
+        <activity android:name=".ui.user.UserLoginActivity" >
         </activity>
 
         <receiver android:name=".ui.broadcast.NetBroadcast" >
@@ -193,98 +167,77 @@
         <activity
             android:name=".ui.course.detail.CourseActivity"
             android:label="@string/course_detail_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.detail.introduction.CourseIntroductionActivity"
             android:label="@string/course_intro_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.management.CourseCreateActivity"
             android:label="@string/course_create_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.management.AnnoucementPublishActivity"
             android:label="@string/annouc_publish_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.annoucement.AnnoucListActivity"
             android:label="@string/annouc_list_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.message.CourseNoticeActivity"
             android:label="@string/course_notice" >
         </activity>
-
         <activity
             android:name=".ui.course.detail.naming.CourseNamingActivity"
             android:label="@string/course_naming_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.detail.CourseSignInActivity"
             android:label="@string/course_sign_in_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.detail.question.QuestionAnswerActivity"
             android:label="@string/title_activity_question_answer" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.detail.question.QuestionStatsActivity"
             android:label="@string/title_activity_question_stats" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.detail.CourseActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.detail.CourseActivity" />
         </activity>
-
         <activity
             android:name=".ui.course.annoucement.AnnoucDetailActivity"
             android:label="@string/title_annouc_detail_activity" >
-
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.course.annoucement.AnnoucListActivity"/>
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.course.annoucement.AnnoucListActivity" />
         </activity>
-
         <activity
             android:name=".ui.message.NewReplyActivity"
             android:label="@string/new_reply" >
@@ -508,30 +461,43 @@
             android:name=".ui.main.SearchPeopleActivity"
             android:label="@string/title_activity_search_people" >
         </activity>
-        <!-- User defined. 用户自定义的广播接收器-->
+        <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
             android:name=".ui.widget.MyReceiver"
-            android:enabled="true">
+            android:enabled="true" >
             <intent-filter>
-                <!--Required 用户注册SDK的intent-->
+
+                <!-- Required 用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
                 <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
-                <!--Required 用户接收SDK消息的intent-->
+                <!-- Required 用户接收SDK消息的intent -->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <!--Required 用户接收SDK通知栏信息的intent-->
+                <!-- Required 用户接收SDK通知栏信息的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <!--Required 用户打开自定义通知栏的intent-->
+                <!-- Required 用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
-                <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
+
                 <category android:name="com.kejian.mike.mike_kejian_android" />
             </intent-filter>
         </receiver>
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="f13ceadb88105d858f567c1e"/>
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="f13ceadb88105d858f567c1e" />
+
+        <service
+            android:name=".ui.main.UpdateService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
