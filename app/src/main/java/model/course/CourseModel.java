@@ -18,6 +18,8 @@ import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CurrentQuestion;
 import model.campus.Post;
+import model.user.Global;
+import model.user.user;
 import util.NeedAsyncAnnotation;
 import util.NetOperateResultMessage;
 
@@ -44,8 +46,6 @@ public class CourseModel {
     private CourseAnnoucement focusAnnouc;
 
     private boolean noMoreAllCourseBriefs;
-
-    private String schoolIdMock = "南京大学";
 
     private CourseModel() {
         myCourseBriefs = new ArrayList<CourseBriefInfo>();
@@ -120,7 +120,9 @@ public class CourseModel {
             lastCourseId = allCourseBriefs.get(allCourseBriefs.size() - 1).getCourseId();
 
         int updateNum = ALL_COURSE_BRIEF_UPDATE_NUM;
-        ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getAllCourseBrief(schoolIdMock,
+
+        String schoolId = getSchoolId();
+        ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getAllCourseBrief(schoolId,
                 lastCourseId, updateNum, time, timeUnit);
         if(updateInfos != null) {
             if(updateInfos.size() != 0)
@@ -129,6 +131,13 @@ public class CourseModel {
                 noMoreAllCourseBriefs = true;
         }
         return updateInfos;
+    }
+
+    private String getSchoolId() {
+        user currentUser = (user)Global.getObjectByName("user");
+        if(currentUser == null)
+            return null;
+        return currentUser.getSchoolInfo().getId();
     }
 
     private <E> ArrayList<E> getSubList(int beginPos, int num, List<E> list) {

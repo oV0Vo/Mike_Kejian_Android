@@ -15,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,8 +62,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         MainFragment.OnFragmentInteractionListener,
         CourseListFragment.OnCourseSelectedListener,
-        Fragment_Msg.OnMessageBeenReadListener{
-    private UserInfoServiceMock userInfoMock = UserInfoServiceMock.getInstance();
+        Fragment_Msg.OnMessageBeenReadListener
+{
+
+    private static final String TAG = "MainActivity";
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -368,7 +371,6 @@ public class MainActivity extends AppCompatActivity
         addCourseItem.setVisible(false);
         addPostItem = menu.findItem(R.id.publish_post);
         addPostItem.setVisible(false);
-        visibleItems = new ArrayList<MenuItem>();
         switch(fgState) {
             case COURSE:
                 setCourseMenu();
@@ -386,6 +388,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if(visibleItems == null)
+            visibleItems = new ArrayList<MenuItem>();
+
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar(menu);
@@ -459,24 +464,41 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setCourseMenu() {
-        disableCurrentMenu();
+        if(visibleItems == null || addCourseItem == null) {
+            Log.e(TAG, "setCourseMenu");
+            return;
+        }
+        disableCurrentMenu();/*
+        user currentUser = (user)Global.getObjectByName("user");
         if(userInfoMock.getUserType() == UserType.TEACHER) {
+
             addCourseItem.setVisible(true);
             visibleItems.add(addCourseItem);
-        }
+        }*/
     }
 
     private void setMessageMenu() {
+        if(visibleItems == null) {
+            Log.e(TAG, "setMessageMenu");
+            return;
+        }
         disableCurrentMenu();
     }
 
     private void setCampusMenu() {
+        if(visibleItems == null || addPostItem == null) {
+            Log.e(TAG, "setCampusMenu");
+            return;
+        }
+
         disableCurrentMenu();
         addPostItem.setVisible(true);
         visibleItems.add(addPostItem);
     }
 
     private void disableCurrentMenu() {
+        if(visibleItems == null)
+            return;
         for(MenuItem item: visibleItems)
             item.setVisible(false);
         visibleItems.clear();

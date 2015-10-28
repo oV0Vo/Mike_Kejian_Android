@@ -44,8 +44,8 @@ public class CourseBriefInfoFragment extends Fragment {
         CourseDetailInfo courseDetailInfo = CourseModel.getInstance().getCurrentCourseDetail();
 
         ImageView imageView = (ImageView)layoutView.findViewById(R.id.course_detail_brief_image);
-       GetBitmapByPinyin.getBitmapByPinyin(
-                courseDetailInfo.getCourseName(), getContext(),imageView);
+        GetBitmapByPinyin.getBitmapByPinyin(courseDetailInfo.getCourseName(), getContext(),
+                imageView);
 
         TextView academyView = (TextView)layoutView.findViewById(R.id.course_detail_brief_academy);
         academyView.setText(courseDetailInfo.getAccademyName());
