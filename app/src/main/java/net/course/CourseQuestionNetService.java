@@ -45,6 +45,8 @@ public class CourseQuestionNetService {
         paraMap.put("lastId", Integer.toString(Integer.MAX_VALUE));
         paraMap.put("num", Integer.toString(Integer.MAX_VALUE));
         String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
 
         try {
             JSONArray jQuestions = new JSONArray(response);
@@ -66,6 +68,8 @@ public class CourseQuestionNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
 
         try {
             JSONArray jQuestions = new JSONArray(response);
@@ -216,8 +220,6 @@ public class CourseQuestionNetService {
 
         String response = httpRequest.sentPostRequest(url, paraMap);
 
-        Log.i(TAG, response);
-
         if(response == null)
             return false;
         else if(response.equals("false"))
@@ -261,6 +263,8 @@ public class CourseQuestionNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("questionId", questionId);
         String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
 
         try {
             JSONArray jAnswers = new JSONArray(response);
@@ -300,6 +304,8 @@ public class CourseQuestionNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("questionId", questionId);
         String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
 
         try {
             JSONObject jStats = new JSONObject(response);
@@ -336,6 +342,8 @@ public class CourseQuestionNetService {
         paraMap.put("questionId", questionId);
         paraMap.put("answer", answer);//@need encode
         String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
 
         try {
             JSONObject jResult = new JSONObject(response);

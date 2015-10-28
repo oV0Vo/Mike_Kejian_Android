@@ -33,6 +33,9 @@ public class CourseSignInNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
+        if(responseContent == null)
+            return null;
+
         try {
             JSONArray jRecords = new JSONArray(responseContent);
             ArrayList<CourseSignInRecord> records = new ArrayList<>();
@@ -54,40 +57,38 @@ public class CourseSignInNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
-
-        if(responseContent.equals("null")) {
+        if(responseContent == null || responseContent.equals("null"))
             return null;
-        } else {
-            try {
-                JSONObject jRecord = new JSONObject(responseContent);
-                CourseSignInRecord record = new CourseSignInRecord();
 
-                String id = jRecord.getString("id");
-                record.setNamingId(id);
+        try {
+            JSONObject jRecord = new JSONObject(responseContent);
+            CourseSignInRecord record = new CourseSignInRecord();
 
-                String beginTimeStamp = jRecord.getString("begin_time");
-                Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
-                record.setBeginTime(beginTime);
+            String id = jRecord.getString("id");
+            record.setNamingId(id);
 
-                long lastTime = jRecord.getLong("last_time");
-                Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
-                record.setEndTime(endTime);
+            String beginTimeStamp = jRecord.getString("begin_time");
+            Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
+            record.setBeginTime(beginTime);
 
-                long leftMillis = jRecord.getLong("leftTime");
-                record.setLeftMillis(leftMillis);
+            long lastTime = jRecord.getLong("last_time");
+            Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
+            record.setEndTime(endTime);
 
-                boolean hasSignIn = jRecord.getBoolean("hasSignIn");
-                record.setHasSignIn(hasSignIn);
+            long leftMillis = jRecord.getLong("leftTime");
+            record.setLeftMillis(leftMillis);
 
-                String teacherId = jRecord.getString("user_id");
-                record.setTeacherId(teacherId);
+            boolean hasSignIn = jRecord.getBoolean("hasSignIn");
+            record.setHasSignIn(hasSignIn);
 
-                return record;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e(TAG, "getCurrentSignInRecord json error");
-                return null;
-            }
+            String teacherId = jRecord.getString("user_id");
+            record.setTeacherId(teacherId);
+
+            return record;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "getCurrentSignInRecord json error");
+            return null;
         }
     }
 
@@ -125,6 +126,9 @@ public class CourseSignInNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("rollId", namingId);
         String responseContent = http.sentGetRequest(url , paraMap);
+        if(responseContent == null)
+            return false;
+
         try {
             JSONObject jResult = new JSONObject(responseContent);
             int successState = jResult.getInt("result");

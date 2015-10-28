@@ -46,6 +46,8 @@ public class CourseInfoNetService {
         String url = BASE_URL + "getMyCourseBriefInfos";
         Log.i(TAG, url);
         String response = http.sentGetRequest(url, null);
+        if(response == null)
+            return null;
         try {
             JSONArray jCourseBriefs = new JSONArray(response);
             ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
@@ -134,7 +136,8 @@ public class CourseInfoNetService {
         paraMap.put("num", Integer.toString(num));
 
         String response = http.sentGetRequest(url, paraMap);
-
+        if(response == null)
+            return null;
         try {
             JSONArray jCourseBriefs = new JSONArray(response);
             ArrayList<CourseBriefInfo> courseBriefs = new ArrayList<CourseBriefInfo>();
@@ -156,6 +159,8 @@ public class CourseInfoNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String response = http.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
         try {
             JSONObject jCourseDetail = new JSONObject(response);
             CourseDetailInfo courseDetail = new CourseDetailInfo();
@@ -237,6 +242,8 @@ public class CourseInfoNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String response = http.sentGetRequest(url ,paraMap);
+        if(response == null)
+            return null;
         switch(response) {
             case "\"1\"":
                 return UserTypeInCourse.STUDENT;

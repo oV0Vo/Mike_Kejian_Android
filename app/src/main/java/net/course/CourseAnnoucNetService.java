@@ -46,6 +46,8 @@ public class CourseAnnoucNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String response = httpRequest.sentGetRequest(url, paraMap);
+        if(response == null)
+            return null;
         try {
             JSONArray jAnnoucs = new JSONArray(response);
             ArrayList<CourseAnnoucement> annoucs = new ArrayList<>();

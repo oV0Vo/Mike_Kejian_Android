@@ -33,6 +33,8 @@ public class CourseNamingNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
+        if(responseContent == null)
+            return null;
         try {
             JSONArray jNamingRecords = new JSONArray(responseContent);
             ArrayList<CourseNamingRecord> namingRecords = new ArrayList<>();
@@ -102,7 +104,7 @@ public class CourseNamingNetService {
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", courseId);
         String responseContent = http.sentGetRequest(url, paraMap);
-        if(responseContent.equals("null")) {
+        if(responseContent == null || responseContent.equals("null")) {
             return null;
         } else {
             try {
@@ -125,6 +127,8 @@ public class CourseNamingNetService {
         paraMap.put("courseId", courseId);
         paraMap.put("lastTime", Long.toString(lastMills));
         String responseContent = http.sentGetRequest(url, paraMap);
+        if(responseContent == null)
+            return null;
         try {
             JSONObject jRecord = new JSONObject(responseContent);
             CourseNamingRecord record = parseCurrentNamingRecord(jRecord);
