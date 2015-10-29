@@ -55,7 +55,8 @@ public class MessageNetService {
                     String content = courseNoticeJson.getString("content");
                     String publisher = courseNoticeJson.getString("user_name");
                     String publish_time = courseNoticeJson.getString("publish_time");
-                    CourseNotice courseNotice = new CourseNotice(id,courseName,content,publisher,publish_time);
+                    int course_id = courseNoticeJson.getInt("course_id");
+                    CourseNotice courseNotice = new CourseNotice(id,courseName,content,publisher,publish_time,course_id);
                     courseNotices.add(courseNotice);
                 }
             } catch (JSONException e) {

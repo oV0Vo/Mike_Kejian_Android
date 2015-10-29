@@ -34,7 +34,7 @@
                 android:button="@null"
                 android:background="@drawable/green_bottom_border_selector"
                 android:textSize="@dimen/medium_font"
-                android:textColor="@color/blue_on_select"
+                android:textColor="@color/green_on_select"
                 android:text="@string/campus_main_latest"
                 android:id="@+id/campus_main_latest_button"/>
 
@@ -50,7 +50,7 @@
                 android:button="@null"
                 android:background="@drawable/green_bottom_border_selector"
                 android:textSize="@dimen/medium_font"
-                android:textColor="@color/blue_on_select"
+                android:textColor="@color/green_on_select"
                 android:text="@string/campus_main_hottest"
                 android:id="@+id/campus_main_hottest_button"/>
 

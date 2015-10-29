@@ -8,6 +8,7 @@ public class CourseNotice {
     private String courseName;
     private String content;
     private String publisher;
+    private int courseId;
 
     public String getCourseName() {
         return courseName;
@@ -30,13 +31,17 @@ public class CourseNotice {
     }
 
     private String publishTime;
-    public CourseNotice(int id, String courseName,String content,String publisher,String publishTime){
+    public CourseNotice(int id, String courseName,String content,String publisher,String publishTime,int courseId){
         this.id = id;
         this.courseName = courseName;
         this.content = content;
         this.publisher = publisher;
         this.publishTime = publishTime;
+        this.courseId = courseId;
 
+    }
+    public int getCourseId(){
+        return this.courseId;
     }
     private void resetContent(){
         if(this.content.length() >= 71){

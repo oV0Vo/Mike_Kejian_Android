@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListViewFooter;
 
 import net.picture.DownloadPicture;
 
@@ -29,12 +31,12 @@ import java.util.List;
 import bl.MessageBLService;
 import model.message.Reply;
 
-public class NewReplyActivity extends AppCompatActivity implements View.OnClickListener ,OnRefreshListener,AdapterView.OnItemClickListener{
+public class NewReplyActivity extends AppCompatActivity implements View.OnClickListener ,XListView.IXListViewListener,AdapterView.OnItemClickListener{
 
     private LayoutInflater myInflater;
     private ArrayAdapter<Reply> adapter;
     private LinearLayout mainLayout;
-    private RefreshListView container;
+    private XListView container;
     private ProgressBar progressBar;
 
     @Override
@@ -58,8 +60,23 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    private void onLoad() {
+        container.stopRefresh();
+        container.stopLoadMore();
+        container.setRefreshTime("刚刚");
+    }
+
     @Override
-    public void onDownPullRefresh() {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Reply reply = (Reply)parent.getItemAtPosition(position);
+        Intent intent = new Intent();
+        intent.setClass(this, PostDetailActivity.class);
+        intent.putExtra("postId",reply.getPostId()+"");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -71,14 +88,14 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
-                container.hideHeaderView();
+                onLoad();
                 refreshReplyNumView();
             }
         }.execute(new Void[]{});
     }
 
     @Override
-    public void onLoadingMore() {
+    public void onLoadMore() {
         if(MessageBLService.totalReply > MessageBLService.replies.size()){
             new AsyncTask<Void, Void, Void>() {
 
@@ -91,25 +108,13 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 protected void onPostExecute(Void result) {
                     adapter.notifyDataSetChanged();
-
-                    // 控制脚布局隐藏
-                    container.hideFooterView();
+                    onLoad();
                 }
             }.execute(new Void[]{});
         }else{
-            container.hideFooterView();
+            onLoad();
+            container.setFooterState(XListViewFooter.STATE_NOMORE);
         }
-
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Reply reply = (Reply)parent.getItemAtPosition(position);
-        Intent intent = new Intent();
-        intent.setClass(this, PostDetailActivity.class);
-        intent.putExtra("postId",reply.getPostId()+"");
-        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -134,7 +139,8 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
 //        iv.setOnClickListener(this);
 //        TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
 //        tv.setText("新的回复");
-        this.container = (RefreshListView)findViewById(R.id.reply_container);
+        this.container = (XListView)findViewById(R.id.reply_container);
+        this.container.setPullLoadEnable(true);
         this.myInflater = getLayoutInflater();
         this.refreshReplyNumView();
 //        for(int i = 0;i<this.replyNum;i++){
@@ -144,7 +150,8 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
 //        }
         this.adapter = new NewReplyAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.replies);
         this.container.setAdapter(this.adapter);
-        this.container.setOnRefreshListener(this);
+//        this.container.setOnRefreshListener(this);
+        this.container.setXListViewListener(this);
         this.container.setOnItemClickListener(this);
     }
     private void refreshReplyNumView(){
