@@ -40,14 +40,14 @@ import model.user.Invitee;
 /**
  * Created by showjoy on 15/9/20.
  */
-public class PostDetailActivity extends AppCompatActivity implements OnRefreshListener {
+public class PostDetailActivity extends AppCompatActivity implements XListView.IXListViewListener {
 
     ActionBar actionBar;
     private Post post;
     private ArrayList<Reply> replies;
     private String postId;
     private LinearLayout mainLayout;
-    private RefreshListView container;
+    private XListView container;
     private ProgressBar progressBar;
     private ReplyAdapter adapter;
     private View header;
@@ -111,14 +111,14 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
     }
 
     private void iniView(){
-        this.container = (RefreshListView)findViewById(R.id.reply_container);
-        container.getHeaderView().setBackgroundResource(R.color.white);
+        this.container = (XListView)findViewById(R.id.reply_container);
+        container.setPullLoadEnable(false);
         header= getLayoutInflater().inflate(R.layout.layout_post_detail_header, null);
         refreshHeader();
         container.addHeaderView(header);
         this.adapter = new ReplyAdapter(this, R.layout.layout_reply, post.getReplyList());
         this.container.setAdapter(adapter);
-        this.container.setOnRefreshListener(this);
+        this.container.setXListViewListener(this);
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -157,7 +157,7 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
                             Toast.makeText(PostDetailActivity.this, "回复失败", Toast.LENGTH_SHORT).show();
                         else {
                             Toast.makeText(PostDetailActivity.this, "已回复", Toast.LENGTH_LONG).show();
-                            onDownPullRefresh();
+                            onRefresh();
                             //replies.add(CampusBLService.publishedReply);
                             //adapter.notifyDataSetChanged();
                         }
@@ -249,7 +249,20 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
 
 
     @Override
-    public void onDownPullRefresh() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
+            case 1000:
+                CampusBLService.inviteToAnswer(post.getPostId(), data.getStringExtra("user_id"));
+                Toast.makeText(this, "已邀请", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    public void onRefresh() {
         new AsyncTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String... params) {
@@ -268,29 +281,20 @@ public class PostDetailActivity extends AppCompatActivity implements OnRefreshLi
             @Override
             public void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
-                container.hideHeaderView();
                 refreshHeader();
+                onLoad();
             }
         }.execute(postId);
-
     }
 
     @Override
-    public void onLoadingMore() {
-        container.hideFooterView();
+    public void onLoadMore() {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
-            case 1000:
-                CampusBLService.inviteToAnswer(post.getPostId(), data.getStringExtra("user_id"));
-                Toast.makeText(this, "已邀请", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-        }
-
+    private void onLoad() {
+        container.stopRefresh();
+        container.stopLoadMore();
+        container.setRefreshTime("刚刚");
     }
 }
