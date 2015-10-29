@@ -28,27 +28,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/post_publish_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="@dimen/small_icon_width"
-            android:layout_height="@dimen/small_icon_height"
-            android:background="@drawable/comment2"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/big_padding"
-            android:textSize="@dimen/medium_font"
-            android:text="@string/course_menu_publish_post"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ask_question_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/medium_padding"
+        android:paddingBottom="@dimen/medium_padding"
         android:orientation="horizontal">
 
         <ImageView
@@ -87,6 +67,26 @@
             android:paddingLeft="@dimen/big_padding"
             android:textSize="@dimen/medium_font"
             android:text="@string/course_menu_naming"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/post_publish_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/small_icon_width"
+            android:layout_height="@dimen/small_icon_height"
+            android:background="@drawable/comment2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/big_padding"
+            android:textSize="@dimen/medium_font"
+            android:text="@string/course_menu_publish_post"/>
     </LinearLayout>
 
 </LinearLayout>

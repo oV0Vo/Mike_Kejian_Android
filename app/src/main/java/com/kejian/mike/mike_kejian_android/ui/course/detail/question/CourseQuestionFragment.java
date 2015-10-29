@@ -76,6 +76,8 @@ public class CourseQuestionFragment extends Fragment {
             return;
 
         ArrayList<CurrentQuestion> currentQuestions = courseModel.getCurrentQuestions();
+        ViewGroup currentQuestionLayout = (ViewGroup)mainLayout.findViewById(R.id.
+                current_question_layout);
         if(currentQuestions.size() != 0) {
             currentQuestionContainer.removeAllViews();
             clearTimerThreads();
@@ -83,6 +85,9 @@ public class CourseQuestionFragment extends Fragment {
                 View newQuestionView = createCurrentQuestionView(currentQuestion);
                 currentQuestionContainer.addView(newQuestionView);
             }
+            currentQuestionLayout.setVisibility(View.VISIBLE);
+        } else {
+            currentQuestionLayout.setVisibility(View.GONE);
         }
     }
 
@@ -123,7 +128,7 @@ public class CourseQuestionFragment extends Fragment {
             }
             content = strBuilder.toString();
         }
-        Log.i(TAG, "question content " + contentText);
+        Log.i(TAG, "question content " + content);
         contentText.setText(content);
         return contentText;
     }
@@ -554,4 +559,5 @@ public class CourseQuestionFragment extends Fragment {
             }
         }
     }
+
 }
