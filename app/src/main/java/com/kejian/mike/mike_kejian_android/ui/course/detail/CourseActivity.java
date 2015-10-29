@@ -32,6 +32,10 @@ import com.kejian.mike.mike_kejian_android.ui.message.SearchViewDemo;
 
 import model.course.CourseModel;
 
+
+/**
+ * 当初为什么要写得那么复杂呢...q
+ */
 public class CourseActivity extends AppCompatActivity implements
         LatestAnnoucFragment.OnAnnoucementClickListener,
         CourseBriefInfoFragment.OnCourseBriefSelectedListener,
@@ -43,7 +47,7 @@ public class CourseActivity extends AppCompatActivity implements
 
     private ProgressBar progressBar;
 
-    private LinearLayout mainLayout;
+    private ViewGroup mainLayout;
 
     private CourseBriefInfoFragment courseBriefFg;
     private LatestAnnoucFragment annoucemntFg;
@@ -65,7 +69,7 @@ public class CourseActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         courseModel = CourseModel.getInstance();
-        mainLayout = (LinearLayout)findViewById(R.id.course_detail_main_layout);
+        mainLayout = (ViewGroup)findViewById(R.id.course_detail_main_layout);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
 
         this.setTitle(R.string.course_title);
@@ -378,9 +382,6 @@ public class CourseActivity extends AppCompatActivity implements
     }
 
     private void updateViewOnInitCourseDetailFinish() {
-        if(mainLayout == null)
-            return;
-
         courseBriefFg.initView();
         updateViewIfAllTaskFinish();
     }

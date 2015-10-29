@@ -201,24 +201,26 @@ public class CourseQuestionNetService {
         paraMap.put("courseId", question.getQuestion().getCourseId());
         paraMap.put("surviveTime", Long.toString(question.getLeftMills()));
         paraMap.put("content", question.getQuestion().getContent());
+        String response = null;
         switch(question.getQuestion().getQuestionType()){
             case 单选题:
                 url = BASE_URL + "signChoiceQuestion/";
                 setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion)question.getQuestion());
+                response = httpRequest.sentPostRequest(url, paraMap);
                 break;
             case 多选题:
                 url = BASE_URL + "signChoiceQuestion/";
                 setMultiChoiceQuestionPara(paraMap, (MultiChoiceQuestion)question.getQuestion());
+                response = httpRequest.sentPostRequest(url, paraMap);
                 break;
             case 其他:
                 setApplicationQuestionPara(paraMap, (ApplicationQuestion)question.getQuestion());
+                response = httpRequest.sentGetRequest(url, paraMap);
                 break;
             default:
                 Log.e(TAG, "switch error" + question.getQuestion().getQuestionType().toString());
                 break;
         }
-
-        String response = httpRequest.sentPostRequest(url, paraMap);
 
         if(response == null)
             return false;

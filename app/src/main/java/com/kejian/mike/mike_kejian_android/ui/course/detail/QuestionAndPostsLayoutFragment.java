@@ -1,5 +1,6 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,8 +30,15 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
     private CourseQuestionFragment questionFg;
 
     public QuestionAndPostsLayoutFragment() {
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
         postFg = new CommentsAreaFragment();
+        postFg.onAttach(context);
         questionFg = new CourseQuestionFragment();
+        questionFg.onAttach(context);
     }
 
     public void initView() {
@@ -120,12 +128,16 @@ public class QuestionAndPostsLayoutFragment extends Fragment {
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                    if(postFg == null)
+                    if(postFg == null) {
                         postFg = new CommentsAreaFragment();
+                        postFg.onAttach(getContext());
+                    }
                     return postFg;
                 case 1:
-                    if(questionFg == null)
+                    if(questionFg == null) {
                         questionFg = new CourseQuestionFragment();
+                        questionFg.onAttach(getContext());
+                    }
                     return questionFg;
                 default:
                     return null;

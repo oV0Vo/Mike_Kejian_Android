@@ -34,7 +34,9 @@ public class LatestAnnoucFragment extends Fragment {
 
     private TextView errorMessageText;
 
-    private ViewGroup mainLayout;
+    private TextView emptyText;
+
+    private ViewGroup contentLayout;
 
     private CourseAnnoucement annouc;
 
@@ -49,7 +51,8 @@ public class LatestAnnoucFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_annoucement, container, false);
         progressBar = (ProgressBar)v.findViewById(R.id.progress_bar);
         errorMessageText = (TextView)v.findViewById(R.id.error_message_text);
-        mainLayout = (ViewGroup)v.findViewById(R.id.main_layout);
+        emptyText = (TextView)v.findViewById(R.id.empty_text);
+        contentLayout = (ViewGroup)v.findViewById(R.id.annouc_content_layout);
         v.setOnClickListener(new OnAnnoucClickListener());
 
         String courseId = CourseModel.getInstance().getCurrentCourseId();
@@ -88,28 +91,23 @@ public class LatestAnnoucFragment extends Fragment {
             return;
 
         initFinish = true;
-        mainLayout.setVisibility(View.VISIBLE);
+        contentLayout.setVisibility(View.VISIBLE);
 
-        TextView contentView = (TextView) mainLayout.findViewById(R.id.
+        TextView contentView = (TextView) contentLayout.findViewById(R.id.
                 course_detail_annoucement_content);
         if(annouc != null) {
-            if(contentView.getGravity() == Gravity.CENTER) //有人刚发布了新公告，所以gravity要变回来
-                contentView.setGravity(Gravity.NO_GRAVITY);
-
             contentView.setText(annouc.getContent());
-            TextView authorView = (TextView) mainLayout.findViewById(R.id.
+            TextView authorView = (TextView) contentLayout.findViewById(R.id.
                     course_detail_annoucement_author_name);
             authorView.setText(annouc.getPersonName());
-            TextView dateView = (TextView) mainLayout.findViewById(R.id.
+            TextView dateView = (TextView) contentLayout.findViewById(R.id.
                     course_detail_annoucement_date);
             dateView.setText(TimeFormat.toMinute(annouc.getDate()));
-            Log.i(TAG, annouc.getDate().toString());
+            emptyText.setVisibility(View.GONE);
+            contentView.setVisibility(View.VISIBLE);
         } else {
-            contentView.setText((R.string.annoucement_no_annoucement));
-            contentView.setGravity(Gravity.CENTER);
-            contentView.setTextColor(getResources().getColor(R.color.dark));
-            ViewGroup annoucTimeLayout = (ViewGroup)mainLayout.findViewById(R.id.annouc_time_layout);
-            annoucTimeLayout.setVisibility(View.GONE);
+            emptyText.setVisibility(View.VISIBLE);
+            contentView.setVisibility(View.GONE);
         }
     }
 

@@ -176,7 +176,9 @@
             android:paddingRight="@dimen/small_size"
             android:paddingTop="@dimen/sub_small_size"
             android:paddingBottom="@dimen/sub_small_size"
-            android:visibility="gone">
+            android:layout_marginBottom="@dimen/small_size"
+            android:visibility="gone"
+            android:background="@drawable/dark_thin_round_border">
 
             <ImageView
                 android:layout_width="@dimen/medium_size"
@@ -187,9 +189,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_font" />
+                android:textSize="@dimen/sub_big_font"
+                android:text="@string/add"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/assistant_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sub_big_font"
+            android:text="@string/zan_wu"
+            android:visibility="gone"/>
+
 
         <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
             android:id="@+id/assistant_container"
