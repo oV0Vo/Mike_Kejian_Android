@@ -9,12 +9,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/current_question_container"
+            <ScrollView
+                android:id="@+id/current_question_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/sub_big_padding"
-                android:orientation="vertical"/>
+                android:layout_height="@dimen/current_question_layout_height"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/current_question_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/sub_big_padding"
+                    android:orientation="vertical"/>
+            </ScrollView>
 
             <TextView
                 android:layout_width="match_parent"

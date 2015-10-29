@@ -333,31 +333,38 @@ public class CourseListFragment extends Fragment{
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Log.i(TAG, "getView " + Integer.toString(position) + " " + Boolean.toString(
-                    convertView == null));
-
+            CourseBriefViewHolder viewHolder = null;
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(
                         R.layout.layout_course_brief, null);
+                viewHolder = new CourseBriefViewHolder();
+                ImageView bookImage = (ImageView)convertView.findViewById(R.id.course_brief_image);
+                viewHolder.bookImage = bookImage;
+                TextView titleView = (TextView)convertView.findViewById(R.id.course_brief_name);
+                viewHolder.titleText = titleView;
+                TextView academyNameView = (TextView)convertView.findViewById(R.id.course_brief_academy);
+                viewHolder.academyNameText = academyNameView;
+                TextView teacherNameText = (TextView)convertView.findViewById(R.id.
+                        teacher_name_text);
+                viewHolder.teacherNameText = teacherNameText;
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (CourseBriefViewHolder)convertView.getTag();
             }
 
             CourseBriefInfo courseBriefInfo = getItem(position);
 
-            ImageView imageView = (ImageView)convertView.findViewById(R.id.course_brief_image);
             GetBitmapByPinyin.getBitmapByPinyin(
-                    courseBriefInfo.getCourseName(), getContext(), imageView);
+                    courseBriefInfo.getCourseName(), getContext(), viewHolder.bookImage);
 
-            TextView nameView = (TextView)convertView.findViewById(R.id.course_brief_name);
-            nameView.setText(courseBriefInfo.getCourseName());
+            viewHolder.titleText.setText(courseBriefInfo.getCourseName());
 
-            TextView academyView = (TextView)convertView.findViewById(R.id.course_brief_academy);
-            academyView.setText(courseBriefInfo.getAcademyName());
+            viewHolder.academyNameText.setText(courseBriefInfo.getAcademyName());
 
-            TextView teacherNameText = (TextView)convertView.findViewById(R.id.
-                    teacher_name_text);
+
             ArrayList<String> teacherNames = courseBriefInfo.getTeacherNames();
             String teacherNameStr = StringUtil.toString(teacherNames, " ");
-            teacherNameText.setText(teacherNameStr);
+            viewHolder.teacherNameText.setText(teacherNameStr);
             convertView.setEnabled(false);
 
             return convertView;
@@ -456,6 +463,13 @@ public class CourseListFragment extends Fragment{
 
     public interface OnCourseSelectedListener {
         void onCourseSelected();
+    }
+
+    static class CourseBriefViewHolder {
+        private ImageView bookImage;
+        private TextView titleText;
+        private TextView academyNameText;
+        private TextView teacherNameText;
     }
 
 }

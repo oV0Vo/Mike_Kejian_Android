@@ -176,7 +176,6 @@
             android:paddingRight="@dimen/small_size"
             android:paddingTop="@dimen/sub_small_size"
             android:paddingBottom="@dimen/sub_small_size"
-            android:layout_marginBottom="@dimen/small_size"
             android:visibility="gone"
             android:background="@drawable/dark_thin_round_border">
 

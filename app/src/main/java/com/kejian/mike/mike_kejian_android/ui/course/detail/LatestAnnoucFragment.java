@@ -104,10 +104,10 @@ public class LatestAnnoucFragment extends Fragment {
                     course_detail_annoucement_date);
             dateView.setText(TimeFormat.toMinute(annouc.getDate()));
             emptyText.setVisibility(View.GONE);
-            contentView.setVisibility(View.VISIBLE);
+            contentLayout.setVisibility(View.VISIBLE);
         } else {
             emptyText.setVisibility(View.VISIBLE);
-            contentView.setVisibility(View.GONE);
+            contentLayout.setVisibility(View.GONE);
         }
     }
 
