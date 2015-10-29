@@ -20,6 +20,9 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListViewFooter;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.main.CoursePostSearchActivity;
 import com.kejian.mike.mike_kejian_android.ui.main.SearchableActivity;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
@@ -27,13 +30,14 @@ import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 import java.util.List;
 
 import bl.MessageBLService;
+import model.course.CourseModel;
 import model.message.CourseNotice;
 import model.message.MessageType;
 
-public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener, OnRefreshListener, AdapterView.OnItemClickListener{
+public class CourseNoticeActivity extends AppCompatActivity implements View.OnClickListener, XListView.IXListViewListener, AdapterView.OnItemClickListener{
 
 //    private View layout_title;
-    private RefreshListView container;
+    private XListView container;
     private LayoutInflater myInflater;
     private LinearLayout mainLayout;
     private ProgressBar progressBar;
@@ -57,7 +61,24 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onDownPullRefresh() {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent messageIncreIntent = new Intent(ReceiverActions.increment_action);
+//        messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(messageIncreIntent);
+//        Intent intent = new Intent(ReceiverActions.increment_action);
+//        intent.putExtra("messageType", MessageType.mentionMe);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+//        Intent intent = new Intent();
+//        intent.setClass(this,CoursePostSearchActivity.class);
+//        startActivity(intent);
+        CourseNotice courseNotice = (CourseNotice)parent.getItemAtPosition(position);
+        CourseModel.getInstance().setCurrentCourseId(courseNotice.getCourseId()+"");
+        Intent intent = new Intent(this, CourseActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -69,15 +90,21 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
             @Override
             protected void onPostExecute(Void result) {
                 adapter.notifyDataSetChanged();
-                container.hideHeaderView();
+                onLoad();
                 refreshTotalCourseNoticeNum();
             }
         }.execute(new Void[]{});
 
     }
 
+    private void onLoad() {
+        container.stopRefresh();
+        container.stopLoadMore();
+        container.setRefreshTime("刚刚");
+    }
+
     @Override
-    public void onLoadingMore() {
+    public void onLoadMore() {
         if(MessageBLService.totalCourseNotice > MessageBLService.courseNotices.size()){
             new AsyncTask<Void, Void, Void>() {
 
@@ -90,29 +117,15 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 protected void onPostExecute(Void result) {
                     adapter.notifyDataSetChanged();
+                    onLoad();
 
-                    // 控制脚布局隐藏
-                    container.hideFooterView();
                 }
             }.execute(new Void[]{});
         }else{
-            container.hideFooterView();
+            onLoad();
+            container.setFooterState(XListViewFooter.STATE_NOMORE);
         }
 
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Intent messageIncreIntent = new Intent(ReceiverActions.increment_action);
-//        messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
-//        LocalBroadcastManager.getInstance(this).sendBroadcast(messageIncreIntent);
-//        Intent intent = new Intent(ReceiverActions.increment_action);
-//        intent.putExtra("messageType", MessageType.mentionMe);
-//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-//        Intent intent = new Intent();
-//        intent.setClass(this,CoursePostSearchActivity.class);
-//        startActivity(intent);
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
@@ -142,7 +155,8 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 //        iv.setOnClickListener(this);
 //        TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
 //        tv.setText("课程公告");
-        this.container = (RefreshListView)findViewById(R.id.course_notice_container);
+        this.container = (XListView)findViewById(R.id.course_notice_container);
+        this.container.setPullLoadEnable(true);
         this.myInflater = getLayoutInflater();
         this.refreshTotalCourseNoticeNum();
 //        for(int i = 0;i<this.courseNotices.size();i++){
@@ -151,8 +165,9 @@ public class CourseNoticeActivity extends AppCompatActivity implements View.OnCl
 //        }
         this.adapter = new CourseNoticeAdapter(this, android.R.layout.simple_list_item_1, MessageBLService.courseNotices);
         this.container.setAdapter(this.adapter);
-        this.container.setOnRefreshListener(this);
+//        this.container.setOnRefreshListener(this);
         this.container.setOnItemClickListener(this);
+        this.container.setXListViewListener(this);
 
 
     }

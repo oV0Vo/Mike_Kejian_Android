@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListViewFooter;
 
 import net.picture.DownloadPicture;
 
@@ -30,11 +32,11 @@ import bl.MessageBLService;
 import model.message.MentionMe;
 import model.message.Reply;
 
-public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,OnRefreshListener,AdapterView.OnItemClickListener{
+public class MentionMeActivity extends AppCompatActivity implements View.OnClickListener,XListView.IXListViewListener,AdapterView.OnItemClickListener{
 //    private View layout_title;
 //    private ArrayList<MentionMe> mentionMes = new ArrayList<MentionMe>();
     private LinearLayout mainLayout;
-    private RefreshListView container;
+    private XListView container;
     private LayoutInflater myInflater;
     private ProgressBar progressBar;
     private ArrayAdapter<MentionMe> adapter;
@@ -66,7 +68,8 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 //        iv.setOnClickListener(this);
 //        TextView tv = (TextView)this.layout_title.findViewById(R.id.txt_title);
 //        tv.setText("提到我的");
-        this.container = (RefreshListView)findViewById(R.id.mention_container);
+        this.container = (XListView)findViewById(R.id.mention_container);
+        this.container.setPullLoadEnable(true);
         this.myInflater = getLayoutInflater();
         this.refreshMentionMeNumView();
 //        for(int i = 0;i<this.mention_num;i++){
@@ -75,58 +78,19 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
 //        }
         this.adapter = new MentionMeAdapter(this,android.R.layout.simple_list_item_1,MessageBLService.mentionMes);
         this.container.setAdapter(adapter);
-        this.container.setOnRefreshListener(this);
+//        this.container.setOnRefreshListener(this);
+        this.container.setXListViewListener(this);
         this.container.setOnItemClickListener(this);
 
+    }
+    private void onLoad() {
+        container.stopRefresh();
+        container.stopLoadMore();
+        container.setRefreshTime("刚刚");
     }
     private void refreshMentionMeNumView(){
         TextView mention_num_view = (TextView)findViewById(R.id.mention_num);
         mention_num_view.setText("共 " + MessageBLService.totalMentionMe + " 条");
-    }
-
-    @Override
-    public void onDownPullRefresh() {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                MessageBLService.refreshMentionMes("123");
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                adapter.notifyDataSetChanged();
-                container.hideHeaderView();
-                refreshMentionMeNumView();
-            }
-        }.execute(new Void[]{});
-
-    }
-
-    @Override
-    public void onLoadingMore() {
-        if(MessageBLService.totalMentionMe > MessageBLService.mentionMes.size()){
-            new AsyncTask<Void, Void, Void>() {
-
-                @Override
-                protected Void doInBackground(Void... params) {
-                    MessageBLService.addMentionMes("12343");
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    adapter.notifyDataSetChanged();
-
-                    // 控制脚布局隐藏
-                    container.hideFooterView();
-                }
-            }.execute(new Void[]{});
-        }else{
-            container.hideFooterView();
-        }
-
     }
 
     @Override
@@ -140,6 +104,50 @@ public class MentionMeActivity extends AppCompatActivity implements View.OnClick
         intent.setClass(this, PostDetailActivity.class);
         intent.putExtra("postId",reply.getPostId()+"");
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                MessageBLService.refreshMentionMes("123");
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                adapter.notifyDataSetChanged();
+                onLoad();
+                refreshMentionMeNumView();
+            }
+        }.execute(new Void[]{});
+    }
+
+    @Override
+    public void onLoadMore() {
+        if(MessageBLService.totalMentionMe > MessageBLService.mentionMes.size()){
+            new AsyncTask<Void, Void, Void>() {
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    MessageBLService.addMentionMes("12343");
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    adapter.notifyDataSetChanged();
+
+                    onLoad();
+                }
+            }.execute(new Void[]{});
+        }else{
+            onLoad();
+            container.setFooterState(XListViewFooter.STATE_NOMORE);
+        }
+
     }
 
     private class InitDataTask extends AsyncTask<String, Integer, String> {
