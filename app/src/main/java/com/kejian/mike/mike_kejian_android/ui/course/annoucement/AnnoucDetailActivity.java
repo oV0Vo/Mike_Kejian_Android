@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseAnnoucement;
+import com.kejian.mike.mike_kejian_android.dataType.course.UserTypeInCourse;
 import com.kejian.mike.mike_kejian_android.ui.util.MyImageCache;
 
 import net.course.CourseAnnoucNetService;
@@ -24,6 +26,8 @@ import model.course.CourseModel;
 import util.TimeFormat;
 
 public class AnnoucDetailActivity extends AppCompatActivity {
+
+    private static final String TAG = "AnnoucDetail";
 
     private CourseAnnoucement annouc;
 
@@ -58,7 +62,24 @@ public class AnnoucDetailActivity extends AppCompatActivity {
         TextView contentText = (TextView)findViewById(R.id.content_text);
         contentText.setText(annouc.getContent());
 
+        UserTypeInCourse userTypeInCourse = courseModel.getUserTypeInCurrentCourse();
         putOnTopView = (TextView)findViewById(R.id.put_on_top_action_text);
+        if(userTypeInCourse == null) {
+            Log.e(TAG, "userType null!");
+            putOnTopView.setVisibility(View.INVISIBLE);
+        } else if(userTypeInCourse == UserTypeInCourse.TEACHER) {
+            initPutOnTopView();
+        } else if(userTypeInCourse == UserTypeInCourse.ASSISTANT) {
+            initPutOnTopView();
+        } else {
+            putOnTopView.setVisibility(View.INVISIBLE);
+        }
+
+        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+
+    }
+
+    private void initPutOnTopView() {
         if(!annouc.isOnTop()) {
             putOnTopView.setText(R.string.put_on_top);
             putOnTopView.setOnClickListener(new View.OnClickListener() {
@@ -74,8 +95,6 @@ public class AnnoucDetailActivity extends AppCompatActivity {
             putOnTopView.setText(R.string.annouc_already_put_on_top);
             putOnTopView.setEnabled(false);
         }
-
-        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
 
     }
 

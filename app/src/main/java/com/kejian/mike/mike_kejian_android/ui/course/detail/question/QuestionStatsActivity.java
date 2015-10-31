@@ -352,6 +352,8 @@ public class QuestionStatsActivity extends AppCompatActivity {
                 viewHolder.userNameText = userNameText;
                 TextView answerContentText = (TextView)convertView.findViewById(R.id.answer_content);
                 viewHolder.answerText = answerContentText;
+                ViewGroup zhankaiContainer = (ViewGroup)convertView.findViewById(R.id.zhankai_container);
+                viewHolder.zhankaiContainer = zhankaiContainer;
 
                 convertView.setTag(viewHolder);
             } else {
@@ -360,8 +362,26 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
             viewHolder.userNameText.setText(answer.getStudentName());
             viewHolder.answerText.setText(answer.getAnswer());
-
+            initAnswerExpandLayout(viewHolder.answerText, viewHolder.zhankaiContainer);
             return convertView;
+        }
+
+        private void initAnswerExpandLayout(TextView questionContentText,
+                                            ViewGroup zhankaiContainer)
+        {
+            ViewGroup zhankaiLayout = (ViewGroup)getLayoutInflater().inflate(R.layout.layout_zhankai, null);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            zhankaiLayout.setLayoutParams(layoutParams);
+
+            TextView zhankaiText = (TextView)zhankaiLayout.findViewById(R.id.zhankai_text);
+            ImageView zhankaiImage = (ImageView)zhankaiLayout.findViewById(R.id.zhankai_image);
+            TextExpandListener textListener = new TextExpandListener(questionContentText, zhankaiText,
+                    zhankaiImage, 2);
+            zhankaiLayout.setOnClickListener(textListener);
+
+            zhankaiContainer.addView(zhankaiLayout);
         }
     }
 
@@ -369,5 +389,6 @@ public class QuestionStatsActivity extends AppCompatActivity {
         public ImageView userImage;
         public TextView userNameText;
         public TextView answerText;
+        public ViewGroup zhankaiContainer;
     }
 }

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
@@ -35,10 +33,9 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
-import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
+import com.kejian.mike.mike_kejian_android.ui.util.MyAction;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyReceiver;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
-import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.UmengRegistrar;
@@ -51,12 +48,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import bl.UserInfoServiceMock;
 import cn.jpush.android.api.JPushInterface;
-import model.course.CourseModel;
-import model.user.CourseBrief;
 import model.user.Global;
-import model.user.UserType;
 import model.user.user;
 import util.NeedRefinedAnnotation;
 
@@ -214,7 +207,7 @@ public class MainActivity extends AppCompatActivity
                 messageNewsImage.setVisibility(View.VISIBLE);
             }
         };
-        IntentFilter messageIF = new IntentFilter(UmengMessageAction.NEW_MESSAGE_ACTION);
+        IntentFilter messageIF = new IntentFilter(MyAction.NEW_MESSAGE_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(messageBR, messageIF);
     }
 

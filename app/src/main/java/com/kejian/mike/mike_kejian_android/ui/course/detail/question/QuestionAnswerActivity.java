@@ -132,41 +132,49 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            String answer = getAnswer();
+            String answer = null;
+            switch(question.getQuestionType()) {
+                case 单选题:
+                    answer = getSingleChoiceAnswer();
+                    if(answer == null) {
+                        Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_choose_choice,
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    break;
+                case 多选题:
+                    answer = getMultiChoiceAnswer();
+                    if(answer == null) {
+                    Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_choose_choice,
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                    break;
+                case 其他:
+                    answer = getApplicationAnswer();
+                    if(answer.length() == 0) {
+                    Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_choose_choice,
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                    break;
+                default:
+                    break;
+            }
             String questionId = question.getQuestionId();
             new CommitAnswerTask().execute(questionId, answer);
             updateViewOnPostAnswer();
         }
 
-        private String getAnswer() {
-            String questionAnswer = new String();
-            switch(question.getQuestionType()) {
-                case 单选题:
-                    questionAnswer = getSingleChoiceAnswer();
-                    break;
-                case 多选题:
-                    questionAnswer = getMultiChoiceAnswer();
-                    break;
-                case 其他:
-                    questionAnswer = getApplicationAnswer();
-                    break;
-                default:
-                    break;
-            }
-
-            return questionAnswer;
-        }
-
         private String getSingleChoiceAnswer() {
-            String answer = new String();
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton choiceButton = choiceButtons.get(i);
                 if(choiceButton.isChecked()) {
-                    answer = Character.toString((char)('A' + i));
-                    break;
+                    String answer = Integer.toString(i);
+                    return answer;
                 }
             }
-            return answer;
+            return null;
         }
 
         private String getMultiChoiceAnswer() {
@@ -174,11 +182,14 @@ public class QuestionAnswerActivity extends AppCompatActivity {
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton choiceButton = choiceButtons.get(i);
                 if(choiceButton.isChecked())
-                    answer += (Character.toString((char)('A' + i)));
+                    answer += Integer.toString(i);
                 if(i != choiceButtons.size())
                     answer += "_";
             }
-            return answer;
+            if(answer.length() != 0)
+                return answer;
+            else
+                return null;
         }
 
         private String getApplicationAnswer() {

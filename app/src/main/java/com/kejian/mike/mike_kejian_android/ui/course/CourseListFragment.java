@@ -1,9 +1,13 @@
 package com.kejian.mike.mike_kejian_android.ui.course;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +26,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import bl.course.CourseBriefFilter;
 import model.course.CourseModel;
 import model.user.Global;
 import model.user.user;
-import util.DateUtil;
 import util.GetBitmapByPinyin;
 import util.StringUtil;
 import util.TimeFormat;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
-import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
-import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
+import com.kejian.mike.mike_kejian_android.ui.util.MyAction;
 
 import net.course.CourseInfoNetService;
 
@@ -83,6 +84,7 @@ public class CourseListFragment extends Fragment{
 
         initMyCourseAdapter();
         initAllCourseAdapter();
+        registerBindBroacast();
     }
 
     private void initMyCourseAdapter() {
@@ -470,6 +472,17 @@ public class CourseListFragment extends Fragment{
         private TextView titleText;
         private TextView academyNameText;
         private TextView teacherNameText;
+    }
+
+    private void registerBindBroacast() {
+        BroadcastReceiver bindBR = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                new InitMyCourseBriefTask().execute();
+            }
+        };
+        IntentFilter messageIF = new IntentFilter(MyAction.NEW_MESSAGE_ACTION);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(bindBR, messageIF);
     }
 
 }
