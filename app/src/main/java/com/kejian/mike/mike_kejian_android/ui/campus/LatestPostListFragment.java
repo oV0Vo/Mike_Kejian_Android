@@ -1,7 +1,10 @@
 package com.kejian.mike.mike_kejian_android.ui.campus;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +15,12 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
+import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 
 
 import bl.CampusBLService;
@@ -63,7 +68,7 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0) {
+                if(position > 0 && checkNetwork()) {
                     Intent intent = new Intent();
                     intent.setClass(getContext(), PostDetailActivity.class);
                     intent.putExtra("postId", ((Post) parent.getAdapter().getItem(position)).getPostId());
@@ -144,5 +149,37 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
         container.stopRefresh();
         container.stopLoadMore();
         container.setRefreshTime("刚刚");
+    }
+
+    public boolean checkNetwork() {
+
+
+        ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo activeInfo = manager.getActiveNetworkInfo();
+
+
+        NetworkInfo[] networkInfo = manager.getAllNetworkInfo();
+
+        if (networkInfo != null && networkInfo.length > 0) {
+            for (int i = 0; i < networkInfo.length; i++) {
+
+                // 判断当前网络状态是否为连接状态
+                if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
+                    return true;
+                }
+            }
+
+            progressBar.setVisibility(View.INVISIBLE);
+
+            Toast.makeText(getContext(), "请检查你的网络设置 >_<", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+
+        return false;
+
+
     }
 }
