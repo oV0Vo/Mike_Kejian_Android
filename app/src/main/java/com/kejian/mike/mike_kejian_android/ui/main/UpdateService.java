@@ -162,7 +162,7 @@ public class UpdateService extends Service {
                 //为了防止频繁的通知导致应用吃紧，百分比增加10才通知一次
                 if((downloadCount == 0)||(int) (totalSize*100/updateTotalSize)-10>downloadCount){
                     downloadCount += 10;
-                    updateNotification = builder.setContentIntent(updatePendingIntent).setContentTitle("正在下载").setContentText((int)totalSize*100/updateTotalSize+"%").build();
+                    updateNotification = builder.setContentIntent(updatePendingIntent).setContentTitle("正在下载").setContentText(((int)(totalSize*100/updateTotalSize))+"%").build();
 //                    updateNotification.setLatestEventInfo(UpdateService.this, "正在下载", (int)totalSize*100/updateTotalSize+"%", updatePendingIntent);
                     updateNotificationManager.notify(0, updateNotification);
                 }
