@@ -21,9 +21,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@null"
                 android:hint="@string/campus_publish_title"
                 android:singleLine="true"
                 android:padding="@dimen/sub_big_padding"
+                android:textSize="@dimen/medium_font"
                 android:background="@null"
                 android:id="@+id/publish_title"/>
 
@@ -36,11 +38,13 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@null"
                 android:singleLine="false"
                 android:gravity="top|left"
                 android:minLines="15"
                 android:hint="@string/campus_publish_content"
                 android:padding="@dimen/sub_big_padding"
+                android:textSize="@dimen/medium_font"
                 android:background="@null"
                 android:id="@+id/publish_content"/>
 
@@ -54,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/campus_publish_invite"
+                android:textSize="@dimen/medium_font"
                 android:padding="@dimen/sub_big_padding"
                 android:background="@null"
                 android:visibility="gone"
