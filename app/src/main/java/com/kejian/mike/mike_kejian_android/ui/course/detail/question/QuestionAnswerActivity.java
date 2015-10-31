@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -25,6 +26,7 @@ import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestio
 import com.kejian.mike.mike_kejian_android.dataType.course.question.CommitAnswerResultMessage;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.MultiChoiceQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionAnswer;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionType;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoiceQuestion;
 import model.course.CourseModel;
 
@@ -102,6 +104,15 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         ArrayList<String> choiceContents = multiChoiceQuestion.getChoiceContents();
         for (int i = 0; i < choiceContents.size(); ++i) {
             RadioButton choiceButton = createChoiceButton(i, choiceContents.get(i));
+            choiceButton.setOnClickListener(new View.OnClickListener() {
+                private int clickCount = 0;
+                @Override
+                public void onClick(View v) {
+                    RadioButton radioButton = (RadioButton)v;
+                    if(clickCount % 2 == 1)
+                        radioButton.setChecked(false);
+                }
+            });
             choiceContainer.addView(choiceButton);
         }
 
@@ -145,10 +156,10 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                 case 多选题:
                     answer = getMultiChoiceAnswer();
                     if(answer == null) {
-                    Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_choose_choice,
+                        Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_choose_choice,
                             Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        return;
+                    }
                     break;
                 case 其他:
                     answer = getApplicationAnswer();
@@ -186,7 +197,7 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                 if(i != choiceButtons.size())
                     answer += "_";
             }
-            if(answer.length() != 0)
+            if(!answer.equals("_"))
                 return answer;
             else
                 return null;

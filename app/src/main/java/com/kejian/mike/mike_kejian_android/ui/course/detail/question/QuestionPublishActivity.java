@@ -198,7 +198,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
     private void setNewChoiceView(int choiceIndex) {
         ViewGroup newChoiceView = (ViewGroup)getLayoutInflater().inflate(
                 R.layout.layout_question_choice_input, null);
-        Log.i(TAG, "add new choice " + Integer.toString(choiceIndex));
         choiceContentContainer.addView(newChoiceView);
         TextView choiceIndexView = (TextView)newChoiceView.findViewById(R.id.question_choice_index);
         choiceIndexView.setText(toChoiceStr(choiceIndex));
@@ -214,7 +213,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
         RadioButton choiceButton = (RadioButton)newChoiceView.findViewById(
                 R.id.question_choice_radio_button);
-        choiceButtons.add(choiceButton);
         choiceButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -231,6 +229,17 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 }
             }
         });
+        choiceButton.setOnClickListener(new View.OnClickListener() {
+            private int clickCount = 0;
+            @Override
+            public void onClick(View v) {
+                RadioButton radioButton = (RadioButton)v;
+                if(clickCount % 2 == 1)
+                    radioButton.setChecked(false);
+            }
+        });
+        choiceButtons.add(choiceButton);
+
     }
 
     private String toChoiceStr(int choiceIndex) {

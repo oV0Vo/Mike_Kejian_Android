@@ -372,6 +372,7 @@ public class CourseQuestionNetService {
     }
 
     public static CommitAnswerResultMessage commitAnswer(String questionId, String answer) {
+        Log.i(TAG, "commit answer " + answer);
         String url = BASE_URL + "answerQuestions/";
         HashMap<String, String> paraMap = new HashMap<String ,String >();
         paraMap.put("questionId", questionId);
