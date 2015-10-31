@@ -7,6 +7,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
@@ -149,7 +151,9 @@ public class CourseQuestionNetService {
             }
             question.setChoiceContents(options);
         } catch (JSONException e) {
+            e.printStackTrace();
             question.setChoiceContents(new ArrayList<String>());
+            return;
         }
     }
 
@@ -159,7 +163,7 @@ public class CourseQuestionNetService {
 
         String type = jQuestion.getString("type");
         switch(type) {
-            case "3":
+            case "1":
                 question = new ApplicationQuestion();
                 parseAP(jQuestion, (ApplicationQuestion)question);
                 break;
@@ -167,7 +171,7 @@ public class CourseQuestionNetService {
                 question = new SingleChoiceQuestion();
                 parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
                 break;
-            case "1":
+            case "3":
                 question = new MultiChoiceQuestion();
                 parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
                 break;
@@ -202,7 +206,7 @@ public class CourseQuestionNetService {
         Log.i(TAG, questionInfo.getContent());
 
         String url = BASE_URL + "signQuestion/";
-        HashMap<String, String> paraMap = new HashMap<String, String>();
+        HashMap<String, Object> paraMap = new HashMap<>();
         paraMap.put("courseId", question.getQuestion().getCourseId());
         paraMap.put("surviveTime", Long.toString(question.getLeftMills()));
         paraMap.put("content", question.getQuestion().getContent());
@@ -210,7 +214,7 @@ public class CourseQuestionNetService {
         switch(question.getQuestion().getQuestionType()){
             case 单选题:
                 url = BASE_URL + "signChoiceQuestion/";
-                setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion)question.getQuestion());
+                setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion) question.getQuestion());
                 response = httpRequest.sentPostRequest(url, paraMap);
                 return dealChoiceQuestionReturn(response);
             case 多选题:
@@ -224,7 +228,7 @@ public class CourseQuestionNetService {
                             "UTF-8");
                     paraMap.put("content", encodedContent);
                     setApplicationQuestionPara(paraMap, (ApplicationQuestion) question.getQuestion());
-                    response = httpRequest.sentGetRequest(url, paraMap);
+                    response = httpRequest.sentGetRequest(url, toStringMap(paraMap));
                     return dealApplicationQuestionReturn(response);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -235,6 +239,16 @@ public class CourseQuestionNetService {
                 return false;
         }
 
+    }
+
+    private static HashMap<String, String> toStringMap(HashMap<String, Object> paraMap) {
+        HashMap<String, String> newMap = new HashMap<>();
+        Iterator<Map.Entry<String, Object>> iter = paraMap.entrySet().iterator();
+        while(iter.hasNext()) {
+            Map.Entry<String, Object> entry = iter.next();
+            newMap.put(entry.getKey(), entry.getValue().toString());
+        }
+        return newMap;
     }
 
     private static boolean dealChoiceQuestionReturn(String response) {
@@ -256,30 +270,25 @@ public class CourseQuestionNetService {
         return true;
     }
 
-    private static void setSingleChoiceQuestionPara(HashMap<String, String> paraMap,
+    private static void setSingleChoiceQuestionPara(HashMap<String, Object> paraMap,
                                                     SingleChoiceQuestion question) {
         ArrayList<String> choices = question.getChoiceContents();
-        String jChoices = new JSONArray(choices).toString();
-        paraMap.put("options", jChoices);
-
+        paraMap.put("options", new JSONArray(choices));
         int correctChoice = question.getCorrectChoice();
         paraMap.put("answers", Integer.toString(correctChoice));
-
         paraMap.put("type", "2");
     }
 
-    private static void setMultiChoiceQuestionPara(HashMap<String, String> paraMap,
+    private static void setMultiChoiceQuestionPara(HashMap<String, Object> paraMap,
                                                    MultiChoiceQuestion question) {
         ArrayList<String> choices = question.getChoiceContents();
-        String jChoices = new JSONArray(choices).toString();
-        paraMap.put("options", jChoices);
+        paraMap.put("options", new JSONArray(choices));
         ArrayList<Integer> correctChoices = question.getCorrectChoices();
-        String jAnswers = new JSONArray(correctChoices).toString();
-        paraMap.put("answers", jAnswers);
+        paraMap.put("answers", new JSONArray(correctChoices));
         paraMap.put("type", "3");
     }
 
-    private static void setApplicationQuestionPara(HashMap<String, String> paraMap,
+    private static void setApplicationQuestionPara(HashMap<String, Object> paraMap,
                                                    ApplicationQuestion question) {
         paraMap.put("type", "1");
     }

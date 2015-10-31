@@ -32,6 +32,8 @@ import com.kejian.mike.mike_kejian_android.dataType.course.question.SingleChoice
 
 public class QuestionPublishActivity extends AppCompatActivity {
 
+    private static final String TAG = "QuestionPublish";
+
     private EditText timeLimitView;
     private RadioGroup questionTypeChoices;
     private EditText contentText;
@@ -39,6 +41,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
     private ViewGroup choiceContainer;
     private ViewGroup choiceContentContainer;
 
+    private View choiceNumLayout;
     private TextView choiceNumButton;
     private PopupMenu choiceNumMenu;
     private final int DEFAULT_CHOICE_NUM = 4;
@@ -66,7 +69,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         timeLimitView = (EditText)findViewById(R.id.question_publish_time_limit_text);
-        timeLimitView.requestFocus();
         initQuestionTypeChoices();
         contentText= (EditText)findViewById(R.id.question_publish_content_text);
         initChoiceContainer();
@@ -92,6 +94,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
     }
 
     private void initChoiceNumButton() {
+        choiceNumLayout = choiceContainer.findViewById(R.id.choice_num_layout);
         choiceNumButton = (TextView)choiceContainer.findViewById(R.id.
                 choice_num_text);
         choiceNumButton.setText(Integer.toString(DEFAULT_CHOICE_NUM));
@@ -110,7 +113,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             });
         }
 
-        choiceNumButton.setOnClickListener(new View.OnClickListener() {
+        choiceNumLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choiceNumMenu.show();
@@ -170,33 +173,39 @@ public class QuestionPublishActivity extends AppCompatActivity {
         clearChoiceViews();
         for(int choiceIndex=0; choiceIndex<choiceNum; ++choiceIndex)
             setNewChoiceView(choiceIndex);
-        setChoiceKeyInputListener();
+        //setChoiceKeyInputListener();
     }
 
-    private void setChoiceKeyInputListener() {
+    //行不通
+   /* private void setChoiceKeyInputListener() {
         for(int i=0; i<choiceContentViews.size() - 1; ++i) {
             EditText choiceInputText = choiceContentViews.get(i);
-            final EditText nextInputText = choiceContentViews.get(i + 1);
+            EditText nextInputText = choiceContentViews.get(i + 1);
+            Log.i(TAG, Integer.toString(choiceInputText.getId()));
+            choiceInputText.setNextFocusDownId(nextInputText.getId());
             choiceInputText.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if(keyCode == 66)
+                    if(keyCode == 66) {
                         nextInputText.requestFocus();
+                    }
                     return true;
                 }
             });
         }
-    }
+    }*/
 
     private void setNewChoiceView(int choiceIndex) {
         ViewGroup newChoiceView = (ViewGroup)getLayoutInflater().inflate(
                 R.layout.layout_question_choice_input, null);
+        Log.i(TAG, "add new choice " + Integer.toString(choiceIndex));
         choiceContentContainer.addView(newChoiceView);
         TextView choiceIndexView = (TextView)newChoiceView.findViewById(R.id.question_choice_index);
         choiceIndexView.setText(toChoiceStr(choiceIndex));
 
         EditText choiceContentView = (EditText)newChoiceView.findViewById(R.id.
                 question_choice_choice_content);
+        choiceContentView.setTag("choice " + Integer.toString(choiceIndex));
         choiceContentViews.add(choiceContentView);
 
         TextView correctHint = (TextView)newChoiceView.findViewById(R.id.
@@ -259,6 +268,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 Toast.makeText(QuestionPublishActivity.this,
                         R.string.question_publish_invalid_time_limit_alert_message,
                         Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "time limit not a integer");
                 return;
             }
 
@@ -308,8 +318,10 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 Toast.makeText(QuestionPublishActivity.this, R.string.on_process,
                         Toast.LENGTH_SHORT).show();
                 commitButton.setEnabled(false);
+                Log.i(TAG, "submit");
                 return;
             } else {
+                Log.i(TAG, "not submit");
                 return;
             }
         }

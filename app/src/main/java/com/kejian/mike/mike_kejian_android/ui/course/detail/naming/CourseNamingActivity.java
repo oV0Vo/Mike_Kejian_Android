@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -346,7 +347,7 @@ public class CourseNamingActivity extends AppCompatActivity {
             CourseNamingRecord record = getItem(position);
             int signInNum = record.getSignInNum();
             int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
-
+            Log.i(TAG, "getView " + Integer.toString(position) + Boolean.toString(convertView == null));
             if(convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.layout_history_naming, null);
                 viewHolder = new NamingRecordViewHolder();
@@ -360,7 +361,7 @@ public class CourseNamingActivity extends AppCompatActivity {
                 viewHolder.timeText = (TextView)convertView.findViewById(R.id.history_naming_time);
                 viewHolder.percentText = (TextView)convertView.findViewById(R.id.percent_text);
                 viewHolder.statusText = (TextView)convertView.findViewById(R.id.stats_text);
-
+                convertView.setTag(viewHolder);
             } else {
                 viewHolder = (NamingRecordViewHolder)convertView.getTag();
             }

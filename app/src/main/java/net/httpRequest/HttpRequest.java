@@ -59,7 +59,7 @@ public class HttpRequest {
 
             writer=new PrintWriter(connection.getOutputStream());
             JSONObject jsonObject=new JSONObject(para);
-            //System.out.println("json :"+jsonObject.toString());
+            System.out.println("HttpRequest request body :" + jsonObject.toString());
             writer.write(jsonObject.toString());
 
             writer.flush();

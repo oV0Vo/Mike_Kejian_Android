@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionType;
 import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
 import net.course.CourseQuestionNetService;
@@ -111,10 +112,18 @@ public class CourseQuestionFragment extends Fragment {
 
     private TextView initContentText(View convertView, BasicQuestion questionInfo) {
         TextView contentText = (TextView)convertView.findViewById(R.id.current_question_content);
-        String content = questionInfo.getContent();
-        if(questionInfo instanceof ChoiceQuestion) {
+        String content = getQuestionContent(questionInfo);
+        contentText.setText(content);
+        return contentText;
+    }
+
+    private String getQuestionContent(BasicQuestion question) {
+        String content = question.getContent();
+        QuestionType questionType = question.getQuestionType();
+        // 如果是选择题的话还应该加上选项内容
+        if(questionType == QuestionType.单选题 || questionType == QuestionType.多选题) {
             StringBuilder strBuilder = new StringBuilder(content);
-            ChoiceQuestion choiceQuestion = (ChoiceQuestion)questionInfo;
+            ChoiceQuestion choiceQuestion = (ChoiceQuestion)question;
             ArrayList<String> choiceContents = choiceQuestion.getChoiceContents();
             for(int i=0; i<choiceContents.size(); ++i) {
                 strBuilder.append("\n");
@@ -128,9 +137,7 @@ public class CourseQuestionFragment extends Fragment {
             }
             content = strBuilder.toString();
         }
-        Log.i(TAG, "question content " + content);
-        contentText.setText(content);
-        return contentText;
+        return content;
     }
 
     private void initTextExpandLayout(View convertView, TextView contentText) {
@@ -303,7 +310,7 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Log.i(TAG, "getView history" + Boolean.toString(convertView == null) + Integer.toString(position));
+            Log.i(TAG, "get history question view" + Boolean.toString(convertView == null) + Integer.toString(position));
             if(convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(
                         R.layout.layout_history_question_brief, null);
@@ -331,7 +338,7 @@ public class CourseQuestionFragment extends Fragment {
 
             TextView contentText = (TextView)convertView.findViewById(R.id.
                     history_question_brief_content);
-            String content = question.getContent();
+            String content = getQuestionContent(question);
             contentText.setText(content);
 
             ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);

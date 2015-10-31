@@ -210,9 +210,8 @@
 
             <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
                 android:id="@+id/distribute_container"
-                android:layout_marginTop="@dimen/over_medium_padding"
-                android:paddingLeft="@dimen/sub_medium_icon_width"
-                android:paddingTop="@dimen/sub_medium_icon_width">
+                android:layout_marginTop="@dimen/big_size"
+                android:layout_marginLeft="@dimen/sub_medium_icon_width">
             </com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout>
 
         </GridLayout>
@@ -271,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sub_big_padding"
                 android:gravity="center"
-                android:text="@string/question_answer_all_answer_no_more_question"/>
+                android:text="@string/no_more_answer"/>
         </LinearLayout>
 
     <ProgressBar

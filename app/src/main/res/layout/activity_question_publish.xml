@@ -33,14 +33,12 @@
 
                 <EditText
                     android:id="@+id/question_publish_time_limit_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/text_input_width"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/medium_button_padding"
-                    android:paddingRight="@dimen/medium_button_padding"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:background="@drawable/green_bottom_thin_border"
                     android:textSize="@dimen/sub_medium_font"
-                    android:inputType="textMultiLine" />
+                    android:maxLines="1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,6 +157,7 @@
                         android:text="@string/question_publish_choice_num_title"/>
 
                     <LinearLayout
+                        android:id="@+id/choice_num_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

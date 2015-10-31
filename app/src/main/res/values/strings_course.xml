@@ -45,4 +45,7 @@
 
     <!--quesiton answer-->
     <string name="answer_question_hint">请在此处输入答案</string>
+
+    <!--question stats-->
+    <string name="no_more_answer">没有更多回答了</string>
 </resources>
