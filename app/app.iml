@@ -90,20 +90,20 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="jpush-sdk-release1.8.2" level="project" />
     <orderEntry type="library" exported="" name="commons-beanutils-1.8.3" level="project" />
-    <orderEntry type="library" exported="" name="commons-lang-2.6" level="project" />
-    <orderEntry type="library" exported="" name="commons-logging-1.1.1" level="project" />
-    <orderEntry type="library" exported="" name="xom-1.2.8" level="project" />
-    <orderEntry type="library" exported="" name="volley" level="project" />
-    <orderEntry type="library" exported="" name="ezmorph-1.0.6" level="project" />
-    <orderEntry type="library" exported="" name="commons-collections-3.2.1" level="project" />
-    <orderEntry type="library" exported="" name="json-lib-2.1" level="project" />
     <orderEntry type="library" exported="" name="com.umeng.message.lib_v2.5.0" level="project" />
+    <orderEntry type="library" exported="" name="commons-lang-2.6" level="project" />
+    <orderEntry type="library" exported="" name="commons-collections-3.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="jpush-sdk-release1.8.2" level="project" />
+    <orderEntry type="library" exported="" name="json-lib-2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="ezmorph-1.0.6" level="project" />
+    <orderEntry type="library" exported="" name="xom-1.2.8" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.9" level="project" />
+    <orderEntry type="library" exported="" name="volley" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="commons-logging-1.1.1" level="project" />
     <orderEntry type="module" module-name="ssmssdk" exported="" />
   </component>
 </module>
