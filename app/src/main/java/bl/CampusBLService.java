@@ -25,12 +25,12 @@ public class CampusBLService {
     public static void refreshLatestPosts() {
         refreshPostNum();
         latestPosts.clear();
-        latestPosts.addAll(CampusNetService.getLatestPosts("0", 7));
+        latestPosts.addAll(CampusNetService.getLatestPosts("0", 20));
     }
 
     public static void getNextLatestPosts() {
         String startId = (latestPosts.size()-1)>0?latestPosts.get(latestPosts.size()-1).getPostId():"0";
-        nextLatestPosts = CampusNetService.getLatestPosts(startId, 7);
+        nextLatestPosts = CampusNetService.getLatestPosts(startId, 20);
     }
 
     public static void moveLatestPosts() {
@@ -41,12 +41,12 @@ public class CampusBLService {
     public static void refreshHottestPosts() {
         refreshPostNum();
         hottestPosts.clear();
-        hottestPosts.addAll(CampusNetService.getHottestPosts("0",7));
+        hottestPosts.addAll(CampusNetService.getHottestPosts("0",20));
     }
 
     public static void getNextHottestPosts() {
         String startId = (hottestPosts.size()-1)>0?hottestPosts.get(hottestPosts.size()-1).getPostId():"0";
-        nextHottestPosts = CampusNetService.getHottestPosts(startId, 7);
+        nextHottestPosts = CampusNetService.getHottestPosts(startId, 20);
     }
 
     public static void moveHottestPosts() {
