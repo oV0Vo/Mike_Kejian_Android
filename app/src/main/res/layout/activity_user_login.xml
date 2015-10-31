@@ -63,7 +63,8 @@
             android:layout_height="40dp"
                 android:paddingLeft="10dp"
             android:background="@drawable/login_input"
-            android:id="@+id/login_name"/>
+            android:id="@+id/login_name"
+                android:hint="请输入手机号" />
 
 
         </LinearLayout>
@@ -95,7 +96,8 @@
 
 
             android:background="@drawable/login_input"
-            android:id="@+id/login_password"/>
+            android:id="@+id/login_password"
+                android:hint="请输入密码" />
 
         </LinearLayout>
 

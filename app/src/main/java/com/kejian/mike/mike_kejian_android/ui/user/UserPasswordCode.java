@@ -200,7 +200,7 @@ public class UserPasswordCode extends AppCompatActivity {
                 public void onTick(long m){
 
                     sendCode.setClickable(false);
-                    sendCode.setBackgroundColor(Color.GRAY);
+                    //sendCode.setBackgroundColor(Color.GRAY);
 
                     sendCode.setText(( m / 1000) + "秒后重新发送");
 

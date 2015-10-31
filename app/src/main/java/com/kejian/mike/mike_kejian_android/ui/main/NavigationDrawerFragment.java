@@ -75,7 +75,19 @@ public class NavigationDrawerFragment extends Fragment {
 
     private CircleImageView circleImageView;
 
+
+
     public NavigationDrawerFragment() {
+
+
+    }
+
+    @Override
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        mDrawerListView.setAdapter(new DrawerViewAdapter(null,this.getActivity()));
+
     }
 
     @Override
@@ -157,15 +169,14 @@ public class NavigationDrawerFragment extends Fragment {
 
     public void startUserInfo(int index){
         Intent intent=new Intent();
-        System.out.println("hello01");
 
         switch(index) {
-            case 1:intent.setClass(this.getActivity(), UserInfoActivity.class);break;
-            case 4:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);break;
-            case 2:intent.setClass(this.getActivity(), UserSettingActivity.class);break;
-            case 3:intent.setClass(this.getActivity(), UserAttentionListActivity.class);break;
+            case 1:intent.setClass(this.getActivity(), UserInfoActivity.class);startActivityForResult(intent,100);break;
+            case 4:intent.setClass(this.getActivity(), UserBaseInfoOtherView.class);startActivity(intent);break;
+            case 2:intent.setClass(this.getActivity(), UserSettingActivity.class);startActivity(intent);break;
+            case 3:intent.setClass(this.getActivity(), UserAttentionListActivity.class);startActivity(intent);break;
         }
-        startActivity(intent);
+
     }
 
     public boolean isDrawerOpen() {

@@ -1,6 +1,8 @@
 package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -18,6 +20,7 @@ import com.kejian.mike.mike_kejian_android.ui.user.UserActivityComm;
 import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserOperationResult;
 
+import net.UpdateNetService;
 import net.course.CourseInfoNetService;
 import net.picture.MessagePrint;
 
@@ -36,6 +39,7 @@ public class WelcomeActivity extends Activity {
     private UserToken userToken;
     private user user;
     private NetBroadcast netBroadcast;
+    private static int num=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +50,98 @@ public class WelcomeActivity extends Activity {
         netBroadcast=new NetBroadcast();
 
         Global.addGlobalItem("network_listing", netBroadcast);
-        initGlobal();
+       // initGlobal();
+
+        if(num>0)new updateTask().execute("");
         loginFromLocal();
     }
 
     public void initGlobal(){
         try{
             Global.localVersion = getPackageManager().getPackageInfo(getPackageName(),0).versionCode;
+
+            MessagePrint.print("localversion :"+Global.localVersion);
             UpdateBLService.update();
         }catch (Exception e){
+
             e.printStackTrace();
+
         }
+
+    }
+
+    private  class updateTask extends  AsyncTask<String,Integer,String>{
+
+        @Override
+        public String doInBackground(String...Para){
+
+            num--;
+
+
+
+            try{
+                Global.localVersion = getPackageManager().getPackageInfo(getPackageName(),0).versionCode;
+
+                MessagePrint.print("localversion :"+Global.localVersion);
+                UpdateNetService.update();
+            }catch (Exception e){
+
+                e.printStackTrace();
+
+            }
+
+
+            return null;
+        }
+
+        @Override
+        public void onPostExecute(String result){
+
+            System.out.println("server :" + Global.serverVersion);
+
+            if(Global.localVersion<Global.serverVersion){
+
+
+
+                showUpdate();
+
+
+
+
+            }
+
+        }
+    }
+
+    public  void showUpdate(){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("软件升级")
+                .setMessage("发现新版本，建议立即更新")
+                .setPositiveButton("更新",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // 开启更新服务UpdateService
+                                // 这里为了把update更好模块化，可以传一些updateService依赖的值
+                                // 如布局ID，资源ID，动态获取的标题,这里以app_name为例
+                                Intent updateIntent = new Intent(
+                                        getApplicationContext(),
+                                        UpdateService.class);
+//                                        updateIntent.putExtra(titleId,
+//                                                R.string.app_name);
+                                startService(updateIntent);
+                            }
+                        })
+                .setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                dialog.dismiss();
+                            }
+                        });
+        alert.create().show();
+
 
     }
 
