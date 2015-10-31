@@ -29,7 +29,7 @@
     <string name="course_post_empty_text">还没有人发过帖子额~</string>
 
     <!--course question-->
-    <string name="course_question_empty_text">目前还没有人发过问题额~</string>
+    <string name="course_question_empty_text">目前还没有提过问题额~</string>
 
     <!--course introduction-->
     <string name="course_no_outline">课程还没有相关简介</string>
@@ -43,4 +43,9 @@
     <string name="add_assistant_fail">删除助教成功</string>
     <string name="add_assistant_jw_not_bound">该用户尚未绑定教务网账号，不能添加助教.</string>
 
+    <!--quesiton answer-->
+    <string name="answer_question_hint">请在此处输入答案</string>
+
+    <!--question stats-->
+    <string name="no_more_answer">没有更多回答了</string>
 </resources>

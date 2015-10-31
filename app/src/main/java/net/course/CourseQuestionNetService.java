@@ -2,10 +2,13 @@ package net.course;
 
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
@@ -148,7 +151,9 @@ public class CourseQuestionNetService {
             }
             question.setChoiceContents(options);
         } catch (JSONException e) {
+            e.printStackTrace();
             question.setChoiceContents(new ArrayList<String>());
+            return;
         }
     }
 
@@ -196,8 +201,12 @@ public class CourseQuestionNetService {
     }
 
     public static boolean addNewQuestion(CurrentQuestion question) {
+        BasicQuestion questionInfo = question.getQuestion();
+        Log.i(TAG, questionInfo.getQuestionType().toString());
+        Log.i(TAG, questionInfo.getContent());
+
         String url = BASE_URL + "signQuestion/";
-        HashMap<String, String> paraMap = new HashMap<String, String>();
+        HashMap<String, Object> paraMap = new HashMap<>();
         paraMap.put("courseId", question.getQuestion().getCourseId());
         paraMap.put("surviveTime", Long.toString(question.getLeftMills()));
         paraMap.put("content", question.getQuestion().getContent());
@@ -205,23 +214,44 @@ public class CourseQuestionNetService {
         switch(question.getQuestion().getQuestionType()){
             case 单选题:
                 url = BASE_URL + "signChoiceQuestion/";
-                setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion)question.getQuestion());
+                setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion) question.getQuestion());
                 response = httpRequest.sentPostRequest(url, paraMap);
-                break;
+                return dealChoiceQuestionReturn(response);
             case 多选题:
                 url = BASE_URL + "signChoiceQuestion/";
                 setMultiChoiceQuestionPara(paraMap, (MultiChoiceQuestion)question.getQuestion());
                 response = httpRequest.sentPostRequest(url, paraMap);
-                break;
+                return dealChoiceQuestionReturn(response);
             case 其他:
-                setApplicationQuestionPara(paraMap, (ApplicationQuestion)question.getQuestion());
-                response = httpRequest.sentGetRequest(url, paraMap);
-                break;
+                try {
+                    String encodedContent = URLEncoder.encode(question.getQuestion().getContent(),
+                            "UTF-8");
+                    paraMap.put("content", encodedContent);
+                    setApplicationQuestionPara(paraMap, (ApplicationQuestion) question.getQuestion());
+                    response = httpRequest.sentGetRequest(url, toStringMap(paraMap));
+                    return dealApplicationQuestionReturn(response);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return false;
+                }
             default:
                 Log.e(TAG, "switch error" + question.getQuestion().getQuestionType().toString());
-                break;
+                return false;
         }
 
+    }
+
+    private static HashMap<String, String> toStringMap(HashMap<String, Object> paraMap) {
+        HashMap<String, String> newMap = new HashMap<>();
+        Iterator<Map.Entry<String, Object>> iter = paraMap.entrySet().iterator();
+        while(iter.hasNext()) {
+            Map.Entry<String, Object> entry = iter.next();
+            newMap.put(entry.getKey(), entry.getValue().toString());
+        }
+        return newMap;
+    }
+
+    private static boolean dealChoiceQuestionReturn(String response) {
         if(response == null)
             return false;
         else if(response.equals("false"))
@@ -234,28 +264,31 @@ public class CourseQuestionNetService {
             return false;
     }
 
-    private static void setSingleChoiceQuestionPara(HashMap<String, String> paraMap,
+    private static boolean dealApplicationQuestionReturn(String response) {
+        if(response == null)
+            return false;
+        return true;
+    }
+
+    private static void setSingleChoiceQuestionPara(HashMap<String, Object> paraMap,
                                                     SingleChoiceQuestion question) {
         ArrayList<String> choices = question.getChoiceContents();
-        String jChoices = new JSONArray(choices).toString();
-        paraMap.put("options", jChoices);
+        paraMap.put("options", new JSONArray(choices));
         int correctChoice = question.getCorrectChoice();
         paraMap.put("answers", Integer.toString(correctChoice));
         paraMap.put("type", "2");
     }
 
-    private static void setMultiChoiceQuestionPara(HashMap<String, String> paraMap,
+    private static void setMultiChoiceQuestionPara(HashMap<String, Object> paraMap,
                                                    MultiChoiceQuestion question) {
         ArrayList<String> choices = question.getChoiceContents();
-        String jChoices = new JSONArray(choices).toString();
-        paraMap.put("options", jChoices);
+        paraMap.put("options", new JSONArray(choices));
         ArrayList<Integer> correctChoices = question.getCorrectChoices();
-        String jAnswers = new JSONArray(correctChoices).toString();
-        paraMap.put("answers", jAnswers);
+        paraMap.put("answers", new JSONArray(correctChoices));
         paraMap.put("type", "3");
     }
 
-    private static void setApplicationQuestionPara(HashMap<String, String> paraMap,
+    private static void setApplicationQuestionPara(HashMap<String, Object> paraMap,
                                                    ApplicationQuestion question) {
         paraMap.put("type", "1");
     }
@@ -349,13 +382,15 @@ public class CourseQuestionNetService {
 
         try {
             JSONObject jResult = new JSONObject(response);
-            String operateMessage = jResult.getString("result");
-            CommitAnswerResultMessage resultMessage = CommitAnswerResultMessage.valueOf(operateMessage);
-            return resultMessage;
+            int resultState = jResult.getInt("result");
+            if(resultState == 1)
+                return CommitAnswerResultMessage.SUCCESS;
+            else
+                return CommitAnswerResultMessage.QUESITON_TIME_OUT;
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG, "commitAnswer json error");
-            return null;
+            return CommitAnswerResultMessage.NET_ERROR;
         }
     }
 

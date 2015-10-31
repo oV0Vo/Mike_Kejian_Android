@@ -159,7 +159,7 @@ public class CourseNamingNetService {
             Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
             record.setEndTime(endTime);
 
-            long leftMillis = jRecord.getLong("leftTime");
+            long leftMillis = lastTime;
             record.setLeftMillis(leftMillis);
 
             record.setTeacherName("");

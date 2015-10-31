@@ -145,7 +145,7 @@
     <string name="question_publish_invalid_time_limit_alert_message">请在输入一个时限（整数）
         </string>
     <string name="question_publish_no_choice">请选择一个正确答案</string>
-    <string name="question_publish_success_message">添加课程成功！</string>
+    <string name="question_publish_success_message">已成功提问！</string>
 
     <!--internal error-->
     <string name="internal_logic_error_message">系统错误，请稍后再试</string>
@@ -163,6 +163,7 @@
     <string name="course_naming_not_start_clock_text">- -:- -</string>
     <string name="course_naming_naming_action">我要点名</string>
     <string name="course_naming_on_naming">正在点名</string>
+    <string name="course_naming_begin_naming">开始点名</string>
     <string name="course_naming_finish">点名结束</string>
     <string name="course_naming_history_title">往期点名</string>
     <string name="course_naming_sign_in_stats_title">出勤统计</string>

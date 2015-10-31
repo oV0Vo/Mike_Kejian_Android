@@ -270,7 +270,7 @@ if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
     }
 
     public UserTypeInCourse getUserTypeInCurrentCourse() {
-        return currentUserType;
+        return UserTypeInCourse.TEACHER;
     }
 
     @NeedAsyncAnnotation

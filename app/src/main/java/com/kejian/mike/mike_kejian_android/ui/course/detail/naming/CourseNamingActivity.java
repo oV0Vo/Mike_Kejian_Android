@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -176,7 +177,6 @@ public class CourseNamingActivity extends AppCompatActivity {
         long millis = minute * 60 * 1000;
         new BeginNamingTask().execute(millis);
         namingActionText.setEnabled(false);
-        namingActionText.setBackgroundColor(getResources().getColor(R.color.dark));
         Toast.makeText(CourseNamingActivity.this, R.string.on_send_naming_request,
                 Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
@@ -231,7 +231,7 @@ public class CourseNamingActivity extends AppCompatActivity {
             return;
 
         namingActionText.setText(R.string.course_naming_finish);
-        namingActionText.setBackgroundColor(getResources().getColor(R.color.dark));
+        namingActionText.setBackgroundColor(getResources().getColor(R.color.dark_light));
         namingActionText.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
         Toast.makeText(this, R.string.on_getting_naming_result, Toast.LENGTH_SHORT).show();
@@ -242,9 +242,8 @@ public class CourseNamingActivity extends AppCompatActivity {
         if(progressBar == null)
             return;
         progressBar.setVisibility(View.GONE);
-        namingActionText.setText(R.string.course_naming_on_naming);
+        namingActionText.setText(R.string.course_naming_begin_naming);
         namingActionText.setEnabled(false);
-        namingActionText.setBackgroundColor(getResources().getColor(R.color.green));
         setViewOnNaming(namingRecord);
     }
 
@@ -254,7 +253,6 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
         Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
-        namingActionText.setBackgroundColor(getResources().getColor(R.color.green));
         namingActionText.setEnabled(true);
 
     }
@@ -345,32 +343,58 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
+            NamingRecordViewHolder viewHolder = null;
+            CourseNamingRecord record = getItem(position);
+            int signInNum = record.getSignInNum();
+            int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
+            Log.i(TAG, "getView " + Integer.toString(position) + Boolean.toString(convertView == null));
             if(convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.layout_history_naming, null);
+                viewHolder = new NamingRecordViewHolder();
+
+                ColorBar colorBar = ColorBar.getDefaultStyleColorBar(
+                        CourseNamingActivity.this, ((double) signInNum) / totalNum);
+                ViewGroup colorBarContainer = (ViewGroup)convertView.findViewById(R.id.color_bar_container);
+                colorBarContainer.addView(colorBar);
+                viewHolder.colorBarContainer = colorBarContainer;
+
+                viewHolder.timeText = (TextView)convertView.findViewById(R.id.history_naming_time);
+                viewHolder.percentText = (TextView)convertView.findViewById(R.id.percent_text);
+                viewHolder.statusText = (TextView)convertView.findViewById(R.id.stats_text);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (NamingRecordViewHolder)convertView.getTag();
             }
 
-            CourseNamingRecord r = getItem(position);
-            Date beginTime = r.getBeginTime();
-            Date endTime = r.getEndTime();
+            Date beginTime = record.getBeginTime();
+            Date endTime = record.getEndTime();
             String timeStr = TimeFormat.convertDateInterval(beginTime, endTime);
-            TextView textView = (TextView)convertView.findViewById(R.id.history_naming_time);
-            textView.setText(timeStr);
+            viewHolder.timeText.setText(timeStr);
 
-            TextView statsText = (TextView)convertView.findViewById(R.id.stats_text);
-            int signInNum = r.getSignInNum();
-            int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
             String statsStr = Integer.toString(signInNum) + "/" + Integer.toString(totalNum);
-            statsText.setText(statsStr);
+            viewHolder.statusText.setText(statsStr);
 
-            ColorBar colorBar = ColorBar.getDefaultStyleColorBar(
-                    CourseNamingActivity.this, ((double) signInNum) / totalNum);
-            ViewGroup colorBarContainer = (ViewGroup)convertView.findViewById(R.id.color_bar_container);
-            colorBarContainer.addView(colorBar);
+            double joinRate = (totalNum != 0)? ((double)signInNum) / totalNum: 0.0;
+            viewHolder.percentText.setText(Double.toString(NumberUtil.round(joinRate, 3) * 100));
+            setTextColorAccordingToRate(viewHolder.percentText, joinRate);
 
-            TextView percentText = (TextView)convertView.findViewById(R.id.percent_text);
-            percentText.setText("93.2%");
             return convertView;
         }
+
+        private void setTextColorAccordingToRate(TextView rateText, double rate) {
+            if (rate < 0.6)
+                rateText.setTextColor(getResources().getColor(R.color.red));
+            else
+                rateText.setTextColor(getResources().getColor(R.color.green));
+        }
+
+    }
+
+    static class NamingRecordViewHolder {
+        ViewGroup colorBarContainer;
+        TextView statusText;
+        TextView percentText;
+        TextView timeText;
     }
 
     private class GetHistoryNamingTask extends AsyncTask<Void, Void, ArrayList<CourseNamingRecord>> {

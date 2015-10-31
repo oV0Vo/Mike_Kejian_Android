@@ -15,18 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/big_padding"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/no_current_naming_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/big_padding"
-            android:paddingBottom="@dimen/big_padding"
-            android:layout_gravity="center"
+            android:paddingTop="@dimen/medium_size"
+            android:paddingBottom="@dimen/medium_size"
+            android:gravity="center"
             android:textSize="@dimen/big_font"
-            android:textColor="@color/white"
+            android:textColor="@color/dark"
             android:text="@string/course_sign_in_no_current_naming_text"
             android:visibility="gone"/>
 
@@ -165,13 +164,4 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-
-    <TextView
-        android:id="@+id/empty_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="@dimen/sub_big_font"
-        android:text="@string/course_sign_in_empty_text"
-        android:visibility="gone"/>
 </RelativeLayout>

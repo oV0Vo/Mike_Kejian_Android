@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,7 @@ import util.NumberUtil;
 
 public class QuestionStatsActivity extends AppCompatActivity {
 
-    public static final String ARG_QUESTION_ID = "quesitonId";
+    private static final String TAG = "QuestionStats";
 
     private BasicQuestion question;
 
@@ -331,27 +332,42 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
+            Log.i(TAG, "getView " + Integer.toString(position) + Boolean.toString(convertView==null));
+            AnswerViewHolder viewHolder = null;
+            QuestionShowAnswer answer = getItem(position);
             if(convertView == null) {
                 convertView = View.inflate(QuestionStatsActivity.this, R.layout.
                         layout_question_answer_brief, null);
+                viewHolder = new AnswerViewHolder();
+
+                ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
+                ImageLoader imageLoader = new ImageLoader(requestQueue, MyImageCache.getInstance
+                        (QuestionStatsActivity.this));
+                ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(userImageView,
+                        R.drawable.default_user, R.drawable.default_user);
+                imageLoader.get(answer.getHeadIconUrl(), imageListener);
+                viewHolder.userImage = userImageView;
+
+                TextView userNameText = (TextView)convertView.findViewById(R.id.user_name);
+                viewHolder.userNameText = userNameText;
+                TextView answerContentText = (TextView)convertView.findViewById(R.id.answer_content);
+                viewHolder.answerText = answerContentText;
+
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (AnswerViewHolder)convertView.getTag();
             }
 
-            QuestionShowAnswer answer = getItem(position);
-
-            ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
-            ImageLoader imageLoader = new ImageLoader(requestQueue, MyImageCache.getInstance
-                    (QuestionStatsActivity.this));
-            ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(userImageView,
-                    R.drawable.default_user, R.drawable.default_user);
-            imageLoader.get(answer.getHeadIconUrl(), imageListener);
-
-            TextView userNameText = (TextView)convertView.findViewById(R.id.user_name);
-            userNameText.setText(answer.getStudentName());
-
-            TextView answerContentText = (TextView)convertView.findViewById(R.id.answer_content);
-            answerContentText.setText(answer.getAnswer());
+            viewHolder.userNameText.setText(answer.getStudentName());
+            viewHolder.answerText.setText(answer.getAnswer());
 
             return convertView;
         }
+    }
+
+    static class AnswerViewHolder {
+        public ImageView userImage;
+        public TextView userNameText;
+        public TextView answerText;
     }
 }

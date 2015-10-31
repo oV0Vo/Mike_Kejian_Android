@@ -198,7 +198,6 @@ public class CourseSignInActivity extends AppCompatActivity {
     private void setHasSignInView() {
         signInActionText.setText(R.string.course_sign_in_already_sign_in);
         signInActionText.setEnabled(false);
-        signInActionText.setBackgroundColor(getResources().getColor(R.color.green));
 
         signInStatusText.setBackground(getResources().getDrawable(R.drawable.green_round));
     }
