@@ -7,10 +7,12 @@
     android:paddingTop="@dimen/medium_padding"
     android:paddingBottom="@dimen/medium_padding"
     android:paddingLeft="@dimen/big_padding"
-    android:paddingRight="@dimen/big_padding">
+    android:paddingRight="@dimen/big_padding"
+    android:background="@drawable/dark_thin_bottom_border">
 
     <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
         android:id="@+id/user_image"
+        android:layout_marginTop="@dimen/over_small_size"
         android:layout_width="@dimen/medium_icon_width"
         android:layout_height="@dimen/medium_icon_height"
         android:src="@drawable/photo"/>
@@ -18,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/medium_padding"
+        android:paddingLeft="@dimen/over_small_size"
         android:orientation="vertical">
 
         <TextView
@@ -39,6 +41,7 @@
             android:ellipsize="end" />
 
         <RelativeLayout
+            android:id="@+id/zhankai_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/medium_padding"

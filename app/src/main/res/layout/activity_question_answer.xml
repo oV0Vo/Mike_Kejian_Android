@@ -35,12 +35,14 @@
             android:id="@+id/reply_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_size"
+            android:layout_marginTop="@dimen/over_over_medium_size"
+            android:layout_marginLeft="@dimen/over_small_size"
+            android:layout_marginRight="@dimen/over_small_size"
             android:maxLines="5"
             android:minLines="5"
             android:gravity="left|top"
             android:textSize="@dimen/medium_font"
-            android:background="@color/dark_light"
+            android:background="@color/dark_very_light"
             android:hint="@string/answer_question_hint"
             android:visibility="gone"/>
 

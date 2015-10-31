@@ -6,8 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
-import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
-import com.umeng.message.UTrack;
+import com.kejian.mike.mike_kejian_android.ui.util.MyAction;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
 
@@ -171,7 +170,7 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
        // messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
         LocalBroadcastManager.getInstance(context).sendBroadcast(messageIncreIntent);
         if(isMessageNotice) {
-            Intent messageNoticeIntent = new Intent(UmengMessageAction.NEW_MESSAGE_ACTION);
+            Intent messageNoticeIntent = new Intent(MyAction.NEW_MESSAGE_ACTION);
             LocalBroadcastManager.getInstance(context).sendBroadcast(messageNoticeIntent);
         }
     }

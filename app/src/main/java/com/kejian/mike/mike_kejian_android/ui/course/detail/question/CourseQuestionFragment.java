@@ -388,7 +388,6 @@ public class CourseQuestionFragment extends Fragment {
         private void disableActionText() {
             actionText.setText(R.string.shut_down_question_on_progress);
             actionText.setEnabled(false);
-            actionText.setBackgroundColor(getResources().getColor(R.color.dark));
         }
     }
 
@@ -486,9 +485,12 @@ public class CourseQuestionFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean shutDownSuccess) {
+            Log.i(TAG, "shut down question finish");
             if(shutDownSuccess) {
+                Log.i(TAG, "shut down success");
                 updateViewOnShutDownSuccess();
             } else {
+                Log.i(TAG, "shut down fail");
                 updateViewOnShutDownFail();
             }
         }
@@ -496,7 +498,6 @@ public class CourseQuestionFragment extends Fragment {
         private void updateViewOnShutDownSuccess() {
             actionText.setEnabled(true);
             actionText.setText(R.string.show_question_stats);
-            actionText.setBackgroundColor(getResources().getColor(R.color.green));
             actionText.setOnClickListener(new ShowQuestionStatsClickListener(question));
         }
 
@@ -506,7 +507,6 @@ public class CourseQuestionFragment extends Fragment {
 
             actionText.setEnabled(true);
             actionText.setText(R.string.shut_down_question_text);
-            actionText.setBackgroundColor(getResources().getColor(R.color.green));
             Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             Log.i(TAG, "updateViewOnShutDownFail net disconnet");
         }

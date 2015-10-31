@@ -45,6 +45,8 @@
 
     <!--quesiton answer-->
     <string name="answer_question_hint">请在此处输入答案</string>
+    <string name="need_to_choose_choice">请选择一个选项.</string>
+    <string name="need_to_input_answer">请输入回答</string>
 
     <!--question stats-->
     <string name="no_more_answer">没有更多回答了</string>
