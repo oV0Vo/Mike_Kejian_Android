@@ -2,6 +2,7 @@ package net.course;
 
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -158,7 +159,7 @@ public class CourseQuestionNetService {
 
         String type = jQuestion.getString("type");
         switch(type) {
-            case "1":
+            case "3":
                 question = new ApplicationQuestion();
                 parseAP(jQuestion, (ApplicationQuestion)question);
                 break;
@@ -166,7 +167,7 @@ public class CourseQuestionNetService {
                 question = new SingleChoiceQuestion();
                 parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
                 break;
-            case "3":
+            case "1":
                 question = new MultiChoiceQuestion();
                 parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
                 break;
@@ -196,6 +197,10 @@ public class CourseQuestionNetService {
     }
 
     public static boolean addNewQuestion(CurrentQuestion question) {
+        BasicQuestion questionInfo = question.getQuestion();
+        Log.i(TAG, questionInfo.getQuestionType().toString());
+        Log.i(TAG, questionInfo.getContent());
+
         String url = BASE_URL + "signQuestion/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("courseId", question.getQuestion().getCourseId());
@@ -207,21 +212,32 @@ public class CourseQuestionNetService {
                 url = BASE_URL + "signChoiceQuestion/";
                 setSingleChoiceQuestionPara(paraMap, (SingleChoiceQuestion)question.getQuestion());
                 response = httpRequest.sentPostRequest(url, paraMap);
-                break;
+                return dealChoiceQuestionReturn(response);
             case 多选题:
                 url = BASE_URL + "signChoiceQuestion/";
                 setMultiChoiceQuestionPara(paraMap, (MultiChoiceQuestion)question.getQuestion());
                 response = httpRequest.sentPostRequest(url, paraMap);
-                break;
+                return dealChoiceQuestionReturn(response);
             case 其他:
-                setApplicationQuestionPara(paraMap, (ApplicationQuestion)question.getQuestion());
-                response = httpRequest.sentGetRequest(url, paraMap);
-                break;
+                try {
+                    String encodedContent = URLEncoder.encode(question.getQuestion().getContent(),
+                            "UTF-8");
+                    paraMap.put("content", encodedContent);
+                    setApplicationQuestionPara(paraMap, (ApplicationQuestion) question.getQuestion());
+                    response = httpRequest.sentGetRequest(url, paraMap);
+                    return dealApplicationQuestionReturn(response);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return false;
+                }
             default:
                 Log.e(TAG, "switch error" + question.getQuestion().getQuestionType().toString());
-                break;
+                return false;
         }
 
+    }
+
+    private static boolean dealChoiceQuestionReturn(String response) {
         if(response == null)
             return false;
         else if(response.equals("false"))
@@ -234,13 +250,21 @@ public class CourseQuestionNetService {
             return false;
     }
 
+    private static boolean dealApplicationQuestionReturn(String response) {
+        if(response == null)
+            return false;
+        return true;
+    }
+
     private static void setSingleChoiceQuestionPara(HashMap<String, String> paraMap,
                                                     SingleChoiceQuestion question) {
         ArrayList<String> choices = question.getChoiceContents();
         String jChoices = new JSONArray(choices).toString();
         paraMap.put("options", jChoices);
+
         int correctChoice = question.getCorrectChoice();
         paraMap.put("answers", Integer.toString(correctChoice));
+
         paraMap.put("type", "2");
     }
 
@@ -349,13 +373,15 @@ public class CourseQuestionNetService {
 
         try {
             JSONObject jResult = new JSONObject(response);
-            String operateMessage = jResult.getString("result");
-            CommitAnswerResultMessage resultMessage = CommitAnswerResultMessage.valueOf(operateMessage);
-            return resultMessage;
+            int resultState = jResult.getInt("result");
+            if(resultState == 1)
+                return CommitAnswerResultMessage.SUCCESS;
+            else
+                return CommitAnswerResultMessage.QUESITON_TIME_OUT;
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG, "commitAnswer json error");
-            return null;
+            return CommitAnswerResultMessage.NET_ERROR;
         }
     }
 

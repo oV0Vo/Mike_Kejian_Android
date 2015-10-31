@@ -3,6 +3,7 @@ package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -29,6 +30,8 @@ import model.course.CourseModel;
 
 public class QuestionAnswerActivity extends AppCompatActivity {
 
+    private static final String TAG = "QuestioAnswerActivity";
+
     private BasicQuestion question;
 
     private RadioGroup singleChoiceGroup;
@@ -51,13 +54,19 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         switch (question.getQuestionType()) {
             case 单选题:
+                Log.i(TAG, "setSingleChoiceQuestionView");
                 setSingleChoiceQuestionView((SingleChoiceQuestion) question);
                 break;
             case 多选题:
+                Log.i(TAG, "setMultiChioceQuestionView");
                 setMultiChioceQuestionView((MultiChoiceQuestion) question);
                 break;
             case 其他:
+                Log.i(TAG, "setApplicationQuestionView");
                 setApplicationQuestionView(question);
+                break;
+            default:
+                Log.i(TAG, "setQuestionView switch error");
                 break;
         }
 
@@ -66,7 +75,7 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
     private void setQuestionContentView(String questionContent) {
         TextView contentText = (TextView) findViewById(R.id.question_content_text);
-        contentText.setText(questionContent);
+        contentText.setText("  " + questionContent);
     }
 
     private void setSingleChoiceQuestionView(SingleChoiceQuestion singleChoiceQuestion) {

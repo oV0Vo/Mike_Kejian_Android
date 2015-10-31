@@ -1,6 +1,5 @@
 package com.kejian.mike.mike_kejian_android.ui.course.detail.question;
 
-import android.inputmethodservice.Keyboard;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +23,6 @@ import com.kejian.mike.mike_kejian_android.R;
 import java.util.ArrayList;
 
 import model.course.CourseModel;
-import model.user.Global;
-import model.user.user;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
@@ -69,6 +66,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         timeLimitView = (EditText)findViewById(R.id.question_publish_time_limit_text);
+        timeLimitView.requestFocus();
         initQuestionTypeChoices();
         contentText= (EditText)findViewById(R.id.question_publish_content_text);
         initChoiceContainer();
@@ -81,10 +79,9 @@ public class QuestionPublishActivity extends AppCompatActivity {
     }
 
     private void initChoiceContainer() {
-        choiceContainer = (ViewGroup)findViewById(R.id.question_publish_choice_container);
+        choiceContainer = (ViewGroup)findViewById(R.id.choice_layout);
         initChoiceNumButton();
-        choiceContentContainer = (ViewGroup)findViewById(R.id.
-                question_publish_choice_content_container);
+        choiceContentContainer = (ViewGroup)findViewById(R.id.choice_container);
 
         choiceContentViews = new ArrayList();
         choiceButtons = new ArrayList();
@@ -96,7 +93,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
     private void initChoiceNumButton() {
         choiceNumButton = (TextView)choiceContainer.findViewById(R.id.
-                question_publish_choice_num_button);
+                choice_num_text);
         choiceNumButton.setText(Integer.toString(DEFAULT_CHOICE_NUM));
 
         choiceNumMenu = new PopupMenu(this, choiceNumButton);
@@ -112,9 +109,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 }
             });
         }
-
-     /*   MenuInflater menuInflater = choiceNumMenu.getMenuInflater();
-        menuInflater.inflate(R.menu.menu_empty, realMenu);//@?一定得加这句吗*/
 
         choiceNumButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +133,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         if (multiChoiceBefore) {
                             clearCorrectChoices();
                         } else if (otherChoiceBefore) {
-                            choiceContentContainer.setVisibility(View.VISIBLE);
+                            choiceContainer.setVisibility(View.VISIBLE);
                         }
                         typeMask = singleChoiceMask;
                         break;
@@ -149,16 +143,16 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         if (singleChoiceBefore) {
                             clearCorrectChoices();
                         } else if (otherChoiceBefore) {
-                            choiceContentContainer.setVisibility(View.VISIBLE);
+                            choiceContainer.setVisibility(View.VISIBLE);
                         }
                         typeMask = multiChoiceMask;
                         break;
                     case R.id.question_publish_type_other:
                         Log.e("QuestionPublish", "change to otherChoice");
                         if (singleChoiceBefore) {
-                            choiceContentContainer.setVisibility(View.INVISIBLE);
+                            choiceContainer.setVisibility(View.INVISIBLE);
                         } else if (multiChoiceBefore) {
-                            choiceContentContainer.setVisibility(View.INVISIBLE);
+                            choiceContainer.setVisibility(View.INVISIBLE);
                         }
                         typeMask = otherMask;
                         break;
@@ -175,7 +169,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
     private void setChoiceViewByNum(int choiceNum) {
         clearChoiceViews();
         for(int choiceIndex=0; choiceIndex<choiceNum; ++choiceIndex)
-            createNewChoiceView(choiceIndex);
+            setNewChoiceView(choiceIndex);
         setChoiceKeyInputListener();
     }
 
@@ -194,7 +188,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
         }
     }
 
-    private void createNewChoiceView(int choiceIndex) {
+    private void setNewChoiceView(int choiceIndex) {
         ViewGroup newChoiceView = (ViewGroup)getLayoutInflater().inflate(
                 R.layout.layout_question_choice_input, null);
         choiceContentContainer.addView(newChoiceView);
@@ -314,7 +308,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 Toast.makeText(QuestionPublishActivity.this, R.string.on_process,
                         Toast.LENGTH_SHORT).show();
                 commitButton.setEnabled(false);
-                commitButton.setBackgroundColor(getResources().getColor(R.color.dark));
                 return;
             } else {
                 return;
@@ -412,7 +405,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 Toast.makeText(QuestionPublishActivity.this, R.string.net_disconnet,
                         Toast.LENGTH_SHORT).show();
                 commitButton.setEnabled(true);
-                commitButton.setBackgroundColor(getResources().getColor(R.color.green));
             }
         }
     }

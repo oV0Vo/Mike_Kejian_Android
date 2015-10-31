@@ -133,7 +133,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/question_publish_choice_container"
+                android:id="@+id/choice_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/medium_padding"
@@ -166,7 +166,7 @@
                         android:background="@drawable/border_green_thin">
 
                         <TextView
-                            android:id="@+id/question_publish_choice_num_button"
+                            android:id="@+id/choice_num_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/medium_button_padding"
@@ -184,7 +184,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/question_publish_choice_content_container"
+                    android:id="@+id/choice_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/medium_padding"

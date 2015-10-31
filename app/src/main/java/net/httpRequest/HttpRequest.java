@@ -38,7 +38,7 @@ public class HttpRequest {
 
     }
 
-    public synchronized  String sentPostRequest(String url,HashMap<String,String> para){
+    public synchronized  String sentPostRequest(String url,HashMap<String,Object> para){
 
         PrintWriter writer=null;
         BufferedReader reader=null;
