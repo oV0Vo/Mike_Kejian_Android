@@ -316,7 +316,18 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
 
 
-            return bindSchoolAccount(para[0],para[1],para[2]);
+           boolean result= bindSchoolAccount(para[0],para[1],para[2]);
+
+            if(result){
+                user u=(user)Global.getObjectByName("user");
+
+                if(u!=null){
+
+                    u=UserNetService.getUserInfo(u.getId());
+                }
+            }
+
+            return result;
 
         }
 
@@ -330,6 +341,8 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
                 userToken.setIfBindSchoolAccount(true);
 
                 Toast.makeText(getApplicationContext(),"绑定教务网账号成功 >_<",Toast.LENGTH_SHORT).show();
+
+
 
                 //跳转到下一个activity
 
