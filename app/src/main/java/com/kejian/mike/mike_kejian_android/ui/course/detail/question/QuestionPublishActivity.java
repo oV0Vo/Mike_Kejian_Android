@@ -233,6 +233,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             private int clickCount = 0;
             @Override
             public void onClick(View v) {
+                clickCount++;
                 RadioButton radioButton = (RadioButton)v;
                 if(clickCount % 2 == 1)
                     radioButton.setChecked(false);

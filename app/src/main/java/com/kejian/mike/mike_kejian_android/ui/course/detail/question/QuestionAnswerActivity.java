@@ -104,16 +104,21 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         ArrayList<String> choiceContents = multiChoiceQuestion.getChoiceContents();
         for (int i = 0; i < choiceContents.size(); ++i) {
             RadioButton choiceButton = createChoiceButton(i, choiceContents.get(i));
+            choiceButtons.add(choiceButton);
+            choiceContainer.addView(choiceButton);
+
             choiceButton.setOnClickListener(new View.OnClickListener() {
                 private int clickCount = 0;
+
                 @Override
                 public void onClick(View v) {
-                    RadioButton radioButton = (RadioButton)v;
-                    if(clickCount % 2 == 1)
+                    clickCount++;
+                    RadioButton radioButton = (RadioButton) v;
+                    if (clickCount % 2 == 1) {
                         radioButton.setChecked(false);
+                    }
                 }
             });
-            choiceContainer.addView(choiceButton);
         }
 
         choiceContainer.setVisibility(View.VISIBLE);
@@ -164,17 +169,19 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                 case 其他:
                     answer = getApplicationAnswer();
                     if(answer.length() == 0) {
-                    Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_choose_choice,
+                        Toast.makeText(QuestionAnswerActivity.this, R.string.need_to_input_answer,
                             Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        return;
+                    }
                     break;
                 default:
                     break;
             }
             String questionId = question.getQuestionId();
+            answerActionText.setEnabled(false);
+            Toast.makeText(QuestionAnswerActivity.this, R.string.answer_question_on_progress,
+                    Toast.LENGTH_SHORT).show();
             new CommitAnswerTask().execute(questionId, answer);
-            updateViewOnPostAnswer();
         }
 
         private String getSingleChoiceAnswer() {
@@ -189,16 +196,24 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         }
 
         private String getMultiChoiceAnswer() {
-            String answer = new String();
+            ArrayList<Integer> choices = new ArrayList<Integer>();
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton choiceButton = choiceButtons.get(i);
-                if(choiceButton.isChecked())
-                    answer += Integer.toString(i);
-                if(i != choiceButtons.size())
-                    answer += "_";
+                if(choiceButton.isChecked()) {
+                    choices.add(i);
+                }
             }
-            if(!answer.equals("_"))
-                return answer;
+
+            if(choices.size() != 0) {
+                StringBuilder answer = new StringBuilder();
+                for(int i=0; i< choices.size(); ++i) {
+                    answer.append(choices.get(i));
+                    if(i != (choices.size() - 1)) {
+                        answer.append("_");
+                    }
+                }
+                return answer.toString();
+            }
             else
                 return null;
         }
@@ -208,34 +223,20 @@ public class QuestionAnswerActivity extends AppCompatActivity {
         }
     }
 
-    private void updateViewOnPostAnswer() {
-        disableAnswerActionText();
-        Toast.makeText(this, R.string.answer_question_on_progress, Toast.LENGTH_LONG).show();
-    }
-
     private void updateViewOnNetError() {
-        Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
-        enableAnswerActionText();
+        Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_SHORT).show();
+        answerActionText.setEnabled(true);
     }
 
     private void updateViewOnCommitSuccess() {
-        Toast.makeText(this, R.string.answer_question_success_message, Toast.LENGTH_LONG).show();
-        enableAnswerActionText();
+        Toast.makeText(this, R.string.answer_question_success_message, Toast.LENGTH_SHORT).
+                show();
+        answerActionText.setEnabled(true);
     }
 
     private void updateViewOnQuestionTimeOut() {
-        Toast.makeText(this, R.string.answer_question_time_out, Toast.LENGTH_LONG).show();
-        enableAnswerActionText();
-    }
-
-    private void disableAnswerActionText() {
-        answerActionText.setEnabled(false);
-        answerActionText.setBackgroundColor(getResources().getColor(R.color.dark));
-    }
-
-    private void enableAnswerActionText() {
+        Toast.makeText(this, R.string.answer_question_time_out, Toast.LENGTH_SHORT).show();
         answerActionText.setEnabled(true);
-        answerActionText.setBackgroundColor(getResources().getColor(R.color.green));
     }
 
     private class CommitAnswerTask extends AsyncTask<String, Void, CommitAnswerResultMessage> {
@@ -251,6 +252,8 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(CommitAnswerResultMessage commitResult) {
+            if(answerActionText == null)
+                return;
             switch(commitResult) {
                 case SUCCESS:
                     updateViewOnCommitSuccess();

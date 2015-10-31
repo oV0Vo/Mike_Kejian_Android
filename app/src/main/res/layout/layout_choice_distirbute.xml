@@ -11,14 +11,14 @@
         android:id="@+id/choice_index_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/over_medium_padding"
+        android:paddingBottom="@dimen/over_small_size"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/choice_bar_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/over_medium_padding"/>
+        android:layout_marginBottom="@dimen/over_small_size"/>
 
     <TextView
         android:id="@+id/choice_distribute_num_text"

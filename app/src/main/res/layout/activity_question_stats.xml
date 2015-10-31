@@ -210,6 +210,8 @@
 
             <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
                 android:id="@+id/distribute_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/big_size"
                 android:layout_marginLeft="@dimen/medium_size">
             </com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout>
