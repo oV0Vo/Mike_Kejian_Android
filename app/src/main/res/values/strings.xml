@@ -87,7 +87,7 @@
     <string name="course_sign_in_activity">课程签到</string>
     <string name="new_reply">新的回复</string>
     <string name="new_praise">收到的赞</string>
-    <string name="mention_me">提到我的</string>
+    <string name="mention_me">邀请我的</string>
     <string name="my_message">我的消息</string>
 
     <!--course intro-->

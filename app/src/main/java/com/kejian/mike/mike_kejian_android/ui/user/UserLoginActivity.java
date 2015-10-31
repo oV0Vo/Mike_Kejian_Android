@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Base64;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,21 @@ public class UserLoginActivity extends Activity {
     private NetBroadcast netBroadcast;
 
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            //do something...
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     protected void onCreate(Bundle savedInstanceState){
 
@@ -101,13 +117,13 @@ public class UserLoginActivity extends Activity {
 
 
 
-        if(userToken!=null){
-
-
-
-            new LoginTask().execute(1);
-
-        }
+//        if(userToken!=null){
+//
+//
+//
+//            new LoginTask().execute(1);
+//
+//        }
 
     }
 
@@ -342,29 +358,29 @@ public class UserLoginActivity extends Activity {
 
     }
 
-    public void loginFromLocal(){
-
-
-        System.out.println("login : try to login from local");
-        Pair<String,String> localHistory= readLocalUser();
-
-        if((!localHistory.first.equals(""))&&(!localHistory.second.equals(""))){
-
-            this.userToken=new UserToken();
-            this.userToken.setPhoneNumber(localHistory.first);
-            this.userToken.setPassword(localHistory.second);
-
-//            userToken.setName("1");
-//            userToken.setPassword("1");
-            System.out.println("login : 从本地登录: 用户名:"+userToken.getName() +" 密码:"+userToken.getPassword());
-
-
-            new LoginTask().execute(1);
-
-
-        }
-
-    }
+//    public void loginFromLocal(){
+//
+//
+//        System.out.println("login : try to login from local");
+//        Pair<String,String> localHistory= readLocalUser();
+//
+//        if((!localHistory.first.equals(""))&&(!localHistory.second.equals(""))){
+//
+//            this.userToken=new UserToken();
+//            this.userToken.setPhoneNumber(localHistory.first);
+//            this.userToken.setPassword(localHistory.second);
+//
+////            userToken.setName("1");
+////            userToken.setPassword("1");
+//            System.out.println("login : 从本地登录: 用户名:"+userToken.getName() +" 密码:"+userToken.getPassword());
+//
+//
+//            new LoginTask().execute(1);
+//
+//
+//        }
+//
+//    }
 
     public void close(){
 

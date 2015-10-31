@@ -19,15 +19,11 @@ package util;
  * limitations under the License.
  */
 
+import android.text.TextUtils;
+import android.util.Log;
+import java.text.Collator;
 import java.util.ArrayList;
-
-
-
-        import android.text.TextUtils;
-        import android.util.Log;
-        import java.text.Collator;
-        import java.util.ArrayList;
-        import java.util.Locale;
+import java.util.Locale;
 
 /**
  * An object to convert Chinese character to its corresponding pinyin string. For characters with
@@ -409,7 +405,7 @@ public class HanziToPinyin {
                 }
             }
             Log.w(TAG, "There is no Chinese collator, HanziToPinyin is disabled");
-            sInstance = new HanziToPinyin(false);
+            sInstance = new HanziToPinyin(true);
             return sInstance;
         }
     }
@@ -555,6 +551,12 @@ public class HanziToPinyin {
         return tokens;
     }
 
+    private void addToken(
+            final StringBuilder sb, final ArrayList<Token> tokens, final int tokenType) {
+        String str = sb.toString();
+        tokens.add(new Token(tokenType, str, str));
+        sb.setLength(0);
+    }
     public static String getPinYin(String input) {
         ArrayList<HanziToPinyin.Token> tokens = HanziToPinyin.getInstance().get(input);
         StringBuilder sb = new StringBuilder();
@@ -568,19 +570,10 @@ public class HanziToPinyin {
             }
         }
 
-       // return "a";
+        // return "a";
 
         return sb.toString().toLowerCase();
     }
-    private void addToken(
-            final StringBuilder sb, final ArrayList<Token> tokens, final int tokenType) {
-        String str = sb.toString();
-        tokens.add(new Token(tokenType, str, str));
-        sb.setLength(0);
-    }
 
-    public static  void main(String[] args){
-
-        System.out.println(HanziToPinyin.getPinYin("国家地理"));
-    }
 }
+

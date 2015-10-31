@@ -74,6 +74,9 @@ public class   PostAdapter extends ArrayAdapter<Post>{
         /*
 
         System.out.println("postId: " + post.getPostId() + " url: " + post.getUserIconUrl());
+
+        */
+
         postViewHolder.post_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +110,6 @@ public class   PostAdapter extends ArrayAdapter<Post>{
                 }.execute(postViewHolder.userId);
             }
         });
-        */
 
 
         postViewHolder.post_title.setText(post.getTitle());

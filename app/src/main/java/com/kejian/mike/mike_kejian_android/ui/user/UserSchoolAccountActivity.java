@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.user;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -103,7 +104,18 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                showInfo("跳过绑定教务网帐号", "您选择了跳过绑定教务网帐号，这样您只能浏览课程的相关信息");
+
+
+                new AlertDialog.Builder(context)
+                        .setTitle("跳过绑定教务网帐号")
+                        .setMessage("您选择了跳过绑定教务网帐号，这样您只能浏览课程的相关信息")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                skip();
+                            }
+                        })
+                        .show();
             }
         });
         MessagePrint.print(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name());
@@ -126,7 +138,7 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
         Global.addGlobalItem(GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.BIND_SCHOOL_ACCOUNT_TIME.name(),GlobalInfoName.BIND_SCHOOL_ACCOUNT_TIME.FROM_SETTING.name());
 
         Intent intent=new Intent();
-        intent.setClass(this, MainActivity.class);
+        intent.setClass(this, UserLoginActivity.class);
         startActivity(intent);
 
     }
@@ -203,10 +215,31 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
                 MessagePrint.print("开始绑定教务网账号");
 
+                if(u!=null) {
 
 
-                new BindThread().execute(((user) Global.getObjectByName("user")).getId(), userToken.getSchoolAccount(), userToken.getSchoolAccountPassword());
+                    new BindThread().execute(((user) Global.getObjectByName("user")).getId(), userToken.getSchoolAccount(), userToken.getSchoolAccountPassword());
+                }
+                else{
 
+
+                    new AsyncTask<String,Integer,String>(){
+
+                        @Override
+                    public String doInBackground(String...Para){
+
+                            user u=UserNetService.getUser(userToken);
+                            return u.getId();
+                        }
+
+                        @Override
+                    public void onPostExecute(String result){
+
+                            new BindThread().execute(result, userToken.getSchoolAccount(), userToken.getSchoolAccountPassword());
+
+                        }
+                    }.execute("");
+                }
                 userToken.bindSchoolAccount();
 
                 user us=(user)Global.getObjectByName("user");
@@ -255,6 +288,18 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
     public void jump(){
 
+        user us=(user)Global.getObjectByName("user");
+        if(us==null){
+
+            Intent intent=new Intent();
+
+            intent.setClass(this,UserLoginActivity.class);
+
+            startActivity(intent);
+        }
+
+        finish();
+
     }
 
     public boolean bindSchoolAccount(String userId,String account,String psd){
@@ -265,20 +310,20 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
     }
 
-    private class BindThread extends AsyncTask<String,Integer,String>{
+    private class BindThread extends AsyncTask<String,Integer,Boolean>{
 
-        public String doInBackground(String...para){
+        public Boolean doInBackground(String...para){
 
-            bindSchoolAccount(para[0],para[1],para[2]);
 
-            return 1+"";
+
+            return bindSchoolAccount(para[0],para[1],para[2]);
 
         }
 
         @Override
-        public void onPostExecute(String result){
+        public void onPostExecute(Boolean result){
 
-            if(result.equals("1")){
+            if(result){
 
                 MessagePrint.print("绑定教务网账号成功");
 
@@ -290,6 +335,13 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
                 jump();
 
+            }
+            else{
+
+
+                user us=(user)Global.getObjectByName("user");
+                if(us!=null)us.setSchoolAccount("");
+                Toast.makeText(getApplicationContext(),"绑定教务网账号失败 >_<",Toast.LENGTH_SHORT).show();
             }
 
         }

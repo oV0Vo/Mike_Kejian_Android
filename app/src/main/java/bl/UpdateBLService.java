@@ -1,5 +1,7 @@
 package bl;
 
+import android.content.Context;
+
 import net.UpdateNetService;
 
 /**

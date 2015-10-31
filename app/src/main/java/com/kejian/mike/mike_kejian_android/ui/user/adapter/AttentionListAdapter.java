@@ -30,6 +30,7 @@ import model.course.CourseModel;
 import model.user.CourseBrief;
 import model.user.Friend;
 import model.user.PostBrief;
+import util.GetBitmapByPinyin;
 
 
 /**
@@ -153,8 +154,10 @@ public class AttentionListAdapter extends BaseAdapter {
                 });
 
 
-                DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,courseBrief.getIcon(),courseBrief.getIcon());
+               // DownloadPicture downloadPicture=new DownloadPicture(context,circleImageView,courseBrief.getIcon(),courseBrief.getIcon());
 
+
+                GetBitmapByPinyin.getBitmapByPinyin(courseBrief.getCourseName(),context,circleImageView);
 
             }
             if(type==3){

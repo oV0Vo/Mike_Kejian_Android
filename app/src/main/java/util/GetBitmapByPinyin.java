@@ -48,7 +48,18 @@ public class GetBitmapByPinyin {
 
         if(pinyin.length()>0) {
 
-            path= "char_" + pinyin.charAt(0);
+            char tem=pinyin.charAt(0);
+
+            if(tem>='a'&&tem<='z') {
+
+                path = "char_" + tem;
+
+                if(tem=='q'){
+                    path = "no_pic";
+                }
+            }else{
+                path="no_pic";
+            }
         }
         else{
 

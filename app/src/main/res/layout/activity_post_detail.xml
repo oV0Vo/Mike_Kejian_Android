@@ -19,10 +19,10 @@
         </LinearLayout>
 
         <ImageButton
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_margin="@dimen/medium_padding"
             android:background="@drawable/agree_gray"
             android:id="@+id/post_detail_praise_button"/>
@@ -33,7 +33,7 @@
             android:layout_width="48dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_margin="@dimen/medium_padding"
             android:background="@drawable/setting_item_selector"
             android:text="发送"
@@ -42,6 +42,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textCursorDrawable="@null"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/medium_padding"
             android:layout_marginRight="@dimen/medium_padding"
