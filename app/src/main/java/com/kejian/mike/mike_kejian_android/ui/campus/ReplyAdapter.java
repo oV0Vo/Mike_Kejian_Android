@@ -2,6 +2,8 @@ package com.kejian.mike.mike_kejian_android.ui.campus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.user.UserBaseInfoOtherView;
 
 
+import net.UserNetService;
 import net.picture.DownloadPicture;
 import net.picture.MessagePrint;
 
 import java.util.List;
 
 import model.campus.Reply;
+import model.user.user;
 
 /**
  * Created by ShowJoy on 2015/10/17.
@@ -65,6 +70,39 @@ public class ReplyAdapter extends ArrayAdapter<Reply>{
         MessagePrint.print("reply url:"+reply.getUserIconUrl());
         DownloadPicture d=new DownloadPicture(getContext(),replyViewHolder.reply_user_icon, reply.getUserIconUrl(), reply.getUserIconUrl());
 
+        replyViewHolder.reply_user_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AsyncTask<String, Integer, user>() {
+
+                    @Override
+                    public user doInBackground(String... Para) {
+
+                        user u = UserNetService.getUserInfo(Para[0]);
+
+
+                        return u;
+
+                    }
+
+                    @Override
+                    public void onPostExecute(user u) {
+
+                        Intent intent = new Intent();
+
+                        Bundle bundle = new Bundle();
+
+                        bundle.putSerializable("friend", u);
+
+                        intent.putExtras(bundle);
+
+                        intent.setClass(getContext(), UserBaseInfoOtherView.class);
+                        getContext().startActivity(intent);
+
+                    }
+                }.execute(reply.getUserId());
+            }
+        });
 
         //d.getBitMapFromNet(reply.getUserIconUrl(), "");
         replyViewHolder.postId = reply.getPostId();
