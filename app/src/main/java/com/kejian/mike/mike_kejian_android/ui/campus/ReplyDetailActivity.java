@@ -123,12 +123,14 @@ public class ReplyDetailActivity extends AppCompatActivity implements XListView.
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
-                intent.putExtra("title","回复: " +  post.getTitle());
-                intent.putExtra("activity_title", position + "楼");
-                intent.putExtra("postId", ((Reply)parent.getAdapter().getItem(position)).getPostId());
-                startActivity(intent);
+                if (position > 1) {
+                    Intent intent = new Intent();
+                    intent.setClass(ReplyDetailActivity.this, ReplyDetailActivity.class);
+                    intent.putExtra("title", "回复: " + post.getTitle());
+                    intent.putExtra("activity_title", position + "楼");
+                    intent.putExtra("postId", ((Reply) parent.getAdapter().getItem(position)).getPostId());
+                    startActivity(intent);
+                }
             }
         });
         iniButtons();

@@ -63,10 +63,12 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), PostDetailActivity.class);
-                intent.putExtra("postId", ((Post)parent.getAdapter().getItem(position)).getPostId());
-                getContext().startActivity(intent);
+                if(position > 0) {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), PostDetailActivity.class);
+                    intent.putExtra("postId", ((Post) parent.getAdapter().getItem(position)).getPostId());
+                    getContext().startActivity(intent);
+                }
 
             }
         });
