@@ -64,6 +64,7 @@ public class NewReplyActivity extends AppCompatActivity implements View.OnClickL
         container.stopRefresh();
         container.stopLoadMore();
         container.setRefreshTime("刚刚");
+
     }
 
     @Override

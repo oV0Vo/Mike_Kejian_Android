@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 import android.util.Pair;
 import android.view.KeyEvent;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.ui.broadcast.NetBroadcast;
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
+import com.kejian.mike.mike_kejian_android.ui.util.BindAction;
 
 import net.UserNetService;
 import net.picture.MessagePrint;
@@ -276,6 +278,12 @@ public class UserLoginActivity extends Activity {
            }
             editor.apply();
 
+            Intent i = new Intent(BindAction.ACTION_NAME);
+
+
+            i.putExtra(BindAction.ARG_IS_BIND, true);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(i);
+
 
             startActivity(intent);
             close();
@@ -501,7 +509,6 @@ public class UserLoginActivity extends Activity {
         public void handleMessage(Message message){
             super.handleMessage(message);
             //提示网络错误
-
 
 
 
