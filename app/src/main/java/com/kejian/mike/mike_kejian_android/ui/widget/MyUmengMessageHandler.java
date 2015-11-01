@@ -170,8 +170,11 @@ public class MyUmengMessageHandler extends UmengMessageHandler{
        // messageIncreIntent.putExtra("messageType", MessageType.mentionMe);
         LocalBroadcastManager.getInstance(context).sendBroadcast(messageIncreIntent);
         if(isMessageNotice) {
+            Log.i(TAG, "send message notice broacast");
             Intent messageNoticeIntent = new Intent(UmengMessageAction.NEW_MESSAGE_ACTION);
             LocalBroadcastManager.getInstance(context).sendBroadcast(messageNoticeIntent);
+        } else {
+            Log.i(TAG, "is not message notice");
         }
     }
 

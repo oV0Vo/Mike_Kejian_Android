@@ -173,7 +173,7 @@ public class CourseQuestionNetService {
                 break;
             case "3":
                 question = new MultiChoiceQuestion();
-                parseChoiceQuestion(jQuestion, (ChoiceQuestion)question);
+                parseChoiceQuestion(jQuestion, (ChoiceQuestion) question);
                 break;
             default:
                 break;
@@ -293,7 +293,8 @@ public class CourseQuestionNetService {
         paraMap.put("type", "1");
     }
 
-    public static ArrayList<QuestionShowAnswer> getQuestionAnswers(String questionId) {
+    public static ArrayList<QuestionShowAnswer> getQuestionAnswers(String questionId,
+                                                                   QuestionType questionType) {
         String url = BASE_URL + "getQuestionAnswers/";
         HashMap<String, String> paraMap = new HashMap<String, String>();
         paraMap.put("questionId", questionId);
@@ -306,7 +307,7 @@ public class CourseQuestionNetService {
             ArrayList<QuestionShowAnswer> answers = new ArrayList<>();
             for(int i=0; i<jAnswers.length(); ++i) {
                 JSONObject jAnswer = jAnswers.getJSONObject(i);
-                QuestionShowAnswer answer = parseAnswer(jAnswer);
+                QuestionShowAnswer answer = parseAnswer(jAnswer, questionType);
                 answers.add(answer);
             }
             return answers;
@@ -317,14 +318,33 @@ public class CourseQuestionNetService {
         }
     }
 
-    private static QuestionShowAnswer parseAnswer(JSONObject jAnswer) throws JSONException{
+    private static QuestionShowAnswer parseAnswer(JSONObject jAnswer, QuestionType questionType)
+            throws JSONException
+    {
         QuestionShowAnswer answer = new QuestionShowAnswer();
 
         String studentId = jAnswer.getString("user_id");
         answer.setStudentId(studentId);
 
         String answerContent = jAnswer.getString("answer");
-        answer.setAnswer(answerContent);
+        if(questionType == QuestionType.其他) {
+            answer.setAnswer(answerContent);
+        } else {
+            String[] answerChoicesStr = answerContent.split("_");
+            StringBuilder answerBuilder = new StringBuilder();
+            for(int i=0; i<answerChoicesStr.length - 1; ++i) {
+                answerBuilder.append(Character.toString((char)('A' + Integer.parseInt(
+                        answerChoicesStr[i]))));
+                answerBuilder.append(" ");
+            }
+            if(answerChoicesStr.length != 0) {
+                String lastChoiceStr = answerChoicesStr[answerChoicesStr.length - 1];
+                answerBuilder.append(Character.toString((char) ('A' + Integer.parseInt(
+                        lastChoiceStr))));
+            }
+            answerContent = answerBuilder.toString();
+            answer.setAnswer(answerContent);
+        }
 
         String studentName = jAnswer.getString("user_name");
         answer.setStudentName(studentName);
@@ -355,12 +375,30 @@ public class CourseQuestionNetService {
             int totalAnswerNum = Integer.parseInt(jStats.getString("totalAnswerNum"));
             stats.setTotalAnswerNum(totalAnswerNum);
 
-            JSONArray jChoiceDistribute = jStats.getJSONArray("choiceDistribute");
-            ArrayList<Integer> choiceDistribute = new ArrayList<Integer>();
-            for(int i=0; i<jChoiceDistribute.length(); ++i) {
-                choiceDistribute.add(jChoiceDistribute.getInt(i));
+            int type = Integer.parseInt(jStats.getString("type"));
+            QuestionType questionType = null;
+            switch(type) {
+                case 1:
+                    questionType = QuestionType.其他;
+                    break;
+                case 2:
+                    questionType = QuestionType.单选题;
+                    break;
+                case 3:
+                    questionType = QuestionType.多选题;
+                    break;
+                default:
+                    Log.e(TAG, "switch error");
             }
-            stats.setChoiceDistribute(choiceDistribute);
+            stats.setQuestionType(questionType);
+            if(QuestionType.其他 != questionType) {
+                JSONArray jChoiceDistribute = jStats.getJSONArray("choiceDistribute");
+                ArrayList<Integer> choiceDistribute = new ArrayList<Integer>();
+                for (int i = 0; i < jChoiceDistribute.length(); ++i) {
+                    choiceDistribute.add(jChoiceDistribute.getInt(i));
+                }
+                stats.setChoiceDistribute(choiceDistribute);
+            }
 
             return stats;
 

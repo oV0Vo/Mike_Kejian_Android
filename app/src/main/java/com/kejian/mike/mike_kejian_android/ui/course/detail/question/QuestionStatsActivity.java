@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionType;
 import com.kejian.mike.mike_kejian_android.ui.util.MyImageCache;
 import com.kejian.mike.mike_kejian_android.ui.widget.ColorBar;
 import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
@@ -237,7 +238,15 @@ public class QuestionStatsActivity extends AppCompatActivity {
         correctRateText.setText(Double.toString(NumberUtil.round(correctRate, 3) * 100));
         setTextColorAccordingToRate(correctRateText, correctRate);
 
-        initChoiceDistributeView(stats.getChoiceDistribute());
+        QuestionType questionType = stats.getQuestionType();
+        if(questionType == QuestionType.其他) {
+            TextView titleText = (TextView)findViewById(R.id.distribute_title_text);
+            ViewGroup distributeContainer = (ViewGroup)findViewById(R.id.distribute_container);
+            titleText.setVisibility(View.GONE);
+            distributeContainer.setVisibility(View.GONE);
+        } else {
+            initChoiceDistributeView(stats.getChoiceDistribute());
+        }
 
         showViewIfInitTaskFinish();
     }
@@ -312,7 +321,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             ArrayList<QuestionShowAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswers
-                    (question.getQuestionId());
+                    (question.getQuestionId(), question.getQuestionType());
             answers.addAll(initAnswers);
             return true;
         }

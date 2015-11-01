@@ -9,11 +9,21 @@ public class QuestionStats {
 
     private String questionId;
 
+    private QuestionType questionType;
+
     private int totalAnswerNum;
 
     private int correctAnswerNum;
 
     private List<Integer> choiceDistribute;
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
 
     public String getQuestionId() {
         return questionId;
