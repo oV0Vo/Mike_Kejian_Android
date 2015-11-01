@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
 import com.kejian.mike.mike_kejian_android.ui.campus.PostDetailActivity;
+import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
+import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
 
 import net.picture.MessagePrint;
 
@@ -17,6 +20,7 @@ import org.json.JSONObject;
 import java.util.logging.Logger;
 
 import cn.jpush.android.api.JPushInterface;
+import model.course.CourseModel;
 import model.message.MessageType;
 
 /**
@@ -36,6 +40,16 @@ public class MyReceiver extends BroadcastReceiver {
 
         intent.putExtra("messageType",messageType);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+    }
+
+    public void setRedPoint(){
+
+
+
+        Intent messageNoticeIntent = new Intent(UmengMessageAction.NEW_MESSAGE_ACTION);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(messageNoticeIntent);
+
 
     }
 
@@ -63,19 +77,30 @@ public class MyReceiver extends BroadcastReceiver {
 
 
                 case "AT":
+                    setRedPoint();
+                    MessagePrint.print("send broadcast at");
                     sendBroadcast(MessageType.mentionMe);
                     break;
                 case "REPLY":
+                    setRedPoint();
+                    MessagePrint.print("send broadcast reply");
                     sendBroadcast(MessageType.reply);
                     break;
                 case "PRAISE":
+                    setRedPoint();
+                    MessagePrint.print("send broadcast praise");
                     sendBroadcast(MessageType.praise);
                     break;
                 case "ANNOUNCE_TE":
+                    setRedPoint();
+                    MessagePrint.print("send broadcast announce");
 
                     sendBroadcast(MessageType.courseNotice);break;
 
-//                case "INVITE":openNotification(context,intent.getExtras());
+                case "INVITE":
+                    setRedPoint();
+                    MessagePrint.print("send broadcast invite");
+                    sendBroadcast(MessageType.mentionMe);break;
 
             }
 
@@ -148,6 +173,31 @@ public class MyReceiver extends BroadcastReceiver {
                 case "UPDATE":
                     jumpToUpdate(context);
                     break;
+                case "PRAISE":
+
+                    String postId2=extrasJson.getString("postId");
+
+                    jumpToPost(postId2);
+                    break;
+                case "REPLY":
+
+                    String postId3=extrasJson.getString("postId");
+
+                    jumpToPost(postId3);
+
+                    break;
+                case "AT":
+                    break;
+
+                case "ANNOUNCE_TE":
+
+                    String courseId=extrasJson.getString("courseId");
+
+                    jumpToCourse(courseId);
+
+
+                    break;
+
             }
         } catch (Exception e) {
             //Logger.w(TAG, "Unexpected: extras is not a valid json", e);
@@ -166,6 +216,23 @@ public class MyReceiver extends BroadcastReceiver {
 //            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(mIntent);
 //        }
+    }
+
+    public void jumpToCourse(String courseId){
+
+        MessagePrint.print("receive push message jump to course");
+
+
+
+        CourseModel.getInstance().setCurrentCourseId(courseId);
+
+        Intent intent=new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        intent.setClass(context, CourseActivity.class);
+
+        context.startActivity(intent);
+
     }
 
 

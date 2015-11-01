@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
 import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.AttentionListAdapter;
@@ -43,7 +44,7 @@ public class UserAttentionListActivity extends AppCompatActivity{
     private LocalActivityManager activityManager;
     private UserToken userToken;
     private Bundle bundle;
-    private RefreshListView attentionList;
+    private XListView attentionList;
     private ProgressBar progressBar;
     private AttentionListAdapter peopleAdapter;
     private AttentionListAdapter courseAdapter;
@@ -89,8 +90,14 @@ public class UserAttentionListActivity extends AppCompatActivity{
         course=(TextView)findViewById(R.id.attention_list_course);
         post=(TextView)findViewById(R.id.attention_list_post);
         container=(FrameLayout)findViewById(R.id.attention_container);
-        attentionList=(RefreshListView)findViewById(R.id.attention_list);
+        attentionList=(XListView)findViewById(R.id.attention_list);
         progressBar=(ProgressBar)findViewById(R.id.get_attention_progress_bar);
+
+
+        attentionList.setPullRefreshEnable(true);
+        attentionList.setPullLoadEnable(true);
+
+
 
         attentionList.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
@@ -117,8 +124,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
 
                 attentionList.setAdapter(peopleAdapter);
 
-                attentionList.setOnRefreshListener(new Refresh(attentionType.PEOPLE.name()));
 
+                attentionList.setXListViewListener(new XListener(attentionType.PEOPLE.name()));
 
                // container.addView(l);
                // container.addView(new HottestPostListFragment(context));
@@ -130,6 +137,7 @@ public class UserAttentionListActivity extends AppCompatActivity{
         course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                // container.removeAllViews();
 
                // s(UserAttentionCourse.class);
@@ -140,7 +148,8 @@ public class UserAttentionListActivity extends AppCompatActivity{
                 post.setTextColor(Color.BLACK);
 
                 attentionList.setAdapter(courseAdapter);
-                attentionList.setOnRefreshListener(new Refresh(attentionType.COURSE.name()));
+
+                attentionList.setXListViewListener(new XListener(attentionType.COURSE.name()));
 
             //    container.addView(l);
 
@@ -150,6 +159,7 @@ public class UserAttentionListActivity extends AppCompatActivity{
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //s(UserAttentionActivity.class);
                // container.removeAllViews();
 
@@ -158,12 +168,53 @@ public class UserAttentionListActivity extends AppCompatActivity{
                 people.setTextColor(Color.BLACK);
                 //ListView l = new ListView(context);
                 attentionList.setAdapter(postAdapter);
-                attentionList.setOnRefreshListener(new Refresh(attentionType.POST.name()));
+
+
+                attentionList.setXListViewListener(new XListener(attentionType.POST.name()));
               //  container.addView(l);
 
             }
         });
 
+
+    }
+
+    private class XListener implements XListView.IXListViewListener{
+
+        private String type;
+
+        public XListener(String type){
+
+            this.type=type;
+
+        }
+
+
+        @Override
+        public void onRefresh() {
+
+            switch(type){
+
+
+
+                case "PEOPLE":new GetData().execute("");break;
+                case "COURSE":new GetData().execute("");break;
+                case "POST":new GetData().execute("");break;
+                default:break;
+
+
+
+            }
+
+
+        }
+
+        @Override
+        public void onLoadMore() {
+
+            onLoad();
+
+        }
 
     }
 
@@ -185,65 +236,18 @@ public class UserAttentionListActivity extends AppCompatActivity{
         container.addView(v);
     }
 
-    private void hideHeader(){
 
-        attentionList.hideHeaderView();
-    }
-
-    private void hideFoot(){
-
-        attentionList.hideFooterView();
-    }
 
     private static enum attentionType{PEOPLE,COURSE,POST};
-    private class Refresh implements OnRefreshListener{
-
-        private  String type;
-
-        public Refresh(String type){
-
-            this.type=type;
-
-        }
 
 
 
-        @Override
-        public void onDownPullRefresh() {
+    private void onLoad() {
+        attentionList.stopRefresh();
+        attentionList.stopLoadMore();
+        attentionList.setRefreshTime("刚刚");
 
-            switch(type){
-
-
-
-                case "PEOPLE":new GetData().execute("");break;
-                case "COURSE":new GetData().execute("");break;
-                case "POST":new GetData().execute("");break;
-                default:break;
-
-
-
-            }
-
-        }
-
-        @Override
-        public void onLoadingMore() {
-
-            hideFoot();
-
-//            switch(type){
-//
-//                case "PEOPLE":new GetData().execute("");break;
-//                case "COURSE":new GetData().execute("");break;
-//                case "POST":new GetData().execute("");break;
-//                default:break;
-//
-//            }
-
-
-        }
     }
-
     public ArrayList<Friend> getFrientList(){
 
         user u=(user) Global.getObjectByName("user");
@@ -276,11 +280,11 @@ public class UserAttentionListActivity extends AppCompatActivity{
             postAdapter.setContentList(postList);
 
 
-
             postAdapter.notifyDataSetChanged();
             courseAdapter.notifyDataSetChanged();
             peopleAdapter.notifyDataSetChanged();
-            hideHeader();
+
+            onLoad();
 
 
 

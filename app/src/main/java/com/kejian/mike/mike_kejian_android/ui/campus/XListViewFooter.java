@@ -20,6 +20,7 @@ public class XListViewFooter extends LinearLayout {
 	public final static int STATE_READY = 1;
 	public final static int STATE_LOADING = 2;
 	public final static int STATE_NOMORE = 3;
+	public final static int STATE_NOFOOT=4;
 
 	private Context mContext;
 
@@ -50,7 +51,10 @@ public class XListViewFooter extends LinearLayout {
 		} else if (state == STATE_NORMAL){
 			mHintView.setVisibility(View.VISIBLE);
 			mHintView.setText(R.string.xlistview_footer_hint_normal);
-		} else {
+		} else if(state==STATE_NOFOOT){
+
+
+		}else{
 			mHintView.setVisibility(View.VISIBLE);
 			mHintView.setText(R.string.xlistview_footer_hint_nomore);
 		}

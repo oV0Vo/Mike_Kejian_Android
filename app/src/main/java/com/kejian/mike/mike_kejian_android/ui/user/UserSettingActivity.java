@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.util.BindAction;
 import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
@@ -142,7 +144,13 @@ public class UserSettingActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"解除绑定成功 >_<",Toast.LENGTH_SHORT).show();
                             us.setIfBind(true);
                             us.setSchoolAccount("");
-                            us.setSchoolAccount("");
+
+                            Intent intent = new Intent(BindAction.ACTION_NAME);
+
+
+                            intent.putExtra(BindAction.ARG_IS_BIND, false);
+                            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+
 
                             finish();
                         }

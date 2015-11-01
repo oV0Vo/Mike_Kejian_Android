@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
+import com.kejian.mike.mike_kejian_android.ui.broadcast.ReceiverActions;
 import com.kejian.mike.mike_kejian_android.ui.main.MainActivity;
+import com.kejian.mike.mike_kejian_android.ui.util.BindAction;
 import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
@@ -344,6 +347,14 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
 
 
 
+                Intent intent = new Intent(BindAction.ACTION_NAME);
+
+
+                intent.putExtra(BindAction.ARG_IS_BIND, true);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
+
                 //跳转到下一个activity
 
                 jump();
@@ -355,8 +366,9 @@ public class UserSchoolAccountActivity extends AppCompatActivity {
                 user us=(user)Global.getObjectByName("user");
                 if(us!=null)us.setSchoolAccount("");
                 Toast.makeText(getApplicationContext(),"绑定教务网账号失败 >_<",Toast.LENGTH_SHORT).show();
-            }
 
+
+            }
         }
     }
 

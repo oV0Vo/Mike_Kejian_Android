@@ -130,10 +130,19 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         courseNum=(TextView)findViewById(R.id.courseNum);
         peopleNum=(TextView)findViewById(R.id.peopleNum);
 
-        DownloadPicture downloadPicture=new DownloadPicture(this,circleImageView,friend.getIcon(),"");
+        DownloadPicture downloadPicture=new DownloadPicture(this,circleImageView,friend.getIcon(),friend.getIcon());
 
         name.setText("姓名 :"+friend.getName());
-        gender.setText("性别 :"+friend.getGender());
+
+        if(friend.getGender().equals("0")) {
+            gender.setText("性别 :" + "男生");
+
+        }
+        else{
+
+            gender.setText("性别 :" + "菇凉");
+
+        }
         nickName.setText("昵称 :"+friend.getNick_name());
         department.setText("院系 :"+friend.getDepartmentInfo().getName());
         major.setText("专业 :"+friend.getMajorName());
@@ -245,6 +254,22 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
 
 
                 Toast.makeText(context,"关注成功",Toast.LENGTH_SHORT).show();
+                button.setText("取消关注");
+
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    user u = (user) Global.getObjectByName("user");
+
+                    @Override
+                    public void onClick(View v) {
+
+                        new unattention().execute(u.getId(), "PEOPLE", friend.getId());
+
+
+                    }
+                });
+
+
             }
 
         }
@@ -315,8 +340,22 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
 
             if(result){
 
-                Toast.makeText(context,"关注成功",Toast.LENGTH_SHORT).show();
-                button.setText("取消关注");
+                Toast.makeText(context,"取消关注成功",Toast.LENGTH_SHORT).show();
+                button.setText("关注");
+
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    user u = (user) Global.getObjectByName("user");
+
+                    @Override
+                    public void onClick(View v) {
+
+                        new attention().execute(u.getId(), "PEOPLE", friend.getId());
+
+
+                    }
+                });
+
             }
 
         }
