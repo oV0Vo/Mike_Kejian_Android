@@ -35,7 +35,8 @@ import util.TimeFormat;
 
 import com.kejian.mike.mike_kejian_android.dataType.course.CourseBriefInfo;
 import com.kejian.mike.mike_kejian_android.ui.campus.XListView;
-import com.kejian.mike.mike_kejian_android.ui.util.MyAction;
+import com.kejian.mike.mike_kejian_android.ui.util.BindAction;
+import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
 
 import net.course.CourseInfoNetService;
 
@@ -478,11 +479,13 @@ public class CourseListFragment extends Fragment{
         BroadcastReceiver bindBR = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.i(TAG, "bind broacast: bind:" + Boolean.toString(intent.getBooleanExtra(
+                        BindAction.ARG_IS_BIND, false)));
                 new InitMyCourseBriefTask().execute();
             }
         };
-        IntentFilter messageIF = new IntentFilter(MyAction.NEW_MESSAGE_ACTION);
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(bindBR, messageIF);
+        IntentFilter bindIntentFilter = new IntentFilter(BindAction.ACTION_NAME);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(bindBR, bindIntentFilter);
     }
 
 }

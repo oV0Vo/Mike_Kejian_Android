@@ -33,7 +33,7 @@ import com.kejian.mike.mike_kejian_android.ui.course.CourseListContainerFragment
 import com.kejian.mike.mike_kejian_android.ui.course.CourseListFragment;
 import com.kejian.mike.mike_kejian_android.ui.course.detail.CourseActivity;
 import com.kejian.mike.mike_kejian_android.ui.course.management.CourseCreateActivity;
-import com.kejian.mike.mike_kejian_android.ui.util.MyAction;
+import com.kejian.mike.mike_kejian_android.ui.util.UmengMessageAction;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyReceiver;
 import com.kejian.mike.mike_kejian_android.ui.widget.MyUmengMessageHandler;
 import com.umeng.message.PushAgent;
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity
                 messageNewsImage.setVisibility(View.VISIBLE);
             }
         };
-        IntentFilter messageIF = new IntentFilter(MyAction.NEW_MESSAGE_ACTION);
+        IntentFilter messageIF = new IntentFilter(UmengMessageAction.NEW_MESSAGE_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(messageBR, messageIF);
     }
 
