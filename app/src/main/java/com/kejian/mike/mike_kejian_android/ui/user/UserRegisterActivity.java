@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.CursorJoiner;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -87,6 +88,31 @@ public class UserRegisterActivity extends AppCompatActivity{
                     notifyError("请输入正确的电话号码");
                     return;
                 }
+
+                new CountDownTimer(60000,1000){
+
+                    @Override
+                    public void onFinish(){
+
+                        sendCode.setText("发送验证码");
+                        sendCode.setClickable(true);
+
+
+                    }
+
+                    @Override
+                    public void onTick(long m){
+
+                        sendCode.setClickable(false);
+                        //sendCode.setBackgroundColor(Color.GRAY);
+
+                        sendCode.setText(( m / 1000) + "秒后重新发送");
+
+
+                    }
+
+                }.start();
+
 
 
 

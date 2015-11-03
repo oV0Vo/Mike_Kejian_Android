@@ -185,41 +185,45 @@ public class UserPasswordCode extends AppCompatActivity {
 
         public void onClick(View view){
 
-            new CountDownTimer(60000,1000){
-
-                @Override
-                public void onFinish(){
-
-                    sendCode.setText("发送验证码");
-                    sendCode.setClickable(true);
-
-
-                }
-
-                @Override
-                public void onTick(long m){
-
-                    sendCode.setClickable(false);
-                    //sendCode.setBackgroundColor(Color.GRAY);
-
-                    sendCode.setText(( m / 1000) + "秒后重新发送");
-
-
-                }
-
-            }.start();
 
 
             String phoneNumber=(String)phoneNumberView.getText().toString().trim();
             if(phoneNumber==null||phoneNumber.equals("")){
 
-                new UserUIError("手机号错误","请输入正确的手机号",context);
+                Toast.makeText(context,"手机号错误，请输入正确的手机号",Toast.LENGTH_SHORT).show();
+
+               // new UserUIError("手机号错误","请输入正确的手机号",context);
                 code=null;
 
                 return;
 
             }
             else{
+
+                new CountDownTimer(60000,1000){
+
+                    @Override
+                    public void onFinish(){
+
+                        sendCode.setText("发送验证码");
+                        sendCode.setClickable(true);
+
+
+                    }
+
+                    @Override
+                    public void onTick(long m){
+
+                        sendCode.setClickable(false);
+                        //sendCode.setBackgroundColor(Color.GRAY);
+
+                        sendCode.setText(( m / 1000) + "秒后重新发送");
+
+
+                    }
+
+                }.start();
+
 
                 Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
             }
