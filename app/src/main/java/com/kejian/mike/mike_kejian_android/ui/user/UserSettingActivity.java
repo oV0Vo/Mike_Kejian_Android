@@ -4,6 +4,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -88,6 +90,15 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(!checkNetwork()){
+
+                    MessagePrint.print("setting check network");
+
+                    return;
+                }
+
+
+
                 user u = (user) Global.getObjectByName("user");
                 us = u;
 
@@ -117,6 +128,39 @@ public class UserSettingActivity extends AppCompatActivity {
         });
 
     }
+
+    public boolean checkNetwork() {
+
+
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobileInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo activeInfo = manager.getActiveNetworkInfo();
+
+
+        NetworkInfo[] networkInfo = manager.getAllNetworkInfo();
+
+        if (networkInfo != null && networkInfo.length > 0) {
+            for (int i = 0; i < networkInfo.length; i++) {
+
+                // 判断当前网络状态是否为连接状态
+                if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
+                    return true;
+                }
+            }
+
+
+
+            Toast.makeText(this,"请检查你的网络设置 >_<",Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+
+        return false;
+
+
+    }
+
 
     public void initInfoViews(){
 

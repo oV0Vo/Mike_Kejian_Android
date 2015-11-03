@@ -2,6 +2,8 @@ package net;
 
 import android.os.AsyncTask;
 
+import com.kejian.mike.mike_kejian_android.ui.widget.Md5;
+
 import net.UserDataBase.UserDataBase;
 import net.httpRequest.HttpRequest;
 import net.picture.MessagePrint;
@@ -79,7 +81,7 @@ public class UserNetService {
 
         para.put("phoneNumber", userToken.getPhoneNumber());
         para.put("name",userToken.getName());
-        para.put("password",userToken.getPassword());
+        para.put("password", Md5.md5(userToken.getPassword()));
         para.put("schoolNumber","10284");
 
         JSONObject jsonObject = new JSONObject(para);
@@ -218,7 +220,7 @@ public class UserNetService {
         par.put("phoneNumber",userToken.getPhoneNumber());
 
 
-        par.put("password", userToken.getPassword());
+        par.put("password", Md5.md5(userToken.getPassword()));
 
         System.out.println(userToken.getName() + "  " + userToken.getPassword());
 
