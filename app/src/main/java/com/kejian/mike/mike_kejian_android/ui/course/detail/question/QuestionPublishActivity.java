@@ -296,7 +296,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
                     question = new ApplicationQuestion();
                     break;
                 default:
-                    Log.e("QuestionPublish", "Invalid Type");
                     break;
             }
 
@@ -328,10 +327,8 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 Toast.makeText(QuestionPublishActivity.this, R.string.on_process,
                         Toast.LENGTH_SHORT).show();
                 commitButton.setEnabled(false);
-                Log.i(TAG, "submit");
                 return;
             } else {
-                Log.i(TAG, "not submit");
                 return;
             }
         }

@@ -123,6 +123,7 @@ public class CourseListFragment extends Fragment{
             progressBar.setVisibility(View.GONE);
             errorMessageText.setVisibility(View.GONE);
             if(myCourseAdapter.getCount() != 0) {
+                myCourseEmptyText.setVisibility(View.GONE);
                 myCourseAdapter.notifyDataSetChanged();
             }
             else {
