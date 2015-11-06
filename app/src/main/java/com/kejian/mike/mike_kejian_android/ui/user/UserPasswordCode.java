@@ -176,6 +176,11 @@ public class UserPasswordCode extends AppCompatActivity {
 //
 //            }
 
+            if(phoneNumberView.getText()!=null||codeView.getText()!=null){
+
+                Toast.makeText(context,"请填写完整的信息",Toast.LENGTH_SHORT).show();
+            }
+
 
 
         }

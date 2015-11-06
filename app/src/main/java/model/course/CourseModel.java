@@ -57,7 +57,7 @@ public class CourseModel {
         myCourseBriefs = new ArrayList<CourseBriefInfo>();
         allCourseBriefs = new ArrayList<CourseBriefInfo>(DEFAULT_ALL_COURSE_INIT_NUM);
         user loginUser = (user)Global.getObjectByName("user");
-        schoolId = loginUser.getSchoolInfo().getId();
+        if(loginUser!=null)schoolId = loginUser.getSchoolInfo().getId();
     }
 
     public static CourseModel getInstance() {

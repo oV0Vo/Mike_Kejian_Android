@@ -119,7 +119,13 @@ public class UserInfoActivity extends AppCompatActivity{
         baseInfoSign=(EditText)findViewById(R.id.base_info_sign);
         photo=(CircleImageView)findViewById(R.id.user_photo_view);
 
-        if(user.getIcon().equals("")){
+
+        if(user!=null) {
+            if (user.getIcon().equals("")) {
+                photo.setImageResource(R.drawable.userxh);
+            }
+        }else{
+
             photo.setImageResource(R.drawable.userxh);
         }
 
