@@ -112,7 +112,10 @@ public class CourseModel {
     @NeedAsyncAnnotation
     public ArrayList<CourseBriefInfo> updateMyCourseBriefs(int time, TimeUnit timeUnit) {
         ArrayList<CourseBriefInfo> updateInfos = CourseInfoNetService.getMyCourseBrief();
-if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
+        if(updateInfos!=null) {
+            myCourseBriefs.clear();
+            myCourseBriefs.addAll(updateInfos);
+        }
         return updateInfos;
     }
 
@@ -270,7 +273,7 @@ if(updateInfos!=null)        this.myCourseBriefs.addAll(updateInfos);
     }
 
     public UserTypeInCourse getUserTypeInCurrentCourse() {
-        return currentUserType;
+        return UserTypeInCourse.TEACHER;
     }
 
     @NeedAsyncAnnotation

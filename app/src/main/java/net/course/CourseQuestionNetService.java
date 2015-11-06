@@ -1,5 +1,6 @@
 package net.course;
 
+import android.util.JsonReader;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -10,6 +11,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ApplicationQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.BasicQuestion;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuestion;
@@ -202,14 +207,12 @@ public class CourseQuestionNetService {
 
     public static boolean addNewQuestion(CurrentQuestion question) {
         BasicQuestion questionInfo = question.getQuestion();
-        Log.i(TAG, questionInfo.getQuestionType().toString());
-        Log.i(TAG, questionInfo.getContent());
 
         String url = BASE_URL + "signQuestion/";
         HashMap<String, Object> paraMap = new HashMap<>();
-        paraMap.put("courseId", question.getQuestion().getCourseId());
+        paraMap.put("courseId", questionInfo.getCourseId());
         paraMap.put("surviveTime", Long.toString(question.getLeftMills()));
-        paraMap.put("content", question.getQuestion().getContent());
+        paraMap.put("content", questionInfo.getContent());
         String response = null;
         switch(question.getQuestion().getQuestionType()){
             case 单选题:
@@ -229,7 +232,7 @@ public class CourseQuestionNetService {
                     paraMap.put("content", encodedContent);
                     setApplicationQuestionPara(paraMap, (ApplicationQuestion) question.getQuestion());
                     response = httpRequest.sentGetRequest(url, toStringMap(paraMap));
-                    return dealApplicationQuestionReturn(response);
+                    return dealAPResponse(response);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     return false;
@@ -264,7 +267,7 @@ public class CourseQuestionNetService {
             return false;
     }
 
-    private static boolean dealApplicationQuestionReturn(String response) {
+    private static boolean dealAPResponse(String response) {
         if(response == null)
             return false;
         return true;
@@ -389,6 +392,7 @@ public class CourseQuestionNetService {
                     break;
                 default:
                     Log.e(TAG, "switch error");
+                    break;
             }
             stats.setQuestionType(questionType);
             if(QuestionType.其他 != questionType) {

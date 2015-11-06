@@ -108,8 +108,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch(itemId) {
             case android.R.id.home:
-                if(NavUtils.getParentActivityIntent(this) != null)
-                    NavUtils.navigateUpFromSameTask(this);
+                this.finish();
                 return true;
             case R.id.assistant_management_menu:
                 item.setVisible(false);
