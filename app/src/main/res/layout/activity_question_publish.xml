@@ -8,9 +8,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/white">
 
-    <ScrollView
+    <Button
+        android:id="@+id/question_publish_commit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green"
+        android:textSize="@dimen/over_big_font"
+        android:textColor="@color/white"
+        android:text="@string/question_publish_confined"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/question_publish_commit_button"
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
@@ -197,13 +208,4 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/question_publish_commit_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/green"
-        android:textSize="@dimen/over_big_font"
-        android:textColor="@color/white"
-        android:text="@string/question_publish_confined"/>
 </RelativeLayout>

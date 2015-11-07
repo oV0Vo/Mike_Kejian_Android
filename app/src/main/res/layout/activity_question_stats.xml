@@ -144,13 +144,14 @@
                         android:id="@+id/join_rate_color_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sub_small_size"
                         android:paddingRight="@dimen/medium_padding"/>
 
                     <TextView
                         android:id="@+id/join_rate_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/medium_padding"/>
+                        android:paddingLeft="@dimen/small_size"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -193,13 +194,14 @@
                         android:id="@+id/correct_rate_color_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sub_small_size"
                         android:paddingRight="@dimen/medium_padding"/>
 
                     <TextView
                         android:id="@+id/correct_rate_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/medium_padding"/>
+                        android:paddingLeft="@dimen/small_size"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -212,8 +214,7 @@
                 android:id="@+id/distribute_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/big_size"
-                android:layout_marginLeft="@dimen/medium_size">
+                android:layout_marginTop="@dimen/over_small_size">
             </com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout>
 
         </GridLayout>

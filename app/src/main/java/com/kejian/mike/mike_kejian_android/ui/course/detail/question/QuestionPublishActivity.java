@@ -235,7 +235,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             public void onClick(View v) {
                 clickCount++;
                 RadioButton radioButton = (RadioButton)v;
-                if(clickCount % 2 == 1)
+                if(clickCount % 2 == 0)
                     radioButton.setChecked(false);
             }
         });
@@ -352,9 +352,14 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
             question.setCorrectChoice(correctChoice);
 
-            ArrayList<String> choiceContents = getChoiceContents();
-            question.setChoiceContents(choiceContents);
-            return true;
+            ArrayList<String> choiceContents = new ArrayList<String>();
+            boolean success = insertChoiceContent(choiceContents);
+            if(success) {
+                question.setChoiceContents(choiceContents);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         private boolean dealMultiChoiceQuestion(MultiChoiceQuestion question) {
@@ -366,10 +371,14 @@ public class QuestionPublishActivity extends AppCompatActivity {
             }
 
             question.setCorrectChoices(correctChoices);
-
-            ArrayList<String> choiceContents = getChoiceContents();
-            question.setChoiceContents(choiceContents);
-            return true;
+            ArrayList<String> choiceContents = new ArrayList<String>();
+            boolean success = insertChoiceContent(choiceContents);
+            if(success) {
+                question.setChoiceContents(choiceContents);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         private boolean dealApplicationQuestion(ApplicationQuestion question) {
@@ -377,13 +386,21 @@ public class QuestionPublishActivity extends AppCompatActivity {
         }
 
 
-        private ArrayList<String> getChoiceContents() {
-            ArrayList<String> choiceContents = new ArrayList<String>();
-            for(EditText choiceContentView: choiceContentViews) {
+        private boolean insertChoiceContent(ArrayList<String> choiceContents) {
+            for(int i=0; i<choiceContentViews.size(); ++i) {
+                EditText choiceContentView =  choiceContentViews.get(i);
                 String choiceContent = choiceContentView.getText().toString();
-                choiceContents.add(choiceContent);
+                if(choiceContent.length() != 0)
+                    choiceContents.add(choiceContent);
+                else {
+                    choiceContents.clear();
+                    String choiceIndex = Character.toString((char)('A' + i));
+                    Toast.makeText(QuestionPublishActivity.this, "请输入" + choiceIndex +
+                            "选项的内容", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             }
-            return choiceContents;
+            return true;
         }
 
         private int getSingleCorrectChoice() {

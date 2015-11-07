@@ -4,22 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/over_medium_padding"
-    android:paddingRight="@dimen/over_medium_padding"
+    android:paddingLeft="@dimen/over_small_size"
+    android:paddingRight="@dimen/over_small_size"
+    android:paddingTop="@dimen/small_size"
+    android:paddingBottom="@dimen/small_size"
     android:visibility="gone">
 
     <TextView
         android:id="@+id/choice_index_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="@dimen/small_size"
         android:gravity="center"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/choice_distribute_bar_max_height">
+        android:layout_height="@dimen/choice_distribute_bar_max_height"
+        android:background="@color/dark_very_light">
         <ImageView
-            android:id="@+id/choice_bar_image"
+            android:id="@+id/value_bar_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"/>

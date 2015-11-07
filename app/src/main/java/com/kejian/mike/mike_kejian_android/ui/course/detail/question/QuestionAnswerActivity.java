@@ -114,7 +114,7 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     clickCount++;
                     RadioButton radioButton = (RadioButton) v;
-                    if (clickCount % 2 == 1) {
+                    if (clickCount % 2 == 0) {
                         radioButton.setChecked(false);
                     }
                 }

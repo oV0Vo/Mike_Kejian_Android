@@ -266,14 +266,13 @@ public class QuestionStatsActivity extends AppCompatActivity {
             int barWidth = (int)getResources().getDimension(R.dimen.choice_distribute_bar_width);
             double barHeight = getResources().getDimension(R.dimen.choice_distribute_bar_max_height);
             double colorHeight = (int)(barHeight * ((double)distribute) / sum );
-            double restHeight = barHeight - colorHeight;
 
-            ImageView choiceBarImage = (ImageView)choiceLayout.findViewById(R.id.choice_bar_image);
-            int choiceColor = getResources().getColor(R.color.blue);
+            ImageView valueBarImage = (ImageView)choiceLayout.findViewById(R.id.value_bar_image);
+            int choiceColor = choiceColors[i];
             GradientDrawable colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                     new int[]{choiceColor, choiceColor, choiceColor});
             colorDrawable.setSize(barWidth, (int) colorHeight);
-            choiceBarImage.setImageDrawable(colorDrawable);
+            valueBarImage.setImageDrawable(colorDrawable);
 
             TextView distributeNumText = (TextView)choiceLayout.findViewById(
                     R.id.choice_distribute_num_text);
