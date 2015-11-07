@@ -13,8 +13,8 @@
     <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
         android:id="@+id/user_image"
         android:layout_marginTop="@dimen/over_small_size"
-        android:layout_width="@dimen/medium_icon_width"
-        android:layout_height="@dimen/medium_icon_height"
+        android:layout_width="@dimen/medium_icon_size"
+        android:layout_height="@dimen/medium_icon_size"
         android:src="@drawable/photo"/>
 
     <LinearLayout
