@@ -21,6 +21,10 @@ import com.kejian.mike.mike_kejian_android.ui.message.OnRefreshListener;
 import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 
 
+import org.apache.commons.lang.ArrayUtils;
+
+import java.util.ArrayList;
+
 import bl.CampusBLService;
 import model.campus.Post;
 
@@ -35,9 +39,11 @@ public class HottestPostListFragment extends Fragment implements XListView.IXLis
     private LayoutInflater mInflater;
     private ProgressBar progressBar;
     private PostAdapter adapter;
+    private View netHeader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mInflater = inflater;
         view = inflater.inflate(R.layout.fragment_latest_post_list, null);
         ctx = this.getActivity();
         this.mainLayout = (LinearLayout) view.findViewById(R.id.post);
@@ -55,7 +61,12 @@ public class HottestPostListFragment extends Fragment implements XListView.IXLis
 
     private void iniViews() {
         this.container = (XListView)view.findViewById(R.id.post_container);
+        View header = mInflater.inflate(R.layout.layout_net_error, null);
         container.setPullLoadEnable(true);
+        //container.addHeaderView(header);
+        netHeader = header.findViewById(R.id.net_error_layout);
+        container.setHeaderDividersEnabled(false);
+        container.setFooterDividersEnabled(false);
         this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.hottestPosts);
         this.container.setAdapter(adapter);
@@ -63,7 +74,7 @@ public class HottestPostListFragment extends Fragment implements XListView.IXLis
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0 &&checkNetwork()) {
+                if (position > 0 && checkNetwork()) {
                     Intent intent = new Intent();
                     intent.setClass(getContext(), PostDetailActivity.class);
                     intent.putExtra("postId", ((Post) parent.getAdapter().getItem(position)).getPostId());
@@ -73,26 +84,38 @@ public class HottestPostListFragment extends Fragment implements XListView.IXLis
             }
         });
 
+        if(!CampusBLService.connected) {
+            netHeader.setVisibility(View.VISIBLE);
+        } else {
+            netHeader.setVisibility(View.GONE);
+        }
+
     }
 
 
     @Override
     public void onRefresh() {
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, ArrayList<Post>>() {
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected ArrayList<Post> doInBackground(Void... params) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                CampusBLService.refreshHottestPosts();
-                return null;
+                return CampusBLService.refreshHottestPosts();
             }
 
             @Override
-            protected void onPostExecute(Void result) {
+            protected void onPostExecute(ArrayList<Post> result) {
+                CampusBLService.hottestPosts.clear();
+                CampusBLService.hottestPosts.addAll(result);
+                if(CampusBLService.connected) {
+                    netHeader.setVisibility(View.GONE);
+                } else {
+                    netHeader.setVisibility(View.VISIBLE);
+                }
                 adapter.notifyDataSetChanged();
                 onLoad();
             }
@@ -125,21 +148,22 @@ public class HottestPostListFragment extends Fragment implements XListView.IXLis
 
     }
 
-    private class InitDataTask extends AsyncTask<String, Integer, String> {
+    private class InitDataTask extends AsyncTask<String, Integer, ArrayList<Post>> {
         @Override
-        public String doInBackground(String... params) {
+        public ArrayList<Post> doInBackground(String... params) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            CampusBLService.refreshHottestPosts();
-            return "";
+            return CampusBLService.refreshHottestPosts();
         }
 
         @Override
-        public void onPostExecute(String result) {
+        public void onPostExecute(ArrayList<Post> result) {
             progressBar.setVisibility(View.GONE);
+            CampusBLService.hottestPosts.clear();
+            CampusBLService.hottestPosts.addAll(result);
             iniViews();
             mainLayout.setVisibility(View.VISIBLE);
         }

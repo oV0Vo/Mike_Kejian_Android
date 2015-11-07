@@ -23,6 +23,8 @@ import com.kejian.mike.mike_kejian_android.ui.message.RefreshListView;
 import com.kejian.mike.mike_kejian_android.ui.user.UserLoginActivity;
 
 
+import java.util.ArrayList;
+
 import bl.CampusBLService;
 import model.campus.Post;
 
@@ -37,10 +39,13 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
     private LayoutInflater mInflater;
     private ProgressBar progressBar;
     private PostAdapter adapter;
+    private View netHeader;
+    private View footer;
     private int post_num = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mInflater = inflater;
         view = inflater.inflate(R.layout.fragment_latest_post_list, null);
         ctx = this.getActivity();
         this.mainLayout = (LinearLayout) view.findViewById(R.id.post);
@@ -58,17 +63,20 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
 
     private void iniViews() {
         this.container = (XListView)view.findViewById(R.id.post_container);
+        View header = mInflater.inflate(R.layout.layout_net_error, null);
         container.setPullLoadEnable(true);
-        //container.setFooterDividersEnabled(false);
+       // container.addHeaderView(header);
+        netHeader = header.findViewById(R.id.net_error_layout);
+        container.setHeaderDividersEnabled(false);
+        container.setFooterDividersEnabled(false);
         //container.getHeaderView().setBackgroundResource(R.color.light_grey);
-        this.mInflater = ctx.getLayoutInflater();
         this.adapter = new PostAdapter(ctx, R.layout.layout_post, CampusBLService.latestPosts);
         this.container.setAdapter(adapter);
         this.container.setXListViewListener(this);
         this.container.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0 && checkNetwork()) {
+                if (position > 0 && checkNetwork()) {
                     Intent intent = new Intent();
                     intent.setClass(getContext(), PostDetailActivity.class);
                     intent.putExtra("postId", ((Post) parent.getAdapter().getItem(position)).getPostId());
@@ -77,27 +85,42 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
 
             }
         });
+
+        footer = container.getFooter();
+        if(!CampusBLService.connected) {
+            netHeader.setVisibility(View.VISIBLE);
+        } else {
+            netHeader.setVisibility(View.GONE);
+        }
+        //adapter.notifyDataSetChanged();
     }
 
 
 
     @Override
     public void onRefresh() {
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, ArrayList<Post>>() {
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected ArrayList<Post> doInBackground(Void... params) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                CampusBLService.refreshLatestPosts();
-                return null;
+                return CampusBLService.refreshLatestPosts();
+
             }
 
             @Override
-            protected void onPostExecute(Void result) {
+            protected void onPostExecute(ArrayList<Post> result) {
+                CampusBLService.latestPosts.clear();
+                CampusBLService.latestPosts.addAll(result);
+                if(CampusBLService.connected) {
+                    netHeader.setVisibility(View.GONE);
+                } else {
+                    netHeader.setVisibility(View.VISIBLE);
+                }
                 adapter.notifyDataSetChanged();
                 onLoad();
             }
@@ -106,7 +129,7 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
     }
 
     @Override
-    public void onLoadMore() {
+    public void onLoadMore(){
         if(CampusBLService.hasNextLatestPost()) {
             new AsyncTask<Void, Void, Void>() {
 
@@ -130,16 +153,17 @@ public class LatestPostListFragment extends Fragment implements XListView.IXList
         }
     }
 
-    private class InitDataTask extends AsyncTask<String, Integer, String> {
+    private class InitDataTask extends AsyncTask<String, Integer, ArrayList<Post>> {
         @Override
-        public String doInBackground(String... params) {
-            CampusBLService.refreshLatestPosts();
-            return "";
+        public ArrayList<Post> doInBackground(String... params) {
+            return CampusBLService.refreshLatestPosts();
         }
 
         @Override
-        public void onPostExecute(String result) {
+        public void onPostExecute(ArrayList<Post> result) {
             progressBar.setVisibility(View.GONE);
+            CampusBLService.latestPosts.clear();
+            CampusBLService.latestPosts.addAll(result);
             iniViews();
             mainLayout.setVisibility(View.VISIBLE);
         }

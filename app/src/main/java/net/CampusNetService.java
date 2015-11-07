@@ -53,7 +53,10 @@ public class CampusNetService {
         params.put("startId", startId);
         params.put("number", number+"");
         String result = httpRequest.sentGetRequest(baseUrl+"getNewestPost/", params);
-        return handlePostJson(result);
+        if(result != null && !result.equals(""))
+            return handlePostJson(result);
+        else
+            return null;
     }
 
     public static ArrayList<Post> getHottestPosts(String startId, int number) {
@@ -62,7 +65,10 @@ public class CampusNetService {
         params.put("startId", startId);
         params.put("number", number+"");
         String result = httpRequest.sentGetRequest(baseUrl+"getHotestPost/", params);
-        return handlePostJson(result);
+        if(result != null && !result.equals(""))
+            return handlePostJson(result);
+        else
+            return null;
     }
 
     private static Post handleSinglePostJson(String json) {

@@ -56,6 +56,9 @@ public class CourseBriefInfoFragment extends Fragment {
         String teacherNameStr = StringUtil.toString(teacherNames, " ");
         teacherView.setText(teacherNameStr);
 
+        TextView timeAndPlaceText = (TextView)layoutView.findViewById(R.id.time_and_place_text);
+        timeAndPlaceText.setText(courseDetailInfo.getTimeAndPlace());
+
         layoutView.setOnClickListener(new onViewClickListener());
 
     }
