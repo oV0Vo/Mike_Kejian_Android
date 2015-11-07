@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kejian.mike.mike_kejian_android"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="2.0" >
 
     <permission
         android:name="com.kejian.mike.mike_kejian_android.permission.JPUSH_MESSAGE"
@@ -463,7 +463,7 @@
         </activity>
         <activity
             android:name=".ui.user.UserOtherState"
-            android:label="他的动态" />
+            android:label="他的关注" />
         <activity
             android:name=".ui.message.SearchViewDemo"
             android:label="" >

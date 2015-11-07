@@ -11,6 +11,7 @@ import com.kejian.mike.mike_kejian_android.R;
 
 import java.lang.ref.SoftReference;
 import java.util.Hashtable;
+import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,6 +20,8 @@ import java.util.concurrent.Executors;
  * Created by kisstheraik on 15/10/26.
  */
 public class GetBitmapByPinyin {
+
+    public static int num;
 
    // public static Hashtable<String,SoftReference<Bitmap>> bitmapHashtable=new Hashtable<>();
 
@@ -33,6 +36,12 @@ public class GetBitmapByPinyin {
    // ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     public static void getBitmapByPinyin(String words,Context context,ImageView imageView){
+
+        Random random=new Random();
+
+        String p="course"+(random.nextInt(9)+1);
+
+//        String p="course5";
 
 
 
@@ -84,6 +93,8 @@ public class GetBitmapByPinyin {
 
 
         String packageName = context.getApplicationInfo().packageName;
+
+        path=p;
 
         int sourceId= context.getResources().getIdentifier(path, "drawable", packageName);
 

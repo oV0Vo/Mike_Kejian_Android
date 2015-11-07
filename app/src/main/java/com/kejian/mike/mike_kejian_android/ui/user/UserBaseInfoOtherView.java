@@ -57,6 +57,8 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
         friend=(user)getIntent().getSerializableExtra("friend");
         context=this;
 
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String friendId=friend.getId();
         String userId=((user)Global.getObjectByName("user")).getId();
         initViews();

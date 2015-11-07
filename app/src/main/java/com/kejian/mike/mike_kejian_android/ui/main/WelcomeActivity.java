@@ -80,6 +80,8 @@ public class WelcomeActivity extends Activity {
 
 
             try{
+
+                //System.out.println(getPackageManager().getPackageInfo(getPackageName(),0).versionCode);
                 Global.localVersion = getPackageManager().getPackageInfo(getPackageName(),0).versionCode;
 
                 MessagePrint.print("localversion :"+Global.localVersion);
