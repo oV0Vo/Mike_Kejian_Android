@@ -7,69 +7,70 @@
     android:layout_marginTop="@dimen/sub_big_padding"
     android:orientation="horizontal">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/course_detail_brief_image"
-        android:layout_width="@dimen/book_size"
-        android:layout_height="@dimen/book_size"/>
+        <ImageView
+            android:id="@+id/course_detail_brief_image"
+            android:layout_width="@dimen/book_size"
+            android:layout_height="@dimen/book_size"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/green_bottom_thin_border">
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/sub_big_padding"
+        android:background="@drawable/green_bottom_thin_border"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="@dimen/sub_big_padding"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/sub_small_size">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/medium_padding"
-                    android:text="@string/main_course_brief_academy_prefix"/>
-
-                <TextView
-                    android:id="@+id/course_detail_brief_academy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/sub_small_size">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/medium_padding"
-                    android:text="@string/course_teach_teacher_title"/>
-
-                <TextView
-                    android:id="@+id/course_detail_brief_teacher_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/sub_small_size">
 
             <TextView
-                android:id="@+id/time_and_place_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/medium_padding"
+                android:text="@string/main_course_brief_academy_prefix"/>
+
+            <TextView
+                android:id="@+id/course_detail_brief_academy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/sub_small_size">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/medium_padding"
+                android:text="@string/course_teach_teacher_title"/>
+
+            <TextView
+                android:id="@+id/course_detail_brief_teacher_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time_and_place_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/sub_small_size"/>
+
+    </LinearLayout>
 
 </LinearLayout>
 
