@@ -9,6 +9,7 @@ public class CourseDetailInfo {
     private String courseId;
     private String courseName;
     private String courseType;
+    private String timeAndPlace;
     private String academyId;
     private String accademyName;
     private ArrayList<String> teacherIds;
@@ -34,6 +35,14 @@ public class CourseDetailInfo {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getTimeAndPlace() {
+        return timeAndPlace;
+    }
+
+    public void setTimeAndPlace(String timeAndPlace) {
+        this.timeAndPlace = timeAndPlace;
     }
 
     public String getCourseType() {

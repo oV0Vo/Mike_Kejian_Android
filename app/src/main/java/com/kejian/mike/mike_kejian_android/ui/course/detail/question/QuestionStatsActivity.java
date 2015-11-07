@@ -256,27 +256,30 @@ public class QuestionStatsActivity extends AppCompatActivity {
         int sum = caculateSum(distributes);
 
         for(int i=0; i<distributes.size(); ++i) {
+            int distribute = distributes.get(i);
+
             ViewGroup choiceLayout = (ViewGroup)getLayoutInflater().inflate(
                     R.layout.layout_choice_distirbute, null);
-
             TextView choiceIndexText = (TextView)choiceLayout.findViewById(R.id.choice_index_text);
             choiceIndexText.setText(Character.toString((char)('A' + i)));
 
-            TextView choiceBarText = (TextView)choiceLayout.findViewById(R.id.choice_bar_text);
-            int choiceColor = (i < choiceColors.length)? choiceColors[i]: choiceColors[0];
-            GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-                    new int[]{choiceColor, choiceColor, choiceColor});
             int barWidth = (int)getResources().getDimension(R.dimen.choice_distribute_bar_width);
-            double barMaxHeight = getResources().getDimension(R.dimen.choice_distribute_bar_max_height);
-            int distribute = distributes.get(i);
-            int barHeight = (int)(barMaxHeight * ((double)distribute) / sum );
-            drawable.setSize(barWidth, barHeight);
-            choiceBarText.setBackgroundDrawable(drawable);
+            double barHeight = getResources().getDimension(R.dimen.choice_distribute_bar_max_height);
+            double colorHeight = (int)(barHeight * ((double)distribute) / sum );
+            double restHeight = barHeight - colorHeight;
+
+            ImageView choiceBarImage = (ImageView)choiceLayout.findViewById(R.id.choice_bar_image);
+            int choiceColor = getResources().getColor(R.color.blue);
+            GradientDrawable colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{choiceColor, choiceColor, choiceColor});
+            colorDrawable.setSize(barWidth, (int) colorHeight);
+            choiceBarImage.setImageDrawable(colorDrawable);
 
             TextView distributeNumText = (TextView)choiceLayout.findViewById(
                     R.id.choice_distribute_num_text);
             distributeNumText.setText(Integer.toString(distribute));
 
+            choiceLayout.setVisibility(View.VISIBLE);
             distributeContainer.addView(choiceLayout);
         }
     }
