@@ -204,14 +204,20 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         for(int i=0; i<names.size(); ++i) {
             String name = names.get(i);
             String id = ids.get(i);
-            addAssistant(name, id);
+            addAssistantView(name, id);
         }
     }
 
-    private void addAssistant(String name, String id) {
+    private void addAssistantView(String name, String id) {
         ViewGroup newAssistantLayout = createAssistantLayout(name, id);
         assistantConatainer.addView(newAssistantLayout);
         assitantViewMap.put(id, newAssistantLayout);
+    }
+
+    private void startAddAssistantTask(String name, String id) {
+        String courseId = courseDetail.getCourseId();
+        new AddAssistantTask(id, name).execute(courseId);
+        Toast.makeText(this, R.string.add_assistant_request, Toast.LENGTH_SHORT).show();
     }
 
     private void initAssistantAddLayout() {
@@ -242,10 +248,9 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             }
             String name = data.getStringExtra("real_name");
             String id = data.getStringExtra("user_id");
-            addAssistant(name, id);
+            startAddAssistantTask(name, id);
             if(assistantEmptyText.getVisibility() == View.VISIBLE)
                 assistantEmptyText.setVisibility(View.GONE);
-            Toast.makeText(this, R.string.add_assistant_success, Toast.LENGTH_SHORT).show();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -259,7 +264,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         nameText.setText(name);
 
         ImageView deleteImage = (ImageView)layout.findViewById(R.id.delete_image);
-        deleteImage.setOnClickListener(new AssistantDeleteListener(id));
+        deleteImage.setOnClickListener(new AssistantDeleteListener(id, name));
 
         return layout;
     }
@@ -268,15 +273,19 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
         private String assistantId;
 
-        public AssistantDeleteListener(String assistantId) {
+        private String assistantName;
+
+        public AssistantDeleteListener(String assistantId, String assistantName) {
             this.assistantId = assistantId;
+            this.assistantName = assistantName;
         }
 
         @Override
         public void onClick(View v) {
             v.setEnabled(false);
             ViewGroup deleteView = assitantViewMap.get(assistantId);
-            new AssistantDeleteTask(assistantId, courseDetail.getCourseId(), deleteView)
+            new AssistantDeleteTask(assistantId, assistantName, courseDetail.getCourseId(),
+                    deleteView)
                     .execute();
             Toast.makeText(CourseIntroductionActivity.this, R.string.delete_assistant_on_progress,
                     Toast.LENGTH_SHORT).show();
@@ -289,11 +298,15 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
         private String assistantId;
 
+        private String assistantName;
+
         private View deleteView;
 
-        public AssistantDeleteTask(String assistantId, String courseId, View deleteView) {
+        public AssistantDeleteTask(String assistantId, String assistantName, String courseId,
+                                   View deleteView) {
             this.courseId = courseId;
             this.assistantId = assistantId;
+            this.assistantName = assistantName;
             this.deleteView = deleteView;
         }
 
@@ -312,6 +325,17 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                 assistantConatainer.removeView(deleteView);
                 Toast.makeText(CourseIntroductionActivity.this, R.string.delete_assistant_success
                     , Toast.LENGTH_SHORT).show();
+                ArrayList<String> aNames = courseDetail.getAssistantNames();
+                ArrayList<String> aIds = courseDetail.getAssistantIds();
+                if(aNames != null && aIds != null) {
+                    aNames.remove(assistantName);
+                    aIds.remove(assistantId);
+                    if(aNames.size() == 0)
+                        assistantEmptyText.setVisibility(View.VISIBLE);
+                } else {
+                    Log.e(TAG, "courseDetail assistants null!");
+                }
+
             } else {
                 Toast.makeText(CourseIntroductionActivity.this, R.string.delete_assistant_fail
                         , Toast.LENGTH_SHORT).show();
@@ -479,6 +503,50 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                 interestText.setBackgroundColor(getResources().getColor(R.color.green));
                 interestText.setEnabled(true);
             }
+        }
+    }
+
+    private class AddAssistantTask extends AsyncTask<String, Void, Boolean> {
+
+        private String assistantId;
+        private String assistantName;
+
+        public AddAssistantTask(String assistantId, String assistantName) {
+            this.assistantId = assistantId;
+            this.assistantName = assistantName;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String courseId = params[0];
+            boolean addSuccess = CourseTeacherNetService.addAssistant(courseId, assistantId);
+            return addSuccess;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(viewPager == null)
+                return;
+
+            if(success == null)
+                Toast.makeText(CourseIntroductionActivity.this, R.string.net_disconnet,
+                        Toast.LENGTH_SHORT).show();
+            else if(success) {
+                Toast.makeText(CourseIntroductionActivity.this, R.string.add_assistant_success,
+                        Toast.LENGTH_SHORT).show();
+                ArrayList<String> ids = courseDetail.getAssistantIds();
+                ArrayList<String> names = courseDetail.getAssistantNames();
+                if(ids != null && names != null) {
+                    ids.add(assistantId);
+                    names.add(assistantName);
+                } else {
+                    Log.e(TAG, "courseDetail assistants null!");
+                }
+                addAssistantView(assistantName, assistantId);
+            }
+            else
+                Toast.makeText(CourseIntroductionActivity.this, R.string.net_disconnet,
+                        Toast.LENGTH_SHORT).show();
         }
     }
 }

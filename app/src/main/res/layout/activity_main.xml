@@ -14,15 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/dark_shadow_top_border"
-            android:orientation="vertical"
             android:id="@+id/navigator_layout">
 
             <LinearLayout
+                android:id="@+id/radio_image_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -33,8 +33,8 @@
                     android:layout_weight="1">
                     <RadioButton
                         android:id="@+id/course_tab_image"
-                        android:layout_width="@dimen/medium_icon_size"
-                        android:layout_height="@dimen/medium_icon_size"
+                        android:layout_width="@dimen/main_tab_size"
+                        android:layout_height="@dimen/main_tab_size"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
@@ -48,8 +48,8 @@
                     android:layout_weight="1">
                     <RadioButton
                         android:id="@+id/message_tab_image"
-                        android:layout_width="@dimen/medium_icon_size"
-                        android:layout_height="@dimen/medium_icon_size"
+                        android:layout_width="@dimen/main_tab_size"
+                        android:layout_height="@dimen/main_tab_size"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
@@ -71,8 +71,8 @@
                     android:layout_weight="1">
                     <RadioButton
                         android:id="@+id/campus_tab_image"
-                        android:layout_width="@dimen/medium_icon_size"
-                        android:layout_height="@dimen/medium_icon_size"
+                        android:layout_width="@dimen/main_tab_size"
+                        android:layout_height="@dimen/main_tab_size"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/medium_padding"
                         android:button="@null"
@@ -84,6 +84,7 @@
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/main_tab_size"
                 android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/over_medium_padding">
 
@@ -119,7 +120,7 @@
 
             </RadioGroup>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <FrameLayout
             android:id="@+id/main_view_pager_container"

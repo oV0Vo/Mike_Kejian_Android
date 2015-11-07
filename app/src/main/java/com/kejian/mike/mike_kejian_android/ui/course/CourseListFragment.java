@@ -338,11 +338,14 @@ public class CourseListFragment extends Fragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             CourseBriefViewHolder viewHolder = null;
+            CourseBriefInfo courseBriefInfo = getItem(position);
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(
                         R.layout.layout_course_brief, null);
                 viewHolder = new CourseBriefViewHolder();
                 ImageView bookImage = (ImageView)convertView.findViewById(R.id.course_brief_image);
+                GetBitmapByPinyin.getBitmapByPinyin(
+                        courseBriefInfo.getCourseName(), getContext(), bookImage);
                 viewHolder.bookImage = bookImage;
                 TextView titleView = (TextView)convertView.findViewById(R.id.course_brief_name);
                 viewHolder.titleText = titleView;
@@ -356,15 +359,9 @@ public class CourseListFragment extends Fragment{
                 viewHolder = (CourseBriefViewHolder)convertView.getTag();
             }
 
-            CourseBriefInfo courseBriefInfo = getItem(position);
-
-            GetBitmapByPinyin.getBitmapByPinyin(
-                    courseBriefInfo.getCourseName(), getContext(), viewHolder.bookImage);
-
             viewHolder.titleText.setText(courseBriefInfo.getCourseName());
 
             viewHolder.academyNameText.setText(courseBriefInfo.getAcademyName());
-
 
             ArrayList<String> teacherNames = courseBriefInfo.getTeacherNames();
             String teacherNameStr = StringUtil.toString(teacherNames, " ");

@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
         <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
-            android:layout_width="@dimen/medium_icon_width"
-            android:layout_height="@dimen/medium_icon_height"
+            android:layout_width="@dimen/medium_icon_size"
+            android:layout_height="@dimen/medium_icon_size"
             android:layout_centerInParent="true"
             android:src="@drawable/no_pic"
             app:border_width="@dimen/zero"

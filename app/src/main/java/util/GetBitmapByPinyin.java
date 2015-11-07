@@ -45,10 +45,10 @@ public class GetBitmapByPinyin {
 
 
 
-        System.out.println("words :"+words);
+        /*System.out.println("words :"+words);
 
 
-        System.out.println("拼音:"+HanziToPinyin.getPinYin("国家地理"));
+        System.out.println("拼音:"+HanziToPinyin.getPinYin("国家地理"));*/
 
         String pinyin=HanziToPinyin.getPinYin(words);
 
@@ -104,6 +104,11 @@ public class GetBitmapByPinyin {
 
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), sourceId,b);
 
+        if(bitmap == null) {
+            System.out.println("bitmap null");
+        } else if(bitmap.getByteCount() == 0){
+            System.out.println("bitmap size 0");
+        }
         imageView.setImageBitmap(bitmap);
 
            // new GetBitmapFromLocal().execute("");

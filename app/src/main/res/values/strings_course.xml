@@ -5,6 +5,7 @@
     <string name="already_interest">已经关注该课程</string>
     <string name="course_info_edit">编辑信息</string>
     <string name="course_assistant_management">助教管理</string>
+    <string name="add_assistant_request">正在添加助教...</string>
     <string name="time_and_place_title">开课时间:</string>
 
     <string name="course_sign_in_empty_text">目前还没有任何点名记录哦~~</string>

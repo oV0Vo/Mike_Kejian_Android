@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/small_size"
+    android:paddingRight="@dimen/small_size"
+    android:paddingTop="@dimen/small_size"
+    android:orientation="horizontal"
     android:layout_margin="@dimen/small_size">
-    
-    <ImageView
-        android:id="@+id/delete_image"
-        android:layout_width="@dimen/medium_size"
-        android:layout_height="@dimen/medium_size"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/delete"/>
 
     <TextView
         android:id="@+id/user_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
-</RelativeLayout>
+        android:paddingRight="@dimen/sub_small_size"
+        android:textSize="@dimen/medium_font"/>
+
+    <ImageView
+        android:id="@+id/delete_image"
+        android:layout_width="@dimen/medium_size"
+        android:layout_height="@dimen/medium_size"
+        android:src="@drawable/delete"/>
+
+</LinearLayout>
