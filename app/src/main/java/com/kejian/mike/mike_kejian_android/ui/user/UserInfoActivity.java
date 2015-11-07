@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.ui.message.CircleImageView;
+import com.kejian.mike.mike_kejian_android.ui.user.adapter.DrawerViewAdapter;
 import com.kejian.mike.mike_kejian_android.ui.widget.AppManager;
 
 import net.UserNetService;
@@ -32,6 +33,7 @@ import net.picture.PictureToFile;
 import net.picture.PictureUploadUtil;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -68,6 +70,7 @@ public class UserInfoActivity extends AppCompatActivity{
     private EditText schoolMajorView;
     private EditText schoolDepartmentView;
     private Menu menu;
+    Uri imageUri = Uri.parse("file:///sdcard/mike/pic.jpg");
 
     private File file;
 
@@ -155,18 +158,49 @@ public class UserInfoActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                file=new File("/sdcard/tmp.jpg");
+//                file=new File("/sdcard/tmp.jpg");
+//
+//
+//                Intent intent = new Intent("android.intent.action.PICK");
+//                intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
+//                intent.putExtra("output", Uri.fromFile(file));
+//                intent.putExtra("crop", "true");
+//                intent.putExtra("aspectX", 1);// 裁剪框比例
+//                intent.putExtra("aspectY", 1);
+//                intent.putExtra("outputX", 200);// 输出图片大小
+//                intent.putExtra("outputY", 200
+//                );
+//                startActivityForResult(intent, 100);
+//
 
 
-                Intent intent = new Intent("android.intent.action.PICK");
-                intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
-                intent.putExtra("output", Uri.fromFile(file));
+
+
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+
+                intent.setType("image/*");
+
                 intent.putExtra("crop", "true");
-                intent.putExtra("aspectX", 1);// 裁剪框比例
+
+                intent.putExtra("aspectX", 2);
+
                 intent.putExtra("aspectY", 1);
-                intent.putExtra("outputX", 200);// 输出图片大小
-                intent.putExtra("outputY", 200
-                );
+
+                intent.putExtra("outputX", 600);
+
+                intent.putExtra("outputY", 300);
+
+                intent.putExtra("scale", true);
+
+                intent.putExtra("return-data", false);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
+                intent.putExtra("noFaceDetection", true); // no face detection
+
                 startActivityForResult(intent, 100);
 
 //                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
@@ -234,28 +268,45 @@ public class UserInfoActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
+        Bitmap bitmap = null;
+
+        try {
+
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+
+            photo.setImageBitmap(bitmap);
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
 
 
-        System.out.println("camera result:"+requestCode+" "+requestCode+" "+data);
 
-
-        Bitmap cameraBitmap = null;
-
-        cameraBitmap=BitmapFactory.decodeFile(file.getAbsolutePath());
-
-       //if(data!=null&&data.getExtras()!=null) {cameraBitmap=(Bitmap) data.getExtras().get("data");}
-
-
-
-
-        if(cameraBitmap != null) {
-
-            Global.addGlobalItem("bitmap", cameraBitmap);
-
-
-            photo.setImageBitmap(cameraBitmap);
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+//
+//        System.out.println("camera result:"+requestCode+" "+requestCode+" "+data);
+//
+//
+//        Bitmap cameraBitmap = null;
+//
+//        cameraBitmap=BitmapFactory.decodeFile(file.getAbsolutePath());
+//
+//       //if(data!=null&&data.getExtras()!=null) {cameraBitmap=(Bitmap) data.getExtras().get("data");}
+//
+//
+//
+//
+//        if(cameraBitmap != null) {
+//
+//            Global.addGlobalItem("bitmap", cameraBitmap);
+//
+//
+//            photo.setImageBitmap(cameraBitmap);
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
 
     }
 
@@ -436,7 +487,7 @@ public class UserInfoActivity extends AppCompatActivity{
             System.out.println(PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0], user.getIcon())) == null);
 
 
-           String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],"temp")).getLinkurl();
+            String path=PictureUploadUtil.upload(PictureToFile.bitmapToFile(Para[0],"temp")).getLinkurl();
 
 
 
@@ -445,6 +496,14 @@ public class UserInfoActivity extends AppCompatActivity{
 
 
             user.setIcon(path);
+
+            DrawerViewAdapter.path=path;
+
+                    ((user) Global.getObjectByName("user")).setIcon(path);
+
+            System.out.println("update path:" + path);
+
+            System.out.println("user path:"+((user) Global.getObjectByName("user")).getIcon());
 
           //  UserNetService.setUserInfo(Integer.parseInt(user.getId()), "SIGN_TEXT", signal);
             return "";
@@ -559,6 +618,7 @@ public class UserInfoActivity extends AppCompatActivity{
 
         user.setNickName(nickName);
         user.setSign(signal);
+
 
     }
     public void setUnable(){

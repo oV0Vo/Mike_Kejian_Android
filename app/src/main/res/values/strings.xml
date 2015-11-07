@@ -243,6 +243,8 @@
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="xlistview_footer_hint_nomore">暂无更多</string>
 
+    <string name="attention_course">他关注的课程</string>
+
     <style name="MyTheme.NoTitleBar.CustomBackground" parent="android:Theme.Black">
         <item name="android:windowBackground">@drawable/welcome</item>
         <item name="android:windowNoTitle">true</item>

@@ -2,6 +2,7 @@ package com.kejian.mike.mike_kejian_android.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -34,6 +35,9 @@ import com.kejian.mike.mike_kejian_android.ui.user.UserPostActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserSchoolAccountActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.UserSettingActivity;
 import com.kejian.mike.mike_kejian_android.ui.user.adapter.DrawerViewAdapter;
+
+import model.user.Global;
+import model.user.user;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -85,6 +89,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
 
         mDrawerListView.setAdapter(new DrawerViewAdapter(null,this.getActivity()));
 

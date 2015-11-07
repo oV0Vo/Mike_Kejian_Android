@@ -26,6 +26,8 @@ import util.GetBitmapByPinyin;
  */
 public class DrawerViewAdapter extends BaseAdapter{
 
+    public static  String path=null;
+
     private List<Map<String,Object>> contentList;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -77,7 +79,16 @@ public class DrawerViewAdapter extends BaseAdapter{
                     }
 
 
-                    DownloadPicture d=new DownloadPicture(context,circleImageView,u.getIcon(),u.getIcon());
+                    System.out.println("drawer icon path:"+u.getIcon());
+
+                    System.out.println("user path:"+((user)Global.getObjectByName("user")).getIcon());
+
+
+
+
+
+                        DownloadPicture d = new DownloadPicture(context, circleImageView, u.getIcon(), u.getIcon());
+
 
                    // circleImageView.setImageBitmap(GetBitmapByPinyin.getBitmapByPinyin("我是谁",context,circleImageView));
 

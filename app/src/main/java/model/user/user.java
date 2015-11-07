@@ -217,7 +217,7 @@ public class user implements Serializable{
 
     public UserBLResult setIcon(String url){
 
-        this.icon=icon;
+        this.icon=url;
 
         return null;
 

@@ -148,6 +148,8 @@ public class UserNetService {
 
         String userData = httpRequest.sentGetRequest(baseUrl+"getUser/",par);
 
+        System.out.println("user data "+userData);
+
 
 
 
@@ -182,7 +184,13 @@ public class UserNetService {
                 userInfo.put("nick_name",userDataJson.getString("nick_name"));
                 userInfo.put("school_identify",userDataJson.getString("school_identify"));
                 userInfo.put("school_id",userDataJson.getString("school_id"));
-                userInfo.put("department_id",userDataJson.getString("department_id"));
+                userInfo.put("department_id", userDataJson.getString("department_id"));
+
+                JSONObject jsonObject=new JSONObject(userDataJson.getString("departmentInfo"));
+
+
+
+                userInfo.put("department_name", jsonObject.getString("name"));
 
 
                 return new user(userInfo);

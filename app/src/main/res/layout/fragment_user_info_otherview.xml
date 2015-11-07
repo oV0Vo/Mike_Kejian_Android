@@ -213,7 +213,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="他的课程"
+                    android:text="@string/attention_course"
 
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
