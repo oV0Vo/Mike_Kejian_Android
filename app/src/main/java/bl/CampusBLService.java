@@ -18,14 +18,21 @@ public class CampusBLService {
     public static ArrayList<Post> nextLatestPosts = new ArrayList<>();
     public static ArrayList<Post> hottestPosts = new ArrayList<>();
     public static ArrayList<Post> nextHottestPosts = new ArrayList<>();
-    public static int postNum;
+    public static int postNum = 0;
     public static Reply publishedReply;
+    public static boolean connected = true;
 
 
-    public static void refreshLatestPosts() {
-        refreshPostNum();
-        latestPosts.clear();
-        latestPosts.addAll(CampusNetService.getLatestPosts("0", 20));
+    public static ArrayList<Post> refreshLatestPosts() {
+        ArrayList<Post> post = CampusNetService.getLatestPosts("0", 20);
+        if(post != null) {
+            connected = true;
+            refreshPostNum();
+            return post;
+        } else {
+            connected = false;
+            return new ArrayList<Post>();
+        }
     }
 
     public static void getNextLatestPosts() {
@@ -38,10 +45,16 @@ public class CampusBLService {
         nextLatestPosts.clear();
     }
 
-    public static void refreshHottestPosts() {
-        refreshPostNum();
-        hottestPosts.clear();
-        hottestPosts.addAll(CampusNetService.getHottestPosts("0",20));
+    public static ArrayList<Post> refreshHottestPosts() {
+        ArrayList<Post> post = CampusNetService.getHottestPosts("0", 20);
+        if(post != null) {
+            connected = true;
+            refreshPostNum();
+            return post;
+        } else {
+            connected = false;
+            return new ArrayList<Post>();
+        }
     }
 
     public static void getNextHottestPosts() {
