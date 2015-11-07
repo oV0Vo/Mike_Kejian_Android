@@ -274,6 +274,9 @@ public class CourseInfoNetService {
             String academyId = jCourseDetail.getString("department_id");
             courseDetail.setAcademyId(null);
 
+            String timeAndPlace = jCourseDetail.getString("time_place");
+            courseDetail.setTimeAndPlace(timeAndPlace);
+
             Object academyName = jCourseDetail.get("department_name");
             if(JSONObject.NULL == academyName)
                 courseDetail.setAccademyName(null);

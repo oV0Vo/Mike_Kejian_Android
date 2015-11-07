@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/over_medium_padding"
-    android:paddingRight="@dimen/over_medium_padding">
+    android:paddingRight="@dimen/over_medium_padding"
+    android:visibility="gone">
 
     <TextView
         android:id="@+id/choice_index_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/over_small_size"
+        android:layout_marginBottom="9dp"
         android:gravity="center"/>
 
-    <TextView
-        android:id="@+id/choice_bar_text"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/over_small_size"/>
+        android:layout_height="@dimen/choice_distribute_bar_max_height">
+        <ImageView
+            android:id="@+id/choice_bar_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/choice_distribute_num_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"/>
+
 </LinearLayout>

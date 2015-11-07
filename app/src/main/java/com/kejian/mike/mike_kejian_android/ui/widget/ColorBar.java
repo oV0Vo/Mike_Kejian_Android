@@ -4,6 +4,7 @@ package com.kejian.mike.mike_kejian_android.ui.widget;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,21 +19,15 @@ public class ColorBar extends LinearLayout {
                     double colorBarPercent, int width, int height) {
         super(context, null);
         LayoutInflater.from(context).inflate(R.layout.layout_color_bar, this);
-        TextView colorView = (TextView)findViewById(R.id.color_bar_color_text);
-        GradientDrawable colorDrawable = null;
-        if(colorBarPercent != 0.0) {
-            colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-                    new int[]{beginColor, centerColor, endColor});
-        } else {
-            colorDrawable = new GradientDrawable();
-            colorDrawable.setColor(restColor);
-        }
-        int colorTextWidth = (int)(width * colorBarPercent);
+        ImageView colorImage = (ImageView) findViewById(R.id.color_bar);
+        GradientDrawable colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{beginColor, centerColor, endColor});
+        int colorTextWidth = (int) (width * colorBarPercent);
         colorDrawable.setSize(colorTextWidth, height);
         colorDrawable.setCornerRadii(new float[]{13.0f, 13.0f, 0.0f, 0.0f, 0.0f, 0.0f, 13.0f, 13.0f});
-        colorView.setBackgroundDrawable(colorDrawable);
+        colorImage.setBackgroundDrawable(colorDrawable);
 
-        TextView restView = (TextView)findViewById(R.id.color_bar_rest_text);
+        ImageView restView = (ImageView) findViewById(R.id.rest_color_bar);
         GradientDrawable restDrawable = new GradientDrawable();
         restDrawable.setColor(restColor);
         restDrawable.setCornerRadii(new float[]{0.0f, 0.0f, 13.0f, 13.0f, 13.0f, 13.0f, 0.0f, 0.0f});
@@ -47,11 +42,10 @@ public class ColorBar extends LinearLayout {
         int dark_deep = context.getResources().getColor(R.color.dark_deep);
         int green = context.getResources().getColor(R.color.green);
         int dark = context.getResources().getColor(R.color.dark_half_trans);
-        int width = (int)context.getResources().getDimension(R.dimen.color_bar_width);
-        int height = (int)context.getResources().getDimension(R.dimen.color_bar_height);
+        int width = (int) context.getResources().getDimension(R.dimen.color_bar_width);
+        int height = (int) context.getResources().getDimension(R.dimen.color_bar_height);
         ColorBar colorBar = new ColorBar(context, red, dark_deep, green, dark,
-                colorPercent , width, height);
+                colorPercent, width, height);
         return colorBar;
     }
-
 }
