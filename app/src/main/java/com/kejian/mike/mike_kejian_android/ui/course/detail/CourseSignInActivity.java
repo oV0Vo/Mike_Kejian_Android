@@ -40,6 +40,8 @@ public class CourseSignInActivity extends AppCompatActivity {
     private TextView signInActionText;
     private TextView signInStatusText;
 
+    private TextView historyTitleText;
+
     private ListView historyListView;
     private HistorySignInAdapter historyAdapter;
 
@@ -206,6 +208,7 @@ public class CourseSignInActivity extends AppCompatActivity {
             if(notEmptyCount != 0) {
                 mainLayout.setVisibility(View.VISIBLE);
             } else {
+                mainLayout.setVisibility(View.GONE);
                 emptyText.setVisibility(View.VISIBLE);
             }
         }
