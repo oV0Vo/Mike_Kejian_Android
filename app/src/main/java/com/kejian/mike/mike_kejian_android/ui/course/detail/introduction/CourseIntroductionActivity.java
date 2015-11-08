@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -165,7 +166,13 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         TextView courseTitleView = (TextView)findViewById(R.id.course_intro_course_name);
         String courseName = courseDetail.getCourseName();
         if(courseName.length() > 10) {
-            courseTitleView.setTextSize(getResources().getDimension(R.dimen.sub_big_font));
+            float subBigFont = getResources().getDimension(R.dimen.sub_big_font);
+            int font = (int)(subBigFont / 2);
+            courseTitleView.setTextSize(font);
+        }
+        if(courseName.length() > 14) {
+            courseTitleView.setMaxLines(2);
+            courseTitleView.setEllipsize(TextUtils.TruncateAt.END);
         }
         courseTitleView.setText(courseName);
 
