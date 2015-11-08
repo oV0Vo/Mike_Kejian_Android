@@ -12,7 +12,8 @@
         android:id="@+id/course_naming_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <!--header-->
         <LinearLayout
@@ -203,7 +204,7 @@
                          android:id="@+id/absent_list_text"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:layout_marginLeft="@dimen/small_size"
+                         android:paddingLeft="@dimen/small_size"
                          android:singleLine="false"
                          android:maxLines="3"
                          android:ellipsize="end"/>
@@ -244,7 +245,6 @@
 
         </LinearLayout>
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -269,6 +269,18 @@
             android:divider="@null"
             android:scrollbars="none">
         </ListView>
+
+        <TextView
+            android:id="@+id/history_empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/big_size"
+            android:paddingBottom="@dimen/big_size"
+            android:textColor="@color/dark"
+            android:textSize="@dimen/sub_big_font"
+            android:gravity="center"
+            android:text="@string/no_naming_record"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

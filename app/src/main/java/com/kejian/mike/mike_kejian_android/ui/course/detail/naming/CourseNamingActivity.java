@@ -45,6 +45,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private ViewGroup mainLayout;
     private ProgressBar progressBar;
+    private TextView historyEmptyText;
     private ListView historyListView;
     private ArrayAdapter historyNamingAdapter;
 
@@ -76,8 +77,7 @@ public class CourseNamingActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
         namingResultLayout = (ViewGroup)findViewById(R.id.naming_result_layout);
-        mainLayout.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
+        historyEmptyText = (TextView)findViewById(R.id.history_empty_text);
 
         taskCountDown++;
         new GetHistoryNamingTask().execute();
@@ -107,6 +107,13 @@ public class CourseNamingActivity extends AppCompatActivity {
         historyNamingAdapter = new HistoryNamingAdapter(this, android.R.layout.simple_list_item_1,
                 namingRecords);
         historyListView.setAdapter(historyNamingAdapter);
+        if(namingRecords == null) {
+            return;
+        }
+        if(namingRecords.size() == 0) {
+            historyListView.setVisibility(View.GONE);
+            historyEmptyText.setVisibility(View.VISIBLE);
+        }
 
         updateViewIfAllTaskFinish();
     }
