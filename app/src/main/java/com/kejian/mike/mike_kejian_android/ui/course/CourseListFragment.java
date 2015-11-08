@@ -399,22 +399,21 @@ public class CourseListFragment extends Fragment{
         }
     }
 
-    private class InitAllCourseBriefTask extends AsyncTask<Void, Void,Boolean> {
+    private class InitAllCourseBriefTask extends AsyncTask<Void, Void, ArrayList<CourseBriefInfo>> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected ArrayList<CourseBriefInfo> doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             ArrayList<CourseBriefInfo> updateInfos = courseModel.updateAllCourseBriefs();
-            if(updateInfos != null)
-                return true;
-            else
-                return false;
+            return updateInfos;
         }
 
         @Override
-        protected void onPostExecute(Boolean updateSuccess) {
-            if(updateSuccess) {
+        protected void onPostExecute(ArrayList<CourseBriefInfo> updateInfos) {
+            if(updateInfos != null) {
                 initAllCourseDataFinish = true;
+                if(updateInfos.size() == 0)
+                    allCourseList.setPullLoadEnable(false);
             } else {
                 initAllCourseDataFail = true;
             }
@@ -425,24 +424,24 @@ public class CourseListFragment extends Fragment{
         }
     }
 
-    private class UpdateAllCourseBriefTask extends AsyncTask<Void, Void, Boolean> {
+    private class UpdateAllCourseBriefTask extends AsyncTask<Void, Void, ArrayList<CourseBriefInfo>> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected ArrayList<CourseBriefInfo> doInBackground(Void... params) {
             CourseModel courseModel = CourseModel.getInstance();
             ArrayList<CourseBriefInfo> updateInfos = courseModel.updateAllCourseBriefs();
-            if(updateInfos != null)
-                return true;
-            else
-                return false;
+            return updateInfos;
         }
 
         @Override
-        protected void onPostExecute(Boolean updateSuccess) {
+        protected void onPostExecute(ArrayList<CourseBriefInfo> updateInfos) {
             allCourseList.stopLoadMore();
             allCourseList.setRefreshTime(TimeFormat.toTime(new Date(System.currentTimeMillis())));
-            if(updateSuccess) {
-                allCourseAdapter.notifyDataSetChanged();
+            if(updateInfos != null) {
+                if(updateInfos.size() != 0)
+                    allCourseAdapter.notifyDataSetChanged();
+                else
+                    allCourseList.setPullLoadEnable(false);
             } else {
                 Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             }
