@@ -39,9 +39,7 @@ public class CourseTeachContentFragment extends Fragment {
 
         TextView contentView = (TextView)v.findViewById(R.id.course_teach_content_content);
         String teachContent = courseDetail.getTeachContent();
-        Log.i(TAG, "'" + teachContent + "'");
         if(teachContent == null) {
-            Log.e(TAG, "teachContent null!");
             showEmptyText(v);
         } else if (teachContent.isEmpty() || teachContent.equals("0")) {
             showEmptyText(v);

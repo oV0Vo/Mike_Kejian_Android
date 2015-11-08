@@ -40,9 +40,7 @@ public class CourseBriefIntroFragment extends Fragment {
 
         TextView contentView = (TextView)v.findViewById(R.id.course_brief_intro_content);
         String outLine = courseDetail.getOutline();
-        Log.i(TAG, "'" + outLine + "'");
         if(outLine == null) {
-            Log.e(TAG, "outLine null!");
             showEmptyText(v);
         } else if (outLine.isEmpty() || outLine.equals("0")) {
             showEmptyText(v);

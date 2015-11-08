@@ -41,9 +41,7 @@ public class CourseReferenceFragment extends Fragment {
 
         TextView contentView = (TextView)v.findViewById(R.id.course_reference_content);
         String refrences = StringUtil.toString(courseDetail.getReferences(), "\n");
-        Log.i(TAG, "'" + refrences + "'");
         if(refrences == null) {
-            Log.e(TAG, "refrences null!");
             showEmptyText(v);
         } else if (refrences.isEmpty() || refrences.equals("0")) {
             showEmptyText(v);
