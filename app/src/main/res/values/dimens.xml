@@ -90,7 +90,7 @@
     <dimen name="sub_small_icon_height">15dp</dimen>
 
     <dimen name="quiz_icon_width">105dp</dimen>
-    <dimen name="quiz_icon_height">40dp</dimen>
+    <dimen name="quiz_icon_height">38dp</dimen>
     <dimen name="half_quiz_icon_height">20dp</dimen>
 
     <dimen name="current_question_layout_height">180dp</dimen>
