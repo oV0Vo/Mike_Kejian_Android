@@ -364,6 +364,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
                 TextView answerContentText = (TextView)convertView.findViewById(R.id.answer_content);
                 viewHolder.answerText = answerContentText;
                 ViewGroup zhankaiContainer = (ViewGroup)convertView.findViewById(R.id.zhankai_container);
+                initAnswerExpandLayout(viewHolder.answerText, zhankaiContainer);
                 viewHolder.zhankaiContainer = zhankaiContainer;
 
                 convertView.setTag(viewHolder);
@@ -373,7 +374,6 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
             viewHolder.userNameText.setText(answer.getStudentName());
             viewHolder.answerText.setText(answer.getAnswer());
-            initAnswerExpandLayout(viewHolder.answerText, viewHolder.zhankaiContainer);
             return convertView;
         }
 

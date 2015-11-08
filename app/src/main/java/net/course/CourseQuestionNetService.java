@@ -337,13 +337,13 @@ public class CourseQuestionNetService {
             StringBuilder answerBuilder = new StringBuilder();
             for(int i=0; i<answerChoicesStr.length - 1; ++i) {
                 answerBuilder.append(Character.toString((char)('A' + Integer.parseInt(
-                        answerChoicesStr[i]))));
+                        answerChoicesStr[i]) - 1)));
                 answerBuilder.append(" ");
             }
             if(answerChoicesStr.length != 0) {
                 String lastChoiceStr = answerChoicesStr[answerChoicesStr.length - 1];
                 answerBuilder.append(Character.toString((char) ('A' + Integer.parseInt(
-                        lastChoiceStr))));
+                        lastChoiceStr) - 1)));
             }
             answerContent = answerBuilder.toString();
             answer.setAnswer(answerContent);

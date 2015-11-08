@@ -98,13 +98,9 @@ public class CourseInfoNetService {
 
             return courseBrief;
         } catch (JSONException e) {
-
-
             e.printStackTrace();
             Log.e(TAG, "parseCourseBriefInfo json error");
             throw e;
-
-
         }
     }
 
@@ -197,7 +193,6 @@ public class CourseInfoNetService {
             e.printStackTrace();
             Log.e(TAG, "getAllCourseType json error");
             return null;
-
         }
     }
 
