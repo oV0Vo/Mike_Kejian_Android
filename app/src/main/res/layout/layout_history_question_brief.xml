@@ -62,7 +62,8 @@
         android:maxLines="2"
         android:singleLine="false"
         android:lineSpacingExtra="@dimen/small_padding"
-        android:ellipsize="end" />
+        android:ellipsize="end"
+        android:textIsSelectable="true"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

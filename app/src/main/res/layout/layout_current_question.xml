@@ -25,7 +25,8 @@
                 android:maxLines="3"
                 android:singleLine="false"
                 android:ellipsize="end"
-                android:textSize="@dimen/medium_font"/>
+                android:textSize="@dimen/medium_font"
+                android:textIsSelectable="true"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

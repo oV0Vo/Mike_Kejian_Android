@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/over_medium_size"
             android:textSize="@dimen/medium_font"
-            android:singleLine="false" />
+            android:singleLine="false"
+            android:textIsSelectable="true" />
 
         <LinearLayout
             android:id="@+id/choice_container"
