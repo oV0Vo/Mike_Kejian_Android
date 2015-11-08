@@ -20,6 +20,7 @@
         android:id="@+id/delete_image"
         android:layout_width="@dimen/medium_size"
         android:layout_height="@dimen/medium_size"
-        android:src="@drawable/delete"/>
+        android:src="@drawable/delete"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/medium_font"
-                android:text="@string/add"/>
+                android:text="@string/add" />
 
         </LinearLayout>
 
@@ -203,7 +203,6 @@
             android:textSize="@dimen/sub_big_font"
             android:text="@string/zan_wu"
             android:visibility="gone"/>
-
 
         <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
             android:id="@+id/assistant_container"

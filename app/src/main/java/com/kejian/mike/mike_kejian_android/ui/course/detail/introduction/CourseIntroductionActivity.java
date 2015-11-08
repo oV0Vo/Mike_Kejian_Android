@@ -51,6 +51,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     private ViewGroup assistantConatainer;
     private TextView assistantEmptyText;
     private HashMap<String, ViewGroup> assitantViewMap;
+    private ArrayList<ImageView> deleteImageViews;
 
     private RadioButton briefTab;
     private RadioButton teachContentTab;
@@ -133,6 +134,8 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             ImageView deleteImage = (ImageView)assistantLayout.findViewById(R.id.delete_image);
             deleteImage.setVisibility(View.VISIBLE);
         }
+        for(ImageView deleteImage: deleteImageViews)
+            deleteImage.setVisibility(View.VISIBLE);
     }
 
     private void hideAssistantManageLayout() {
@@ -141,6 +144,8 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             ImageView deleteImage = (ImageView)assistantLayout.findViewById(R.id.delete_image);
             deleteImage.setVisibility(View.GONE);
         }
+        for(ImageView deleteImage: deleteImageViews)
+            deleteImage.setVisibility(View.GONE);
     }
 
     private void initPushAgent() {
@@ -200,6 +205,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     private void initAssistantContainer(ArrayList<String> names, ArrayList<String> ids) {
         assistantConatainer = (ViewGroup)findViewById(R.id.assistant_container);
         assitantViewMap = new HashMap<String, ViewGroup>();
+        deleteImageViews = new ArrayList<>(names.size());
 
         for(int i=0; i<names.size(); ++i) {
             String name = names.get(i);
@@ -248,9 +254,14 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             }
             String name = data.getStringExtra("real_name");
             String id = data.getStringExtra("user_id");
-            startAddAssistantTask(name, id);
-            if(assistantEmptyText.getVisibility() == View.VISIBLE)
-                assistantEmptyText.setVisibility(View.GONE);
+            ArrayList<String> assistantIds = courseDetail.getAssistantIds();
+            if(!assistantIds.contains(id)) {
+                startAddAssistantTask(name, id);
+                if (assistantEmptyText.getVisibility() == View.VISIBLE)
+                    assistantEmptyText.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(this, R.string.assistant_exist, Toast.LENGTH_SHORT).show();
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -265,6 +276,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
         ImageView deleteImage = (ImageView)layout.findViewById(R.id.delete_image);
         deleteImage.setOnClickListener(new AssistantDeleteListener(id, name));
+        deleteImageViews.add(deleteImage);
 
         return layout;
     }
