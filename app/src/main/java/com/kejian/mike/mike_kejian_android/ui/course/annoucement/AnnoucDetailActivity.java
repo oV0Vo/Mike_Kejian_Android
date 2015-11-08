@@ -129,6 +129,7 @@ public class AnnoucDetailActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     putOnTopView.setBackgroundColor(getResources().getColor(R.color.green));
                     putOnTopView.setText(R.string.annouc_already_put_on_top);
+                    putOnTopView.setTextColor(getResources().getColor(R.color.white));
                     putOnTopView.setEnabled(false);
                     annouc.setOnTop(true);
                 } else {
