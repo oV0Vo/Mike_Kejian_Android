@@ -172,8 +172,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/medium_padding"
-        android:paddingRight="@dimen/medium_padding"
+        android:paddingLeft="@dimen/small_size"
+        android:paddingRight="@dimen/small_size"
         android:background="@color/black2">
 
         <TextView

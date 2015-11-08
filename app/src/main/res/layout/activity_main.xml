@@ -37,7 +37,7 @@
                         android:layout_width="@dimen/main_tab_size"
                         android:layout_height="@dimen/main_tab_size"
                         android:layout_centerInParent="true"
-                        android:layout_marginTop="@dimen/medium_padding"
+                        android:layout_marginTop="@dimen/small_size"
                         android:button="@null"
                         android:background="@drawable/course_tab_selector"/>
                 </RelativeLayout>
@@ -52,7 +52,7 @@
                         android:layout_width="@dimen/main_tab_size"
                         android:layout_height="@dimen/main_tab_size"
                         android:layout_centerInParent="true"
-                        android:layout_marginTop="@dimen/medium_padding"
+                        android:layout_marginTop="@dimen/small_size"
                         android:button="@null"
                         android:background="@drawable/message_tab_selector"/>
 
@@ -75,7 +75,7 @@
                         android:layout_width="@dimen/main_tab_size"
                         android:layout_height="@dimen/main_tab_size"
                         android:layout_centerInParent="true"
-                        android:layout_marginTop="@dimen/medium_padding"
+                        android:layout_marginTop="@dimen/small_size"
                         android:button="@null"
                         android:background="@drawable/campus_tab_selector"/>
                 </RelativeLayout>

@@ -19,7 +19,7 @@
                     android:id="@+id/current_question_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/sub_big_padding"
+                    android:layout_marginBottom="@dimen/over_over_small_size"
                     android:orientation="vertical"/>
             </ScrollView>
 
@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"
+                android:paddingTop="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/sub_small_size"
                 android:background="@drawable/dark_very_light_thin_bottom_border"
                 android:text="@string/history_question_list_title"
                 android:textSize="@dimen/big_font"
@@ -43,8 +43,8 @@
                     android:id="@+id/history_question_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/medium_padding"
-                    android:paddingBottom="@dimen/medium_padding"
+                    android:paddingTop="@dimen/small_size"
+                    android:paddingBottom="@dimen/small_size"
                     android:divider="@null"
                     android:scrollbars="none">
                 </ListView>

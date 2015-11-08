@@ -18,100 +18,229 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/sub_big_padding"
-            android:paddingBottom="@dimen/sub_big_padding"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/over_over_small_size"
+            android:paddingBottom="@dimen/over_over_small_size"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:background="@drawable/dark_thin_bottom_border">
+            android:background="@drawable/dark_round_bottom_border">
 
-            <ImageView
-                android:layout_width="@dimen/sign_in_status_icon_size"
-                android:layout_height="@dimen/sign_in_status_icon_size"
-                android:background="@drawable/check_green"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/medium_padding">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/small_padding"
-                        android:paddingBottom="@dimen/small_padding"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/course_naming_time_title_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingRight="@dimen/medium_padding"
-                            android:textSize="@dimen/sub_medium_font"
-                            android:text="@string/course_sign_in_time_title"/>
-
-                        <TextView
-                            android:id="@+id/course_naming_time_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_medium_font"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/small_padding"
-                        android:paddingBottom="@dimen/small_padding"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_medium_font"
-                            android:text="    "/>
-
-                        <ImageView
-                            android:layout_width="@dimen/small_icon_size"
-                            android:layout_height="@dimen/small_icon_size"
-                            android:layout_marginRight="@dimen/medium_padding"
-                            android:src="@drawable/bell"/>
-
-                        <TextView
-                            android:id="@+id/left_time_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_medium_font"/>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/naming_action_text"
-                                android:layout_alignParentRight="true"
-                                style="@style/green_whiteText"
-                                android:textSize="@dimen/big_font"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <FrameLayout
-                android:id="@+id/course_naming_result_container"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/over_medium_padding"
-                android:paddingBottom="@dimen/over_medium_padding"
-                android:visibility="gone"/>
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/sign_in_status_icon_size"
+                    android:layout_height="@dimen/sign_in_status_icon_size"
+                    android:background="@drawable/check_green"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/small_size">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/sub_small_size"
+                            android:paddingBottom="@dimen/sub_small_size"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/course_naming_time_title_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/small_size"
+                                android:textSize="@dimen/sub_medium_font"
+                                android:text="@string/course_sign_in_time_title"/>
+
+                            <TextView
+                                android:id="@+id/course_naming_time_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sub_medium_font"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/sub_small_size"
+                            android:paddingBottom="@dimen/sub_small_size"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sub_medium_font"
+                                android:text="    "/>
+
+                            <ImageView
+                                android:layout_width="@dimen/small_icon_size"
+                                android:layout_height="@dimen/small_icon_size"
+                                android:layout_marginRight="@dimen/small_size"
+                                android:src="@drawable/bell"/>
+
+                            <TextView
+                                android:id="@+id/left_time_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sub_medium_font"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/naming_action_text"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/green_whiteText"
+                                    android:textSize="@dimen/big_font"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/naming_result_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_size"
+                android:paddingBottom="@dimen/over_small_size"
+                android:visibility="gone">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:rowCount="2"
+                    android:columnCount="2">
+
+                    <TextView
+                        android:paddingRight="@dimen/over_small_size"
+                        android:layout_marginBottom="@dimen/over_small_size"
+                        android:textSize="@dimen/medium_font"
+                        android:text="@string/course_naming_sign_in_num_title"/>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/over_small_size"
+                        android:paddingLeft="@dimen/over_small_size"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/sub_small_size"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/sign_in_num_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/sub_small_size"
+                                android:paddingBottom="@dimen/sub_small_size"
+                                android:textColor="@color/green"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/"
+                                android:paddingBottom="@dimen/sub_small_size"/>
+
+                            <TextView
+                                android:id="@+id/total_num_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/sub_small_size" />
+
+                            <ImageView
+                                android:layout_width="@dimen/small_icon_size"
+                                android:layout_height="@dimen/small_icon_size"
+                                android:layout_marginTop="@dimen/sub_sub_small_size"
+                                android:src="@drawable/user"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <FrameLayout
+                                android:id="@+id/color_bar_container"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/sub_small_size"
+                                android:paddingRight="@dimen/small_size"/>
+
+                            <TextView
+                                android:id="@+id/percent_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/small_size"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="@dimen/small_size"
+                            android:textSize="@dimen/medium_font"
+                            android:text="@string/course_naming_absent_list_title"/></RelativeLayout>
+
+                     <TextView
+                         android:id="@+id/absent_list_text"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="@dimen/small_size"
+                         android:singleLine="false"
+                         android:maxLines="3"
+                         android:ellipsize="end"/>
+
+                </GridLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin">
+                    <LinearLayout
+                        android:id="@+id/zhankai_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/zhankai_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:textSize="@dimen/small_font"
+                            android:textColor="@color/green"
+                            android:text="@string/zhankai"/>
+
+                        <ImageView
+                            android:id="@+id/zhankai_image"
+                            android:layout_width="@dimen/small_icon_size"
+                            android:layout_height="@dimen/small_icon_size"
+                            android:src="@drawable/down"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -122,8 +251,8 @@
             android:layout_marginTop="@dimen/big_padding"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding"
+            android:paddingTop="@dimen/small_size"
+            android:paddingBottom="@dimen/small_size"
             android:textSize="@dimen/big_font"
             android:textColor="@color/green"
             android:background="@drawable/dark_very_light_thin_bottom_border"
@@ -132,11 +261,11 @@
         <ListView
             android:id="@+id/course_naming_history_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding"
+            android:paddingTop="@dimen/small_size"
+            android:paddingBottom="@dimen/small_size"
             android:divider="@null"
             android:scrollbars="none">
         </ListView>

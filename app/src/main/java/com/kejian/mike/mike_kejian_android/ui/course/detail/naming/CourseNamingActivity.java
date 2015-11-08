@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,9 +53,13 @@ public class CourseNamingActivity extends AppCompatActivity {
     private TextView leftTimeClock;
     private TextView namingActionText;
 
+    private ViewGroup namingResultLayout;
+
     private Dialog timeSetDialog;
 
     private TimerThread timerThread;
+
+    private TimerThread getNamingResultThread;
 
     private int taskCountDown;
 
@@ -70,6 +75,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
+        namingResultLayout = (ViewGroup)findViewById(R.id.naming_result_layout);
         mainLayout.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -131,9 +137,11 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         namingTimeTitleText.setText(R.string.course_naming_type_qiandao);
         namingActionText.setText(R.string.course_naming_on_naming);
+        namingActionText.setTextColor(getResources().getColor(R.color.white));
         namingActionText.setEnabled(false);
         long leftTime = currentNaming.getLeftMillis();
         startLeftTimeClock(leftTime);
+        startGettingNamingResult(leftTime);
     }
 
     private void startLeftTimeClock(long leftTime) {
@@ -158,6 +166,23 @@ public class CourseNamingActivity extends AppCompatActivity {
         };
         timerThread = new TimerThread(timer);
         timerThread.start();
+    }
+
+    private void startGettingNamingResult(long leftTime) {
+        CountDownTimer timer = new CountDownTimer(leftTime, 10000L) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                new GetNamingResultTask().execute();
+            }
+
+            @Override
+            public void onFinish() {
+                new GetNamingResultTask().execute();
+            }
+        };
+        getNamingResultThread = new TimerThread(timer);
+        getNamingResultThread.start();
     }
 
     private void setViewOnNamingNotStart() {
@@ -186,7 +211,7 @@ public class CourseNamingActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         View v = getLayoutInflater().inflate(R.layout.layout_time_dialog, null);
         final EditText continueTimeText = (EditText)v.findViewById(R.id.continue_time_text);
-        continueTimeText.setText("5");
+        continueTimeText.setText("8");
         continueTimeText.requestFocus();
         View confirmView = v.findViewById(R.id.confirm_text);
         confirmView.setOnClickListener(new View.OnClickListener() {
@@ -227,23 +252,14 @@ public class CourseNamingActivity extends AppCompatActivity {
     }
 
     private void setViewOnNamingFinish() {
-        if(namingActionText == null)
-            return;
-
         namingActionText.setText(R.string.course_naming_finish);
-        namingActionText.setBackgroundColor(getResources().getColor(R.color.dark_light));
         namingActionText.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE);
-        Toast.makeText(this, R.string.on_getting_naming_result, Toast.LENGTH_SHORT).show();
-        new GetNamingResultTask().execute();
     }
 
     private void setViewOnBeginNamingSuccess(CourseNamingRecord namingRecord) {
         if(progressBar == null)
             return;
         progressBar.setVisibility(View.GONE);
-        namingActionText.setText(R.string.course_naming_begin_naming);
-        namingActionText.setEnabled(false);
         setViewOnNaming(namingRecord);
     }
 
@@ -261,45 +277,50 @@ public class CourseNamingActivity extends AppCompatActivity {
         if(progressBar == null)
             return;
 
-        if(namingResult == null)
+        if(namingResult == null) {
+            Log.e(TAG, "naming result null");
             return;
+        }
 
-        progressBar.setVisibility(View.GONE);
-
-        View resultView = getLayoutInflater().inflate(R.layout.layout_course_naming_result, null);
-        TextView statsText = (TextView)resultView.findViewById(R.id.stats_text);
+        TextView signInNumText = (TextView)namingResultLayout.findViewById(R.id.sign_in_num_text);
         int signInNum = namingResult.getSignInNum();
+        signInNumText.setText(Integer.toString(signInNum));
+
+        TextView totalNumText = (TextView)namingResultLayout.findViewById(R.id.total_num_text);
         int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
-        String statsStr = Integer.toString(signInNum) + "/" + Integer.toString(totalNum);
-        statsText.setText(statsStr);
+        totalNumText.setText(Integer.toString(totalNum));
 
         ColorBar colorBar = ColorBar.getDefaultStyleColorBar(
                 CourseNamingActivity.this, (((double) signInNum) / totalNum));
-        ViewGroup colorBarContainer = (ViewGroup)findViewById(R.id.color_bar_container);
+        ViewGroup colorBarContainer = (ViewGroup)namingResultLayout.findViewById(R.id.color_bar_container);
         colorBarContainer.addView(colorBar);
 
         double percent = signInNum / (double)totalNum;
-        TextView percentText = (TextView)resultView.findViewById(R.id.percent_text);
-        percentText.setText(Double.toString(NumberUtil.round(percent, 3) * 100));
+        TextView percentText = (TextView)namingResultLayout.findViewById(R.id.percent_text);
+        percentText.setText(Double.toString(NumberUtil.round(percent, 3) * 100) + "%");
+        setTextColorAccordingToRate(percentText, percent);
 
-        TextView absentListText = (TextView)resultView.findViewById(R.id.absent_list_text);
+        TextView absentListText = (TextView)namingResultLayout.findViewById(R.id.absent_list_text);
         String absentListStr = convertToString(namingResult.getAbsentNames(),
                 namingResult.getAbsentIds());
         absentListText.setText(absentListStr);
-        resultView.setVisibility(View.VISIBLE);
 
-        initTextExpandLayout(resultView, absentListText);
-    }
-
-    private void initTextExpandLayout(View convertView, TextView contentText) {
-        ViewGroup zhankaiLayout = (ViewGroup)convertView.findViewById(R.id.zhankai_layout);
-        TextView zhankaiText = (TextView)convertView.findViewById(R.id.zhankai_text);
-        ImageView zhankaiImage = (ImageView)convertView.findViewById(R.id.zhankai_image);
-        TextExpandListener textExpandListener = new TextExpandListener(contentText, zhankaiText,
+        ViewGroup zhankaiLayout = (ViewGroup)namingResultLayout.findViewById(R.id.zhankai_layout);
+        TextView zhankaiText = (TextView)namingResultLayout.findViewById(R.id.zhankai_text);
+        ImageView zhankaiImage = (ImageView)namingResultLayout.findViewById(R.id.zhankai_image);
+        TextExpandListener textExpandListener = new TextExpandListener(absentListText, zhankaiText,
                 zhankaiImage, 3);
         zhankaiLayout.setOnClickListener(textExpandListener);
+
+        namingResultLayout.setVisibility(View.VISIBLE);
     }
 
+    private void setTextColorAccordingToRate(TextView rateText, double rate) {
+        if (rate < 0.6)
+            rateText.setTextColor(getResources().getColor(R.color.red));
+        else
+            rateText.setTextColor(getResources().getColor(R.color.green));
+    }
 
     private String convertToString(ArrayList<String> absentNames, ArrayList<String> ids) {
         StringBuilder strBuilder = new StringBuilder();
@@ -310,7 +331,7 @@ public class CourseNamingActivity extends AppCompatActivity {
             strBuilder.append("(");
             strBuilder.append(sid);
             strBuilder.append(")");
-            if(i != absentNames.size())
+            if(i != (absentNames.size() - 1))
                 strBuilder.append("、");
         }
         return strBuilder.toString();
@@ -326,12 +347,15 @@ public class CourseNamingActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(timerThread != null) {
+        if(timerThread != null && getNamingResultThread != null) {
             try {
                 timerThread.join();
+                getNamingResultThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        } else {
+            Log.i(TAG, "thread null onDestroy");
         }
     }
 
@@ -375,7 +399,8 @@ public class CourseNamingActivity extends AppCompatActivity {
             viewHolder.statusText.setText(statsStr);
 
             double joinRate = (totalNum != 0)? ((double)signInNum) / totalNum: 0.0;
-            viewHolder.percentText.setText(Double.toString(NumberUtil.round(joinRate, 3) * 100));
+            viewHolder.percentText.setText(Double.toString(NumberUtil.round(joinRate, 3) * 100) +
+                    "%");
             setTextColorAccordingToRate(viewHolder.percentText, joinRate);
 
             return convertView;
@@ -449,8 +474,11 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private class GetNamingResultTask extends AsyncTask<Void, Void, CourseNamingRecord> {
 
+        int count = 0;
+
         @Override
         protected CourseNamingRecord doInBackground(Void... params) {
+            Log.i(TAG, "get naming result" + count++);
             CourseModel courseModel = CourseModel.getInstance();
             String courseId = courseModel.getCurrentCourseId();
             return CourseNamingNetService.getCurrentNamingRecord(courseId);

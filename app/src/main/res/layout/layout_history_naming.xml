@@ -10,14 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding"
-        android:paddingBottom="@dimen/small_padding"
+        android:paddingTop="@dimen/sub_small_size"
+        android:paddingBottom="@dimen/sub_small_size"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/medium_padding"
+            android:paddingRight="@dimen/small_size"
             android:textSize="@dimen/sub_medium_font"
             android:text="@string/course_naming_type_qiandao"/>
 
@@ -31,14 +31,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding"
-        android:paddingBottom="@dimen/small_padding"
+        android:paddingTop="@dimen/sub_small_size"
+        android:paddingBottom="@dimen/sub_small_size"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/medium_padding"
+            android:paddingRight="@dimen/small_size"
             android:textSize="@dimen/sub_medium_font"
             android:text="@string/course_naming_sign_in_stats_title"/>
 
@@ -46,15 +46,21 @@
             android:id="@+id/stats_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_medium_font"
-            android:drawableRight="@drawable/user_small"/>
+            android:textSize="@dimen/sub_medium_font"/>
+
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_marginTop="@dimen/sub_sub_small_size"
+            android:src="@drawable/user"/>
+
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding"
-        android:paddingBottom="@dimen/small_padding">
+        android:paddingTop="@dimen/sub_small_size"
+        android:paddingBottom="@dimen/sub_small_size">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,7 +71,8 @@
                 android:id="@+id/color_bar_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/over_medium_padding">
+                android:layout_marginTop="@dimen/small_size"
+                android:layout_marginRight="@dimen/over_small_size">
             </FrameLayout>
 
             <TextView

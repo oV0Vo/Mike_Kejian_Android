@@ -94,14 +94,14 @@ public class QuestionStatsActivity extends AppCompatActivity {
     }
 
     private void initAttrs() {
-        choiceColors[0] = getResources().getColor(R.color.orange);
-        choiceColors[1] = getResources().getColor(R.color.green2);
-        choiceColors[2] = getResources().getColor(R.color.blue);
-        choiceColors[3] = getResources().getColor(R.color.pink);
-        choiceColors[4] = getResources().getColor(R.color.yellow);
-        choiceColors[5] = getResources().getColor(R.color.dark);
-        choiceColors[6] = getResources().getColor(R.color.purple);
-        choiceColors[7] = getResources().getColor(R.color.brown);
+        choiceColors[0] = getResources().getColor(R.color.blue_light);
+        choiceColors[1] = getResources().getColor(R.color.blue);
+        choiceColors[2] = getResources().getColor(R.color.green_light);
+        choiceColors[3] = getResources().getColor(R.color.green);
+        choiceColors[4] = getResources().getColor(R.color.pink);
+        choiceColors[5] = getResources().getColor(R.color.purple);
+        choiceColors[6] = getResources().getColor(R.color.orange);
+        choiceColors[7] = getResources().getColor(R.color.yellow);
     }
 
     private void initQuestionContentView() {

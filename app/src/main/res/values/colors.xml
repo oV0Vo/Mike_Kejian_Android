@@ -10,7 +10,7 @@
     <color name="black">#000000</color>
     <color name="green">#16a085</color>
     <color name="green_half_trans">#7f16a085</color>
-    <color name="green_shallow">#16d085</color>
+    <color name="green_light">#FF37D0AF</color>
     <color name="grey">#bbbbbb</color>
     <color name="light_grey">#F2F2F2</color>
     <color name="red">#e7514c</color>
@@ -23,6 +23,7 @@
     <color name="trans">#ffffffff</color>
     <color name="orange">#FFE7B469</color>
     <color name="green2">#FF98D089</color>
+    <color name="blue_light">#FF4BBAFF</color>
     <color name="blue">#3e94ff</color>
     <color name="pink">#FFD05C7E</color>
     <color name="yellow">#FFE7DD06</color>

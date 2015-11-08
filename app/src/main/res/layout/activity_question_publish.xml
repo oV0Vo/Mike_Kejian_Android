@@ -32,8 +32,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingTop="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/small_size"
                 android:orientation="horizontal">
 
                 <TextView
@@ -63,14 +63,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_padding"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_size"
+                android:paddingBottom="@dimen/small_size"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/small_padding"
+                    android:paddingTop="@dimen/sub_small_size"
                     android:paddingRight="@dimen/over_big_padding"
                     android:text="@string/question_publish_type_title"
                     android:textSize="@dimen/big_font" />
@@ -85,7 +85,7 @@
                         android:id="@+id/question_publish_type_single_choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/sub_big_padding"
+                        android:paddingRight="@dimen/over_over_small_size"
                         android:textSize="@dimen/small_font"
                         android:text="@string/single_choice_question"/>
 
@@ -93,8 +93,8 @@
                         android:id="@+id/question_publish_type_multi_choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/sub_big_padding"
-                        android:paddingRight="@dimen/sub_big_padding"
+                        android:paddingLeft="@dimen/over_over_small_size"
+                        android:paddingRight="@dimen/over_over_small_size"
                         android:textSize="@dimen/small_font"
                         android:text="@string/multi_choice_question"/>
 
@@ -102,8 +102,8 @@
                         android:id="@+id/question_publish_type_other"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/sub_big_padding"
-                        android:paddingRight="@dimen/sub_big_padding"
+                        android:paddingLeft="@dimen/over_over_small_size"
+                        android:paddingRight="@dimen/over_over_small_size"
                         android:textSize="@dimen/small_font"
                         android:text="@string/other"/>
                 </RadioGroup>
@@ -112,8 +112,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_padding"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_size"
+                android:paddingBottom="@dimen/small_size"
                 android:orientation="horizontal">
 
                 <TextView
@@ -146,8 +146,8 @@
                 android:id="@+id/choice_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_padding"
-                android:paddingBottom="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_size"
+                android:paddingBottom="@dimen/small_size"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -198,8 +198,8 @@
                     android:id="@+id/choice_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/medium_padding"
-                    android:paddingBottom="@dimen/medium_padding"
+                    android:paddingTop="@dimen/small_size"
+                    android:paddingBottom="@dimen/small_size"
                     android:paddingLeft="@dimen/over_big_padding"
                     android:orientation="vertical">
                 </LinearLayout>

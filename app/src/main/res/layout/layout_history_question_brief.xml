@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/small_padding"
-        android:paddingBottom="@dimen/small_padding"
+        android:paddingTop="@dimen/sub_small_size"
+        android:paddingBottom="@dimen/sub_small_size"
         android:orientation="horizontal">
 
         <TextView
@@ -36,7 +36,7 @@
                     android:id="@+id/history_question_brief_join_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/medium_padding"
+                    android:layout_marginLeft="@dimen/small_size"
                     android:layout_gravity="right"
                     android:textColor="@color/red"
                     android:visibility="gone"/>
@@ -61,7 +61,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:maxLines="2"
         android:singleLine="false"
-        android:lineSpacingExtra="@dimen/small_padding"
+        android:lineSpacingExtra="@dimen/sub_small_size"
         android:ellipsize="end"
         android:textIsSelectable="true"/>
 

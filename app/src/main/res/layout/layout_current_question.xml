@@ -2,7 +2,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding"
+        android:paddingTop="@dimen/sub_small_size"
         android:paddingBottom="@dimen/over_medium_padding"
         android:background="@drawable/dark_round_bottom_border">
 
@@ -20,8 +20,8 @@
                 android:id="@+id/current_question_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/medium_padding"
-                android:paddingRight="@dimen/medium_padding"
+                android:paddingLeft="@dimen/small_size"
+                android:paddingRight="@dimen/small_size"
                 android:maxLines="3"
                 android:singleLine="false"
                 android:ellipsize="end"
@@ -31,10 +31,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/medium_padding"
-                android:paddingRight="@dimen/medium_padding"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding">
+                android:paddingLeft="@dimen/small_size"
+                android:paddingRight="@dimen/small_size"
+                android:paddingTop="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/sub_small_size">
 
                 <LinearLayout
                     android:id="@+id/zhankai_layout"
@@ -65,10 +65,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/medium_padding"
-                android:paddingRight="@dimen/medium_padding"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"
+                android:paddingLeft="@dimen/small_size"
+                android:paddingRight="@dimen/small_size"
+                android:paddingTop="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/sub_small_size"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -85,7 +85,7 @@
                             android:id="@+id/current_question_left_time_clock"
                             android:layout_width="@dimen/small_icon_size"
                             android:layout_height="@dimen/small_icon_size"
-                            android:layout_marginRight="@dimen/small_padding"
+                            android:layout_marginRight="@dimen/sub_small_size"
                             android:background="@drawable/bell"/>
 
                         <TextView

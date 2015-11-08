@@ -34,7 +34,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/sub_big_padding">
+                    android:layout_marginLeft="@dimen/over_over_small_size">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -46,14 +46,14 @@
                             android:id="@+id/author_name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/small_padding"
+                            android:paddingBottom="@dimen/sub_small_size"
                             android:textSize="@dimen/sub_big_font"
                             android:textStyle="bold"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/small_padding"
+                            android:paddingTop="@dimen/sub_small_size"
                             android:orientation="horizontal">
 
                             <TextView
@@ -78,8 +78,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"
+                android:paddingTop="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/sub_small_size"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/green_bottom_thin_border"
@@ -111,8 +111,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"
+                android:paddingTop="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/sub_small_size"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/green_bottom_thin_border"
@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="false"
-                    android:lineSpacingExtra="@dimen/small_padding"
+                    android:lineSpacingExtra="@dimen/sub_small_size"
                     android:textSize="@dimen/sub_medium_font"/>
 
             </LinearLayout>

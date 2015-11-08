@@ -23,7 +23,7 @@
             android:layout_height="28dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/medium_padding"
+            android:layout_margin="@dimen/small_size"
             android:background="@drawable/agree_gray"
             android:id="@+id/post_detail_praise_button"/>
 
@@ -34,7 +34,7 @@
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/medium_padding"
+            android:layout_margin="@dimen/small_size"
             android:background="@drawable/setting_item_selector"
             android:text="发送"
             android:id="@+id/post_detail_send_button"/>
@@ -44,9 +44,9 @@
             android:layout_height="wrap_content"
             android:textCursorDrawable="@null"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/medium_padding"
-            android:layout_marginRight="@dimen/medium_padding"
-            android:layout_margin="@dimen/medium_padding"
+            android:layout_marginLeft="@dimen/small_size"
+            android:layout_marginRight="@dimen/small_size"
+            android:layout_margin="@dimen/small_size"
             android:layout_toLeftOf="@id/post_detail_send_button"
             android:layout_toRightOf="@id/post_detail_praise_button"
             android:background="@drawable/custom_edit_text"

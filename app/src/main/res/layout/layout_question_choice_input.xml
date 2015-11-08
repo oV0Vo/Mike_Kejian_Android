@@ -30,7 +30,7 @@
         android:id="@+id/question_choice_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding"
+        android:paddingTop="@dimen/sub_small_size"
         android:textColor="@color/green"
         android:textSize="@dimen/medium_font"/>
 
@@ -38,8 +38,8 @@
         android:id="@+id/question_choice_choice_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/small_padding"
-        android:paddingBottom="@dimen/small_padding"
+        android:layout_marginLeft="@dimen/sub_small_size"
+        android:paddingBottom="@dimen/sub_small_size"
         android:inputType="textMultiLine"
         android:textSize="@dimen/sub_medium_font"
         android:hint="@string/question_publish_choice_hint"

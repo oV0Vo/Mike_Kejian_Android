@@ -26,8 +26,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">@dimen/over_big_padding</item>
         <item name="android:paddingRight">@dimen/over_big_padding</item>
-        <item name="android:paddingTop">@dimen/small_padding</item>
-        <item name="android:paddingBottom">@dimen/small_padding</item>
+        <item name="android:paddingTop">@dimen/sub_small_size</item>
+        <item name="android:paddingBottom">@dimen/sub_small_size</item>
         <item name="android:textSize">@dimen/medium_font</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/green_round_corner</item>
@@ -47,8 +47,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:paddingTop">@dimen/sub_big_padding</item>
-        <item name="android:paddingBottom">@dimen/small_padding</item>
+        <item name="android:paddingTop">@dimen/over_over_small_size</item>
+        <item name="android:paddingBottom">@dimen/sub_small_size</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/sub_medium_font</item>
@@ -62,7 +62,6 @@
         <item name="android:paddingTop">@dimen/over_medium_padding</item>
         <item name="android:paddingBottom">@dimen/over_medium_padding</item>
         <item name="android:textSize">@dimen/big_font</item>
-        <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/dark_thin_bottom_border</item>
     </style>
 

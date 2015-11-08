@@ -23,30 +23,35 @@ public class ColorBar extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.layout_color_bar, this);
         this.setVisibility(View.GONE);
 
-        ImageView colorImage = (ImageView) findViewById(R.id.color_bar);
         GradientDrawable colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{beginColor, centerColor, endColor});
         double colorTextWidth = (width * colorBarPercent);
         colorDrawable.setSize((int) colorTextWidth, height);
-        if(colorBarPercent < 0.01)
-            colorDrawable.setCornerRadii(new float[]{13.0f, 13.0f, 0.0f, 0.0f, 0.0f, 0.0f, 13.0f,
-                    13.0f});
-        else
-            colorDrawable.setCornerRadii(new float[]{13.0f, 13.0f, 13.0f, 13.0f, 13.0f, 13.0f, 13.0f,
-                    13.0f});
+
+        GradientDrawable restDrawable = new GradientDrawable();
+        double restTextWidth = width - colorTextWidth;
+        restDrawable.setSize((int)restTextWidth, height);
+        restDrawable.setColor(restColor);
+
+        float radius = 10.0f;
+        if(colorBarPercent <= 0.99 && colorBarPercent >= 0.01) {
+            colorDrawable.setCornerRadii(new float[]{radius, radius, 0.0f, 0.0f, 0.0f, 0.0f, radius,
+                    radius});
+            restDrawable.setCornerRadii(new float[]{0.0f, 0.0f, radius, radius, radius, radius, 0.0f,
+                    0.0f});
+        } else if (colorBarPercent > 0.99){
+            colorDrawable.setCornerRadii(new float[]{radius, radius, radius, radius, radius, radius
+                    , radius, radius});
+        } else {
+            restDrawable.setCornerRadii(new float[]{radius, radius, radius, radius, radius, radius
+                    , radius, radius});
+        }
+
+
+        ImageView colorImage = (ImageView) findViewById(R.id.color_bar);
         colorImage.setBackgroundDrawable(colorDrawable);
 
         ImageView restView = (ImageView) findViewById(R.id.rest_color_bar);
-        GradientDrawable restDrawable = new GradientDrawable();
-        restDrawable.setColor(restColor);
-        if(colorBarPercent > 0.99)
-            restDrawable.setCornerRadii(new float[]{0.0f, 0.0f, 13.0f, 13.0f, 13.0f, 13.0f, 0.0f,
-                    0.0f});
-        else
-            restDrawable.setCornerRadii(new float[]{13.0f, 13.0f, 13.0f, 13.0f, 13.0f, 13.0f, 13.0f,
-                    13.0f});
-        double restTextWidth = width - colorTextWidth;
-        restDrawable.setSize((int)restTextWidth, height);
         restView.setBackgroundDrawable(restDrawable);
 
         this.setVisibility(View.VISIBLE);

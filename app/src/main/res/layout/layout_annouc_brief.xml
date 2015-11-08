@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/medium_padding"
+    android:layout_marginBottom="@dimen/small_size"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@drawable/dark_very_light_thin_bottom_border">
@@ -13,8 +13,8 @@
         android:id="@+id/annouc_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_size"
+        android:paddingBottom="@dimen/small_size"
         android:orientation="horizontal">
 
         <TextView
@@ -42,8 +42,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_size"
+        android:paddingBottom="@dimen/small_size"
         android:orientation="horizontal">
 
         <TextView

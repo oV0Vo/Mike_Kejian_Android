@@ -8,10 +8,10 @@
                 android:color="#AEAEAE" />
             <corners android:radius="2dp"/>
             <padding
-                android:bottom="@dimen/medium_padding"
-                android:left="@dimen/medium_padding"
-                android:right="@dimen/medium_padding"
-                android:top="@dimen/medium_padding" />
+                android:bottom="@dimen/small_size"
+                android:left="@dimen/small_size"
+                android:right="@dimen/small_size"
+                android:top="@dimen/small_size" />
        </shape>
     </item>
 

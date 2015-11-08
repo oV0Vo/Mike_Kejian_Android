@@ -9,13 +9,13 @@
         android:id="@+id/choice_index_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/medium_padding"/>
+        android:paddingRight="@dimen/small_size"/>
 
     <TextView
         android:id="@+id/choice_content_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/medium_padding"
+        android:paddingLeft="@dimen/small_size"
         android:singleLine="false"
         android:textIsSelectable="true" />
 </LinearLayout>

@@ -111,8 +111,47 @@ public class CourseNamingNetService {
                 JSONObject jRecord = new JSONObject(responseContent);
                 if (jRecord.length() == 0)
                     return null;
-                CourseNamingRecord namingRecord = parseCurrentNamingRecord(jRecord);
-                return namingRecord;
+
+                CourseNamingRecord record = new CourseNamingRecord();
+
+                String teacherId = jRecord.getString("user_id");
+                record.setTeacherId(teacherId);
+
+                String beginTimeStamp = jRecord.getString("begin_time");
+                Date beginTime = DateUtil.convertPhpTimeStamp(beginTimeStamp);
+                record.setBeginTime(beginTime);
+
+                String id = jRecord.getString("id");
+                record.setNamingId(id);
+
+                long lastTime = jRecord.getLong("last_time");
+                Date endTime = DateUtil.caculatePhpTime(beginTime, lastTime);
+                record.setEndTime(endTime);
+
+                long leftMillis = jRecord.getLong("leftTime");
+                record.setLeftMillis(leftMillis);
+
+                record.setTeacherName("");
+                int signInNum = jRecord.getInt("signInNum");
+                record.setSignInNum(signInNum);
+
+                JSONArray jAbsents = jRecord.getJSONArray("absentStudents");
+                ArrayList<String> absentIds = new ArrayList<String>(jAbsents.length());
+                ArrayList<String> absentNames = new ArrayList<String>(jAbsents.length());
+                for(int i=0; i<jAbsents.length(); ++i) {
+                    JSONObject jAbsent = jAbsents.getJSONObject(i);
+                    String absentId = jAbsent.getString("id");
+                    absentIds.add(absentId);
+                    Object absentName = jAbsent.get("name");
+                    if(JSONObject.NULL == absentName)
+                        absentNames.add("- -");
+                    else
+                        absentNames.add((String)absentName);
+                }
+                record.setAbsentIds(absentIds);
+                record.setAbsentNames(absentNames);
+
+                return record;
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e(TAG, "getCurrentNamingRecord json error");
@@ -131,18 +170,7 @@ public class CourseNamingNetService {
             return null;
         try {
             JSONObject jRecord = new JSONObject(responseContent);
-            CourseNamingRecord record = parseCurrentNamingRecord(jRecord);
-            return record;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e(TAG, "beginNaming json error");
-            return null;
-        }
-    }
 
-    private static CourseNamingRecord parseCurrentNamingRecord(JSONObject jRecord) {
-
-        try {
             CourseNamingRecord record = new CourseNamingRecord();
 
             String teacherId = jRecord.getString("user_id");
@@ -163,17 +191,16 @@ public class CourseNamingNetService {
             record.setLeftMillis(leftMillis);
 
             record.setTeacherName("");
-            record.setSignInNum(0);
             record.setAbsentIds(null);
             record.setAbsentNames(null);
 
             return record;
-
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG, "beginNaming json error");
             return null;
         }
     }
+
 
 }

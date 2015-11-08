@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/medium_font"
-            android:paddingRight="@dimen/sub_big_padding"
+            android:paddingRight="@dimen/over_over_small_size"
             android:text="@string/annoucement_publish_title_head"/>
 
         <EditText
@@ -52,7 +52,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/sub_big_padding">
+            android:paddingRight="@dimen/over_over_small_size">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

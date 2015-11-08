@@ -11,7 +11,7 @@
         android:id="@+id/annouc_publish_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_padding"
+        android:paddingBottom="@dimen/small_size"
         android:orientation="horizontal">
 
         <ImageView
@@ -31,8 +31,8 @@
         android:id="@+id/ask_question_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_size"
+        android:paddingBottom="@dimen/small_size"
         android:orientation="horizontal">
 
         <ImageView
@@ -52,8 +52,8 @@
         android:id="@+id/course_naming_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_size"
+        android:paddingBottom="@dimen/small_size"
         android:orientation="horizontal">
 
         <ImageView
@@ -73,7 +73,7 @@
         android:id="@+id/post_publish_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_size"
         android:orientation="horizontal">
 
         <ImageView

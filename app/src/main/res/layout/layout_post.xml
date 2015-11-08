@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/medium_padding">
+        android:padding="@dimen/small_size">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/medium_padding">
+            android:paddingLeft="@dimen/small_size">
 
             <TextView
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sub_small_font"
-                android:paddingTop="@dimen/small_padding"
+                android:paddingTop="@dimen/sub_small_size"
                 android:singleLine="true"
                 android:id="@+id/post_date" />
 
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:paddingTop="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_size"
                 android:orientation="horizontal"
                 android:gravity="right">
 
@@ -71,8 +71,8 @@
                     android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/up"
-                    android:maxHeight="@dimen/sub_small_icon_height"
-                    android:maxWidth="@dimen/sub_small_icon_width"
+                    android:maxHeight="@dimen/sub_small_icon_size"
+                    android:maxWidth="@dimen/sub_small_icon_size"
                     android:adjustViewBounds="true"/>
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_gravity="center"
                     android:textSize="@dimen/small_font"
                     android:text="0"
-                    android:layout_marginLeft="@dimen/small_padding"
+                    android:layout_marginLeft="@dimen/sub_small_size"
                     android:id="@+id/post_praise_num"/>
 
 
@@ -90,8 +90,8 @@
                     android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/eye"
-                    android:maxHeight="@dimen/sub_small_icon_height"
-                    android:maxWidth="@dimen/sub_small_icon_width"
+                    android:maxHeight="@dimen/sub_small_icon_size"
+                    android:maxWidth="@dimen/sub_small_icon_size"
                     android:adjustViewBounds="true"
                     android:layout_marginLeft="@dimen/big_padding"/>
 
@@ -101,7 +101,7 @@
                     android:layout_gravity="center"
                     android:textSize="@dimen/small_font"
                     android:text="0"
-                    android:layout_marginLeft="@dimen/small_padding"
+                    android:layout_marginLeft="@dimen/sub_small_size"
                     android:id="@+id/post_comment_num"/>
 
 

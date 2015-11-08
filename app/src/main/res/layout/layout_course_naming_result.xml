@@ -15,32 +15,32 @@
 
 
     <TextView
-        android:paddingRight="@dimen/sub_big_padding"
-        android:layout_marginBottom="@dimen/sub_big_padding"
+        android:paddingRight="@dimen/over_over_small_size"
+        android:layout_marginBottom="@dimen/over_over_small_size"
         android:textSize="@dimen/medium_font"
         android:text="@string/course_naming_sign_in_num_title"/>
 
     <LinearLayout
-        android:layout_marginBottom="@dimen/sub_big_padding"
-        android:paddingLeft="@dimen/sub_big_padding"
+        android:layout_marginBottom="@dimen/over_over_small_size"
+        android:paddingLeft="@dimen/over_over_small_size"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/small_padding"
+            android:paddingBottom="@dimen/sub_small_size"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/stats_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"/>
+                android:paddingRight="@dimen/sub_small_size"
+                android:paddingBottom="@dimen/sub_small_size"/>
 
             <ImageView
-                android:layout_width="@dimen/sub_small_icon_width"
-                android:layout_height="@dimen/sub_small_icon_height"
+                android:layout_width="@dimen/sub_small_icon_size"
+                android:layout_height="@dimen/sub_small_icon_size"
                 android:layout_marginTop="1dp"
                 android:src="@drawable/user"/>
         </LinearLayout>
@@ -53,25 +53,25 @@
                 android:id="@+id/color_bar_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/medium_padding"/>
+                android:paddingRight="@dimen/small_size"/>
 
             <TextView
                 android:id="@+id/percent_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/medium_padding"
+                android:paddingLeft="@dimen/small_size"
                 android:textColor="@color/green"/>
         </LinearLayout>
     </LinearLayout>
 
         <TextView
-            android:paddingRight="@dimen/sub_big_padding"
-            android:layout_marginTop="@dimen/sub_big_padding"
+            android:paddingRight="@dimen/over_over_small_size"
+            android:layout_marginTop="@dimen/over_over_small_size"
             android:textSize="@dimen/medium_font"
             android:text="course_naming_absent_list_title"/>
 
         <LinearLayout
-            android:paddingLeft="@dimen/sub_big_padding"
+            android:paddingLeft="@dimen/over_over_small_size"
             android:orientation="vertical">
 
             <TextView

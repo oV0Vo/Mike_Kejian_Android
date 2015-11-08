@@ -4,8 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/medium_padding"
-    android:paddingBottom="@dimen/medium_padding"
+    android:paddingTop="@dimen/small_size"
+    android:paddingBottom="@dimen/small_size"
     android:paddingLeft="@dimen/big_padding"
     android:paddingRight="@dimen/big_padding"
     android:background="@drawable/dark_thin_bottom_border">
@@ -27,8 +27,8 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding"
+            android:paddingTop="@dimen/small_size"
+            android:paddingBottom="@dimen/small_size"
             android:textSize="@dimen/sub_medium_font"
             android:textStyle="bold" />
 
@@ -44,8 +44,8 @@
             android:id="@+id/zhankai_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/medium_padding"
-            android:paddingBottom="@dimen/medium_padding">
+            android:paddingTop="@dimen/small_size"
+            android:paddingBottom="@dimen/small_size">
 
         </RelativeLayout>
     </LinearLayout>

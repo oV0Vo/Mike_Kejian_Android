@@ -9,16 +9,16 @@
         android:id="@+id/search_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_padding"/>
+        android:layout_margin="@dimen/small_size"/>
 
     <ListView
         android:id="@+id/user_info_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/sub_big_padding"
-        android:paddingRight="@dimen/sub_big_padding"
-        android:paddingTop="@dimen/medium_padding"
-        android:paddingBottom="@dimen/medium_padding">
+        android:paddingLeft="@dimen/over_over_small_size"
+        android:paddingRight="@dimen/over_over_small_size"
+        android:paddingTop="@dimen/small_size"
+        android:paddingBottom="@dimen/small_size">
     </ListView>
 
 

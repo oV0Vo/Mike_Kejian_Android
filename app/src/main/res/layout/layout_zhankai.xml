@@ -10,7 +10,7 @@
         android:id="@+id/zhankai_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/small_padding"
+        android:paddingRight="@dimen/sub_small_size"
         android:textColor="@color/green"
         android:text="@string/zhankai"/>
 
@@ -18,7 +18,7 @@
         android:id="@+id/zhankai_image"
         android:layout_width="@dimen/over_small_icon_size"
         android:layout_height="@dimen/over_small_icon_size"
-        android:layout_marginBottom="@dimen/sub_small_padding"
+        android:layout_marginBottom="@dimen/sub_sub_small_size"
         android:src="@drawable/down"/>
 
 </LinearLayout>

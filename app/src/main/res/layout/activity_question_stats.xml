@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_size"
         android:paddingBottom="@dimen/big_padding">
 
         <LinearLayout
@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="@dimen/sub_medium_icon_width"
             android:layout_height="@dimen/sub_medium_icon_height"
-            android:layout_marginLeft="@dimen/over_medium_padding"
+            android:layout_marginLeft="@dimen/over_small_size"
             android:background="@drawable/question"/>
 
     </RelativeLayout>
@@ -64,8 +64,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/sub_big_padding"
-            android:paddingBottom="@dimen/sub_big_padding"
+            android:paddingTop="@dimen/over_over_small_size"
+            android:paddingBottom="@dimen/over_over_small_size"
             android:orientation="horizontal"
             android:background="@drawable/dark_thin_top_bottom_border">
 
@@ -107,32 +107,32 @@
             android:columnCount="2">
 
             <TextView
-                android:layout_marginBottom="@dimen/over_medium_padding"
-                android:paddingRight="@dimen/over_medium_padding"
+                android:layout_marginBottom="@dimen/over_small_size"
+                android:paddingRight="@dimen/over_small_size"
                 android:text="@string/question_answer_stats_join_num_title"/>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/over_medium_padding"
-                android:paddingLeft="@dimen/over_medium_padding"
+                android:layout_marginBottom="@dimen/over_small_size"
+                android:paddingLeft="@dimen/over_small_size"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/small_padding"
+                    android:paddingBottom="@dimen/sub_small_size"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/join_num_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/small_padding"
-                        android:paddingBottom="@dimen/small_padding"/>
+                        android:paddingRight="@dimen/sub_small_size"
+                        android:paddingBottom="@dimen/sub_small_size"/>
 
                     <ImageView
-                        android:layout_width="@dimen/sub_small_icon_width"
-                        android:layout_height="@dimen/sub_small_icon_height"
-                        android:layout_marginTop="@dimen/sub_small_padding"
+                        android:layout_width="@dimen/sub_small_icon_size"
+                        android:layout_height="@dimen/sub_small_icon_size"
+                        android:layout_marginTop="@dimen/sub_sub_small_size"
                         android:src="@drawable/user"/>
                 </LinearLayout>
 
@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/sub_small_size"
-                        android:paddingRight="@dimen/medium_padding"/>
+                        android:paddingRight="@dimen/small_size"/>
 
                     <TextView
                         android:id="@+id/join_rate_text"
@@ -156,33 +156,33 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="@dimen/over_medium_padding"
-                android:layout_marginBottom="@dimen/over_medium_padding"
+                android:layout_marginTop="@dimen/over_small_size"
+                android:layout_marginBottom="@dimen/over_small_size"
                 android:text="@string/question_answer_stats_correct_rate_title"/>
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/medium_padding"
-                android:layout_marginTop="@dimen/over_medium_padding"
-                android:layout_marginBottom="@dimen/over_medium_padding"
+                android:layout_marginLeft="@dimen/small_size"
+                android:layout_marginTop="@dimen/over_small_size"
+                android:layout_marginBottom="@dimen/over_small_size"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/small_padding"
+                    android:paddingBottom="@dimen/sub_small_size"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/correct_num_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/small_padding"
-                        android:paddingBottom="@dimen/small_padding"/>
+                        android:paddingRight="@dimen/sub_small_size"
+                        android:paddingBottom="@dimen/sub_small_size"/>
 
                     <ImageView
-                        android:layout_width="@dimen/sub_small_icon_width"
-                        android:layout_height="@dimen/sub_small_icon_height"
-                        android:layout_marginTop="@dimen/sub_small_padding"
+                        android:layout_width="@dimen/sub_small_icon_size"
+                        android:layout_height="@dimen/sub_small_icon_size"
+                        android:layout_marginTop="@dimen/sub_sub_small_size"
                         android:src="@drawable/user"/>
                 </LinearLayout>
 
@@ -195,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/sub_small_size"
-                        android:paddingRight="@dimen/medium_padding"/>
+                        android:paddingRight="@dimen/small_size"/>
 
                     <TextView
                         android:id="@+id/correct_rate_text"
@@ -207,7 +207,7 @@
 
             <TextView
                 android:id="@+id/distribute_title_text"
-                android:paddingTop="@dimen/over_medium_padding"
+                android:paddingTop="@dimen/over_small_size"
                 android:text="@string/question_answer_stats_distribute_title"/>
 
             <com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout
@@ -227,8 +227,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/sub_big_padding"
-        android:paddingBottom="@dimen/sub_big_padding"
+        android:paddingTop="@dimen/over_over_small_size"
+        android:paddingBottom="@dimen/over_over_small_size"
         android:orientation="horizontal"
         android:background="@drawable/dark_thin_bottom_border">
 
@@ -271,7 +271,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sub_big_padding"
+                android:layout_marginTop="@dimen/over_over_small_size"
                 android:gravity="center"
                 android:text="@string/no_more_answer"/>
         </LinearLayout>

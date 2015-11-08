@@ -129,7 +129,6 @@ public class CourseQuestionFragment extends Fragment {
                 strBuilder.append("\n");
                 strBuilder.append("  ");
                 String indexStr = Character.toString((char)('A' + i));
-                Log.i(TAG, "question choice " + indexStr);
                 strBuilder.append(indexStr);
                 strBuilder.append("  ");
                 String choiceContent = choiceContents.get(i);

@@ -58,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/main_course_brief_academy_prefix"
-                        android:paddingRight="@dimen/medium_padding"/>
+                        android:paddingRight="@dimen/small_size"/>
 
                     <TextView
                         android:id="@+id/course_brief_academy"
@@ -82,7 +82,7 @@
                         android:id="@+id/teacher_name_text"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingLeft="@dimen/medium_padding"/>
+                        android:paddingLeft="@dimen/small_size"/>
 
                 </LinearLayout>
 

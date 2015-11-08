@@ -17,6 +17,7 @@
     <dimen name="negative_one_medium_font">-5dp</dimen>
 
     <!-- size 下面的很多东西都应该归到这个size里面的-->
+    <dimen name="sub_sub_small_size">1dp</dimen>
     <dimen name="sub_small_size">3dp</dimen>
     <dimen name="course_brief_padding">5dp</dimen>
     <dimen name="small_size">6dp</dimen>
@@ -31,12 +32,8 @@
     <dimen name="extreme_big_size">42dp</dimen>
 
     <!--padding-->
-    <dimen name="sub_small_padding">1dp</dimen>
-    <dimen name="small_padding">3dp</dimen>
     <dimen name="sub_medium_padding">5dp</dimen>
-    <dimen name="medium_padding">6dp</dimen>
     <dimen name="over_medium_padding">8dp</dimen>
-    <dimen name="sub_big_padding">12dp</dimen>
     <dimen name="big_padding">16dp</dimen>
     <dimen name="over_big_padding">20dp</dimen>
 
@@ -86,8 +83,6 @@
     <dimen name="small_icon_width">20dp</dimen>
     <dimen name="small_icon_height">20dp</dimen>
     <dimen name="sub_small_icon_size">15dp</dimen>
-    <dimen name="sub_small_icon_width">15dp</dimen>
-    <dimen name="sub_small_icon_height">15dp</dimen>
 
     <dimen name="quiz_icon_width">105dp</dimen>
     <dimen name="quiz_icon_height">38dp</dimen>
@@ -98,7 +93,7 @@
     <dimen name="new_icon_width">40dp</dimen>
     <dimen name="new_icon_height">20dp</dimen>
 
-    <dimen name="color_bar_width">180dp</dimen>
+    <dimen name="color_bar_width">200dp</dimen>
     <dimen name="color_bar_height">10dp</dimen>
 
     <dimen name="choice_distribute_bar_width">30dp</dimen>
