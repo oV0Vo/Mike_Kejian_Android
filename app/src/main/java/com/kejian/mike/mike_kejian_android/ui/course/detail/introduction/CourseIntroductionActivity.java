@@ -259,7 +259,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
             String sid = data.getStringExtra("school_identify");
             if(sid.length() == 0) {
-                Toast.makeText(this, R.string.add_assistant_jw_not_bound, Toast.LENGTH_LONG)
+                Toast.makeText(this, R.string.add_assistant_jw_not_bound, Toast.LENGTH_SHORT)
                     .show();
                 return;
             }
@@ -488,7 +488,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(CourseIntroductionActivity.this,
-                                    R.string.show_interest_on_progress, Toast.LENGTH_LONG).show();
+                                    R.string.show_interest_on_progress, Toast.LENGTH_SHORT).show();
                             interestText.setEnabled(false);
                             interestText.setBackgroundColor(getResources().getColor(R.color.dark));
                             new ShowInterestTask().execute(courseDetail.getCourseId());

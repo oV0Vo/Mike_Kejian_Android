@@ -212,7 +212,7 @@ public class CommentsAreaFragment extends Fragment implements AbsListView.OnItem
                     mAdapter.notifyDataSetChanged();
                 }
             } else {
-                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "net_disconnet");
             }
         }

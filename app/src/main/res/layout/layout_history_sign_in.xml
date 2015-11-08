@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/medium_padding"
     android:paddingBottom="@dimen/medium_padding"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/dark_very_light_thin_bottom_border">
 
     <LinearLayout
@@ -57,23 +57,29 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true">
 
-        <ImageView
-            android:id="@+id/history_course_sign_in_state_image"
-            android:layout_width="@dimen/sub_medium_icon_size"
-            android:layout_height="@dimen/sub_medium_icon_size" />
-
-        <TextView
-            android:id="@+id/history_course_sign_in_state_text"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_small_font"/>
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/history_course_sign_in_state_image"
+                android:layout_width="@dimen/sub_medium_icon_size"
+                android:layout_height="@dimen/sub_medium_icon_size" />
+
+            <TextView
+                android:id="@+id/history_course_sign_in_state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sub_small_font"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -181,6 +181,7 @@
     <string name="course_sign_in_not_sign_in_status">未签到</string>
     <string name="course_sign_in_success">签到成功！</string>
     <string name="course_sign_in_miss">错过了</string>
+    <string name="course_sign_in_already_miss">已错过</string>
     <string name="course_sign_in_history_title">签到历史</string>
 
     <!--campus main-->

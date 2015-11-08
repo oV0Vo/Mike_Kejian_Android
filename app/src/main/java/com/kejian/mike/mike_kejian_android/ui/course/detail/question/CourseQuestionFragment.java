@@ -424,15 +424,13 @@ public class CourseQuestionFragment extends Fragment {
             notifytTaskFinished();
 
             if (!updateSuccess) {
-                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
-                Log.i(TAG, "UpdateHistoryQuestionTask net_disconnet");
+                Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
             }
 
             if(historyAdapter.getCount() != 0) {
                 if(historyListView.getVisibility() != View.VISIBLE) {
                     historyListView.setVisibility(View.VISIBLE);
                     historyEmptyText.setVisibility(View.GONE);
-                    Log.i(TAG, "historyEmptyText GONE");
                 } else {
                     Log.i(TAG, "???");
                 }
@@ -461,7 +459,7 @@ public class CourseQuestionFragment extends Fragment {
                 initCurrentQuestionContainer();
             } else {
                 if(getContext() != null)
-                    Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -507,8 +505,7 @@ public class CourseQuestionFragment extends Fragment {
 
             actionText.setEnabled(true);
             actionText.setText(R.string.shut_down_question_text);
-            Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
-            Log.i(TAG, "updateViewOnShutDownFail net disconnet");
+            Toast.makeText(getActivity(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -113,8 +113,6 @@ public class CourseSignInActivity extends AppCompatActivity {
         }
 
         if(currentNaming != null) {
-            Log.i(TAG, "has current naming");
-
             currentNamingId = currentNaming.getNamingId();
             signInActionText = (TextView)findViewById(R.id.course_sign_in_sign_in_text);
             signInStatusText = (TextView)findViewById(R.id.status_text);
@@ -135,6 +133,7 @@ public class CourseSignInActivity extends AppCompatActivity {
             TextView teacherNameText = (TextView)findViewById(R.id.
                     course_sign_in_teacher_text);
             String signInTeacher = currentNaming.getTeacherName();
+            Log.i(TAG, "signInTeacher" + signInTeacher);
             teacherNameText.setText(signInTeacher);
 
             final TextView leftTimeClock = (TextView)findViewById(R.id.left_time_text);
@@ -176,7 +175,6 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private void setNotLeftTimeText() {
         signInActionText.setEnabled(false);
-        signInActionText.setBackgroundColor(getResources().getColor(R.color.dark));
     }
 
     private void setNotSignInView() {
@@ -187,19 +185,19 @@ public class CourseSignInActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 new SignInTask().execute(currentNamingId);
                 signInActionText.setEnabled(false);
-                signInActionText.setBackgroundColor(getResources().getColor(R.color.dark));
             }
         });
 
-        signInStatusText.setBackground(getResources().getDrawable(R.drawable.dark_round));
-
+        signInStatusText.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_round));
+        signInStatusText.setText(R.string.course_sign_in_not_sign_in_status);
     }
 
     private void setHasSignInView() {
         signInActionText.setText(R.string.course_sign_in_already_sign_in);
         signInActionText.setEnabled(false);
 
-        signInStatusText.setBackground(getResources().getDrawable(R.drawable.green_round));
+        signInStatusText.setBackgroundDrawable(getResources().getDrawable(R.drawable.green_round));
+        signInStatusText.setText(R.string.course_sign_in_already_sign_in);
     }
 
     private void UpdateIfAllTaskFinish() {
@@ -211,18 +209,6 @@ public class CourseSignInActivity extends AppCompatActivity {
                 emptyText.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    private void updateViewOnSignInSuccess() {
-        setHasSignInView();
-    }
-
-    private void updateViewOnSignInFailure() {
-        Log.i(TAG, "updateViewOnSignInFailure");
-        Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
-        progressBar.setVisibility(View.GONE);
-        signInActionText.setBackgroundColor(getResources().getColor(R.color.green));
-        signInActionText.setEnabled(true);
     }
 
     @Override
@@ -324,10 +310,15 @@ public class CourseSignInActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean signInSuccess) {
+            if(progressBar == null)
+                return;
+            progressBar.setVisibility(View.GONE);
             if(signInSuccess) {
-                updateViewOnSignInSuccess();
+                setHasSignInView();
             } else {
-                updateViewOnSignInFailure();
+                Toast.makeText(CourseSignInActivity.this, R.string.net_disconnet,
+                        Toast.LENGTH_SHORT).show();
+                signInActionText.setEnabled(true);
             }
         }
     }

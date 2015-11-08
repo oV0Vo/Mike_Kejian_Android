@@ -252,7 +252,7 @@ public class CourseNamingActivity extends AppCompatActivity {
             return;
 
         progressBar.setVisibility(View.GONE);
-        Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_SHORT).show();
         namingActionText.setEnabled(true);
 
     }

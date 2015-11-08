@@ -84,6 +84,11 @@ public class CourseSignInNetService {
             String teacherId = jRecord.getString("user_id");
             record.setTeacherId(teacherId);
 
+            String teacherName = jRecord.getString("teacher_name");
+            if(JSONObject.NULL == teacherName)
+                teacherName = "暂无相关信息";
+            record.setTeacherName(teacherName);
+
             return record;
         } catch (JSONException e) {
             e.printStackTrace();

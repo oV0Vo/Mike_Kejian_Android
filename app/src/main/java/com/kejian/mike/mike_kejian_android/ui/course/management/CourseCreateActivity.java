@@ -140,7 +140,7 @@ public class CourseCreateActivity extends AppCompatActivity {
         protected void onPostExecute(NetOperateResultMessage resultMessage) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(CourseCreateActivity.this, R.string.course_create_success_message,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             CourseCreateActivity.this.finish();
         }
     }

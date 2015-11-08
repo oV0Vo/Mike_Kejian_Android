@@ -126,14 +126,14 @@ public class AnnoucDetailActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(success) {
                     Toast.makeText(AnnoucDetailActivity.this, R.string.annouc_put_on_top_success,
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     putOnTopView.setBackgroundColor(getResources().getColor(R.color.green));
                     putOnTopView.setText(R.string.annouc_already_put_on_top);
                     putOnTopView.setEnabled(false);
                     annouc.setOnTop(true);
                 } else {
                     Toast.makeText(AnnoucDetailActivity.this, R.string.net_disconnet,
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     putOnTopView.setBackgroundColor(getResources().getColor(R.color.green));
                     putOnTopView.setEnabled(true);
                 }

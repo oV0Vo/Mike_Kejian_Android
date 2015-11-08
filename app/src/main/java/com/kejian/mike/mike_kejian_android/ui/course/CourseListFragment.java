@@ -454,7 +454,7 @@ public class CourseListFragment extends Fragment{
                     Log.i(TAG, "no more ");
                 }
             } else {
-                Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_SHORT).show();
             }
         }
     }
