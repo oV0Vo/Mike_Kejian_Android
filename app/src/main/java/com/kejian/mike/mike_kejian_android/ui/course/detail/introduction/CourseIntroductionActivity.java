@@ -62,7 +62,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private TextView interestText;
 
-    private PushAgent pushAgent;
+    //private PushAgent pushAgent;
 
     private int searchRequestCode = 1000;
 
@@ -80,7 +80,7 @@ public class CourseIntroductionActivity extends AppCompatActivity {
         initTabButton();
         initViewPager();
         initInterestText();
-        initPushAgent();
+        //initPushAgent();
 
         UserTypeInCourse userTypeInCourse = CourseModel.getInstance().getUserTypeInCurrentCourse();
         if(userTypeInCourse == UserTypeInCourse.TEACHER) {
@@ -149,10 +149,10 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             deleteImage.setVisibility(View.GONE);
     }
 
-    private void initPushAgent() {
+    /*private void initPushAgent() {
         pushAgent = PushAgent.getInstance(this);
         pushAgent.onAppStart();
-    }
+    }*/
 
     private void initInterestText() {
         UserTypeInCourse userTypeInCourse = CourseModel.getInstance().getUserTypeInCurrentCourse();
@@ -462,11 +462,11 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     }
 
     private void openCoursePushService() {
-        try {
+        /*try {
             pushAgent.getTagManager().add(courseDetail.getCourseId());
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private class GetUserInterestTask extends AsyncTask<String, Void, Integer> {
