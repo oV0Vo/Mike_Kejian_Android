@@ -78,7 +78,7 @@ public class CourseInfoNetService {
 
             Object academyName = jCourseBrief.get("department_name");
             if(JSONObject.NULL == academyName) {
-                courseBrief.setAcademyName("无");
+                courseBrief.setAcademyName("暂无相关信息");
             }
             else {
                 courseBrief.setAcademyName((String)academyName);
@@ -280,7 +280,7 @@ public class CourseInfoNetService {
 
             Object academyName = jCourseDetail.get("department_name");
             if(JSONObject.NULL == academyName)
-                courseDetail.setAccademyName(null);
+                courseDetail.setAccademyName("暂无相关信息");
             else {
                 courseDetail.setAccademyName((String) academyName);
             }

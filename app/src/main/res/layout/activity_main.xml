@@ -17,6 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/small_size"
             android:layout_alignParentBottom="true"
             android:background="@drawable/dark_shadow_top_border"
             android:id="@+id/navigator_layout">
@@ -85,8 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/main_tab_size"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/over_medium_padding">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/course_tab_text"

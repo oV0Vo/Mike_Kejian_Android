@@ -53,11 +53,19 @@ public class CourseBriefInfoFragment extends Fragment {
 
         TextView teacherView = (TextView)layoutView.findViewById(R.id.course_detail_brief_teacher_text);
         ArrayList<String> teacherNames = courseDetailInfo.getTeacherNames();
-        String teacherNameStr = StringUtil.toString(teacherNames, " ");
+        String teacherNameStr = null;
+        if(teacherNames.size() != 0 && !teacherNames.get(0).isEmpty())
+            teacherNameStr = StringUtil.toString(teacherNames, " ");
+        else
+            teacherNameStr = "暂无相关信息";
         teacherView.setText(teacherNameStr);
 
         TextView timeAndPlaceText = (TextView)layoutView.findViewById(R.id.time_and_place_text);
-        timeAndPlaceText.setText(courseDetailInfo.getTimeAndPlace());
+        String timeAndPlace = courseDetailInfo.getTimeAndPlace();
+        if(timeAndPlace.length() != 0)
+            timeAndPlaceText.setText(timeAndPlace);
+        else
+            timeAndPlaceText.setText("暂无相关信息");
 
         layoutView.setOnClickListener(new onViewClickListener());
 

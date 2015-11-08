@@ -182,7 +182,11 @@ public class CourseListFragment extends Fragment{
                 allCourseList.setAdapter(allCourseAdapter);
                 allCourseList.setPullLoadEnable(true);
                 return;
-            } else if(showAllAcademy){
+            } else {
+                allCourseList.setPullLoadEnable(false);
+            }
+
+            if(showAllAcademy){
                 academyId = "";
             } else if(showAllCourseType) {
                 courseType = "";//java的string是不变的，不会改变传进来的值
@@ -236,6 +240,7 @@ public class CourseListFragment extends Fragment{
                     CourseAdapter resultAdapter = new CourseAdapter(getContext(),
                             android.R.layout.simple_list_item_1, results);
                     allCourseList.setAdapter(resultAdapter);
+                    allCourseList.setVisibility(View.VISIBLE);
                 } else {
                     allCourseList.setVisibility(View.GONE);
                     allCourseFilterEmptyText.setVisibility(View.VISIBLE);
@@ -364,7 +369,11 @@ public class CourseListFragment extends Fragment{
             viewHolder.academyNameText.setText(courseBriefInfo.getAcademyName());
 
             ArrayList<String> teacherNames = courseBriefInfo.getTeacherNames();
-            String teacherNameStr = StringUtil.toString(teacherNames, " ");
+            String teacherNameStr = null;
+            if(teacherNames.size() != 0 && !teacherNames.get(0).isEmpty())
+                teacherNameStr = StringUtil.toString(teacherNames, " ");
+            else
+                teacherNameStr = "暂无相关信息";
             viewHolder.teacherNameText.setText(teacherNameStr);
             convertView.setEnabled(false);
 
@@ -440,8 +449,10 @@ public class CourseListFragment extends Fragment{
             if(updateInfos != null) {
                 if(updateInfos.size() != 0)
                     allCourseAdapter.notifyDataSetChanged();
-                else
+                else {
                     allCourseList.setPullLoadEnable(false);
+                    Log.i(TAG, "no more ");
+                }
             } else {
                 Toast.makeText(getContext(), R.string.net_disconnet, Toast.LENGTH_LONG).show();
             }

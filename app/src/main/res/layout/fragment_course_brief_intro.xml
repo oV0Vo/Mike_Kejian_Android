@@ -1,16 +1,21 @@
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/medium_padding"
-    tools:context="com.kejian.mike.mike_kejian_android.ui.course.detail.introduction.CourseBriefIntroFragment">
+    android:paddingTop="@dimen/small_size"
+    android:paddingBottom="@dimen/small_size"
+    android:scrollbars="none">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/course_brief_intro_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="false"/>
+        android:paddingBottom="@dimen/extreme_big_size"
+        android:singleLine="false"
+        android:textIsSelectable="true"/>
 
     <TextView
         android:id="@+id/empty_text"
@@ -20,3 +25,4 @@
         android:visibility="gone"/>
 
 </RelativeLayout>
+    </ScrollView>

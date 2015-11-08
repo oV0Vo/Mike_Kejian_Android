@@ -35,16 +35,17 @@ public class CourseReferenceFragment extends Fragment {
         CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
 
         if(courseDetail == null) {
-            Log.e("CourseBriefIntro", "current course detail null!");
+            Log.e(TAG, "current course detail null!");
             return v;
         }
 
         TextView contentView = (TextView)v.findViewById(R.id.course_reference_content);
         String refrences = StringUtil.toString(courseDetail.getReferences(), "\n");
+        Log.i(TAG, "'" + refrences + "'");
         if(refrences == null) {
             Log.e(TAG, "refrences null!");
             showEmptyText(v);
-        } else if (refrences.length() == 0) {
+        } else if (refrences.isEmpty() || refrences.equals("0")) {
             showEmptyText(v);
         } else {
             contentView.setText(refrences);

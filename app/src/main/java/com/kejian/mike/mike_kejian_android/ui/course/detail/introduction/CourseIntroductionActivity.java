@@ -163,10 +163,14 @@ public class CourseIntroductionActivity extends AppCompatActivity {
 
     private void initCourseBrief() {
         TextView courseTitleView = (TextView)findViewById(R.id.course_intro_course_name);
-        courseTitleView.setText(courseDetail.getCourseName());
+        String courseName = courseDetail.getCourseName();
+        if(courseName.length() > 10) {
+            courseTitleView.setTextSize(getResources().getDimension(R.dimen.sub_big_font));
+        }
+        courseTitleView.setText(courseName);
 
         ImageView courseImage = (ImageView)findViewById(R.id.course_intro_image);
-       GetBitmapByPinyin.getBitmapByPinyin(
+        GetBitmapByPinyin.getBitmapByPinyin(
                 courseDetail.getCourseName(), this,courseImage);
 
         TextView courseAcademyView = (TextView)findViewById(R.id.course_intro_course_academy);

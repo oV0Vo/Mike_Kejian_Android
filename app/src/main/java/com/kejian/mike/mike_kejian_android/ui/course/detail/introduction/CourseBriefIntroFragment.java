@@ -34,16 +34,17 @@ public class CourseBriefIntroFragment extends Fragment {
         CourseDetailInfo courseDetail = CourseModel.getInstance().getCurrentCourseDetail();
 
         if(courseDetail == null) {
-            Log.e("CourseBriefIntro", "current course detail null!");
+            Log.e(TAG, "current course detail null!");
             return v;
         }
 
         TextView contentView = (TextView)v.findViewById(R.id.course_brief_intro_content);
         String outLine = courseDetail.getOutline();
+        Log.i(TAG, "'" + outLine + "'");
         if(outLine == null) {
             Log.e(TAG, "outLine null!");
             showEmptyText(v);
-        } else if (outLine.length() == 0) {
+        } else if (outLine.isEmpty() || outLine.equals("0")) {
             showEmptyText(v);
         } else {
             contentView.setText(outLine);

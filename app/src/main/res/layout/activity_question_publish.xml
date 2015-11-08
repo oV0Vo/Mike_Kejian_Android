@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/question_publish_commit_button"
+        android:paddingBottom="@dimen/over_medium_size"
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
