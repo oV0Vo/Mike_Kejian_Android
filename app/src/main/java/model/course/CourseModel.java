@@ -273,7 +273,7 @@ public class CourseModel {
     }
 
     public UserTypeInCourse getUserTypeInCurrentCourse() {
-        return UserTypeInCourse.TEACHER;
+        return currentUserType;
     }
 
     @NeedAsyncAnnotation
