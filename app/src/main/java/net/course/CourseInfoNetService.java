@@ -230,7 +230,12 @@ public class CourseInfoNetService {
                 courseBrief.setImageUrl(imageUrl);
 
                 String academyName = jCourseBrief.getString("department_name");
-                courseBrief.setAcademyName(academyName);
+                if(JSONObject.NULL == academyName) {
+                    courseBrief.setAcademyName("暂无相关信息");
+                }
+                else {
+                    courseBrief.setAcademyName((String)academyName);
+                }
 
                 JSONArray jTeachers = jCourseBrief.getJSONArray("teachers");
                 ArrayList<String> teacherNames = new ArrayList<String>(jTeachers.length());
