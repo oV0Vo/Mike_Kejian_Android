@@ -92,7 +92,19 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
         initAnswerLayout();
     }
-
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     private void initAttrs() {
         choiceColors[0] = getResources().getColor(R.color.blue_light);
         choiceColors[1] = getResources().getColor(R.color.blue);
