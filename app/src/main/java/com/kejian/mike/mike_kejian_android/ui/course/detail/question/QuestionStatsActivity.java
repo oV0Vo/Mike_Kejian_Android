@@ -51,8 +51,8 @@ public class QuestionStatsActivity extends AppCompatActivity {
     private static final int ANSWER_UPDATE_NUM = 10;
 
     private ProgressBar progressBar;
-
     private ViewGroup mainLayout;
+    private View netErrorView;
 
     private ViewGroup statsTitleLayout;
     private ViewGroup statsContentLayout;
@@ -66,6 +66,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
     private QuestionAnswerAdapter answerListAdapter;
 
     private int taskCountDown;
+    private boolean netError = false;
 
     private RequestQueue requestQueue;
 
@@ -86,6 +87,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.main_layout);
+        netErrorView = findViewById(R.id.net_error_text);
 
         initQuestionContentView();
 
@@ -216,12 +218,20 @@ public class QuestionStatsActivity extends AppCompatActivity {
         taskCountDown++;
     }
 
-    private void updateViewOnGetInitAnswers() {
-        answerListAdapter.notifyDataSetChanged();
-        showViewIfInitTaskFinish();
+    private void updateViewOnGetInitAnswers(boolean success) {
+        if(success)
+            answerListAdapter.notifyDataSetChanged();
+        else
+            netError = true;
+        updateViewIfInitTaskFinish();
     }
 
     private void updateViewOnGetQuestionStats(QuestionStats stats) {
+        if(stats == null) {
+            netError = true;
+            return;
+        }
+
         int joinNum = stats.getTotalAnswerNum();
         int totalNum = courseModel.getCurrentCourseDetail().getCurrentStudents();
         String joinNumStr = Integer.toString(joinNum) + "/" + Integer.toString(totalNum);
@@ -261,7 +271,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
             initChoiceDistributeView(stats.getChoiceDistribute());
         }
 
-        showViewIfInitTaskFinish();
+        updateViewIfInitTaskFinish();
     }
 
     private void initChoiceDistributeView(List<Integer> distributes) {
@@ -310,10 +320,13 @@ public class QuestionStatsActivity extends AppCompatActivity {
             rateText.setTextColor(getResources().getColor(R.color.green));
     }
 
-    private void showViewIfInitTaskFinish() {
+    private void updateViewIfInitTaskFinish() {
         if(taskCountDown == 0) {
             progressBar.setVisibility(View.GONE);
-            mainLayout.setVisibility(View.VISIBLE);
+            if(!netError)
+                mainLayout.setVisibility(View.VISIBLE);
+            else
+                netErrorView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -337,14 +350,18 @@ public class QuestionStatsActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             ArrayList<QuestionShowAnswer> initAnswers = CourseQuestionNetService.getQuestionAnswers
                     (question.getQuestionId(), question.getQuestionType());
-            answers.addAll(initAnswers);
-            return true;
+            if(initAnswers != null) {
+                answers.addAll(initAnswers);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         @Override
         protected void onPostExecute(Boolean success) {
             taskCountDown--;
-            updateViewOnGetInitAnswers();
+            updateViewOnGetInitAnswers(success);
         }
     }
 

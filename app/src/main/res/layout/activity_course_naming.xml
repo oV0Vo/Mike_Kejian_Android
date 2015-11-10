@@ -290,4 +290,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
+    <TextView
+        android:id="@+id/net_error_text"
+        style="@style/empty_text_style"
+        android:text="@string/net_disconnet"
+        android:visibility="gone"/>
+
 </RelativeLayout>

@@ -45,6 +45,8 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private ViewGroup mainLayout;
     private ProgressBar progressBar;
+    private View netErrorText;
+
     private TextView historyEmptyText;
     private ListView historyListView;
     private ArrayAdapter historyNamingAdapter;
@@ -66,6 +68,8 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private CourseModel courseModel;
 
+    private boolean netError = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,7 @@ public class CourseNamingActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         mainLayout = (ViewGroup)findViewById(R.id.course_naming_main_layout);
+        netErrorText = findViewById(R.id.net_error_text);
         namingResultLayout = (ViewGroup)findViewById(R.id.naming_result_layout);
         historyEmptyText = (TextView)findViewById(R.id.history_empty_text);
 
@@ -102,11 +107,17 @@ public class CourseNamingActivity extends AppCompatActivity {
             return;
         }
 
+        if(namingRecords == null) {
+            netError = true;
+            return;
+        }
+
         historyListView = (ListView)findViewById(R.id.course_naming_history_list);
         historyNamingAdapter = new HistoryNamingAdapter(this, android.R.layout.simple_list_item_1,
                 namingRecords);
         historyListView.setAdapter(historyNamingAdapter);
         if(namingRecords == null) {
+            netError = true;
             return;
         }
         if(namingRecords.size() == 0) {
@@ -118,7 +129,7 @@ public class CourseNamingActivity extends AppCompatActivity {
     }
 
     private void updateViewOnGetCurrentNaming(CourseNamingRecord currentNaming) {
-        if(progressBar == null)
+        if(mainLayout == null)
             return;
 
         namingTimeTitleText = (TextView)findViewById(R.id.course_naming_time_title_text);
@@ -345,8 +356,12 @@ public class CourseNamingActivity extends AppCompatActivity {
 
     private void updateViewIfAllTaskFinish() {
         if(taskCountDown == 0 && mainLayout != null) {
-            mainLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
+            if(!netError) {
+                mainLayout.setVisibility(View.VISIBLE);
+            } else {
+                netErrorText.setVisibility(View.VISIBLE);
+            }
         }
     }
 

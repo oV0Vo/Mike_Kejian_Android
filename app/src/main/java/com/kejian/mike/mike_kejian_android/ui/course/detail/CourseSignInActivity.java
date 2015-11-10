@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +34,10 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private ViewGroup mainLayout;
     private ProgressBar progressBar;
+    private View netErrorText;
 
     private TextView signInActionText;
     private TextView signInStatusText;
-
-    private TextView historyTitleText;
 
     private ListView historyListView;
     private HistorySignInAdapter historyAdapter;
@@ -49,9 +46,14 @@ public class CourseSignInActivity extends AppCompatActivity {
 
     private TimerThread timerThread;
 
-    private TextView emptyText;
+    private TextView wholeEmptyText;
+    private TextView historyEmptyText;
+    private TextView currentEmptyText;
 
-    private int notEmptyCount;
+    private boolean currentEmpty = false;
+    private boolean historyEmpty = false;
+
+    private boolean netError = false;
 
     private String currentNamingId;
 
@@ -63,8 +65,10 @@ public class CourseSignInActivity extends AppCompatActivity {
 
         mainLayout = (ViewGroup)findViewById(R.id.main_layout);
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-        emptyText = (TextView)findViewById(R.id.empty_text);
-        notEmptyCount = 2;
+        netErrorText = findViewById(R.id.net_error_text);
+        wholeEmptyText = (TextView)findViewById(R.id.empty_text);
+        historyEmptyText = (TextView)findViewById(R.id.history_empty_text);
+        currentEmptyText = (TextView)findViewById(R.id.current_empty_text);
 
         taskCountDown++;
         new GetHistorySignInTask().execute();
@@ -90,16 +94,15 @@ public class CourseSignInActivity extends AppCompatActivity {
         }
 
         if(records == null) {
-            Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_SHORT).show();
-            notEmptyCount--;
+            netError = true;
             return;
         }
 
         if(records.size() == 0) {
-            notEmptyCount--;
             return;
         }
 
+        historyEmpty = false;
         historyListView = (ListView)findViewById(R.id.course_sign_in_history_container);
         historyAdapter = new HistorySignInAdapter(this, android.R.layout.simple_list_item_1,
                 records);
@@ -114,6 +117,8 @@ public class CourseSignInActivity extends AppCompatActivity {
         }
 
         if(currentNaming != null) {
+            currentEmpty = false;
+
             currentNamingId = currentNaming.getNamingId();
             signInActionText = (TextView)findViewById(R.id.course_sign_in_sign_in_text);
             signInStatusText = (TextView)findViewById(R.id.status_text);
@@ -134,7 +139,6 @@ public class CourseSignInActivity extends AppCompatActivity {
             TextView teacherNameText = (TextView)findViewById(R.id.
                     course_sign_in_teacher_text);
             String signInTeacher = currentNaming.getTeacherName();
-            Log.i(TAG, "signInTeacher" + signInTeacher);
             teacherNameText.setText(signInTeacher);
 
             final TextView leftTimeClock = (TextView)findViewById(R.id.left_time_text);
@@ -165,10 +169,7 @@ public class CourseSignInActivity extends AppCompatActivity {
             currentNamingLayout.setVisibility(View.VISIBLE);
 
         } else {
-            Log.i(TAG, "has no current naming");
-            notEmptyCount--;
-            TextView noCurrentNamingText = (TextView)findViewById(R.id.no_current_naming_text);
-            noCurrentNamingText.setVisibility(View.VISIBLE);
+            currentEmpty = true;
         }
 
         UpdateIfAllTaskFinish();
@@ -204,11 +205,19 @@ public class CourseSignInActivity extends AppCompatActivity {
     private void UpdateIfAllTaskFinish() {
         if(taskCountDown == 0 && mainLayout != null) {
             progressBar.setVisibility(View.GONE);
-            if(notEmptyCount != 0) {
-                mainLayout.setVisibility(View.VISIBLE);
+            if(!netError) {
+                if(currentEmpty && historyEmpty) {
+                    wholeEmptyText.setVisibility(View.VISIBLE);
+                } else {
+                    mainLayout.setVisibility(View.VISIBLE);
+                    if(currentEmpty)
+                        currentEmptyText.setVisibility(View.VISIBLE);
+                    if(historyEmpty)
+                        historyEmptyText.setVisibility(View.VISIBLE);
+                }
             } else {
-                mainLayout.setVisibility(View.GONE);
-                emptyText.setVisibility(View.VISIBLE);
+                Toast.makeText(this, R.string.net_disconnet, Toast.LENGTH_SHORT).show();
+                netErrorText.setVisibility(View.VISIBLE);
             }
         }
     }

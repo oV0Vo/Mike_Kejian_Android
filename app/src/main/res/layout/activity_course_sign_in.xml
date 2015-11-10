@@ -15,10 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/big_padding"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/no_current_naming_text"
+            android:id="@+id/current_empty_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/medium_size"
@@ -156,6 +157,15 @@
             android:scrollbars="none"
             android:divider="@null">
         </ListView>
+
+        <TextView
+            android:id="@+id/history_empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sub_big_font"
+            android:textColor="@color/dark"
+            android:gravity="center"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <ProgressBar
@@ -168,6 +178,12 @@
         android:id="@+id/empty_text"
         style="@style/empty_text_style"
         android:text="@string/no_naming_record"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/net_error_text"
+        style="@style/empty_text_style"
+        android:text="@string/net_disconnet"
         android:visibility="gone"/>
 
 </RelativeLayout>

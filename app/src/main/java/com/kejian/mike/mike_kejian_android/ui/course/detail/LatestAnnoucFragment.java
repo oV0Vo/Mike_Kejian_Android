@@ -81,9 +81,8 @@ public class LatestAnnoucFragment extends Fragment {
     public void refreshView() {
         if(!initFinish)  //no need to refresh
             return;
-        Log.i(TAG, "refreshView");
         String courseId = CourseModel.getInstance().getCurrentCourseId();
-        new GetAnnoucsTask().execute(courseId);
+        new GetAnnoucsTask(true).execute(courseId);
     }
 
     private void updateViewOnGetAnnouc() {
@@ -117,6 +116,16 @@ public class LatestAnnoucFragment extends Fragment {
 
     private class GetAnnoucsTask extends AsyncTask<String, Void, Boolean> {
 
+        private boolean isOnRefresh;
+
+        public GetAnnoucsTask() {
+
+        }
+
+        public GetAnnoucsTask(boolean isOnRefresh) {
+            this.isOnRefresh = isOnRefresh;
+        }
+
         @Override
         protected Boolean doInBackground(String... params) {
             CourseModel courseModel = CourseModel.getInstance();
@@ -135,8 +144,8 @@ public class LatestAnnoucFragment extends Fragment {
             if(success) {
                 updateViewOnGetAnnouc();
             } else {
-                errorMessageText.setVisibility(View.VISIBLE);
-                Log.e(TAG, "update annoucs Fail");
+                if(!isOnRefresh)
+                    errorMessageText.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -12,16 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-    <TextView
-        android:id="@+id/error_message_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:textSize="@dimen/big_font"
-        android:text="@string/net_disconnet"
-        android:visibility="gone"/>
-
     <LinearLayout
         android:id="@+id/annouc_title_layout"
         android:layout_width="match_parent"
@@ -61,7 +51,20 @@
         android:textColor="@color/dark"
         android:gravity="center"
         android:text="@string/annoucement_no_annoucement"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/error_message_text"
+        android:layout_below="@id/annouc_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/over_small_size"
+        android:paddingBottom="@dimen/over_small_size"
+        android:textSize="@dimen/medium_font"
+        android:textColor="@color/dark"
+        android:gravity="center"
+        android:text="@string/net_disconnet"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/annouc_content_layout"

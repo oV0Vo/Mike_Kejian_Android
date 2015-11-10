@@ -280,9 +280,17 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        style="?android:attr/progressBarStyleLarge"
-        android:visibility="visible"/>
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/net_error_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/sub_big_font"
+        android:textColor="@color/dark"
+        android:text="@string/net_disconnet"
+        android:visibility="gone"/>
 
 </LinearLayout>
 </ScrollView>
