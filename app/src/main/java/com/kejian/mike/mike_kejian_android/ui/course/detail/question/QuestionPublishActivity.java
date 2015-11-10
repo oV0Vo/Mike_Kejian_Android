@@ -74,7 +74,19 @@ public class QuestionPublishActivity extends AppCompatActivity {
         initChoiceContainer();
         initCommitButton();
     }
-
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     private void initCommitButton() {
         commitButton = (Button)findViewById(R.id.question_publish_commit_button);
         commitButton.setOnClickListener(new CommitButtonListener());
