@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
@@ -46,8 +47,8 @@ public class CourseActivity extends AppCompatActivity implements
     private CourseModel courseModel;
 
     private ProgressBar progressBar;
-
     private ViewGroup mainLayout;
+    private View netErrorText;
 
     private CourseBriefInfoFragment courseBriefFg;
     private LatestAnnoucFragment annoucemntFg;
@@ -71,6 +72,7 @@ public class CourseActivity extends AppCompatActivity implements
         courseModel = CourseModel.getInstance();
         mainLayout = (ViewGroup)findViewById(R.id.course_detail_main_layout);
         progressBar = (ProgressBar)findViewById(R.id.course_progress_bar);
+        netErrorText = findViewById(R.id.net_error_text);
 
         this.setTitle(R.string.course_title);
 
@@ -399,6 +401,8 @@ public class CourseActivity extends AppCompatActivity implements
             return;
 
         progressBar.setVisibility(View.GONE);
+        netErrorText.setVisibility(View.VISIBLE);
+        Toast.makeText(this, R.string.net_disconnet,Toast.LENGTH_SHORT).show();
     }
 
     private void updateViewIfAllTaskFinish() {

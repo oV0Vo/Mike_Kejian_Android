@@ -20,6 +20,8 @@ public class HttpRequest {
 
     private static HttpRequest instance;
 
+    private static final int MAX_RETRY_TIMES = 10;
+
     public static HttpRequest getInstance(){
 
         if(instance==null){
@@ -38,7 +40,15 @@ public class HttpRequest {
 
     }
 
-    public synchronized  String sentPostRequest(String url,HashMap<String,Object> para){
+    public synchronized  String sentPostRequest(String url,HashMap<String,Object> para) {
+        for(int retryTimes = 0; retryTimes<MAX_RETRY_TIMES; ++retryTimes) {
+            String response = mSentPostRequest(url, para);
+            if(response != null)
+                return response;
+        }
+        return null;
+    }
+    public synchronized  String mSentPostRequest(String url,HashMap<String,Object> para){
 
         PrintWriter writer=null;
         BufferedReader reader=null;
@@ -111,13 +121,10 @@ public class HttpRequest {
 
         return result;
 
-
-
-
-
-
     }
-    public synchronized  String sentPostJSON(String url,JSONObject para){
+
+    @Deprecated
+    private synchronized  String mSentPostJSON(String url,JSONObject para){
 
         PrintWriter writer=null;
         BufferedReader reader=null;
@@ -130,7 +137,7 @@ public class HttpRequest {
             connection.setRequestProperty("accept","*/*");
             connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("connection","Keep-Alive");
-            connection.setRequestProperty("Cookie",(String)Global.getObjectByName("cookie"));
+            connection.setRequestProperty("Cookie", (String) Global.getObjectByName("cookie"));
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -191,7 +198,16 @@ public class HttpRequest {
 
     }
 
-    public synchronized  String sentGetRequest(String url,HashMap<String,String> para){
+    public synchronized  String sentGetRequest(String url,HashMap<String,String> para) {
+        for(int retryTimes = 0; retryTimes<MAX_RETRY_TIMES; ++retryTimes) {
+            String response = mSentGetRequest(url, para);
+            if(response != null)
+                return response;
+        }
+        return null;
+    }
+
+    private synchronized  String mSentGetRequest(String url,HashMap<String,String> para){
 
         String getUrl=url+mapToString(para);
         System.out.println(getUrl);
