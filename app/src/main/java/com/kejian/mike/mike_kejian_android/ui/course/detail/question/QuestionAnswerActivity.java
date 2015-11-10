@@ -74,7 +74,19 @@ public class QuestionAnswerActivity extends AppCompatActivity {
 
         setAnswerActionText();
     }
-
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch(itemId) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     private void setQuestionContentView(String questionContent) {
         TextView contentText = (TextView) findViewById(R.id.question_content_text);
         contentText.setText("  " + questionContent);
