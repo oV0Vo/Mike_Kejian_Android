@@ -94,12 +94,13 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
     private void initChoiceContainer() {
         choiceContainer = (ViewGroup)findViewById(R.id.choice_layout);
+        typeMask = singleChoiceMask;
         initChoiceNumButton();
         choiceContentContainer = (ViewGroup)findViewById(R.id.choice_container);
 
-        choiceContentViews = new ArrayList();
-        choiceButtons = new ArrayList();
-        correctButtonHints = new ArrayList();
+        choiceContentViews = new ArrayList<>();
+        choiceButtons = new ArrayList<>();
+        correctButtonHints = new ArrayList<>();
 
         setChoiceViewByNum(DEFAULT_CHOICE_NUM);
         choiceContentContainer.setVisibility(View.VISIBLE);
@@ -144,7 +145,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
 
                 switch (checkedId) {
                     case R.id.question_publish_type_single_choice:
-                        Log.e("QuestionPublish", "change to singleChoice");
                         if (multiChoiceBefore) {
                             clearCorrectChoices();
                         } else if (otherChoiceBefore) {
@@ -154,7 +154,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         break;
 
                     case R.id.question_publish_type_multi_choice:
-                        Log.e("QuestionPublish", "change to ,multiChoice");
                         if (singleChoiceBefore) {
                             clearCorrectChoices();
                         } else if (otherChoiceBefore) {
@@ -163,7 +162,6 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         typeMask = multiChoiceMask;
                         break;
                     case R.id.question_publish_type_other:
-                        Log.e("QuestionPublish", "change to otherChoice");
                         if (singleChoiceBefore) {
                             choiceContainer.setVisibility(View.INVISIBLE);
                         } else if (multiChoiceBefore) {
@@ -241,16 +239,17 @@ public class QuestionPublishActivity extends AppCompatActivity {
                 }
             }
         });
-        choiceButton.setOnClickListener(new View.OnClickListener() {
-            private int clickCount = 0;
-            @Override
-            public void onClick(View v) {
-                clickCount++;
-                RadioButton radioButton = (RadioButton)v;
-                if(clickCount % 2 == 0)
-                    radioButton.setChecked(false);
-            }
-        });
+        if(!isSingleChoice())
+            choiceButton.setOnClickListener(new View.OnClickListener() {
+                private int clickCount = 0;
+                @Override
+                public void onClick(View v) {
+                    clickCount++;
+                    RadioButton radioButton = (RadioButton)v;
+                    if(clickCount % 2 == 0)
+                        radioButton.setChecked(false);
+                }
+            });
         choiceButtons.add(choiceButton);
 
     }

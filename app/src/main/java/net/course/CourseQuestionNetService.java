@@ -418,7 +418,12 @@ public class CourseQuestionNetService {
         String url = BASE_URL + "answerQuestions/";
         HashMap<String, String> paraMap = new HashMap<String ,String >();
         paraMap.put("questionId", questionId);
-        paraMap.put("answer", answer);//@need encode
+        try {
+            answer = URLEncoder.encode(answer, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        paraMap.put("answer", answer);
         String response = httpRequest.sentGetRequest(url, paraMap);
         if(response == null)
             return null;
