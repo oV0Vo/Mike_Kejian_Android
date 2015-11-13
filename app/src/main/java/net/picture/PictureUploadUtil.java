@@ -65,6 +65,8 @@ public class PictureUploadUtil {
             while ((b = in.read()) != -1) {
                 out.write(b);
             }
+            System.out.println("json:"+new String(out.toByteArray()));
+
             JSONObject obj = new JSONObject(new String(out.toByteArray()));
             PictureLink link = new PictureLink(obj.getString("linkurl"), obj.getString("t_url"), obj.getString("s_url"));
             conn.disconnect();
@@ -73,6 +75,7 @@ public class PictureUploadUtil {
             //return null;
 
         }catch(Exception e){
+            System.out.println("error in load picture");
             e.printStackTrace();
         }
 

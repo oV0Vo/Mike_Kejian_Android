@@ -39,7 +39,11 @@ public class GetBitmapByPinyin {
 
         Random random=new Random();
 
-        String p="course"+(random.nextInt(9)+1);
+        int index=random.nextInt(9)+1;
+
+        if(index==6)index++;
+
+        String p="course"+index;
 
 //        String p="course5";
 

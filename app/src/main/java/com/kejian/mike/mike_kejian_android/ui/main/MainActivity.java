@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         if(getSupportActionBar() != null)
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
-        new MyReceiver();
+//        new MyReceiver();
 
         System.out.println("ID:" + JPushInterface.getRegistrationID(getApplicationContext()));
 
@@ -190,6 +190,8 @@ public class MainActivity extends AppCompatActivity
 
 
             }
+
+            Global.addGlobalItem("tag",h);
 
             JPushInterface.setAliasAndTags(getApplicationContext(),(ali==null?"":ali),h,null);
 

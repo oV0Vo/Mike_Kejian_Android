@@ -61,7 +61,8 @@
 
 
                 android:layout_marginLeft="100dp"
-                android:text="性别: 菇凉"/>
+                android:text="性别: 菇凉"
+                 />
         </TableRow>
         <TableRow
 
@@ -87,7 +88,12 @@
                 android:id="@+id/otherMajor"
 
                 android:layout_marginLeft="100dp"
-                android:text="专业: 宋词"/>
+
+
+                android:maxEms="6"
+                android:text="专业: 宋词"
+                android:singleLine="false"
+                 />
         </TableRow>
         <TableRow>
             <TextView

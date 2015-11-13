@@ -185,12 +185,25 @@ public class UserNetService {
                 userInfo.put("school_identify",userDataJson.getString("school_identify"));
                 userInfo.put("school_id",userDataJson.getString("school_id"));
                 userInfo.put("department_id", userDataJson.getString("department_id"));
+                if(userDataJson.has("major_name")) {String majorName=userDataJson.getString("major_name");
+
+                    if (majorName == null)
+                        majorName = "--";
+
+                    userInfo.put("major_name", majorName);
+
+                }else{
+
+                    userInfo.put("major_name", "--");
+                }
+
+
 
                 JSONObject jsonObject=new JSONObject(userDataJson.getString("departmentInfo"));
 
 
 
-                userInfo.put("department_name", jsonObject.getString("name"));
+                if(jsonObject.has("name"))userInfo.put("department_name", jsonObject.getString("name"));
 
 
                 return new user(userInfo);
