@@ -50,7 +50,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final PostViewHolder postViewHolder;
-        Post post = getItem(position);
+        final Post post = getItem(position);
         if(convertView == null) {
             String inflater = Context.LAYOUT_INFLATER_SERVICE;
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(inflater);
@@ -94,6 +94,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
 
                     @Override
                     public void onPostExecute(user u) {
+                        System.out.println("Test" + post.getTitle());
 
                         Intent intent = new Intent();
 
@@ -107,7 +108,7 @@ public class   PostAdapter extends ArrayAdapter<Post>{
                         getContext().startActivity(intent);
 
                     }
-                }.execute(postViewHolder.userId);
+                }.execute(post.getUserId());
             }
         });
 
