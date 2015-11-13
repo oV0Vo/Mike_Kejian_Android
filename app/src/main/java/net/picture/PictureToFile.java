@@ -46,7 +46,10 @@ public class PictureToFile {
 
 
 
-   if(stream!=null)bitmap.compress(format, quality, stream);
+   if(stream!=null){
+
+       System.out.println("icon:存到本地 "+"/sdcard/mike/user/" +path);
+       bitmap.compress(format, quality, stream);}
 
 
         System.out.println("file path:"+"/sdcard/mike/user/" +path);

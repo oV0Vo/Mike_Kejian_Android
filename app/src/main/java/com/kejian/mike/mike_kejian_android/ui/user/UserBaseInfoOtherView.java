@@ -125,7 +125,7 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
 
         department=(TextView)findViewById(R.id.otherDepartment);
         major=(TextView)findViewById(R.id.otherMajor);
-        grade=(TextView)findViewById(R.id.otherMajor);
+        grade=(TextView)findViewById(R.id.otherGrade);
         circleImageView=(CircleImageView)findViewById(R.id.other_user_photo_view);
 
         postNum=(TextView)findViewById(R.id.postNum);
@@ -145,10 +145,22 @@ public class UserBaseInfoOtherView extends AppCompatActivity{
             gender.setText("性别 :" + "菇凉");
 
         }
+        String departmentName=null;
+        if(friend.getDepartmentInfo()!=null) {
+            departmentName= friend.getDepartmentInfo().getName();
+            if(departmentName==null)departmentName="--";
+        }
+        String majorName=friend.getMajorName();
+        String gradeName=friend.getGrade();
+
+        if(majorName==null||majorName.equals("null"))majorName="--";
+        if(gradeName==null)gradeName="--";
+
         nickName.setText("昵称 :"+friend.getNick_name());
-        department.setText("院系 :"+friend.getDepartmentInfo().getName());
-        major.setText("专业 :"+friend.getMajorName());
-        grade.setText("年级 :"+friend.getGrade());
+        department.setText("院系 :"+departmentName);
+        major.setText("专业 :"+majorName);
+        if(gradeName.equals("0"))gradeName="--";
+        grade.setText("年级 :"+gradeName);
 
 
         course=(LinearLayout)findViewById(R.id.his_attention_course);

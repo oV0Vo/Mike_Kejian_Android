@@ -33,9 +33,13 @@ import net.course.CourseTeacherNetService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
+import cn.jpush.android.api.JPushInterface;
 import model.course.CourseModel;
 import model.helper.SearchType;
+import model.user.Global;
 import util.GetBitmapByPinyin;
 import util.StringUtil;
 
@@ -462,6 +466,12 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     }
 
     private void openCoursePushService() {
+
+       // JPushInterface.setAliasAndTags(getApplicationContext(), (ali == null ? "" : ali), h, null);
+        Set<String> set= new HashSet();
+        set.add("course_"+courseDetail.getCourseId());
+        set.addAll((Set<String>)Global.getObjectByName("tag"));
+        JPushInterface.setTags(getApplicationContext(),set,null);
         /*try {
             pushAgent.getTagManager().add(courseDetail.getCourseId());
         } catch (Exception e) {

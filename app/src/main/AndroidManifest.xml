@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kejian.mike.mike_kejian_android"
-    android:versionCode="2"
-    android:versionName="2.0" >
+    android:versionCode="5"
+    android:versionName="2.3" >
 
     <permission
         android:name="com.kejian.mike.mike_kejian_android.permission.JPUSH_MESSAGE"

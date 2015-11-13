@@ -72,6 +72,7 @@ public class DrawerViewAdapter extends BaseAdapter{
 
                 case 0:v=layoutInflater.inflate(R.layout.layout_user_photo,viewGroup,false);
                     user u=(user)Global.getObjectByName("user");
+                    if(u==null)return null;
 
                     final CircleImageView circleImageView=(CircleImageView)v.findViewById(R.id.photo);
                   if(u!=null)  if(u.getIcon().equals("")){
