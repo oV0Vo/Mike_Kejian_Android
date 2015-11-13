@@ -32,8 +32,6 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
     private ListView annoucListView;
     private AnnoucBriefAdapter annoucListAdapter;
 
-    private CourseAnnoucement onTopAnnouc;
-
     private CourseModel courseModel;
 
     @Override
@@ -69,8 +67,6 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
     }
 
     private void setOnTopAnnoucView(CourseAnnoucement topAnnouc) {
-        onTopAnnouc = topAnnouc;
-
         ViewGroup topAnnoucLayout = (ViewGroup)findViewById(R.id.top_annouc_layout);
         topAnnoucLayout.setVisibility(View.VISIBLE);
 
@@ -87,7 +83,7 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CourseAnnoucement annouc = (CourseAnnoucement)parent.getItemAtPosition(position);
-        courseModel.setCurrentFocusAnnouc(annouc);
+        courseModel.setFocusAnnouc(annouc);
         Intent i = new Intent(this, AnnoucDetailActivity.class);
         startActivity(i);
     }
@@ -95,9 +91,8 @@ public class AnnoucListActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onResume() {
         super.onResume();
-        CourseAnnoucement courseAnnouc = courseModel.getCurrentFocusAnnouc();
-        if(courseAnnouc != null && courseAnnouc!= onTopAnnouc) {
-            courseAnnouc.setOnTop(false);
+        CourseAnnoucement courseAnnouc = courseModel.getOnTopAnnouc();
+        if(courseAnnouc != null) {
             setOnTopAnnoucView(courseAnnouc);
         }
     }

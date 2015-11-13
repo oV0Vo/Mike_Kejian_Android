@@ -35,12 +35,14 @@ public class AnnoucDetailActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
 
+    private CourseModel courseModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annouc_detail);
 
-        CourseModel courseModel = CourseModel.getInstance();
+        courseModel = CourseModel.getInstance();
         annouc = courseModel.getCurrentFocusAnnouc();
 
         ImageView userImage = (ImageView)findViewById(R.id.user_image);
@@ -130,7 +132,7 @@ public class AnnoucDetailActivity extends AppCompatActivity {
                     putOnTopView.setText(R.string.annouc_already_put_on_top);
                     putOnTopView.setTextColor(getResources().getColor(R.color.white));
                     putOnTopView.setEnabled(false);
-                    annouc.setOnTop(true);
+                    courseModel.setOnTopAnnouc(annouc);
                 } else {
                     Toast.makeText(AnnoucDetailActivity.this, R.string.net_disconnet,
                             Toast.LENGTH_SHORT).show();

@@ -49,8 +49,6 @@ public class CourseModel {
     private CurrentCourseModel currentCourse;
     private UserTypeInCourse currentUserType;
 
-    private CourseAnnoucement focusAnnouc;
-
     private boolean noMoreAllCourseBriefs;
 
     private CourseModel() {
@@ -261,6 +259,22 @@ public class CourseModel {
         this.currentCourse.currentPost = currentPost;
     }
 
+    public CourseAnnoucement getOnTopAnnouc() {
+        return currentCourse.onTopAnnouc;
+    }
+
+    public void setOnTopAnnouc(CourseAnnoucement annouc) {
+        currentCourse.setOnTopAnnouc(annouc);
+    }
+
+    public void setFocusAnnouc(CourseAnnoucement annouc) {
+        currentCourse.focusAnnouc = annouc;
+    }
+
+    public CourseAnnoucement getCurrentFocusAnnouc() {
+        return currentCourse.focusAnnouc;
+    }
+
     @NeedAsyncAnnotation
     public boolean updateCourseDetail() {
         return updateCourseDetail(Integer.MAX_VALUE, TimeUnit.SECONDS);
@@ -273,7 +287,7 @@ public class CourseModel {
     }
 
     public UserTypeInCourse getUserTypeInCurrentCourse() {
-        return UserTypeInCourse.TEACHER;
+        return currentUserType;
     }
 
     @NeedAsyncAnnotation
@@ -283,14 +297,6 @@ public class CourseModel {
 
     public ArrayList<CourseAnnoucement> getAnnoucs() {
         return currentCourse.annoucs;
-    }
-
-    public CourseAnnoucement getOnTopAnnouc() {
-        ArrayList<CourseAnnoucement> annoucs = currentCourse.annoucs;
-        for(CourseAnnoucement annouc: annoucs)
-            if(annouc.isOnTop())
-                return annouc;
-        return null;
     }
 
     public CourseAnnoucement getLatestAnnouc() {
@@ -323,14 +329,6 @@ public class CourseModel {
         return currentCourse.answerFocusQuestion;
     }
 
-    public void setCurrentFocusAnnouc(CourseAnnoucement annouc) {
-        focusAnnouc = annouc;
-    }
-
-    public CourseAnnoucement getCurrentFocusAnnouc() {
-        return focusAnnouc;
-    }
-
     private class CurrentCourseModel {
 
         private String courseId;
@@ -347,6 +345,8 @@ public class CourseModel {
         private Post currentPost;
 
         private ArrayList<CourseAnnoucement> annoucs;
+        private CourseAnnoucement focusAnnouc;
+        private CourseAnnoucement onTopAnnouc;
 
         private static final int HISTORY_QUESTION_UPDATE_NUM = 20;
         private static final int CURRENT_QUESTION_UPDATE_NUM = 5;
@@ -408,6 +408,9 @@ public class CourseModel {
             if(updateInfos != null) {
                 annoucs.clear();
                 annoucs.addAll(updateInfos);
+                for(CourseAnnoucement annouc: updateInfos)
+                    if(annouc.isOnTop())
+                        onTopAnnouc = annouc;
             }
             return updateInfos != null;
         }
@@ -417,6 +420,16 @@ public class CourseModel {
                 return null;
             } else {
                 return annoucs.get(0);
+            }
+        }
+
+        public void setOnTopAnnouc(CourseAnnoucement annouc) {
+            annouc.setOnTop(true);
+            if(onTopAnnouc != null) {
+                onTopAnnouc.setOnTop(false);
+                onTopAnnouc = annouc;
+            } else {
+                onTopAnnouc = annouc;
             }
         }
     }
