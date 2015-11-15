@@ -43,7 +43,7 @@ public class CourseReferenceFragment extends Fragment {
         String refrences = StringUtil.toString(courseDetail.getReferences(), "\n");
         if(refrences == null) {
             showEmptyText(v);
-        } else if (refrences.isEmpty() || refrences.equals("0")) {
+        } else if (refrences.isEmpty() || refrences.trim().equals("0")) {
             showEmptyText(v);
         } else {
             contentView.setText(refrences);

@@ -173,10 +173,12 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             float subBigFont = getResources().getDimension(R.dimen.sub_big_font);
             int font = (int)(subBigFont / 2);
             courseTitleView.setTextSize(font);
+            courseTitleView.invalidate();
         }
         if(courseName.length() > 14) {
             courseTitleView.setMaxLines(2);
             courseTitleView.setEllipsize(TextUtils.TruncateAt.END);
+            courseTitleView.invalidate();
         }
         courseTitleView.setText(courseName);
 
@@ -461,7 +463,6 @@ public class CourseIntroductionActivity extends AppCompatActivity {
     private void setAlreadyInterestView() {
         interestText.setText(R.string.already_interest);
         interestText.setEnabled(false);
-        interestText.setBackgroundColor(getResources().getColor(R.color.dark));
         openCoursePushService();
     }
 
@@ -497,10 +498,9 @@ public class CourseIntroductionActivity extends AppCompatActivity {
                     interestText.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(CourseIntroductionActivity.this,
-                                    R.string.show_interest_on_progress, Toast.LENGTH_SHORT).show();
+                           /* Toast.makeText(CourseIntroductionActivity.this,
+                                    R.string.show_interest_on_progress, Toast.LENGTH_SHORT).show();*/
                             interestText.setEnabled(false);
-                            interestText.setBackgroundColor(getResources().getColor(R.color.dark));
                             new ShowInterestTask().execute(courseDetail.getCourseId());
                         }
                     });
@@ -533,7 +533,6 @@ public class CourseIntroductionActivity extends AppCompatActivity {
             else {
                 Toast.makeText(CourseIntroductionActivity.this, R.string.net_disconnet,
                         Toast.LENGTH_SHORT).show();
-                interestText.setBackgroundColor(getResources().getColor(R.color.green));
                 interestText.setEnabled(true);
             }
         }

@@ -115,7 +115,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/big_padding"
+                android:paddingBottom="@dimen/sub_medium_size"
                 android:paddingLeft="@dimen/sub_medium_size"
                 android:orientation="horizontal"
                 android:background="@drawable/dark_thin_bottom_border">
@@ -124,35 +124,30 @@
                     android:id="@+id/course_intro_teacher_image"
                     android:layout_width="@dimen/big_icon_width"
                     android:layout_height="@dimen/big_icon_height"
+                    android:layout_gravity="left|center"
                     android:background="@drawable/default_user"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/big_padding">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/medium_size"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/course_intro_teacher_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/over_medium_padding"
+                        android:textSize="@dimen/sub_medium_font"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/course_intro_teacher_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/over_medium_padding"
-                            android:textSize="@dimen/sub_medium_font"
-                            android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/course_intro_teacher_brief_intro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                        <TextView
-                            android:id="@+id/course_intro_teacher_brief_intro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                    </LinearLayout>
-
-                </RelativeLayout>
 
             </LinearLayout>
 
