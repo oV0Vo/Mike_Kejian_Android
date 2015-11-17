@@ -198,10 +198,7 @@ public class CourseQuestionFragment extends Fragment implements AbsListView.OnIt
         historyAdapter = new HistoryAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 historyQuestion);
         historyListView.setAdapter(historyAdapter);
-        UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
-        if(UserTypeInCourse.TEACHER == userType) {
-            historyListView.setOnItemClickListener(this);
-        }
+        historyListView.setOnItemClickListener(this);
     }
 
     public void refreshView() {
