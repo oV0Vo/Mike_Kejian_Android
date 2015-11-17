@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.kejian.mike.mike_kejian_android.R;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.ChoiceQuestion;
+import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionStats;
 import com.kejian.mike.mike_kejian_android.dataType.course.question.QuestionType;
 import com.kejian.mike.mike_kejian_android.ui.widget.TextExpandListener;
 
@@ -37,7 +40,7 @@ import util.TimeFormat;
 import util.TimerThread;
 
 
-public class CourseQuestionFragment extends Fragment {
+public class CourseQuestionFragment extends Fragment implements AbsListView.OnItemClickListener{
 
     private static final String TAG = "CourseQuestionFG";
 
@@ -195,6 +198,10 @@ public class CourseQuestionFragment extends Fragment {
         historyAdapter = new HistoryAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 historyQuestion);
         historyListView.setAdapter(historyAdapter);
+        UserTypeInCourse userType = courseModel.getUserTypeInCurrentCourse();
+        if(UserTypeInCourse.TEACHER == userType) {
+            historyListView.setOnItemClickListener(this);
+        }
     }
 
     public void refreshView() {
@@ -235,6 +242,16 @@ public class CourseQuestionFragment extends Fragment {
         }
 
         return v;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        BasicQuestion question = (BasicQuestion)parent.getItemAtPosition(position);
+        courseModel.setStatsFocusQuestion(question);
+        Intent i = new Intent(getActivity(), QuestionStatsActivity.class);
+        Log.i(TAG, "startActivity11");
+        startActivity(i);
+        Log.i(TAG, "endStart");
     }
 
     private class InitUserTypeTask extends AsyncTask<Void, Void, Boolean> {
