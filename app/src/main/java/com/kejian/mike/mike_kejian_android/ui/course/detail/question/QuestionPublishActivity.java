@@ -226,8 +226,10 @@ public class QuestionPublishActivity extends AppCompatActivity {
         choiceButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                TextView correctHintView =  getCorrectHint((RadioButton) buttonView);
                 if (isChecked) {
-                    getCorrectHint((RadioButton) buttonView).setVisibility(View.VISIBLE);
+                    if(correctHintView != null)
+                        correctHintView.setVisibility(View.VISIBLE);
                     //单选题的话还要把前一个选择的正确选项给消掉
                     if (isSingleChoice() && buttonView != currentCheckedButton) {
                         if (currentCheckedButton != null)
@@ -235,7 +237,8 @@ public class QuestionPublishActivity extends AppCompatActivity {
                         currentCheckedButton = (RadioButton) buttonView;
                     }
                 } else {
-                    getCorrectHint((RadioButton) buttonView).setVisibility(View.INVISIBLE);
+                    if(correctHintView != null)
+                        correctHintView.setVisibility(View.INVISIBLE);
                 }
             }
         });
