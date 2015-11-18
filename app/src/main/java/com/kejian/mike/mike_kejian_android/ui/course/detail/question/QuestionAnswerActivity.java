@@ -201,7 +201,7 @@ public class QuestionAnswerActivity extends AppCompatActivity {
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton choiceButton = choiceButtons.get(i);
                 if(choiceButton.isChecked()) {
-                    String answer = Integer.toString(i);
+                    String answer = Integer.toString(i + 1);
                     return answer;
                 }
             }
@@ -213,7 +213,7 @@ public class QuestionAnswerActivity extends AppCompatActivity {
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton choiceButton = choiceButtons.get(i);
                 if(choiceButton.isChecked()) {
-                    choices.add(i);
+                    choices.add(i + 1);
                 }
             }
 
