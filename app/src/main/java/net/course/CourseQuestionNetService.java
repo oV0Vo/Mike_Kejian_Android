@@ -278,7 +278,9 @@ public class CourseQuestionNetService {
         ArrayList<String> choices = question.getChoiceContents();
         paraMap.put("options", new JSONArray(choices));
         int correctChoice = question.getCorrectChoice();
-        paraMap.put("answers", Integer.toString(correctChoice));
+        ArrayList<Integer> correctChoices = new ArrayList<>();
+        correctChoices.add(correctChoice);
+        paraMap.put("answers", new JSONArray(correctChoices));
         paraMap.put("type", "2");
     }
 
