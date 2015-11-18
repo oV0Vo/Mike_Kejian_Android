@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="@dimen/over_small_size"
     android:paddingRight="@dimen/over_small_size"
@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/choice_distribute_bar_max_height"
-        android:background="@color/dark_very_light">
+        android:background="@color/dark_light">
         <ImageView
             android:id="@+id/value_bar_image"
             android:layout_width="wrap_content"

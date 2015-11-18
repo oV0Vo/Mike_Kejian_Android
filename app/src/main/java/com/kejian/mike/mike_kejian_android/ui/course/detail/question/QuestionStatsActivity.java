@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -59,8 +60,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
     private static final int[] choiceColors = new int[8];
 
     private ViewGroup answerListTitleLayout;
-    private ViewGroup answerContentListLayout;
-
+    private ViewGroup answerListLayout;
     private ListView answerListView;
 
     private QuestionAnswerAdapter answerListAdapter;
@@ -188,7 +188,6 @@ public class QuestionStatsActivity extends AppCompatActivity {
     }
 
     private void initAnswerLayout() {
-        answerContentListLayout = (ViewGroup)findViewById(R.id.question_answer_all_question_container);
         answerListTitleLayout = (ViewGroup)findViewById(R.id.all_answer_title_layout);
         final ImageView actionImageView = (ImageView)findViewById(R.id.all_answer_zhankai_image);
         answerListTitleLayout.setOnClickListener(new View.OnClickListener() {
@@ -199,16 +198,17 @@ public class QuestionStatsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isShow) {
                     isShow = false;
-                    answerContentListLayout.setVisibility(View.GONE);
+                    answerListLayout.setVisibility(View.GONE);
                     actionImageView.setImageDrawable(getResources().getDrawable(R.drawable.down));
                 } else {
                     isShow = true;
-                    answerContentListLayout.setVisibility(View.VISIBLE);
+                    answerListLayout.setVisibility(View.VISIBLE);
                     actionImageView.setImageDrawable(getResources().getDrawable(R.drawable.up1));
                 }
             }
         });
 
+        answerListLayout = (ViewGroup)findViewById(R.id.answer_list_layout);
         answerListView = (ListView)findViewById(R.id.question_answer_answer_list);
         answerListAdapter = new QuestionAnswerAdapter(this, android.R.layout.simple_list_item_1,
                 answers);
@@ -218,10 +218,27 @@ public class QuestionStatsActivity extends AppCompatActivity {
         taskCountDown++;
     }
 
+    public void setListViewHeightInScrollView(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
+
     private void updateViewOnGetInitAnswers(boolean success) {
-        if(success)
+        if(success) {
             answerListAdapter.notifyDataSetChanged();
-        else
+            setListViewHeightInScrollView(answerListView);
+        } else
             netError = true;
         updateViewIfInitTaskFinish();
     }
@@ -244,7 +261,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         joinRateColorBarContainer.addView(joinColorRateBar);
 
         TextView joinRateText = (TextView)findViewById(R.id.join_rate_text);
-        joinRateText.setText(Double.toString(NumberUtil.round(joinRate, 3) * 100));
+        joinRateText.setText(Double.toString(NumberUtil.round(joinRate, 3) * 100) + "%");
         setTextColorAccordingToRate(joinRateText, joinRate);
 
         int correctNum = stats.getCorrectAnswerNum();
@@ -258,7 +275,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         correctRateColorBarContainer.addView(correctRateColorBar);
 
         TextView correctRateText = (TextView)findViewById(R.id.correct_rate_text);
-        correctRateText.setText(Double.toString(NumberUtil.round(correctRate, 3) * 100));
+        correctRateText.setText(Double.toString(NumberUtil.round(correctRate, 3) * 100) + "%");
         setTextColorAccordingToRate(correctRateText, correctRate);
 
         QuestionType questionType = stats.getQuestionType();

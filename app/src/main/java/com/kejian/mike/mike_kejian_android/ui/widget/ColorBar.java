@@ -25,6 +25,8 @@ public class ColorBar extends LinearLayout {
 
         GradientDrawable colorDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{beginColor, centerColor, endColor});
+        if(colorBarPercent > 1.0)
+            colorBarPercent = 1.0;
         double colorTextWidth = (width * colorBarPercent);
         colorDrawable.setSize((int) colorTextWidth, height);
 

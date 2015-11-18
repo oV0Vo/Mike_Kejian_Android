@@ -90,7 +90,7 @@
             </RelativeLayout>
         </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/question_stats_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,22 +98,24 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/big_padding"
         android:paddingBottom="@dimen/big_padding"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:orientation="vertical">
 
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:rowCount="3"
-            android:columnCount="2">
+            android:layout_marginBottom="@dimen/over_small_size"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_marginBottom="@dimen/over_small_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingRight="@dimen/over_small_size"
                 android:text="@string/question_answer_stats_join_num_title"/>
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/over_small_size"
-                android:paddingLeft="@dimen/over_small_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -155,15 +157,23 @@
                 </LinearLayout>
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/over_small_size"
+            android:orientation="horizontal">
+
             <TextView
-                android:layout_marginTop="@dimen/over_small_size"
-                android:layout_marginBottom="@dimen/over_small_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/over_medium_size"
                 android:text="@string/question_answer_stats_correct_rate_title"/>
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/small_size"
-                android:layout_marginTop="@dimen/over_small_size"
-                android:layout_marginBottom="@dimen/over_small_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -205,7 +215,16 @@
                 </LinearLayout>
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/distribute_title_text"
                 android:paddingTop="@dimen/over_small_size"
                 android:text="@string/question_answer_stats_distribute_title"/>
@@ -217,9 +236,9 @@
                 android:layout_marginTop="@dimen/over_small_size">
             </com.kejian.mike.mike_kejian_android.ui.widget.FlowLayout>
 
-        </GridLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/all_answer_title_layout"
@@ -253,28 +272,32 @@
         </RelativeLayout>
     </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/question_answer_all_question_container"
+    <LinearLayout
+        android:id="@+id/answer_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/question_answer_answer_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:divider="@null"
+            android:scrollbars="none">
+        </ListView>
 
-            <ListView
-                android:id="@+id/question_answer_answer_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/over_small_size"
+            android:paddingBottom="@dimen/over_small_size"
+            android:gravity="center"
+            android:text="@string/no_more_answer"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/over_over_small_size"
-                android:gravity="center"
-                android:text="@string/no_more_answer"/>
-        </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

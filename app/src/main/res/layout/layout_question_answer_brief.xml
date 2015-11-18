@@ -3,11 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/small_size"
-    android:paddingBottom="@dimen/small_size"
-    android:paddingLeft="@dimen/big_padding"
-    android:paddingRight="@dimen/big_padding"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/sub_medium_size"
+    android:paddingRight="@dimen/sub_medium_size"
     android:background="@drawable/dark_thin_bottom_border">
 
     <com.kejian.mike.mike_kejian_android.ui.message.CircleImageView
@@ -44,8 +42,7 @@
             android:id="@+id/zhankai_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/small_size"
-            android:paddingBottom="@dimen/small_size">
+            android:paddingTop="@dimen/small_size">
 
         </RelativeLayout>
     </LinearLayout>
