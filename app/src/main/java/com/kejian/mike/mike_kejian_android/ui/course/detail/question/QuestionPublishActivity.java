@@ -421,7 +421,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton button = choiceButtons.get(i);
                 if(button.isChecked())
-                    return i;
+                    return i + 1;
             }
             return -1;
         }
@@ -431,7 +431,7 @@ public class QuestionPublishActivity extends AppCompatActivity {
             for(int i=0; i<choiceButtons.size(); ++i) {
                 RadioButton button = choiceButtons.get(i);
                 if(button.isChecked())
-                    answers.add(i);
+                    answers.add(i + 1);
             }
             return answers;
         }
