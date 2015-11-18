@@ -398,12 +398,16 @@ public class QuestionStatsActivity extends AppCompatActivity {
                         layout_question_answer_brief, null);
                 viewHolder = new AnswerViewHolder();
 
-                ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
-                ImageLoader imageLoader = new ImageLoader(requestQueue, MyImageCache.getInstance
-                        (QuestionStatsActivity.this));
-                ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(userImageView,
-                        R.drawable.default_user, R.drawable.default_user);
-                imageLoader.get(answer.getHeadIconUrl(), imageListener);
+                ImageView userImageView = (ImageView) convertView.findViewById(R.id.user_image);
+                if(answer.getHeadIconUrl() != null) {
+                    ImageLoader imageLoader = new ImageLoader(requestQueue, MyImageCache.getInstance
+                            (QuestionStatsActivity.this));
+                    ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(userImageView,
+                            R.drawable.default_user, R.drawable.default_user);
+                    imageLoader.get(answer.getHeadIconUrl(), imageListener);
+                } else {
+                    userImageView.setImageDrawable(getContext().getDrawable(R.drawable.default_user));
+                }
                 viewHolder.userImage = userImageView;
 
                 TextView userNameText = (TextView)convertView.findViewById(R.id.user_name);
