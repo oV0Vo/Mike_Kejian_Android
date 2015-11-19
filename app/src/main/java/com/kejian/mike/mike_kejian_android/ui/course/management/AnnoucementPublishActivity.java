@@ -82,8 +82,7 @@ public class AnnoucementPublishActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch(itemId) {
             case android.R.id.home:
-                if(NavUtils.getParentActivityIntent(this) != null)
-                    NavUtils.navigateUpFromSameTask(this);
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
