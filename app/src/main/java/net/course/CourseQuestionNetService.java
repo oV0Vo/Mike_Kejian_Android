@@ -354,8 +354,11 @@ public class CourseQuestionNetService {
         String studentName = jAnswer.getString("user_name");
         answer.setStudentName(studentName);
 
-        String headIconUrl = jAnswer.getString("icon_url");
-        answer.setHeadIconUrl(headIconUrl);
+        Object headIconUrl = jAnswer.getString("icon_url");
+        if(headIconUrl == JSONObject.NULL)
+            answer.setHeadIconUrl(null);
+        else
+            answer.setHeadIconUrl((String)headIconUrl);
         return answer;
     }
 
