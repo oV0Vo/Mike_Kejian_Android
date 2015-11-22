@@ -13,11 +13,15 @@ public class NumberUtil {
      * @return 四舍五入后的数据
      */
     public static double round (double data,int decimalLength){//@methodBegin
-        char[] formatStr=new char[1+decimalLength];
+        double mul = (int)Math.pow(10, decimalLength);
+        int intValue = (int)(data * mul);
+        return intValue / mul;
+       /* char[] formatStr=new char[1+decimalLength];
         formatStr[0]='.';
         for(int i=1;i<formatStr.length;i++)
             formatStr[i]='#';
         DecimalFormat dr=new DecimalFormat(new String(formatStr));
-        return Double.valueOf(dr.format(data));
-    }//@methodEnd
+        int result = Double.valueOf(dr.format(data));*/
+
+    }
 }

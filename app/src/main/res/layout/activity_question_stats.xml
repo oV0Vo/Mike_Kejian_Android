@@ -1,14 +1,10 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
-
 <LinearLayout
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/white"
     android:visibility="gone">
 
     <RelativeLayout
@@ -284,7 +280,7 @@
         <ListView
             android:id="@+id/question_answer_answer_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:divider="@null"
             android:scrollbars="none">
         </ListView>
@@ -316,4 +312,3 @@
         android:visibility="gone"/>
 
 </LinearLayout>
-</ScrollView>

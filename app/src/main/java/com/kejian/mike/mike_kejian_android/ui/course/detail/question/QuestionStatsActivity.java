@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -47,9 +49,6 @@ public class QuestionStatsActivity extends AppCompatActivity {
     private ArrayList<QuestionShowAnswer> answers;
 
     private CourseModel courseModel;
-
-    private static final int ANSWER_INIT_NUM = 50;
-    private static final int ANSWER_UPDATE_NUM = 10;
 
     private ProgressBar progressBar;
     private ViewGroup mainLayout;
@@ -90,9 +89,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
         netErrorView = findViewById(R.id.net_error_text);
 
         initQuestionContentView();
-
         initStatsLayout();
-
         initAnswerLayout();
     }
     
@@ -218,26 +215,9 @@ public class QuestionStatsActivity extends AppCompatActivity {
         taskCountDown++;
     }
 
-    public void setListViewHeightInScrollView(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
-
     private void updateViewOnGetInitAnswers(boolean success) {
         if(success) {
             answerListAdapter.notifyDataSetChanged();
-            setListViewHeightInScrollView(answerListView);
         } else
             netError = true;
         updateViewIfInitTaskFinish();
