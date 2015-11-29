@@ -78,7 +78,7 @@ public class QuestionStatsActivity extends AppCompatActivity {
 
         initAttrs();
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());//@不应该放这里的
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         answers = new ArrayList();
         courseModel = CourseModel.getInstance();
