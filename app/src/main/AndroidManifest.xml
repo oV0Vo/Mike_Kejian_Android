@@ -4,6 +4,7 @@
     android:versionCode="5"
     android:versionName="2.3" >
 
+
     <permission
         android:name="com.kejian.mike.mike_kejian_android.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
